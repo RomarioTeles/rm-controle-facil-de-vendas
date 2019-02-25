@@ -1,16 +1,23 @@
-package com.example.rm_android_template
+package br.com.rm.cfv.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.FrameLayout
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import br.com.rm.cfv.CfvApplication
+import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
+import br.com.rm.cfv.activities.cliente.ListaClientesActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import com.rm.cfv.R
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -26,14 +33,16 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         super.setContentView(fullView)
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
 
-        drawer_layout.addDrawerListener(toggle)
+        drawer_layout!!.addDrawerListener(toggle)
         toggle.syncState()
 
-        nav_view.setNavigationItemSelectedListener(this)
-        setSupportActionBar(toolbar)
+        (nav_view as NavigationView).setNavigationItemSelectedListener(this)
+        setSupportActionBar(toolbar as Toolbar?)
 
         supportActionBar!!.setHomeButtonEnabled(true)
         //supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
@@ -43,16 +52,17 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-    }
 
+        progress.visibility = View.GONE
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout!!.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -66,10 +76,10 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout!!.closeDrawer(GravityCompat.START)
                 }else{
-                    drawer_layout.openDrawer(GravityCompat.START)
+                    drawer_layout!!.openDrawer(GravityCompat.START)
                 }
                 return true
             }
@@ -83,14 +93,43 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_main -> {
-                startActivity(Intent(this,MainActivity::class.java))
+                startActivity(Intent(this, ListaClientesActivity::class.java))
             }
             R.id.nav_second -> {
-                startActivity(Intent(this, SecondActivity::class.java))
+                startActivity(Intent(this, CadastrarClienteActivity::class.java))
             }
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+        drawer_layout!!.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun fab() : FloatingActionButton {
+        return fab as FloatingActionButton
+    }
+
+    fun hideFab(){
+        fab().hide()
+    }
+
+    fun showFab(){
+        fab().show()
+    }
+
+    fun showProgress(){
+        progress.visibility = View.VISIBLE
+    }
+
+    fun showProgress(text : String){
+        textViewProgress.text = text
+        showProgress()
+    }
+
+    fun hideProgress(){
+        progress.visibility = View.GONE
+    }
+
+    fun getCfvApplication() : CfvApplication{
+        return application as CfvApplication
     }
 }

@@ -1,4 +1,4 @@
-package com.example.rm_android_template
+package com.rm.cfv
 
 import org.junit.Test
 

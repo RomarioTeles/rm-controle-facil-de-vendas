@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
-          package="com.example.rm_android_template">
+          xmlns:tools="http://schemas.android.com/tools" package="com.rm.cfv">
 
     <dist:module dist:instant="true"/>
 
     <application
+            android:name="br.com.rm.cfv.CfvApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name=".SecondActivity" android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme"
+            tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name="br.com.rm.cfv.activities.cliente.CadastrarClienteActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
-                android:name=".MainActivity"
+                android:name="br.com.rm.cfv.activities.cliente.ListaClientesActivity"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

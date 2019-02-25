@@ -4,15 +4,17 @@
       tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
                 android:id="@+id/nav_main"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Main Activity"/>
+                android:title="Listar Clientes"/>
 
         <item
                 android:id="@+id/nav_second"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Second Activity"/>
+                android:title="Cadastrar Cliente"/>
+
     </group>
 
 

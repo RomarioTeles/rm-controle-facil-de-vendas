@@ -1,6 +1,7 @@
-package com.example.rm_android_template
+package br.com.rm.cfv.activities
 
 import android.os.Bundle
+import com.rm.cfv.R
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : BaseActivity() {
