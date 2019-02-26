@@ -1,4 +1,4 @@
-package br.com.rm.cfv.asyncTasks.Cliente
+package br.com.rm.cfv.asyncTasks.cliente
 
 import android.database.sqlite.SQLiteConstraintException
 import android.os.AsyncTask

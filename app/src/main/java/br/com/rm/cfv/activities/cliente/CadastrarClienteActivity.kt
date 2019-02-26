@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.asyncTasks.Cliente.InsertClienteAsyncTask
 import br.com.rm.cfv.asyncTasks.IAsyncTaskPostExecute
+import br.com.rm.cfv.asyncTasks.cliente.InsertClienteAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
 import com.rm.cfv.R
 import kotlinx.android.synthetic.main.activity_cadastrar_cliente.*

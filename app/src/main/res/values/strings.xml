@@ -19,4 +19,6 @@
     <string name="cliente_bairro">Bairro</string>
     <string name="cliente_uf">Estado</string>
     <string name="cliente_cidade">Cidade</string>
+    <string name="nome_do_departamento">Nome do departamento</string>
+    <string name="salvar">Salvar</string>
 </resources>

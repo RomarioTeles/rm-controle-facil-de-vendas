@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="cliente_logradouro">Logradouro</string>
+    <string name="nome_do_departamento">Nome do departamento</string>
 </resources>

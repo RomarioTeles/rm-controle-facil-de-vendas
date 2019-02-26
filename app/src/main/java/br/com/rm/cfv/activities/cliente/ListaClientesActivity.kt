@@ -6,8 +6,8 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.adapters.Cliente.ClienteAdapter
-import br.com.rm.cfv.asyncTasks.Cliente.SelectAllClientesAsyncTask
+import br.com.rm.cfv.adapters.cliente.ClienteAdapter
+import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesAsyncTask
 import br.com.rm.cfv.asyncTasks.IAsyncTaskPostExecute
 import br.com.rm.cfv.database.entities.Cliente
 import com.rm.cfv.R

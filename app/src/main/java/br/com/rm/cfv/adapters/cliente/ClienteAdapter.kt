@@ -1,4 +1,4 @@
-package br.com.rm.cfv.adapters.Cliente
+package br.com.rm.cfv.adapters.cliente
 
 import android.view.LayoutInflater
 import android.view.View

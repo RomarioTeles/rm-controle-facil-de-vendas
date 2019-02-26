@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
+import br.com.rm.cfv.activities.departamento.DepartamentoActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -97,6 +98,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             R.id.nav_second -> {
                 startActivity(Intent(this, CadastrarClienteActivity::class.java))
+            }
+            R.id.nav_departamento ->{
+                startActivity(Intent(this, DepartamentoActivity::class.java))
             }
         }
 
