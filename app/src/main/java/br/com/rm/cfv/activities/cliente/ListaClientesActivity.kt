@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.cliente.ClienteAdapter
 import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesAsyncTask
-import br.com.rm.cfv.asyncTasks.IAsyncTaskPostExecute
+import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
+import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.database.entities.Cliente
 import com.rm.cfv.R
 
-class ListaClientesActivity : BaseActivity(), IAsyncTaskPostExecute {
+class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ClienteAdapter
@@ -55,7 +56,7 @@ class ListaClientesActivity : BaseActivity(), IAsyncTaskPostExecute {
         task.execute()
     }
 
-    override fun afterExecute(result: Any?) {
+    override fun afterSearch(result: Any?) {
         myDataset = result as List<Cliente>
         viewAdapter.setDataset(myDataset)
     }

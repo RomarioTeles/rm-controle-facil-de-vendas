@@ -2,11 +2,11 @@ package br.com.rm.cfv.asyncTasks.cliente
 
 import android.database.sqlite.SQLiteConstraintException
 import android.os.AsyncTask
-import br.com.rm.cfv.asyncTasks.IAsyncTaskPostExecute
+import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.database.daos.interfaces.ClienteDAO
 import br.com.rm.cfv.database.entities.Cliente
 
-open class InsertClienteAsyncTask(private var dao: ClienteDAO?,private val asyncTaskPostExecute: IAsyncTaskPostExecute) : AsyncTask<Cliente, Cliente, Cliente>() {
+open class InsertClienteAsyncTask(private var dao: ClienteDAO?,private val ipostExecuteInsert: IPostExecuteInsertAndUpdate) : AsyncTask<Cliente, Cliente, Cliente>() {
 
     override fun doInBackground(vararg params: Cliente): Cliente? {
         try {
@@ -26,13 +26,13 @@ open class InsertClienteAsyncTask(private var dao: ClienteDAO?,private val async
 
     override fun onPreExecute() {
         super.onPreExecute()
-        asyncTaskPostExecute.showProgress("Inserindo Cliente...")
+        ipostExecuteInsert.showProgress("Inserindo Cliente...")
     }
 
     override fun onPostExecute(result: Cliente?) {
         super.onPostExecute(result)
-        asyncTaskPostExecute.afterExecute(result)
-        asyncTaskPostExecute.hideProgress()
+        ipostExecuteInsert.afterInsert(result)
+        ipostExecuteInsert.hideProgress()
     }
 
 }

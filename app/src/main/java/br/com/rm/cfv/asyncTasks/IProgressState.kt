@@ -1,8 +1,6 @@
 package br.com.rm.cfv.asyncTasks
 
-interface IAsyncTaskPostExecute{
-
-    fun afterExecute(result : Any?)
+interface IProgressState {
 
     fun showProgress(text : String = "Aguarde...")
 
