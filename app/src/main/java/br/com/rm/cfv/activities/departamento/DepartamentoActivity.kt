@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.departamento.DepartamentoAdapter
-import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.cliente.InsertDepartamentoAsyncTask
@@ -23,12 +22,6 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     lateinit var departamentos : MutableList<Departamento>
 
-    val acaoListar : String = "LISTA"
-
-    val acaoCadastro : String = "CADASTRO"
-
-    var acaoAtual : String = acaoListar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +33,12 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
         listViewDepartamentos.adapter = adapter
 
-        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var listViewHeader =inflater.inflate(R.layout.list_view_header_default, null)
-        listViewDepartamentos.addHeaderView(listViewHeader)
+        /**
+         * adiciona header a listview
+         */
+        //val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        //var listViewHeader =inflater.inflate(R.layout.list_view_header_default, null)
+        //listViewDepartamentos.addHeaderView(listViewHeader)
 
         setClickEvents()
 
@@ -51,12 +47,11 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     private fun setClickEvents(){
         buttonAddDepart.setOnClickListener {
-            acaoAtual = acaoCadastro
             var nome = editTextDepartNome.text.toString()
             if(nome.isBlank()) {
                 editTextDepartNome.error = "Nome não pode ser vazio."
             }else{
-                departamento = Departamento(null, nome)
+                departamento = Departamento(null, nome, null)
                 var task = InsertDepartamentoAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this)
                 task.execute(departamento)
             }
@@ -65,7 +60,6 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     override fun onResume() {
         super.onResume()
-        acaoAtual = acaoListar
         var task = SelectAllDepartamentosAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this)
         task.execute()
     }
@@ -78,7 +72,7 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     override fun afterInsert(result: Any?) {
         if (result == null) {
-            Toast.makeText(this, "Erro ao criar departamento!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Erro ao criar categoria!", Toast.LENGTH_LONG).show()
             editTextDepartNome.error = "Verifique se o Nome já está cadastrado."
         } else {
             var depart = result as Departamento?
@@ -89,7 +83,7 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
                 editTextDepartNome.text = null
                 Toast.makeText(this, "Criado com sucesso!", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Erro ao criar departamento!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Erro ao criar categoria!", Toast.LENGTH_LONG).show()
             }
         }
     }

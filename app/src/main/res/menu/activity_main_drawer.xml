@@ -7,17 +7,17 @@
 
         <item
                 android:id="@+id/nav_main"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/account_black_24dp"
                 android:title="Listar Clientes"/>
 
         <item
                 android:id="@+id/nav_second"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/account_white_24dp"
                 android:title="Cadastrar Cliente"/>
 
         <item
                 android:id="@+id/nav_departamento"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/shape_white_24dp"
                 android:title="Departamentos"/>
 
     </group>

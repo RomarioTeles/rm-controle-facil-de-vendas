@@ -1,4 +1,4 @@
-package br.com.rm.cfv.activities.cliente
+package br.com.rm.cfv.activities.produto
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,26 +6,27 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.adapters.cliente.ClienteAdapter
+import br.com.rm.cfv.adapters.produto.ProdutoAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesAsyncTask
-import br.com.rm.cfv.database.entities.Cliente
+import br.com.rm.cfv.asyncTasks.produto.SelectAllProdutosAsyncTask
+import br.com.rm.cfv.database.entities.Produto
 import com.rm.cfv.R
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
+class ListaProdutosActivity : BaseActivity(), IPostExecuteSearch{
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: ClienteAdapter
+    private lateinit var viewAdapter: ProdutoAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var myDataset : List<Cliente> = ArrayList<Cliente>()
+    private var myDataset : List<Produto> = ArrayList<Produto>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_default)
-
+        toolbar.title = "Listar Produtos"
         viewManager = LinearLayoutManager(this)
 
-        viewAdapter = ClienteAdapter(myDataset)
+        viewAdapter = ProdutoAdapter(myDataset)
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             // use this setting to improve performance if you know that changes
@@ -39,24 +40,24 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
             adapter = viewAdapter
         }
 
-        getAllClientes()
+        getAllProdutos()
 
         fab().setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this, CadastrarClienteActivity::class.java))
+            startActivity(Intent(this, CadastrarProdutoActivity::class.java))
         })
     }
 
-    fun getAllClientes(){
+    fun getAllProdutos(){
         var task =
-            SelectAllClientesAsyncTask(
-                getCfvApplication().getDataBase()!!.clienteDAO(),
+            SelectAllProdutosAsyncTask(
+                getCfvApplication().getDataBase()!!.produtoDAO(),
                 this
             )
         task.execute()
     }
 
     override fun afterSearch(result: Any?) {
-        myDataset = result as List<Cliente>
+        myDataset = result as List<Produto>
         viewAdapter.setDataset(myDataset)
     }
 }

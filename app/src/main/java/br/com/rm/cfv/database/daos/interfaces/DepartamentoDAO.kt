@@ -8,16 +8,20 @@ import br.com.rm.cfv.database.entities.Departamento
 
 @Dao
 interface DepartamentoDAO {
-    @Query("SELECT * FROM departamento")
+
+    @Query("SELECT * FROM Departamento")
     fun getAll(): List<Departamento>
 
-    @Query("SELECT * FROM departamento WHERE uid IN (:ids)")
+    @Query("SELECT nome FROM Departamento")
+    fun getAllNomes(): List<String>
+
+    @Query("SELECT * FROM Departamento WHERE uid IN (:ids)")
     fun loadAllByIds(ids: IntArray): List<Departamento>
 
-    @Query("SELECT * FROM departamento WHERE nome LIKE :nome LIMIT 1")
-    fun findByNome(nome: String) : Departamento
+    @Query("SELECT * FROM Departamento WHERE nome LIKE :nome LIMIT 1")
+    fun findByNome(nome: String) : Departamento?
 
-    @Query("SELECT * FROM departamento WHERE uid = :id LIMIT 1")
+    @Query("SELECT * FROM Departamento WHERE uid = :id LIMIT 1")
     fun findById(id: Int) : Departamento
 
     @Insert

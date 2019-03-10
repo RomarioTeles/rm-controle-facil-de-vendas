@@ -8,10 +8,10 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewClientes"
+            android:id="@+id/recyclerViewItens"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_cliente"/>
+            tools:listitem="@layout/recycler_view_item_default"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

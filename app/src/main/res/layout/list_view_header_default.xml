@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/colorAccent"
-                android:padding="8dip">
+              android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                       android:layout_height="wrap_content"
+                                       app:layout_constraintTop_toTopOf="parent"
+                                       app:layout_constraintStart_toStartOf="parent"
+                                       app:layout_constraintEnd_toEndOf="parent"
+                                       app:cardCornerRadius="5dp"
+                                       app:cardElevation="3dp"
+                                       app:cardUseCompatPadding="true">
 
     <TextView android:id="@+id/textViewItemValor"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:textColor="@android:color/white"
+              android:textColor="@color/primary_text"
               android:textStyle="bold"
               android:textAlignment="center"
               android:textSize="16sp"
               android:text="Itens Cadastrados"
-              android:textAllCaps="true"/>
+              android:textAllCaps="true"
+              android:padding="16dip"/>
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
