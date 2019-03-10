@@ -15,10 +15,10 @@ open class InsertProdutoAsyncTask(private var appdatabase: AppDataBase, private 
 
             var produto: Produto = params[0]
 
-            var departamento : Departamento? = appdatabase.departamentoDAO().findByNome(produto.categoria)
+            var departamento : Departamento? = appdatabase.departamentoDAO().findByNome(produto.departamento)
 
             if(departamento == null){
-                departamento = Departamento(null, produto.categoria,  null)
+                departamento = Departamento(null, produto.departamento,  null)
                 appdatabase.departamentoDAO().insertAll(departamento)
             }
 

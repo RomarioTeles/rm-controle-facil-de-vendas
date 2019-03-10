@@ -9,7 +9,7 @@ import br.com.rm.cfv.database.entities.Departamento
 @Dao
 interface DepartamentoDAO {
 
-    @Query("SELECT * FROM Departamento")
+    @Query("SELECT * FROM Departamento order by departamento_pai")
     fun getAll(): List<Departamento>
 
     @Query("SELECT nome FROM Departamento")

@@ -1,8 +1,8 @@
 package br.com.rm.cfv.activities.departamento
 
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.departamento.DepartamentoAdapter
@@ -22,6 +22,7 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     lateinit var departamentos : MutableList<Departamento>
 
+    var departs : MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,19 +43,34 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
         setClickEvents()
 
-        hideFab()
     }
 
     private fun setClickEvents(){
+
+        framelayout_cad_departamento.visibility = View.GONE
+
         buttonAddDepart.setOnClickListener {
-            var nome = editTextDepartNome.text.toString()
+            var nome = textViewDepartamento.text.toString()
+            var nomePai = autocompleteTextViewDepartamentoPai.text.toString()
             if(nome.isBlank()) {
-                editTextDepartNome.error = "Nome não pode ser vazio."
+                textInputLayoutDepartamento.error = "Nome não pode ser vazio."
             }else{
-                departamento = Departamento(null, nome, null)
+                departamento = Departamento(null, nome, nomePai)
                 var task = InsertDepartamentoAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this)
                 task.execute(departamento)
             }
+        }
+
+        fab().setOnClickListener {
+            framelayout_cad_departamento.visibility = View.VISIBLE
+            textViewDepartamento.text = null
+            autocompleteTextViewDepartamentoPai.text = null
+        }
+
+        buttonCancel.setOnClickListener {
+            framelayout_cad_departamento.visibility = View.GONE
+            textViewDepartamento.text = null
+            autocompleteTextViewDepartamentoPai.text = null
         }
     }
 
@@ -68,22 +84,33 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
         val listaDepartamento = result as List<Departamento>
         departamentos.addAll(listaDepartamento.toList())
         adapter.notifyDataSetChanged()
+        if(departamentos.size > 0){
+            departamentos.forEach {
+                departs.add(it.nome!!)
+            }
+        }
+        val adapter = ArrayAdapter(this, android.R.layout.select_dialog_item, departs)
+        val actv = autocompleteTextViewDepartamentoPai
+        actv.threshold = 1
+        actv.setAdapter(adapter)
     }
 
     override fun afterInsert(result: Any?) {
         if (result == null) {
-            Toast.makeText(this, "Erro ao criar categoria!", Toast.LENGTH_LONG).show()
-            editTextDepartNome.error = "Verifique se o Nome já está cadastrado."
+            Toast.makeText(this, "Erro ao criar departamento!", Toast.LENGTH_LONG).show()
+            textInputLayoutDepartamento.error = "Verifique se o Nome já está cadastrado."
         } else {
             var depart = result as Departamento?
             if (depart!!.uid != null) {
                 departamentos.add(depart)
                 adapter.notifyDataSetChanged()
                 departamento = null
-                editTextDepartNome.text = null
+                textViewDepartamento.text = null
+                autocompleteTextViewDepartamentoPai.text = null
+                textInputLayoutDepartamento.error = null
                 Toast.makeText(this, "Criado com sucesso!", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Erro ao criar categoria!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Erro ao criar departamento!", Toast.LENGTH_LONG).show()
             }
         }
     }

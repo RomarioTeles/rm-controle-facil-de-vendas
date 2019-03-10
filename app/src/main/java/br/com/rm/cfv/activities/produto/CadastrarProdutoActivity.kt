@@ -30,7 +30,7 @@ class CadastrarProdutoActivity : BaseActivity(), IPostExecuteSearch, IPostExecut
         mapFields = HashMap()
         mapFields["codigo"] = textInputLayoutCodigo
         mapFields["nome"] = textInputLayoutNome
-        mapFields["categoria"] = textInputLayoutDepartamento
+        mapFields["departamento"] = textInputLayoutDepartamento
         mapFields["precoCusto"] = textInputLayoutPrecoCusto
         mapFields["precoVenda"] = textInputLayoutPrecoRevenda
         mapFields["precoTabela"] = textInputLayoutPrecoTabela
@@ -45,11 +45,11 @@ class CadastrarProdutoActivity : BaseActivity(), IPostExecuteSearch, IPostExecut
             var precoRevenda = textInputEditPrecoRevenda.text.toString()
             var departamento = autocompleteTextViewDepartamento.text.toString()
 
-            var precoCustoD = if (precoCusto.isBlank()) null else precoCusto.toDouble()
-            var precoTabelaD = if (precoTabela.isBlank())null else precoTabela.toDouble()
-            var precoRevendaD = if (precoRevenda.isBlank()) null else precoRevenda.toDouble()
+            var precoCustoToDouble = if (precoCusto.isBlank()) null else precoCusto.toDouble()
+            var precoTabelaToDouble = if (precoTabela.isBlank())null else precoTabela.toDouble()
+            var precoRevendaToDouble = if (precoRevenda.isBlank()) null else precoRevenda.toDouble()
 
-            var produto = Produto(null, nome, codigo, precoTabelaD, precoCustoD, precoRevendaD, null, departamento)
+            var produto = Produto(null, nome, codigo, precoTabelaToDouble, precoCustoToDouble, precoRevendaToDouble, null, departamento)
 
             if(produto.validate(mapFields)){
                InsertProdutoAsyncTask(getCfvApplication().getDataBase()!!, this).execute(produto)

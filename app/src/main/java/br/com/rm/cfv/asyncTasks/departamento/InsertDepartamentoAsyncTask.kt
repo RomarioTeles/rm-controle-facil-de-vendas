@@ -12,11 +12,18 @@ open class InsertDepartamentoAsyncTask(private var dao: DepartamentoDAO?, privat
         try {
             var result: Departamento? = null
 
-            var cliente: Departamento = params.get(0)
+            var departamento: Departamento = params.get(0)
 
-            dao!!.insertAll(cliente)
+            var pai = dao!!.findByNome(departamento.departamentoPai!!)
 
-            result = dao!!.findByNome(cliente.nome!!)
+            if(pai == null){
+                var departamentoPai = Departamento(null, departamento.departamentoPai, null)
+                dao!!.insertAll(departamentoPai)
+            }
+
+            dao!!.insertAll(departamento)
+
+            result = dao!!.findByNome(departamento.nome!!)
 
             return result
         }catch (e : SQLiteConstraintException){

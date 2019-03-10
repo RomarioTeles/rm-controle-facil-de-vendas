@@ -21,4 +21,5 @@
     <string name="cliente_cidade">Cidade</string>
     <string name="nome_do_departamento">Nome do departamento</string>
     <string name="salvar">Salvar</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

@@ -6,7 +6,7 @@ import com.google.android.material.textfield.TextInputLayout
 @Entity(
     indices = arrayOf(Index(value = ["codigo"], unique = true))
 )
-@ForeignKey(entity = Departamento::class, parentColumns = ["nome"], childColumns = ["categoria"])
+@ForeignKey(entity = Departamento::class, parentColumns = ["nome"], childColumns = ["departamento"])
 open class Produto (
     @PrimaryKey(autoGenerate = true) var uid: Int? = null,
     @ColumnInfo(name = "nome") var nome: String?,
@@ -15,7 +15,7 @@ open class Produto (
     @ColumnInfo(name = "preco_custo") var precoCusto: Double?,
     @ColumnInfo(name = "preco_venda") var precoVenda: Double?,
     @ColumnInfo(name = "caminho_imagem") var caminhoImagem: String?,
-    @ColumnInfo(name = "categoria") var categoria: String
+    @ColumnInfo(name = "departamento") var departamento: String
 ){
     val messageNullable : String?
         get() = "%s não pode ser vazio."
@@ -50,8 +50,8 @@ open class Produto (
             hasError = true
         }
 
-        if(categoria == null || categoria!!.isBlank()){
-            fields.getValue("categoria").error = String.format(messageNullable!!,"Departamento")
+        if(departamento == null || departamento!!.isBlank()){
+            fields.getValue("departamento").error = String.format(messageNullable!!,"Departamento")
             hasError = true
         }
 

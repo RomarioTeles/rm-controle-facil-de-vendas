@@ -9,7 +9,7 @@ import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.database.entities.Departamento
 import br.com.rm.cfv.database.entities.Produto
 
-@Database(entities = arrayOf(Cliente::class, Departamento::class, Produto::class), version = 6, exportSchema = false)
+@Database(entities = arrayOf(Cliente::class, Departamento::class, Produto::class), version = 7, exportSchema = false)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun clienteDAO(): ClienteDAO
     abstract fun departamentoDAO() : DepartamentoDAO
