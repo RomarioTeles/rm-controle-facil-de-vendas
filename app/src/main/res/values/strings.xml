@@ -22,4 +22,10 @@
     <string name="nome_do_departamento">Nome do departamento</string>
     <string name="salvar">Salvar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="listar_produtos_title">Listar Produtos</string>
+    <string name="movimentacao_de_estoque">Movimentacao de estoque</string>
+    <string name="quantidade">Quantidade</string>
+    <string name="mensagem_campo_requerido">Este campo deve ser preenchido.</string>
+    <string name="tipo_de_movimentacao">Tipo de Movimentação</string>
+    <string name="motivo">Motivo</string>
 </resources>

@@ -12,9 +12,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import br.com.rm.cfv.CfvApplication
-import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
+import br.com.rm.cfv.activities.produto.ListaProdutosActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -96,11 +96,14 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.nav_main -> {
                 startActivity(Intent(this, ListaClientesActivity::class.java))
             }
-            R.id.nav_second -> {
-                startActivity(Intent(this, CadastrarClienteActivity::class.java))
+            R.id.nav_produto -> {
+                startActivity(Intent(this, ListaProdutosActivity::class.java))
             }
             R.id.nav_departamento ->{
                 startActivity(Intent(this, DepartamentoActivity::class.java))
+            }
+            R.id.nav_estoque ->{
+                startActivity(Intent(this, ListaEstoqueActivity::class.java))
             }
         }
 

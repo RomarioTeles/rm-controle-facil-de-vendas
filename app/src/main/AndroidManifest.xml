@@ -15,7 +15,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="br.com.rm.cfv.activities.cliente.ListaClientesActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="br.com.rm.cfv.activities.ListaEstoqueActivity" android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name="br.com.rm.cfv.activities.cliente.ListaClientesActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name="br.com.rm.cfv.activities.departamento.DepartamentoActivity"

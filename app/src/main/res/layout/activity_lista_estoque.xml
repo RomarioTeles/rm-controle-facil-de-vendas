@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/activity_lista_default"/>
+
+    <FrameLayout android:id="@+id/framelayout_movimentar_estoque"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_black_transparencia"
+                 app:layout_constraintTop_toTopOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 android:padding="32dip">
+
+        <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                           android:layout_height="wrap_content"
+                                           app:cardCornerRadius="3dp"
+                                           app:cardElevation="4dp"
+                                           app:cardUseCompatPadding="true"
+                                           android:layout_gravity="center">
+
+            <LinearLayout android:orientation="vertical"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:padding="16dp">
+
+                <TextView android:id="@+id/textViewItemValor"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/primary_text"
+                          android:textStyle="bold"
+                          style="bold"
+                          android:textSize="16sp"
+                          android:text="@string/movimentacao_de_estoque"
+                          android:textAllCaps="true"
+                          android:layout_marginBottom="16dp"/>
+
+                <TextView
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/primary_text"
+                          android:text="@string/tipo_de_movimentacao"/>
+
+                <Spinner android:id="@+id/spinner_tipo_movimentacao"
+                        android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginBottom="8dp"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:text="@string/motivo"/>
+
+                <Spinner android:id="@+id/spinner_motivo"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginBottom="8dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayoutQuantidade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textViewQuantidade"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:hint="@string/quantidade"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout android:orientation="horizontal"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="16dip">
+
+                    <Button android:id="@+id/buttonCancel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/secondary_text"
+                            android:layout_gravity="left"
+                            android:text="@string/cancelar"/>
+
+                    <Button android:id="@+id/buttonAdd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_gravity="right"
+                            android:text="@string/salvar"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
