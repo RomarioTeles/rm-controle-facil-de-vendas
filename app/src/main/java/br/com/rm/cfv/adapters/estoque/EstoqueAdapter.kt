@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.activities.interfaces.IMovimentacaoEstoque
 import br.com.rm.cfv.database.entities.dtos.EstoqueDTO
-import com.rm.cfv.R
+import br.com.rm.cfv.R
 
 class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, private var myDataset: List<EstoqueDTO>) :
     RecyclerView.Adapter<EstoqueAdapter.ProdutoViewHolder>() {

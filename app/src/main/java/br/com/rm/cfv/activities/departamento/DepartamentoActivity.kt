@@ -11,10 +11,14 @@ import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.cliente.InsertDepartamentoAsyncTask
 import br.com.rm.cfv.asyncTasks.cliente.SelectAllDepartamentosAsyncTask
 import br.com.rm.cfv.database.entities.Departamento
-import com.rm.cfv.R
+import br.com.rm.cfv.R
 import kotlinx.android.synthetic.main.activity_departamento.*
 
 class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteInsertAndUpdate {
+
+    override fun getToobarTitle(): String {
+        return getString(R.string.listar_departamentos_title)
+    }
 
     var departamento : Departamento? = null
 

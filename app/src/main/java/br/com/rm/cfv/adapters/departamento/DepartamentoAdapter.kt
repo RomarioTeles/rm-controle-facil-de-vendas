@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import br.com.rm.cfv.database.entities.Departamento
-import com.rm.cfv.R
+import br.com.rm.cfv.R
 
 class DepartamentoAdapter( context : Context, items : MutableList<Departamento>) : ArrayAdapter<Departamento>(context, R.layout.list_view_item_default, items) {
 

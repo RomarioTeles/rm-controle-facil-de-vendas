@@ -22,12 +22,15 @@ open class InsertProdutoAsyncTask(private var appdatabase: AppDataBase, private 
                 appdatabase.departamentoDAO().insertAll(departamento)
             }
 
-            appdatabase.produtoDAO().insertAll(produto)
+            if(produto.uid == null)
+                appdatabase.produtoDAO().insertAll(produto)
+            else
+                appdatabase.produtoDAO().update(produto)
 
             result = appdatabase.produtoDAO().findByCodigo(produto.codigo!!)
 
             return result
-        }catch (e : SQLiteConstraintException){
+        }catch (e : Exception){
             return null
         }
     }

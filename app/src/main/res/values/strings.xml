@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">RM-CFV</string>
+    <string name="app_name">RM vendas</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">RM vendas</string>
+    <string name="nav_header_subtitle">Gestão de vendas e estoque</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="cliente_nome">Nome Completo</string>
@@ -22,10 +22,18 @@
     <string name="nome_do_departamento">Nome do departamento</string>
     <string name="salvar">Salvar</string>
     <string name="cancelar">Cancelar</string>
-    <string name="listar_produtos_title">Listar Produtos</string>
+    <string name="listar_produtos_title">Produtos</string>
+    <string name="listar_estoques_title">Estoque</string>
+    <string name="listar_clientes_title">Clientes</string>
+    <string name="listar_departamentos_title">Departamentos</string>
     <string name="movimentacao_de_estoque">Movimentacao de estoque</string>
     <string name="quantidade">Quantidade</string>
     <string name="mensagem_campo_requerido">Este campo deve ser preenchido.</string>
     <string name="tipo_de_movimentacao">Tipo de Movimentação</string>
     <string name="motivo">Motivo</string>
+    <string name="cadastrar_cliente_title">Cadastrar cliente</string>
+    <string name="cadastrar_produto_title">Cadastrar produto</string>
+    <string name="camera_configuracao">Camera is Settings</string>
+    <string name="habilitar_camera_mensagem">Camera is not Enabled. Do you want to go to settings menu?</string>
+    <string name="configuracoes">Settings</string>
 </resources>

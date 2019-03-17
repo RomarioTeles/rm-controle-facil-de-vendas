@@ -2,6 +2,7 @@ package br.com.rm.cfv.database.entities
 
 import androidx.room.*
 import com.google.android.material.textfield.TextInputLayout
+import java.io.Serializable
 
 @Entity(
     indices = arrayOf(Index(value = ["codigo"], unique = true))
@@ -16,7 +17,8 @@ open class Produto (
     @ColumnInfo(name = "preco_venda") var precoVenda: Double?,
     @ColumnInfo(name = "caminho_imagem") var caminhoImagem: String?,
     @ColumnInfo(name = "departamento") var departamento: String
-){
+) : Serializable{
+
     val messageNullable : String?
         get() = "%s não pode ser vazio."
 
@@ -56,5 +58,9 @@ open class Produto (
         }
 
         return !hasError
+    }
+
+    companion object {
+        private const val serialVersionUID = 1L
     }
 }

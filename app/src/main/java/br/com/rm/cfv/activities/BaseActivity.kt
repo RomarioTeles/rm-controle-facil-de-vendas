@@ -14,11 +14,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
+import br.com.rm.cfv.activities.estoque.ListaEstoqueActivity
 import br.com.rm.cfv.activities.produto.ListaProdutosActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.rm.cfv.R
+import br.com.rm.cfv.R
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -45,6 +46,7 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         (nav_view as NavigationView).setNavigationItemSelectedListener(this)
         setSupportActionBar(toolbar as Toolbar?)
 
+        supportActionBar!!.setTitle(getToobarTitle())
         supportActionBar!!.setHomeButtonEnabled(true)
         //supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -139,4 +141,6 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     fun getCfvApplication() : CfvApplication{
         return application as CfvApplication
     }
+
+    abstract fun getToobarTitle(): String
 }

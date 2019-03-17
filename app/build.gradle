@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.rm_android_template"
+        applicationId "br.com.rm.cfv"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -50,4 +50,5 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    implementation 'androidx.exifinterface:exifinterface:1.1.0-alpha01'
 }

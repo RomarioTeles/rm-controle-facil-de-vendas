@@ -1,9 +1,6 @@
 package br.com.rm.cfv.database.daos.interfaces
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import br.com.rm.cfv.database.entities.Produto
 
 @Dao
@@ -26,4 +23,7 @@ interface ProdutoDAO{
 
     @Delete
     fun delete(produto: Produto)
+
+    @Update
+    fun update(produto: Produto)
 }

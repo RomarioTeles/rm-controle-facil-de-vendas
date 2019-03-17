@@ -2,9 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.rm.cfv">
+          package="br.com.rm.cfv">
 
     <dist:module dist:instant="true"/>
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
             android:name="br.com.rm.cfv.CfvApplication"
@@ -15,7 +19,19 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="br.com.rm.cfv.activities.ListaEstoqueActivity" android:theme="@style/AppTheme.NoActionBar">
+
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="br.com.rm.cfv.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths"/>
+        </provider>
+
+        <activity android:name="br.com.rm.cfv.activities.estoque.ListaEstoqueActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name="br.com.rm.cfv.activities.cliente.ListaClientesActivity"

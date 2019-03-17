@@ -10,9 +10,13 @@ import br.com.rm.cfv.adapters.cliente.ClienteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
-import com.rm.cfv.R
+import br.com.rm.cfv.R
 
 class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
+
+    override fun getToobarTitle(): String {
+        return getString(R.string.listar_clientes_title)
+    }
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ClienteAdapter

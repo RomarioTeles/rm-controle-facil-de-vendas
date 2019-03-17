@@ -1,14 +1,13 @@
-package br.com.rm.cfv.activities
+package br.com.rm.cfv.activities.estoque
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.interfaces.IMovimentacaoEstoque
-import br.com.rm.cfv.activities.produto.CadastrarProdutoActivity
 import br.com.rm.cfv.adapters.estoque.EstoqueAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
@@ -18,12 +17,15 @@ import br.com.rm.cfv.constants.MotivoMovimentacao
 import br.com.rm.cfv.constants.TipoMovimentacaoEstoque
 import br.com.rm.cfv.database.entities.MovimentacaoEstoque
 import br.com.rm.cfv.database.entities.dtos.EstoqueDTO
-import com.rm.cfv.R
+import br.com.rm.cfv.R
 import kotlinx.android.synthetic.main.activity_lista_estoque.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 import java.util.*
 
 class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEstoque, IPostExecuteInsertAndUpdate {
+
+    override fun getToobarTitle(): String {
+        return getString(R.string.listar_estoques_title)
+    }
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: EstoqueAdapter
@@ -38,7 +40,6 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_estoque)
-        toolbar.title = getString(R.string.listar_produtos_title)
         viewManager = LinearLayoutManager(this)
 
         viewAdapter = EstoqueAdapter(this, myDataset)

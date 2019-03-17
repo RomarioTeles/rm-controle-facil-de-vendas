@@ -10,10 +10,14 @@ import br.com.rm.cfv.adapters.produto.ProdutoAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.produto.SelectAllProdutosAsyncTask
 import br.com.rm.cfv.database.entities.Produto
-import com.rm.cfv.R
+import br.com.rm.cfv.R
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class ListaProdutosActivity : BaseActivity(), IPostExecuteSearch{
+
+    override fun getToobarTitle(): String {
+        return getString(R.string.listar_produtos_title)
+    }
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ProdutoAdapter
@@ -26,7 +30,7 @@ class ListaProdutosActivity : BaseActivity(), IPostExecuteSearch{
         toolbar.title = "Listar Produtos"
         viewManager = LinearLayoutManager(this)
 
-        viewAdapter = ProdutoAdapter(myDataset)
+        viewAdapter = ProdutoAdapter(this, myDataset)
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             // use this setting to improve performance if you know that changes
