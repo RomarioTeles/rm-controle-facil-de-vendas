@@ -26,4 +26,7 @@ interface ProdutoDAO{
 
     @Update
     fun update(produto: Produto)
+
+    @Query("SELECT * FROM produto WHERE nome LIKE :search or codigo LIKE :search order by codigo, nome")
+    fun search(search: String?): List<Produto>
 }

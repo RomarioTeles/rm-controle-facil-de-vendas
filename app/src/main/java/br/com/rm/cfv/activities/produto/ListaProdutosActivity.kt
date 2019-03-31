@@ -1,19 +1,19 @@
 package br.com.rm.cfv.activities.produto
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.com.rm.cfv.activities.BaseActivity
+import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.ImageUtilsActivity
 import br.com.rm.cfv.adapters.produto.ProdutoAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.produto.SelectAllProdutosAsyncTask
 import br.com.rm.cfv.database.entities.Produto
-import br.com.rm.cfv.R
-import kotlinx.android.synthetic.main.app_bar_main.*
 
-class ListaProdutosActivity : BaseActivity(), IPostExecuteSearch{
+class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener {
 
     override fun getToobarTitle(): String {
         return getString(R.string.listar_produtos_title)
@@ -22,15 +22,14 @@ class ListaProdutosActivity : BaseActivity(), IPostExecuteSearch{
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ProdutoAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var myDataset : List<Produto> = ArrayList<Produto>()
+    private var myDataset : List<Produto> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_default)
-        toolbar.title = "Listar Produtos"
         viewManager = LinearLayoutManager(this)
 
-        viewAdapter = ProdutoAdapter(this, myDataset)
+        viewAdapter = ProdutoAdapter(this, this, myDataset)
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             // use this setting to improve performance if you know that changes
@@ -63,5 +62,17 @@ class ListaProdutosActivity : BaseActivity(), IPostExecuteSearch{
     override fun afterSearch(result: Any?) {
         myDataset = result as List<Produto>
         viewAdapter.setDataset(myDataset)
+    }
+
+    override fun onPostCaptureCompleted(bitmap: Bitmap?) {}
+
+    override fun getCaptureTrigger(): View? {
+        return null
+    }
+
+    override fun onProdutoClick(produto: Produto) {
+        var intent = Intent(this, CadastrarProdutoActivity::class.java)
+        intent.putExtra("produto", produto)
+        startActivity(intent)
     }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/framelayoutResumoCesta"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+<LinearLayout android:id="@+id/linearLayoutResumoCesta"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:background="@color/primary"
+              android:layout_gravity="bottom"
+              android:padding="8dp">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        <TextView android:id="@+id/textViewquantidadeItens"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="1"
+                  android:gravity="center|start"
+                  android:textColor="@color/primary_text"
+                  android:textSize="25sp"
+                  android:textStyle="bold"
+                  android:text="0"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:textColor="@color/primary_text"
+                android:text="@string/itens"
+                android:textSize="16sp"
+                android:textAllCaps="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        <TextView android:id="@+id/textViewSubtotalItens"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center|start"
+                  android:textColor="@color/primary_text"
+                  android:textSize="25sp"
+                  android:textStyle="bold"
+                  android:text="0,00"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|start"
+                android:textColor="@color/primary_text"
+                android:text="@string/subtotal"
+                android:textAllCaps="true"
+                android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/linearLayoutVerCesta"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        <TextView android:id="@+id/textViewVisualizar"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:textColor="@color/primary_text"
+                  android:textSize="20sp"
+                  android:textStyle="bold"
+                  android:textAllCaps="true"
+                  android:text="@string/ver_cesta"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/linearLayoutFinalizar"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        <TextView android:id="@+id/textViewFinalizar"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center|start"
+                  android:textColor="@color/primary_text"
+                  android:textSize="20sp"
+                  android:textStyle="bold"
+                  android:textAllCaps="true"
+                  android:text="@string/finalizar"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</FrameLayout>

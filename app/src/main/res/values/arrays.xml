@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_item_options">
+        <item>Editar registro</item>
+        <item>Remover registro</item>
+        <item>Cancelar</item>
+    </string-array>
+
+    <string-array name="list_item_client_options">
+        <item>Registrar débitos</item>
+        <item>Listar débitos</item>
+        <item>Editar registro</item>
+        <item>Remover registro</item>
+        <item>Cancelar</item>
+    </string-array>
+
+</resources>

@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-abstract public class ImageCaptureActivity extends BaseActivity {
+abstract public class ImageUtilsActivity extends BaseActivity {
 
     String mCurrentPhotoPath;
     private final int REQUEST_TAKE_PHOTO = 1034;
@@ -38,12 +38,14 @@ abstract public class ImageCaptureActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getCaptureTrigger().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePicture();
-            }
-        });
+        if(getCaptureTrigger() != null) {
+            getCaptureTrigger().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    takePicture();
+                }
+            });
+        }
     }
 
     private void takePicture() {

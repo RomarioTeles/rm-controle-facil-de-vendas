@@ -1,14 +1,20 @@
 package br.com.rm.cfv.adapters.cliente
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
+import br.com.rm.cfv.activities.cliente.RegistrarDebitoActivity
+import br.com.rm.cfv.database.entities.Cliente
 
-class ClienteAdapter(private var myDataset: List<Cliente>) :
+
+class ClienteAdapter(private var context : Context, private var myDataset: List<Cliente>) :
     RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder>() {
 
     // Provide a reference to the views for each data item
@@ -34,9 +40,9 @@ class ClienteAdapter(private var myDataset: List<Cliente>) :
             .inflate(R.layout.recycler_view_item_default, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
 
-        val textViewNome = view.findViewById<TextView>(R.id.textViewPrimary)
+        val textViewNome = view.findViewById<TextView>(R.id.textViewNome)
 
-        val textViewTelefone = view.findViewById<TextView>(R.id.textViewItemSecondary)
+        val textViewTelefone = view.findViewById<TextView>(R.id.textViewItemCodigo)
 
         var holder = ClienteViewHolder(view)
 
@@ -50,9 +56,48 @@ class ClienteAdapter(private var myDataset: List<Cliente>) :
     override fun onBindViewHolder(holder: ClienteViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textViewNome.text = myDataset.get(position)!!.nome
 
-        holder.textViewTelefone.text = myDataset.get(position)!!.telefone
+        val item = myDataset[position]
+
+        holder.textViewNome.text = item.nome
+
+        holder.textViewTelefone.text = item.telefone
+
+        holder.view.setOnClickListener{
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(R.string.pick_option)
+                .setItems(R.array.list_item_client_options) { dialog, which ->
+                    when (which){
+                        0 ->{
+                            // Registrar debitos
+                            val intent = Intent(context, RegistrarDebitoActivity::class.java)
+                            intent.putExtra("cliente", item)
+                            context.startActivity(intent)
+                        }
+                        1 ->{
+                            //Listar debitos
+                            val intent = Intent(context, CadastrarClienteActivity::class.java)
+                            intent.putExtra("cliente", item)
+                            context.startActivity(intent)
+                        }
+                        2 ->{
+                            //Editar registro
+                            val intent = Intent(context, CadastrarClienteActivity::class.java)
+                            intent.putExtra("cliente", item)
+                            context.startActivity(intent)
+                        }
+                        3 ->{
+                            //Remover registro
+                            dialog.dismiss()
+                        }
+                        4 ->{
+                            // cancelar ação
+                            dialog.dismiss()
+                        }
+                    }
+                }
+            builder.show()
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

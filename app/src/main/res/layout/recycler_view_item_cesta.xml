@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
+
+    <LinearLayout android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+        <LinearLayout android:id="@+id/linearLayoutNomeProduto"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintTop_toTopOf="parent">
+
+            <TextView android:id="@+id/textViewItemCodigo"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginEnd="8dp"
+                      android:text="código"
+                      android:textSize="18sp"
+                      app:layout_constraintTop_toBottomOf="@+id/textViewNome"
+                      app:layout_constraintStart_toEndOf="@+id/imageViewProduto"/>
+
+            <TextView android:id="@+id/textViewNome"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="Caderno 10 materias - turma da mónica 300 páginas"
+                      android:maxLines="2"
+                      android:textSize="18sp"
+                      android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/linearLayoutDescAcresc"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+                      android:layout_marginEnd="8dp"
+                      android:layout_marginTop="8dp"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintTop_toTopOf="parent"
+                      app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+
+                <TextView android:id="@+id/textViewLabelQuantidade"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginEnd="16dp"
+                          android:text="Quantidade"
+                          android:textSize="16sp"/>
+
+                <TextView android:id="@+id/textViewQuantidade"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="1"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:textColor="@color/primary_text"
+                          android:textAlignment="textEnd"/>
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+
+                <TextView android:id="@+id/textViewLabelPrecoOriginal"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginEnd="16dp"
+                          android:text="Preço unit"
+                          android:textSize="16sp"/>
+
+                <TextView android:id="@+id/textViewPrecoOriginal"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="10,00"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:textColor="@color/primary_text"
+                          android:textAlignment="textEnd"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/textViewLabelDescAcresc"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginEnd="16dp"
+                      android:text="Desc./Acresc."
+                      android:textSize="16sp"/>
+
+            <TextView android:id="@+id/textViewDescAcresc"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="-1,00"
+                      android:textSize="16sp"
+                      android:textStyle="bold"
+                      android:textColor="@color/primary_text"
+                      android:textAlignment="textEnd"/>
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+
+                <TextView android:id="@+id/textViewLabelSubtotal"
+                          android:layout_width="wrap_content"
+                          android:layout_height="match_parent"
+                          android:text="vl. pagar R$"
+                          android:layout_gravity="top"
+                          android:textSize="18sp"
+                            android:textStyle="bold"/>
+
+                <TextView android:id="@+id/textViewSubtotal"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="9,00"
+                          android:textAlignment="textEnd"
+                          android:textSize="25sp"
+                          android:textStyle="bold"
+                          android:textColor="@color/primary_light"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

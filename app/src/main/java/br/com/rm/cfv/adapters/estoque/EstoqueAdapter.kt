@@ -36,9 +36,9 @@ class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, pri
             .inflate(R.layout.recycler_view_item_default, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
 
-        val textViewProduto = view.findViewById<TextView>(R.id.textViewPrimary)
+        val textViewProduto = view.findViewById<TextView>(R.id.textViewNome)
 
-        val textViewQuantidade = view.findViewById<TextView>(R.id.textViewItemSecondary)
+        val textViewQuantidade = view.findViewById<TextView>(R.id.textViewItemCodigo)
 
         var holder = ProdutoViewHolder(view)
 

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/bg_black_transparencia"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             android:padding="16dip">
+
+    <androidx.cardview.widget.CardView android:layout_width="match_parent"
+                                       android:layout_height="wrap_content"
+                                       app:cardCornerRadius="3dp"
+                                       app:cardElevation="4dp"
+                                       app:cardUseCompatPadding="true"
+                                       android:layout_gravity="center">
+
+        <LinearLayout android:orientation="vertical"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="16dp">
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp">
+
+                <TextView android:id="@+id/textViewItemNomeProduto"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textColor="@color/secondary_text"
+                          android:textStyle="bold"
+                          style="bold"
+                          android:textSize="16sp"
+                          android:text="Produto"
+                          android:textAllCaps="true"
+                          android:layout_marginEnd="8dp"
+                          android:layout_marginBottom="8dp"/>
+
+                <ImageButton android:id="@+id/imageViewItemRemover"
+                             android:layout_width="35dip"
+                             android:layout_height="35dip"
+                             android:layout_gravity="end"
+                             android:scaleType="center"
+                             android:background="@drawable/shape_button_rounded_primary"
+                             app:srcCompat="@drawable/delete"
+                             app:layout_constraintStart_toStartOf="parent"
+                             app:layout_constraintTop_toTopOf="parent"/>
+
+            </LinearLayout>
+
+            <ImageView android:id="@+id/imageViewItemProduto"
+                       android:layout_width="80dip"
+                       android:layout_height="80dip"
+                       android:layout_gravity="center"
+                       app:srcCompat="@drawable/no_image"
+                       android:contentDescription="@string/description_imagem_do_produto"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent"/>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="8dp"/>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/buttonDecrementarQuantidade"
+                    android:text="-"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/shape_button_rounded_accent"/>
+
+                <EditText
+                        android:id="@+id/textInputQuantidade"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        android:textAlignment="center"
+                        android:maxLines="1"
+                        android:imeOptions="actionDone"
+                        android:imeActionLabel="OK"
+                        android:hint="@string/quantidade"/>
+
+                <Button
+                        android:id="@+id/buttonIncrementarQuantidade"
+                        android:text="+"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/shape_button_rounded_accent"/>
+
+            </LinearLayout>
+
+            <TextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:textColor="@color/secondary_text"
+                      android:textSize="14sp"
+                      android:layout_marginBottom="8dp"
+                      android:layout_marginTop="16dp"
+                      android:text="@string/aplicar_desconto_acrescimo"
+                      android:textAllCaps="true"/>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+
+                <RadioGroup android:id="@+id/radioGroupAcresDesc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:layout_marginEnd="8dp"
+                        android:orientation="vertical">
+
+                    <RadioButton android:id="@+id/radioDesconto"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:text="@string/desconto"/>
+
+                    <RadioButton android:id="@+id/radioAcrescimo"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:text="@string/acrescimo"/>
+                </RadioGroup>
+
+                <EditText android:id="@+id/editTextItemDescAcresc"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="bottom"
+                          android:layout_weight="1.2"
+                          android:inputType="numberDecimal"
+                          android:enabled="false"
+                          android:maxLines="1"
+                          android:imeActionLabel="OK"
+                          android:imeOptions="actionDone"
+                          android:hint="Valor desc./acresc."/>
+
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal"
+                              android:layout_marginBottom="8dp"
+                              android:layout_gravity="bottom">
+
+                    <ImageButton android:id="@+id/imageButtonCancelDescAcresc"
+                                 android:layout_width="30dip"
+                                 android:layout_height="30dip"
+                                 android:layout_marginEnd="16dp"
+                                 android:layout_gravity="end|bottom"
+                                 android:scaleType="center"
+                                 android:background="@drawable/shape_button_rounded_accent"
+                                 app:srcCompat="@drawable/close"
+                                 app:layout_constraintStart_toStartOf="parent"
+                                 app:layout_constraintTop_toTopOf="parent"
+                                 android:enabled = "false"/>
+
+                    <ImageButton android:id="@+id/imageButtonConfirmDescAcresc"
+                                 android:layout_width="30dip"
+                                 android:layout_height="30dip"
+                                 android:layout_gravity="end|bottom"
+                                 android:scaleType="center"
+                                 android:background="@drawable/shape_button_rounded_accent"
+                                 app:srcCompat="@drawable/check"
+                                 app:layout_constraintStart_toStartOf="parent"
+                                 app:layout_constraintTop_toTopOf="parent"
+                                 android:enabled = "false"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginTop="16dp">
+
+                <TextView android:id="@+id/textViewItemSubtotalLabel"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textColor="@color/secondary_text"
+                          android:textStyle="bold"
+                          android:layout_gravity="end"
+                          style="bold"
+                          android:textSize="14sp"
+                          android:text="@string/subtotal"
+                          android:textAllCaps="true"
+                          android:layout_marginEnd="8dp"
+                          android:layout_marginBottom="8dp"/>
+
+
+                <TextView android:id="@+id/textViewItemSubtotal"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="end"
+                          android:textAlignment="textEnd"
+                          android:layout_weight="1"
+                          android:textColor="@color/primary_light"
+                          android:textStyle="bold"
+                          style="bold"
+                          android:textSize="20sp"
+                          android:text="@string/subtotal"
+                          android:textAllCaps="true"
+                          android:layout_marginEnd="8dp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout android:orientation="horizontal"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_marginTop="24dip">
+
+                <Button android:id="@+id/buttonCancelarProduto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/secondary_text"
+                        android:layout_gravity="start"
+                        android:text="@string/cancelar"/>
+
+                <Button android:id="@+id/buttonAdicionarProduto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@android:color/transparent"
+                        android:textColor="@color/primary"
+                        android:layout_gravity="end"
+                        android:text="@string/adicionar_produto"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

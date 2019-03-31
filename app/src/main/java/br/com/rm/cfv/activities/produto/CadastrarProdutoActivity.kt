@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import br.com.rm.cfv.activities.ImageCaptureActivity
+import br.com.rm.cfv.activities.ImageUtilsActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.cliente.SelectAllNamesAsyncTask
@@ -21,7 +21,7 @@ import java.io.FileOutputStream
 import java.util.*
 
 
-class CadastrarProdutoActivity : ImageCaptureActivity(), IPostExecuteSearch, IPostExecuteInsertAndUpdate{
+class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPostExecuteInsertAndUpdate{
 
     override fun onPostCaptureCompleted(bitmap: Bitmap?) {
         this.imageBitmap = bitmap!!
@@ -77,26 +77,30 @@ class CadastrarProdutoActivity : ImageCaptureActivity(), IPostExecuteSearch, IPo
 
     private fun preencheProduto(){
         val bundle = intent.extras
-        var produto : Produto? = bundle.getSerializable("produto") as Produto?
 
-        if(produto != null){
-            textInputEditId.setText(produto.uid!!.toString())
-            textInputEditId.visibility = View.VISIBLE
-            textInputEditCodigo.setText(produto.codigo)
-            textInputEditNome.setText(produto.nome)
-            textInputEditPrecoCusto.setText(produto.precoCusto!!.toString())
-            textInputEditPrecoTabela.setText(produto.precoTabela!!.toString())
-            textInputEditPrecoRevenda.setText(produto.precoVenda!!.toString())
-            autocompleteTextViewDepartamento.setText(produto.departamento)
-            autocompleteTextViewDepartamento.showDropDown()
-            autocompleteTextViewDepartamento.performCompletion()
-            autocompleteTextViewDepartamento.setSelection(0)
-            autocompleteTextViewDepartamento.listSelection = 0
-            autocompleteTextViewDepartamento.dismissDropDown()
+        if(bundle != null) {
 
-            if(produto.caminhoImagem != null && !produto.caminhoImagem!!.isBlank()){
-                imageBitmap = getBitmapFromAbsolutePath(produto.caminhoImagem, false)
-                imageViewProduto.setImageBitmap(imageBitmap)
+            var produto: Produto? = bundle.getSerializable("produto") as Produto?
+
+            if (produto != null) {
+                textInputEditId.setText(produto.uid!!.toString())
+                textInputEditId.visibility = View.VISIBLE
+                textInputEditCodigo.setText(produto.codigo)
+                textInputEditNome.setText(produto.nome)
+                textInputEditPrecoCusto.setText(produto.precoCusto!!.toString())
+                textInputEditPrecoTabela.setText(produto.precoTabela!!.toString())
+                textInputEditPrecoRevenda.setText(produto.precoVenda!!.toString())
+                autocompleteTextViewDepartamento.setText(produto.departamento)
+                autocompleteTextViewDepartamento.showDropDown()
+                autocompleteTextViewDepartamento.performCompletion()
+                autocompleteTextViewDepartamento.setSelection(0)
+                autocompleteTextViewDepartamento.listSelection = 0
+                autocompleteTextViewDepartamento.dismissDropDown()
+
+                if (produto.caminhoImagem != null && !produto.caminhoImagem!!.isBlank()) {
+                    imageBitmap = getBitmapFromAbsolutePath(produto.caminhoImagem, false)
+                    imageViewProduto.setImageBitmap(imageBitmap)
+                }
             }
         }
     }

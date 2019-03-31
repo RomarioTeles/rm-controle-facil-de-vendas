@@ -9,6 +9,7 @@ import br.com.rm.cfv.utils.EmailValidate
 import br.com.rm.cpfutils.CPFUtils
 import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.dateutils.DateOperationsUtils
+import java.io.Serializable
 import java.lang.Exception
 import java.util.*
 
@@ -27,7 +28,8 @@ open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
                     @ColumnInfo(name = "bairro") var bairro: String? = "",
                     @ColumnInfo(name = "cidade") var cidade: String? = "",
                     @ColumnInfo(name = "uf") var uf: String = ""
-){
+) : Serializable{
+    
     val messageNullable : String?
     get() = "%s não pode ser vazio."
 

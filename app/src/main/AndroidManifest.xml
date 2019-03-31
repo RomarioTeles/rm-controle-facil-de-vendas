@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-            android:name="br.com.rm.cfv.CfvApplication"
+            android:name=".CfvApplication"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -19,6 +19,43 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name=".activities.produto.ListaProdutosActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:screenOrientation="portrait"/>
+
+        <activity
+                android:name=".activities.estoque.ListaEstoqueActivity"
+                android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".activities.cliente.ListaClientesActivity"
+                android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".activities.departamento.DepartamentoActivity"
+                android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".activities.cliente.CadastrarClienteActivity"
+                android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".activities.produto.CadastrarProdutoActivity"
+                android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".activities.cliente.RegistrarDebitoActivity"
+                android:label="@string/app_name"
+                android:theme="@style/splashScreenTheme" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+
 
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -30,35 +67,6 @@
                     android:resource="@xml/file_paths"/>
         </provider>
 
-        <activity android:name="br.com.rm.cfv.activities.estoque.ListaEstoqueActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-                android:name="br.com.rm.cfv.activities.cliente.ListaClientesActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-                android:name="br.com.rm.cfv.activities.departamento.DepartamentoActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-                android:name="br.com.rm.cfv.activities.cliente.CadastrarClienteActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-                android:name="br.com.rm.cfv.activities.produto.CadastrarProdutoActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-                android:name="br.com.rm.cfv.activities.produto.ListaProdutosActivity"
-                android:label="@string/app_name"
-                android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

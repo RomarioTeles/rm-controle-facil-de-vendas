@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">RM vendas</string>
+    <string name="app_name">RM Meu Negócio</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">RM vendas</string>
+    <string name="nav_header_title">RM Meu Negócio</string>
     <string name="nav_header_subtitle">Gestão de vendas e estoque</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -36,4 +36,19 @@
     <string name="camera_configuracao">Camera is Settings</string>
     <string name="habilitar_camera_mensagem">Camera is not Enabled. Do you want to go to settings menu?</string>
     <string name="configuracoes">Settings</string>
+    <string name="pick_option">O que você deseja fazer?</string>
+    <string name="sugestao_adicionar_produto">Clique no produto para adicioná-lo a cesta</string>
+    <string name="itens">Itens</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="pesquise_codigo_produto">Pesquise pelo o código do produto...</string>
+    <string name="ver_cesta">Ver Cesta</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="adicionar_produto">adicionar produto</string>
+    <string name="acrescimo">Acréscimo</string>
+    <string name="desconto">Desconto</string>
+    <string name="aplicar_desconto_acrescimo">Aplique desconto ou acréscimo</string>
+    <string name="pesquisar">pesquisar</string>
+    <string name="caderno_de_contas">Caderno de Contas</string>
+    <string name="description_imagem_do_produto">Imagem do produto</string>
+    <string name="mensagem_cesta_vazia">A cesta está vazia</string>
 </resources>

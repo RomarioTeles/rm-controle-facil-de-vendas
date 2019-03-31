@@ -17,8 +17,8 @@ class DepartamentoAdapter( context : Context, items : MutableList<Departamento>)
 
         val rowView = inflater.inflate(R.layout.recycler_view_item_default, parent, false)
 
-        var primary = rowView.findViewById<TextView>(R.id.textViewPrimary)
-        var secondary = rowView.findViewById<TextView>(R.id.textViewItemSecondary)
+        var primary = rowView.findViewById<TextView>(R.id.textViewNome)
+        var secondary = rowView.findViewById<TextView>(R.id.textViewItemCodigo)
 
         primary.text = getItem(position).nome
         secondary.text = getItem(position).departamentoPai

@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.cliente.ClienteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
-import br.com.rm.cfv.R
 
 class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
 
@@ -21,7 +21,7 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ClienteAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var myDataset : List<Cliente> = ArrayList<Cliente>()
+    private var myDataset : List<Cliente> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
 
         viewManager = LinearLayoutManager(this)
 
-        viewAdapter = ClienteAdapter(myDataset)
+        viewAdapter = ClienteAdapter(this, myDataset)
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             // use this setting to improve performance if you know that changes
