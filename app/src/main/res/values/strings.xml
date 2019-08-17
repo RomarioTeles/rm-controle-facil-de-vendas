@@ -39,7 +39,7 @@
     <string name="pick_option">O que você deseja fazer?</string>
     <string name="sugestao_adicionar_produto">Clique no produto para adicioná-lo a cesta</string>
     <string name="itens">Itens</string>
-    <string name="subtotal">Subtotal</string>
+    <string name="label_subtotal">Subtotal</string>
     <string name="pesquise_codigo_produto">Pesquise pelo o código do produto...</string>
     <string name="ver_cesta">Ver Cesta</string>
     <string name="finalizar">Finalizar</string>
@@ -51,4 +51,21 @@
     <string name="caderno_de_contas">Caderno de Contas</string>
     <string name="description_imagem_do_produto">Imagem do produto</string>
     <string name="mensagem_cesta_vazia">A cesta está vazia</string>
+    <string name="label_cliente">Cliente:</string>
+    <string name="label_status_pagamento">Status do Pagamento:</string>
+    <string name="label_tipo_pagamento">Escolha o tipo de pagamento</string>
+    <string name="label_pagamento_a_vista">Pagamento à vista</string>
+    <string name="label_pagamento_a_prazo">Pagamento à prazo</string>
+    <string name="label_meio_pagamento">Escolha o meio de Pagamento</string>
+    <string name="label_data_prevista_pagamento">Data prevista para pagamento</string>
+    <string name="label_total_pagar">Valor a pagar</string>
+    <string name="mensagem_sucesso">Operação realizada com sucesso</string>
+    <string name="toast_title_sucess">Sucesso!</string>
+    <string name="toast_title_error">Erro!</string>
+    <string name="toast_title_alert">Atenção!</string>
+    <string name="ok">OK</string>
+    <string name="mensagem_erro">Aconteceu um erro inesperado.</string>
+    <string name="toast_title_confirm">Confirmação</string>
+    <string name="mensagem_confirmacao">Você deseja realmente fazer isso?</string>
+    <string name="concluir">Concluir</string>
 </resources>

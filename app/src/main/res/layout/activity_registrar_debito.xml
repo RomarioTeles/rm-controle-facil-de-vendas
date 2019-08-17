@@ -10,15 +10,24 @@
 
     <include android:id="@+id/registrarDebitoProdutos"
              layout="@layout/content_registrar_debito_produtos"
-             android:visibility="visible"/>
+             android:visibility="gone"/>
 
     <include android:id="@+id/registrarDebitoCesta"
              layout="@layout/content_registrar_debito_cesta" android:visibility="gone"/>
 
     <include android:id="@+id/registrarDebitoResumo"
-             layout="@layout/content_registrar_debito_resumo" android:visibility="visible" />
+             layout="@layout/content_registrar_debito_resumo" android:visibility="gone" />
 
-    <include android:id="@+id/registrarDebitoadicionarProduto"
-             layout="@layout/content_registrar_debito_adicionar_produto" android:visibility="gone"/>
+    <include android:id="@+id/registrarDebitoAdicionarProduto"
+             layout="@layout/content_registrar_debito_adicionar_produto"
+             android:visibility="visible"/>
+
+    <include android:id="@+id/registrarDebitoPagamentoTipo"
+             android:visibility="gone"
+             layout="@layout/content_registrar_debito_pagamento_tipo"/>
+
+    <include android:id="@+id/registrarDebitoPagamentoMeio"
+             android:visibility="visible"
+             layout="@layout/content_registrar_debito_pagamento_meio"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,8 +16,11 @@ interface DebitoClienteDAO{
     @Query("SELECT * FROM debitocliente WHERE uid IN (:userIds)")
     fun loadAllByIds(userIds: IntArray): List<DebitoCliente>
 
-    @Query("SELECT * FROM debitocliente WHERE cliente_nome LIKE :first")
-    fun findByNome(first: String) : List<DebitoCliente>
+    @Query("SELECT * FROM debitocliente WHERE cliente_id = :first")
+    fun findByClienteId(first: Int) : List<DebitoCliente>
+
+    @Query("SELECT * FROM debitocliente WHERE codigo = :codigo")
+    fun findByCodigo(codigo: String) : DebitoCliente
 
     @Insert
     fun insertAll(vararg users: DebitoCliente)

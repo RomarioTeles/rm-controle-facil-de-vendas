@@ -9,25 +9,25 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
-import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
-import br.com.rm.cfv.activities.cliente.ListaDebitosClienteActivity
 import br.com.rm.cfv.activities.cliente.RegistrarDebitoActivity
-import br.com.rm.cfv.database.entities.Cliente
+import br.com.rm.cfv.database.entities.DebitoCliente
+import br.com.rm.numberUtils.DecimalFormatUtils
+import java.util.*
 
 
-class ClienteAdapter(private var context : Context, private var myDataset: List<Cliente>) :
-    RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder>() {
+class DebitoClienteAdapter(private var context : Context, private var myDataset: List<DebitoCliente>) :
+    RecyclerView.Adapter<DebitoClienteAdapter.ClienteViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just a string in this case that is shown in a TextView.
     class ClienteViewHolder(val view : View) : RecyclerView.ViewHolder(view){
-        lateinit var textViewTelefone : TextView
-        lateinit var  textViewNome : TextView
+        lateinit var textViewDataHora : TextView
+        lateinit var  textViewTotal : TextView
     }
 
-    fun setDataset(dataset : List<Cliente>){
+    fun setDataset(dataset : List<DebitoCliente>){
         this.myDataset = dataset
         notifyDataSetChanged()
     }
@@ -35,7 +35,7 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): ClienteAdapter.ClienteViewHolder {
+                                    viewType: Int): DebitoClienteAdapter.ClienteViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_item_default, parent, false) as View
@@ -47,8 +47,8 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
 
         var holder = ClienteViewHolder(view)
 
-        holder.textViewTelefone = textViewTelefone
-        holder.textViewNome = textViewNome
+        holder.textViewDataHora = textViewTelefone
+        holder.textViewTotal = textViewNome
 
         return holder
     }
@@ -60,9 +60,9 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
 
         val item = myDataset[position]
 
-        holder.textViewNome.text = item.nome
+        holder.textViewTotal.text = Date(item.dataHora).toLocaleString()
 
-        holder.textViewTelefone.text = item.telefone
+        holder.textViewDataHora.text = DecimalFormatUtils.decimalFormat(item.total)
 
         holder.view.setOnClickListener{
             val builder = AlertDialog.Builder(context)
@@ -72,24 +72,8 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
                         0 ->{
                             // Registrar debitos
                             val intent = Intent(context, RegistrarDebitoActivity::class.java)
-                            intent.putExtra("cliente", item)
+                            //intent.putExtra("cliente", item)
                             context.startActivity(intent)
-                        }
-                        1 ->{
-                            //Listar debitos
-                            val intent = Intent(context, ListaDebitosClienteActivity::class.java)
-                            intent.putExtra("cliente", item)
-                            context.startActivity(intent)
-                        }
-                        2 ->{
-                            //Editar registro
-                            val intent = Intent(context, CadastrarClienteActivity::class.java)
-                            intent.putExtra("cliente", item)
-                            context.startActivity(intent)
-                        }
-                        3 ->{
-                            //Remover registro
-                            dialog.dismiss()
                         }
                         4 ->{
                             // cancelar ação

@@ -16,11 +16,12 @@ open class DebitoCliente{
     @ColumnInfo(name = "data_hora")  var dataHora : Long = Date().time
     @ColumnInfo(name = "status_pagamento")  var statusPagamento : String = StatusPagamento.PENDENTE
     @ColumnInfo(name = "tipo_pagamento")  var tipoPagamento : String = TipoPagamento.A_VISTA
-    @ColumnInfo(name = "meio_pagamento")  var meioPagamento : String = MeioPagamento.DINHEIRO
+    @ColumnInfo(name = "meio_pagamento")  var meioPagamento : String = MeioPagamento.DINHEIRO.name
     @ColumnInfo(name = "data_prevista_pagamento")  var dataPrevistaPagamento : Long? = null
     @ColumnInfo(name = "data_pagamento")  var dataPagamento : Long? = null
     @ColumnInfo(name = "total")  var total : Double? = 0.0
-    @Relation(parentColumn = "uid", entityColumn = "debito_cliente_id") var itemProdutoList: MutableList<ItemProduto> = mutableListOf()
+    @ColumnInfo(name = "codigo") var codigo: String = UUID.randomUUID().toString()
+    @Ignore var itemProdutoList: MutableList<ItemProduto> = mutableListOf()
 
     val messageNullable : String?
         get() = "%s não pode ser vazio."
@@ -34,6 +35,10 @@ open class DebitoCliente{
 
         if(dataHora == null){
             dataHora = Date().time
+        }
+
+        if(codigo == null){
+            codigo = UUID.randomUUID().toString()
         }
 
         if(clienteId == null || clienteNome == null){
@@ -69,6 +74,10 @@ open class DebitoCliente{
             subtotal += it.subtotal
         }
         return subtotal
+    }
+
+    fun atualizaTotal(){
+        total = getSubtotal()
     }
 
 }

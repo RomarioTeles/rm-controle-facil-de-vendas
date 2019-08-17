@@ -7,30 +7,36 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.adapters.cliente.ClienteAdapter
+import br.com.rm.cfv.adapters.cliente.DebitoClienteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesAsyncTask
+import br.com.rm.cfv.asyncTasks.debitoCliente.SelectAllDebitosClienteAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
+import br.com.rm.cfv.database.entities.DebitoCliente
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
+class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
 
     override fun getToobarTitle(): String {
         return getString(R.string.listar_clientes_title)
     }
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: ClienteAdapter
+    private lateinit var viewAdapter: DebitoClienteAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var myDataset : List<Cliente> = ArrayList()
+    private var myDataset : List<DebitoCliente> = ArrayList()
+    private lateinit var cliente : Cliente
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_lista_default)
+
+        cliente = intent.getSerializableExtra("cliente") as Cliente
+
+        toolbar.title = cliente.nome
 
         viewManager = LinearLayoutManager(this)
 
-        viewAdapter = ClienteAdapter(this, myDataset)
+        viewAdapter = DebitoClienteAdapter(this, myDataset)
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             // use this setting to improve performance if you know that changes
@@ -53,15 +59,15 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
 
     fun getAllClientes(){
         var task =
-            SelectAllClientesAsyncTask(
-                getCfvApplication().getDataBase()!!.clienteDAO(),
+            SelectAllDebitosClienteAsyncTask(
+                getCfvApplication().getDataBase()!!.debitoClienteDAO(),
                 this
             )
-        task.execute()
+        task.execute(cliente.uid)
     }
 
     override fun afterSearch(result: Any?) {
-        myDataset = result as List<Cliente>
+        myDataset = result as List<DebitoCliente>
         viewAdapter.setDataset(myDataset)
     }
 }

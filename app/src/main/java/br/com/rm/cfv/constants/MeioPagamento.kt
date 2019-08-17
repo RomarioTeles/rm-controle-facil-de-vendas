@@ -1,34 +1,16 @@
 package br.com.rm.cfv.constants
 
-class MeioPagamento {
+import br.com.rm.cfv.R
 
-    companion object {
-        val DINHEIRO: String = "DINHEIRO"
-        val CARTAO_CREDITO: String = "CARTAO_CREDITO"
-        val CARTAO_DEBITO: String = "CARTAO_DEBITO"
-        val VALE_REFEICAO: String = "VALE_REFEICAO"
-        val VALE_ALIMENTACAO: String = "VALE_ALIMENTACAO"
-        val CREDITO_LOJA: String = "CREDITO_LOJA"
-        val VALE_PRESENTE: String = "VALE_PRESENTE"
-        val OUTROS: String = "OUTROS"
+enum class MeioPagamento(val descricao : String, val res : Int) {
 
-        val map = HashMap<String, String>()
-
-        fun getDescricaoPeloNome(nome : String): String? {
-            return map[nome]
-        }
-    }
-
-    init {
-        map.put(DINHEIRO, "Dinheiro")
-        map.put(CARTAO_CREDITO, "Cartão de crédito")
-        map.put(CARTAO_DEBITO, "Cartão de débito")
-        map.put(VALE_REFEICAO, "Vale refeição")
-        map.put(VALE_ALIMENTACAO, "Vale alimentação")
-        map.put(CREDITO_LOJA, "Crédito da loja")
-        map.put(VALE_PRESENTE, "Vale presente")
-        map.put(OUTROS, "Outros")
-
-    }
+        DINHEIRO("Dinheiro" , R.drawable.cash),
+        CARTAO_CREDITO  ("Cartão de crédito", R.drawable.credit_card),
+        CARTAO_DEBITO   ("Cartão de débito", R.drawable.credit_card  ),
+        VALE_REFEICAO   ("Vale refeição" ,  R.drawable.food),
+        VALE_ALIMENTACAO("Vale alimentação", R.drawable.cart),
+        CREDITO_LOJA    ("Crédito da loja", R.drawable.store),
+        VALE_PRESENTE   ("Vale presente", R.drawable.wallet_giftcard),
+        OUTROS          ("Outros", R.drawable.credit_card_multiple)
 
 }

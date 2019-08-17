@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center|start"
                 android:textColor="@color/primary_text"
-                android:text="@string/subtotal"
+                android:text="@string/label_subtotal"
                 android:textAllCaps="true"
                 android:textSize="16sp"/>
 

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:background="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <LinearLayout android:orientation="vertical"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="16dp"
+                      app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                <TextView android:id="@+id/textViewClienteNome"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/secondary_text"
+                          android:textStyle="bold"
+                          android:textSize="16sp"
+                          android:text="Nome do Cliente"
+                          android:textAllCaps="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                <TextView android:id="@+id/textViewTotalLabel"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/secondary_text"
+                          android:textSize="16sp"
+                          android:textAlignment="textEnd"
+                          android:text="@string/label_total_pagar"/>
+
+                <TextView android:id="@+id/textViewClienteNone"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/primary_light"
+                          android:textStyle="bold"
+                          android:textAlignment="textEnd"
+                          android:textSize="25sp"
+                          android:text="R$ 100,00"
+                          android:textAllCaps="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                <TextView android:id="@+id/textViewTipoPagamentoLabel"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/secondary_text"
+                          style="bold"
+                          android:textSize="16sp"
+                          android:text="@string/label_tipo_pagamento"
+                          android:layout_marginBottom="8dp"/>
+
+                <RadioGroup android:id="@+id/radioGroupTipoPagamento"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                    <RadioButton android:id="@+id/radioAvista"
+                                 android:layout_width="0dp"
+                                 android:layout_height="match_parent"
+                                 android:layout_weight="1"
+                                 android:padding="8dp"
+                                 android:textAlignment="center"
+                                 android:textAllCaps="true"
+                                 android:checked="true"
+                                 android:button="@android:color/transparent"
+                                 android:background="@drawable/radio_button_group_selector_left"
+                                 android:text="@string/label_pagamento_a_vista"/>
+
+                    <RadioButton android:id="@+id/radioAprazo"
+                                 android:layout_width="0dp"
+                                 android:layout_height="match_parent"
+                                 android:layout_weight="1"
+                                 android:padding="8dp"
+                                 android:textAlignment="center"
+                                 android:textAllCaps="true"
+                                 android:button="@android:color/transparent"
+                                 android:background="@drawable/radio_button_group_selector_right"
+                                 android:text="@string/label_pagamento_a_prazo"/>
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/linearlayoutDataPrevistaPagamento"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="16dp"
+                          android:layout_marginBottom="8dp">
+
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:orientation="vertical">
+
+                    <TextView android:id="@+id/textViewDataPrevistaPagamentoLabel"
+                              android:layout_width="wrap_content"
+                              android:layout_height="match_parent"
+                              android:textColor="@color/secondary_text"
+                              android:layout_marginBottom="8dp"
+                              android:textSize="16sp"
+                              android:text="@string/label_data_prevista_pagamento"/>
+
+                    <TextView android:id="@+id/textViewDataPrevistaPagamento"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:textColor="@color/primary"
+                              android:textStyle="bold"
+                              android:textSize="18sp"
+                              android:padding="8dp"
+                              android:background="@drawable/shape_button_rounded_accent"
+                              android:drawableEnd="@drawable/calendar_range"
+                              android:text="31/12/2019"/>
+
+                </LinearLayout>
+
+                <ImageButton android:id="@+id/imageButtonEscolherDataPrevista"
+                             android:layout_width="60dp"
+                             android:layout_height="60dp"
+                             android:layout_gravity="center"
+                             android:visibility="gone"
+                             android:background="@drawable/shape_button_rounded_accent"
+                             app:srcCompat="@drawable/calendar_range"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button android:id="@+id/buttonAvancar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/concluir"
+                android:textStyle="bold"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/shape_button_rounded_accent" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

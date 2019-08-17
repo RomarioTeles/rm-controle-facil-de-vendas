@@ -30,6 +30,9 @@ class ItemProdutoAdapter(private var context: ImageUtilsActivity, private var my
         notifyDataSetChanged()
     }
 
+    fun getListaProdutos() : List<ItemProduto> {
+        return myDataset.toList()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ProdutoViewHolder {

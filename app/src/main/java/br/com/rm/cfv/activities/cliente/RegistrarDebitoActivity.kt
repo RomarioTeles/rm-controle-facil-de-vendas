@@ -1,50 +1,96 @@
 package br.com.rm.cfv.activities.cliente
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.ImageUtilsActivity
 import br.com.rm.cfv.activities.produto.IOnClickProdutoListener
+import br.com.rm.cfv.adapters.MeioPagamentoAdapter
 import br.com.rm.cfv.adapters.produto.ItemProdutoAdapter
 import br.com.rm.cfv.adapters.produto.ProdutoAdapter
+import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
+import br.com.rm.cfv.asyncTasks.debitoCliente.InsertDebitoClienteAsyncTask
 import br.com.rm.cfv.asyncTasks.produto.SelectAllProdutosAsyncTask
+import br.com.rm.cfv.constants.MeioPagamento
+import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.database.entities.DebitoCliente
 import br.com.rm.cfv.database.entities.ItemProduto
 import br.com.rm.cfv.database.entities.Produto
+import br.com.rm.cfv.utils.DatePicker
+import br.com.rm.cfv.utils.IDatePicker
+import br.com.rm.cfv.utils.ToastUtils
+import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_registrar_debito.*
 import kotlinx.android.synthetic.main.content_registrar_debito_adicionar_produto.*
 import kotlinx.android.synthetic.main.content_registrar_debito_cesta.*
+import kotlinx.android.synthetic.main.content_registrar_debito_pagamento_meio.*
+import kotlinx.android.synthetic.main.content_registrar_debito_pagamento_tipo.*
 import kotlinx.android.synthetic.main.content_registrar_debito_produtos.*
 import kotlinx.android.synthetic.main.content_registrar_debito_resumo.*
+import java.util.*
 
-class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener {
+class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener, IDatePicker,
+    IPostExecuteInsertAndUpdate {
+
+    override fun afterInsert(result: Any?) {
+        if(result == null){
+            Toast.makeText(this, "Erro ao registrar o débito cliente!", Toast.LENGTH_LONG).show()
+        }else{
+            var cliente = result as DebitoCliente?
+            if(cliente!!.uid != null) {
+                Toast.makeText(this, "Registrado com sucesso!", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this, ListaClientesActivity::class.java))
+            }else{
+                Toast.makeText(this, "Erro ao registrar o débito cliente!", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    override fun afterUpdate(result: Any?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onDatePicked(myCalendar: Calendar) {
+        debitoCliente.dataPrevistaPagamento = myCalendar.time.time
+        textViewDataPrevistaPagamento.text = DateFormatUtils.format(myCalendar.time, "dd/MM/yyyy")
+    }
 
     private lateinit var produtoRecyclerView: RecyclerView
     private lateinit var itemProdutoRecyclerView: RecyclerView
     private lateinit var produtoAdapter: ProdutoAdapter
     private lateinit var itemProdutoAdapter: ItemProdutoAdapter
+    private lateinit var meioPagamentoAdapter: MeioPagamentoAdapter
     private lateinit var produtoLayoutManager: RecyclerView.LayoutManager
     private lateinit var itemProdutoLayoutManager: RecyclerView.LayoutManager
     private var listaProdutos : List<Produto> = ArrayList()
     private var listaLayoutsTela = mutableListOf<View>()
     private lateinit var itemProdutoEmEdicao : ItemProduto
     private var debitoCliente : DebitoCliente = DebitoCliente()
+    private lateinit var cliente : Cliente
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_registrar_debito)
 
+        cliente = intent.getSerializableExtra("cliente") as Cliente
+
+        debitoCliente.clienteId = cliente.uid
+        debitoCliente.clienteNome = cliente.nome
+
         linearLayoutFinalizar.visibility = View.GONE
+
+        meioPagamentoAdapter = MeioPagamentoAdapter(this)
+        listViewMeioPagamento.adapter = meioPagamentoAdapter
 
         produtoLayoutManager = LinearLayoutManager(this)
 
@@ -70,9 +116,12 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
 
         listaLayoutsTela.add(registrarDebitoProdutos)
         listaLayoutsTela.add(registrarDebitoCesta)
-        listaLayoutsTela.add(registrarDebitoadicionarProduto)
+        listaLayoutsTela.add(registrarDebitoAdicionarProduto)
         listaLayoutsTela.add(linearLayoutFinalizar)
         listaLayoutsTela.add(linearLayoutVerCesta)
+        listaLayoutsTela.add(registrarDebitoPagamentoMeio)
+        listaLayoutsTela.add(registrarDebitoPagamentoTipo)
+        listaLayoutsTela.add(registrarDebitoResumo)
 
         editTextSearch.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH){
@@ -92,9 +141,13 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
             }
         }
 
+        linearLayoutFinalizar.setOnClickListener{
+            mudaEstadoDaTela(registrarDebitoPagamentoTipo)
+        }
+
         buttonCancelarProduto.setOnClickListener{
             limpaItemProduto()
-            registrarDebitoadicionarProduto.visibility = View.GONE
+            mudaEstadoDaTela(registrarDebitoProdutos)
         }
 
         buttonAdicionarProduto.setOnClickListener{
@@ -103,9 +156,10 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
                 itemProdutoAdapter.setDataset(debitoCliente.itemProdutoList)
             }
             atualizaResumoCesta()
-            registrarDebitoadicionarProduto.visibility = View.GONE
             limpaItemProduto()
             itemProdutoAdapter.notifyDataSetChanged()
+            mudaEstadoDaTela(registrarDebitoProdutos)
+            linearLayoutVerCesta.visibility = View.VISIBLE
         }
 
         imageViewItemRemover.setOnClickListener{
@@ -113,11 +167,11 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
                 debitoCliente.itemProdutoList.remove(itemProdutoEmEdicao)
                 atualizaResumoCesta()
             }
-            registrarDebitoadicionarProduto.visibility = View.GONE
+            mudaEstadoDaTela(registrarDebitoProdutos)
         }
 
         radioGroupAcresDesc.setOnCheckedChangeListener{ buttonView, isChecked ->
-            if(buttonView.id == R.id.radioAcrescimo){
+            if(radioAcrescimo.isChecked){
                 itemProdutoEmEdicao.setDesconto(0.0)
             }else{
                 itemProdutoEmEdicao.setAcrescimo(0.0)
@@ -184,6 +238,49 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
             mudaEstadoDaTela(registrarDebitoProdutos)
             linearLayoutVerCesta.visibility = View.VISIBLE
         }
+
+        radioGroupTipoPagamento.setOnCheckedChangeListener{ buttonView, isChecked ->
+            if(radioAvista.isChecked){
+                buttonAvancar.text = "Concluir"
+                imageButtonEscolherDataPrevista.isEnabled = false
+            }else{
+                buttonAvancar.text = "Avançar"
+                imageButtonEscolherDataPrevista.isEnabled = true
+            }
+        }
+
+        buttonAvancar.setOnClickListener{
+            if(radioAprazo.isChecked){
+                mudaEstadoDaTela(registrarDebitoPagamentoMeio)
+            }else{
+                registrarPedido()
+            }
+        }
+
+        listViewMeioPagamento.setOnItemClickListener{parent, view, position, id ->
+            debitoCliente.meioPagamento = MeioPagamento.values().get(position).name
+            registrarPedido()
+        }
+
+        imageButtonEscolherDataPrevista.setOnClickListener{
+            DatePicker(this, this).createDialog().show()
+        }
+
+        textViewDataPrevistaPagamento.setOnClickListener{
+            DatePicker(this, this).createDialog().show()
+        }
+
+        mudaEstadoDaTela(registrarDebitoProdutos)
+
+        imageButtonEscolherDataPrevista.isEnabled = false
+    }
+
+    private fun registrarPedido() {
+            ToastUtils.showToastConfirm(this, getString(R.string.mensagem_sucesso))
+            var task = InsertDebitoClienteAsyncTask(getCfvApplication().getDataBase(), this)
+            debitoCliente.itemProdutoList = itemProdutoAdapter.getListaProdutos().toMutableList()
+            debitoCliente.atualizaTotal()
+            task.execute(debitoCliente)
     }
 
     private fun atualizaDescAcresc(){
@@ -228,9 +325,25 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
 
     private fun mudaEstadoDaTela(v : View){
         v.visibility = View.VISIBLE
+        var listException = mutableListOf<Int>()
+        listException.add(registrarDebitoAdicionarProduto.id)
+        listException.add(registrarDebitoPagamentoMeio.id)
+        listException.add(registrarDebitoPagamentoTipo.id)
         listaLayoutsTela.forEach {
             if(it.id != v.id){
                 it.visibility = View.GONE
+            }
+            if(it.id in listException){
+                registrarDebitoResumo.visibility = View.GONE
+            }else{
+                registrarDebitoResumo.visibility = View.VISIBLE
+            }
+            if(it.id == registrarDebitoCesta.id){
+                linearLayoutFinalizar.visibility = View.VISIBLE
+                linearLayoutVerCesta.visibility = View.GONE
+            }else if(it.id == registrarDebitoProdutos.id){
+                linearLayoutFinalizar.visibility = View.GONE
+                linearLayoutVerCesta.visibility = View.VISIBLE
             }
         }
     }
@@ -262,7 +375,7 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
             imageViewItemProduto.setImageBitmap(getBitmapFromAbsolutePath(produto.caminhoImagem, false))
         }
 
-        registrarDebitoadicionarProduto.visibility = View.VISIBLE
+        registrarDebitoAdicionarProduto.visibility = View.VISIBLE
     }
 
     override fun getToobarTitle(): String {

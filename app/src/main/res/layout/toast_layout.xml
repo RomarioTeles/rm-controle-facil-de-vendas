@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/toast_layout_root"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="10dp"
+              android:elevation="2dp"
+              android:background="@drawable/shape_rectangule_rounded_white" >
+
+    <TextView android:id="@+id/title"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:textSize="25sp"
+              android:textStyle="bold"
+              android:textAlignment="center"
+              android:text="@string/toast_title_sucess"
+              android:textColor="@color/secondary_text" />
+
+    <ImageView android:id="@+id/image"
+               app:srcCompat="@drawable/check_circle_outline"
+               android:layout_width="70dp"
+               android:layout_height="70dp"
+               android:layout_gravity="center" />
+
+    <TextView android:id="@+id/text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:textSize="16sp"
+              android:text="@string/mensagem_sucesso"
+              android:textColor="@color/secondary_text" />
+
+
+
+</LinearLayout>
