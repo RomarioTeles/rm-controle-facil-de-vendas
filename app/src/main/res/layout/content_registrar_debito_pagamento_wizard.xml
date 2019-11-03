@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/framelayoutResumoCesta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/linearLayoutPagamentoTop"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="top"
+            android:background="@color/primary"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+        <TextView
+                android:id="@+id/textViewPagandoLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:text="Pagando"
+                android:textColor="@color/primary_text"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+        <TextView
+                android:id="@+id/textViewPagandoSubtotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:text="R$ 0,00"
+                android:textColor="@color/primary_text"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayoutPagamentoBottom"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+        <Button
+                android:id="@+id/buttonVoltar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/primary"
+                android:textColor="@android:color/white"
+                android:text="@string/label_voltar"
+                android:textStyle="bold"
+                android:paddingStart="26dp"
+                android:paddingEnd="26dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+                android:id="@+id/buttonAvancar"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/primary"
+                android:textColor="@android:color/white"
+                android:text="@string/label_avancar"
+                android:paddingStart="26dp"
+                android:paddingEnd="26dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.cliente.RegistrarDebitoActivity
+import br.com.rm.cfv.activities.cliente.VisualizarDebitoActivity
 import br.com.rm.cfv.database.entities.DebitoCliente
 import br.com.rm.numberUtils.DecimalFormatUtils
 import java.util.*
@@ -71,7 +72,7 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
                     when (which){
                         0 ->{
                             // Registrar debitos
-                            val intent = Intent(context, RegistrarDebitoActivity::class.java)
+                            val intent = Intent(context, VisualizarDebitoActivity::class.java)
                             //intent.putExtra("cliente", item)
                             context.startActivity(intent)
                         }

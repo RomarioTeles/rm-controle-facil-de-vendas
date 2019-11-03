@@ -10,7 +10,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "br.com.rm.cfv"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -42,6 +42,8 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0'
 
     // Required -- JUnit 4 framework
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     testImplementation 'junit:junit:4.12'
     // Optional -- Robolectric environment
     testImplementation 'androidx.test:core:1.0.0'

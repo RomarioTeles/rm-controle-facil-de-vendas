@@ -16,12 +16,13 @@ open class DebitoCliente{
     @ColumnInfo(name = "data_hora")  var dataHora : Long = Date().time
     @ColumnInfo(name = "status_pagamento")  var statusPagamento : String = StatusPagamento.PENDENTE
     @ColumnInfo(name = "tipo_pagamento")  var tipoPagamento : String = TipoPagamento.A_VISTA
-    @ColumnInfo(name = "meio_pagamento")  var meioPagamento : String = MeioPagamento.DINHEIRO.name
     @ColumnInfo(name = "data_prevista_pagamento")  var dataPrevistaPagamento : Long? = null
-    @ColumnInfo(name = "data_pagamento")  var dataPagamento : Long? = null
-    @ColumnInfo(name = "total")  var total : Double? = 0.0
+    @ColumnInfo(name = "total")  var total : Double = 0.0
     @ColumnInfo(name = "codigo") var codigo: String = UUID.randomUUID().toString()
     @Ignore var itemProdutoList: MutableList<ItemProduto> = mutableListOf()
+    @ColumnInfo(name = "qtde_parcelas")  var qtdeParcelas : Int = 1
+    @ColumnInfo(name = "percentual_juros_parcelas")  var percentualJurosParcelas : Double = 0.0
+    @Ignore var meioPagamento : String = MeioPagamento.DINHEIRO.name
 
     val messageNullable : String?
         get() = "%s não pode ser vazio."
@@ -32,6 +33,10 @@ open class DebitoCliente{
 
     fun validate(fields : Map<String, TextInputLayout>): Boolean {
         var hasError = false
+
+        if(qtdeParcelas == null){
+            qtdeParcelas = 1
+        }
 
         if(dataHora == null){
             dataHora = Date().time
@@ -67,7 +72,7 @@ open class DebitoCliente{
         return !hasError
     }
 
-    fun getSubtotal(): Double? {
+    fun getSubtotal(): Double {
         var subtotal = 0.0
 
         itemProdutoList.forEach {
@@ -79,5 +84,6 @@ open class DebitoCliente{
     fun atualizaTotal(){
         total = getSubtotal()
     }
+
 
 }

@@ -1,11 +1,11 @@
 package br.com.rm.cfv.activities.cliente
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,25 +20,31 @@ import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.debitoCliente.InsertDebitoClienteAsyncTask
 import br.com.rm.cfv.asyncTasks.produto.SelectAllProdutosAsyncTask
 import br.com.rm.cfv.constants.MeioPagamento
+import br.com.rm.cfv.constants.TipoPagamento
 import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.database.entities.DebitoCliente
 import br.com.rm.cfv.database.entities.ItemProduto
 import br.com.rm.cfv.database.entities.Produto
-import br.com.rm.cfv.utils.DatePicker
-import br.com.rm.cfv.utils.IDatePicker
-import br.com.rm.cfv.utils.ToastUtils
-import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_registrar_debito.*
 import kotlinx.android.synthetic.main.content_registrar_debito_adicionar_produto.*
 import kotlinx.android.synthetic.main.content_registrar_debito_cesta.*
+import kotlinx.android.synthetic.main.content_registrar_debito_concluido.*
+import kotlinx.android.synthetic.main.content_registrar_debito_pagamento.*
 import kotlinx.android.synthetic.main.content_registrar_debito_pagamento_meio.*
-import kotlinx.android.synthetic.main.content_registrar_debito_pagamento_tipo.*
+import kotlinx.android.synthetic.main.content_registrar_debito_pagamento_parcelamento.*
+import kotlinx.android.synthetic.main.content_registrar_debito_pagamento_wizard.*
 import kotlinx.android.synthetic.main.content_registrar_debito_produtos.*
 import kotlinx.android.synthetic.main.content_registrar_debito_resumo.*
+import kotlinx.android.synthetic.main.content_registrar_debito_resumo.textViewSubtotalItens
+import kotlinx.android.synthetic.main.content_registrar_debito_tipo_pagamento.*
+import kotlinx.android.synthetic.main.content_registrar_debito_tipo_vencimento.*
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
+import kotlin.collections.HashMap
 
-class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener, IDatePicker,
+class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener,
     IPostExecuteInsertAndUpdate {
 
     override fun afterInsert(result: Any?) {
@@ -47,8 +53,7 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
         }else{
             var cliente = result as DebitoCliente?
             if(cliente!!.uid != null) {
-                Toast.makeText(this, "Registrado com sucesso!", Toast.LENGTH_LONG).show()
-                startActivity(Intent(this, ListaClientesActivity::class.java))
+                mudaEstadoDaTela(registrarDebitoConcluido)
             }else{
                 Toast.makeText(this, "Erro ao registrar o débito cliente!", Toast.LENGTH_LONG).show()
             }
@@ -57,11 +62,6 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
 
     override fun afterUpdate(result: Any?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onDatePicked(myCalendar: Calendar) {
-        debitoCliente.dataPrevistaPagamento = myCalendar.time.time
-        textViewDataPrevistaPagamento.text = DateFormatUtils.format(myCalendar.time, "dd/MM/yyyy")
     }
 
     private lateinit var produtoRecyclerView: RecyclerView
@@ -76,6 +76,12 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
     private lateinit var itemProdutoEmEdicao : ItemProduto
     private var debitoCliente : DebitoCliente = DebitoCliente()
     private lateinit var cliente : Cliente
+    private lateinit var adapterParcelas: ArrayAdapter<String>
+    private lateinit var pagWizardViewVoltar : View
+    private lateinit var pagWizardViewAvancar : View
+    private lateinit var pagWizardViewCurrent : View
+    private var mapWizardControls = HashMap<Int, Array<View>>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,11 +123,16 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
         listaLayoutsTela.add(registrarDebitoProdutos)
         listaLayoutsTela.add(registrarDebitoCesta)
         listaLayoutsTela.add(registrarDebitoAdicionarProduto)
-        listaLayoutsTela.add(linearLayoutFinalizar)
-        listaLayoutsTela.add(linearLayoutVerCesta)
         listaLayoutsTela.add(registrarDebitoPagamentoMeio)
         listaLayoutsTela.add(registrarDebitoPagamentoTipo)
-        listaLayoutsTela.add(registrarDebitoResumo)
+        listaLayoutsTela.add(registrarDebitoPagamentoParcelas)
+        listaLayoutsTela.add(registrarDebitoPagamentoVencimento)
+        listaLayoutsTela.add(registrarDebitoConcluido)
+
+        mapWizardControls.put(registrarDebitoPagamentoMeio.id, arrayOf(registrarDebitoPagamentoTipo, registrarDebitoConcluido))
+        mapWizardControls.put(registrarDebitoPagamentoTipo.id, arrayOf(registrarDebitoCesta, registrarDebitoPagamentoParcelas))
+        mapWizardControls.put(registrarDebitoPagamentoParcelas.id, arrayOf(registrarDebitoPagamentoTipo, registrarDebitoPagamentoVencimento))
+        mapWizardControls.put(registrarDebitoPagamentoVencimento.id, arrayOf(registrarDebitoPagamentoParcelas, registrarDebitoConcluido))
 
         editTextSearch.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH){
@@ -142,6 +153,8 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
         }
 
         linearLayoutFinalizar.setOnClickListener{
+            debitoCliente.atualizaTotal()
+            textViewPagandoSubtotal.text = "R$ ${DecimalFormatUtils.decimalFormatPtBR(debitoCliente.total)}"
             mudaEstadoDaTela(registrarDebitoPagamentoTipo)
         }
 
@@ -159,7 +172,6 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
             limpaItemProduto()
             itemProdutoAdapter.notifyDataSetChanged()
             mudaEstadoDaTela(registrarDebitoProdutos)
-            linearLayoutVerCesta.visibility = View.VISIBLE
         }
 
         imageViewItemRemover.setOnClickListener{
@@ -239,7 +251,53 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
             linearLayoutVerCesta.visibility = View.VISIBLE
         }
 
-        radioGroupTipoPagamento.setOnCheckedChangeListener{ buttonView, isChecked ->
+        listViewMeioPagamento.setOnItemClickListener{parent, view, position, id ->
+            debitoCliente.meioPagamento = MeioPagamento.values().get(position).name
+        }
+
+        calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            val date = GregorianCalendar()
+            date.set(year, month, dayOfMonth, 0, 0, 0)
+            debitoCliente.dataPrevistaPagamento = date.time.time
+        }
+
+        buttonPagAvista.setOnClickListener {
+            debitoCliente.tipoPagamento = TipoPagamento.A_VISTA
+            buttonPagAvistaIcon.setCompoundDrawablesWithIntrinsicBounds( R.drawable.check, 0, 0, 0)
+            buttonPagPrazoIcon.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0)
+        }
+
+        buttonPagPrazo.setOnClickListener {
+            debitoCliente.tipoPagamento = TipoPagamento.A_PRAZO
+            buttonPagPrazoIcon.setCompoundDrawablesWithIntrinsicBounds( R.drawable.check, 0, 0, 0)
+            buttonPagAvistaIcon.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0)
+
+            initListaDeParcelas()
+        }
+
+        buttonAvancar.setOnClickListener {
+            if(pagWizardViewCurrent == registrarDebitoPagamentoTipo){
+                if(debitoCliente.tipoPagamento == TipoPagamento.A_VISTA) {
+                    mudaEstadoDaTela(registrarDebitoPagamentoMeio)
+                }else{
+                    mudaEstadoDaTela(registrarDebitoPagamentoParcelas)
+                }
+            }else if(pagWizardViewCurrent == registrarDebitoPagamentoVencimento){
+                registrarPedido()
+            }else {
+                mudaEstadoDaTela(pagWizardViewAvancar)
+            }
+        }
+
+        buttonVoltar.setOnClickListener {
+            mudaEstadoDaTela(pagWizardViewVoltar)
+        }
+
+        buttonConcluido.setOnClickListener {
+            finish()
+        }
+
+        /*radioGroupTipoPagamento.setOnCheckedChangeListener{ buttonView, isChecked ->
             if(radioAvista.isChecked){
                 buttonAvancar.text = "Concluir"
                 imageButtonEscolherDataPrevista.isEnabled = false
@@ -257,11 +315,6 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
             }
         }
 
-        listViewMeioPagamento.setOnItemClickListener{parent, view, position, id ->
-            debitoCliente.meioPagamento = MeioPagamento.values().get(position).name
-            registrarPedido()
-        }
-
         imageButtonEscolherDataPrevista.setOnClickListener{
             DatePicker(this, this).createDialog().show()
         }
@@ -270,13 +323,15 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
             DatePicker(this, this).createDialog().show()
         }
 
-        mudaEstadoDaTela(registrarDebitoProdutos)
-
         imageButtonEscolherDataPrevista.isEnabled = false
+
+        */
+
+        pesquisarProdutos("")
+        mudaEstadoDaTela(registrarDebitoProdutos)
     }
 
     private fun registrarPedido() {
-            ToastUtils.showToastConfirm(this, getString(R.string.mensagem_sucesso))
             var task = InsertDebitoClienteAsyncTask(getCfvApplication().getDataBase(), this)
             debitoCliente.itemProdutoList = itemProdutoAdapter.getListaProdutos().toMutableList()
             debitoCliente.atualizaTotal()
@@ -325,26 +380,50 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
 
     private fun mudaEstadoDaTela(v : View){
         v.visibility = View.VISIBLE
-        var listException = mutableListOf<Int>()
-        listException.add(registrarDebitoAdicionarProduto.id)
-        listException.add(registrarDebitoPagamentoMeio.id)
-        listException.add(registrarDebitoPagamentoTipo.id)
+        var listViewsPagamento = mutableListOf<Int>()
+        listViewsPagamento.add(registrarDebitoConcluido.id)
+        listViewsPagamento.add(registrarDebitoPagamentoVencimento.id)
+        listViewsPagamento.add(registrarDebitoPagamentoMeio.id)
+        listViewsPagamento.add(registrarDebitoPagamentoTipo.id)
+        listViewsPagamento.add(registrarDebitoPagamentoParcelas.id)
+
         listaLayoutsTela.forEach {
-            if(it.id != v.id){
+            if (it.id != v.id) {
                 it.visibility = View.GONE
             }
-            if(it.id in listException){
-                registrarDebitoResumo.visibility = View.GONE
-            }else{
-                registrarDebitoResumo.visibility = View.VISIBLE
-            }
-            if(it.id == registrarDebitoCesta.id){
-                linearLayoutFinalizar.visibility = View.VISIBLE
-                linearLayoutVerCesta.visibility = View.GONE
-            }else if(it.id == registrarDebitoProdutos.id){
-                linearLayoutFinalizar.visibility = View.GONE
-                linearLayoutVerCesta.visibility = View.VISIBLE
-            }
+        }
+
+        if(v.id in listViewsPagamento){
+            mudaEstadoTelaPagamento(v)
+        }else{
+            mudaEstadoTelaVenda(v)
+        }
+    }
+
+    fun mudaEstadoTelaPagamento(v : View){
+        if(v.id != registrarDebitoConcluido.id) {
+            registrarDebitoPagamento.visibility = View.VISIBLE
+            registrarDebitoResumo.visibility = View.GONE
+
+            var wizardControls = mapWizardControls.get(v.id)
+            pagWizardViewVoltar = wizardControls!!.get(0)
+            pagWizardViewAvancar = wizardControls.get(1)
+            pagWizardViewCurrent = v
+        }
+    }
+
+    fun mudaEstadoTelaVenda(v : View){
+        registrarDebitoPagamento.visibility = View.GONE
+        registrarDebitoResumo.visibility = View.VISIBLE
+
+        linearLayoutFinalizar.visibility = View.GONE
+        linearLayoutVerCesta.visibility = View.GONE
+        if(v.id == registrarDebitoAdicionarProduto.id){
+            registrarDebitoResumo.visibility = View.GONE
+        } else if (v.id == registrarDebitoCesta.id) {
+            linearLayoutFinalizar.visibility = View.VISIBLE
+        } else if (v.id == registrarDebitoProdutos.id) {
+            linearLayoutVerCesta.visibility = View.VISIBLE
         }
     }
 
@@ -354,8 +433,7 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onProdutoClick(produto : Produto) {
-
+    override fun onProdutoClick(produto : Produto, isLongClick : Boolean) {
         itemProdutoEmEdicao = ItemProduto()
 
         itemProdutoEmEdicao.codigoProduto = produto.codigo
@@ -375,7 +453,11 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
             imageViewItemProduto.setImageBitmap(getBitmapFromAbsolutePath(produto.caminhoImagem, false))
         }
 
-        registrarDebitoAdicionarProduto.visibility = View.VISIBLE
+        if(isLongClick) {
+            mudaEstadoDaTela(registrarDebitoAdicionarProduto)
+        }else{
+            buttonAdicionarProduto.performClick()
+        }
     }
 
     override fun getToobarTitle(): String {
@@ -393,5 +475,33 @@ class RegistrarDebitoActivity :  ImageUtilsActivity(), IPostExecuteSearch, IOnCl
 
     override fun getCaptureTrigger(): View? {
         return null
+    }
+
+    fun initListaDeParcelas(){
+        adapterParcelas = ArrayAdapter(this, android.R.layout.simple_list_item_1)
+        val map = mutableListOf<String>()
+        val qtdeParcelas = 12
+        val percentualJurosParcelas = BigDecimal(10.0)
+        val juros = percentualJurosParcelas.plus(BigDecimal(100)).divide(BigDecimal(100))
+        val total = BigDecimal(debitoCliente.total).multiply(juros)
+        for(i in 1..qtdeParcelas){
+            if(i < 5){
+                val valorSemJuros : Double = debitoCliente.total / i
+                val chave = "$i x R$ ${DecimalFormatUtils.decimalFormatPtBR(valorSemJuros)}"
+                map.add(chave)
+            }else {
+                val valorComJuros = total.divide(BigDecimal(i),2, RoundingMode.CEILING)
+                val chave = "$i x R$ ${valorComJuros}"
+                map.add(chave)
+            }
+        }
+
+        adapterParcelas.addAll(map)
+        listViewParcelamento.adapter = adapterParcelas
+        listViewParcelamento.setOnItemClickListener { parent, view, position, id ->
+            debitoCliente.qtdeParcelas = position+1
+            debitoCliente.percentualJurosParcelas = if (debitoCliente.qtdeParcelas < 5) 0.0 else 10.0
+        }
+        adapterParcelas.notifyDataSetChanged()
     }
 }

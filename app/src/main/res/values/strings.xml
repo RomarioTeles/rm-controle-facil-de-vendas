@@ -68,4 +68,15 @@
     <string name="toast_title_confirm">Confirmação</string>
     <string name="mensagem_confirmacao">Você deseja realmente fazer isso?</string>
     <string name="concluir">Concluir</string>
+    <string name="label_quantidade_parcelas">Escolha a quantidade de parcelas</string>
+    <string name="label_data_venc_1_parcela">Escolha a data de vencimento da 1º parcela</string>
+    <string name="debito_registrado_com_sucesso">Débito registrado com sucesso!</string>
+    <string name="label_fechar">Fechar</string>
+    <string name="label_voltar">Voltar</string>
+    <string name="label_avancar">Avançar</string>
+    <string name="title_activity_visualizar_debito">VisualizarDebitoActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_parcelas">Promissorias</string>
+    <string name="tab_lancamentos">Lançamentos</string>
 </resources>

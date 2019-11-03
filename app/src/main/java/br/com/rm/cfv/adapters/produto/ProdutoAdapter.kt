@@ -68,7 +68,12 @@ class ProdutoAdapter(private var context: ImageUtilsActivity, private var iOnCli
         }
 
         holder.view.setOnClickListener{
-            iOnClickProdutoListener.onProdutoClick(item)
+            iOnClickProdutoListener.onProdutoClick(item, false)
+        }
+
+        holder.view.setOnLongClickListener{
+            iOnClickProdutoListener.onProdutoClick(item, true)
+            true
         }
     }
 

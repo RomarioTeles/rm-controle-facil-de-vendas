@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activities.cliente.RegistrarDebitoActivity">
+
+    <include android:id="@+id/registrarDebitoPagamentoTipo"
+            android:visibility="visible"
+            layout="@layout/content_registrar_debito_tipo_pagamento"/>
+
+    <include android:id="@+id/registrarDebitoPagamentoParcelas"
+            android:visibility="visible"
+            layout="@layout/content_registrar_debito_pagamento_parcelamento"/>
+
+    <include android:id="@+id/registrarDebitoPagamentoVencimento"
+            android:visibility="visible"
+            layout="@layout/content_registrar_debito_tipo_vencimento"/>
+
+    <include android:id="@+id/registrarDebitoPagamentoMeio"
+            android:visibility="visible"
+            layout="@layout/content_registrar_debito_pagamento_meio"/>
+
+    <include android:id="@+id/registrarDebitoPagamentoWizard"
+            android:visibility="visible"
+            layout="@layout/content_registrar_debito_pagamento_wizard"/>
+
+    <include android:id="@+id/registrarDebitoConcluido"
+            android:visibility="gone"
+            layout="@layout/content_registrar_debito_concluido"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -70,7 +70,7 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
         return null
     }
 
-    override fun onProdutoClick(produto: Produto) {
+    override fun onProdutoClick(produto: Produto, isLongClick: Boolean) {
         var intent = Intent(this, CadastrarProdutoActivity::class.java)
         intent.putExtra("produto", produto)
         startActivity(intent)
