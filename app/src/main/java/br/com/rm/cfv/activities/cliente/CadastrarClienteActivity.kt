@@ -9,6 +9,7 @@ import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.asyncTasks.cliente.InsertClienteAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.R
+import br.com.rm.cfv.utils.EditTextMaskUtil
 import kotlinx.android.synthetic.main.activity_cadastrar_cliente.*
 import java.util.*
 
@@ -60,6 +61,9 @@ class CadastrarClienteActivity : BaseActivity(), IPostExecuteInsertAndUpdate {
                 task.execute(cliente)
             }
         }
+
+        editTextCPF.addTextChangedListener(EditTextMaskUtil.insert(editTextCPF, EditTextMaskUtil.MASK_CPF))
+        editTextDataNascimento.addTextChangedListener(EditTextMaskUtil.insert(editTextDataNascimento, EditTextMaskUtil.MASK_DATE))
 
         hideFabOnScroll(scrollView)
     }
