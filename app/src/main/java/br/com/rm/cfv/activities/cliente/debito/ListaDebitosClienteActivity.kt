@@ -13,6 +13,9 @@ import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.debitoCliente.SelectAllDebitosClienteAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.database.entities.DebitoCliente
+import br.com.rm.cfv.database.entities.dtos.DebitoClienteDTO
+import br.com.rm.numberUtils.DecimalFormatUtils
+import kotlinx.android.synthetic.main.activity_lista_debitos_cliente.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
@@ -29,7 +32,7 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lista_default)
+        setContentView(R.layout.activity_lista_debitos_cliente)
 
         cliente = intent.getSerializableExtra("cliente") as Cliente
 
@@ -53,9 +56,7 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
 
         getAllClientes()
 
-        fab().setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this, CadastrarClienteActivity::class.java))
-        })
+        hideFab()
     }
 
     fun getAllClientes(){
@@ -68,7 +69,9 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
     }
 
     override fun afterSearch(result: Any?) {
-        myDataset = result as List<DebitoCliente>
+        val dto = result as DebitoClienteDTO
+        myDataset = dto.debitos!!
         viewAdapter.setDataset(myDataset.toMutableList())
+        textViewTotalValor.text = DecimalFormatUtils.decimalFormatPtBR(dto.total)
     }
 }

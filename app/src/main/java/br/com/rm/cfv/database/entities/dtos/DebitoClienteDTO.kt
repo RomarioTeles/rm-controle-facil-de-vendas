@@ -1,9 +1,15 @@
 package br.com.rm.cfv.database.entities.dtos
 
 import androidx.room.ColumnInfo
+import androidx.room.Ignore
+import br.com.rm.cfv.database.entities.DebitoCliente
 
-data class DebitoClienteDTO (
-    @ColumnInfo(name = "cliente_id") var clienteId: Int?,
-    @ColumnInfo(name = "nome") var nome: String?,
-    @ColumnInfo(name = "total") var total: Double?
-)
+class DebitoClienteDTO () {
+    @ColumnInfo(name = "cliente_id")
+    var clienteId: Int? = null
+    @ColumnInfo(name = "nome")
+    var nome: String? = null
+    @ColumnInfo(name = "total")
+    var total: Double? = 0.0
+    @Ignore var debitos: List<DebitoCliente>? = null
+}

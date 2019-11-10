@@ -10,14 +10,11 @@ interface DebitoClienteDAO{
     @Query("SELECT * FROM debitocliente")
     fun getAll(): List<DebitoCliente>
 
-    @Query("SELECT cliente_id as cliente_id, cliente_nome as nome, SUM(total) AS total  FROM debitocliente where status_pagamento = 'PENDENTE' group by cliente_id, cliente_nome")
-    fun getAllDTO(): List<DebitoClienteDTO>
+    @Query("SELECT cliente_id as cliente_id, cliente_nome as nome, SUM(total) AS total  FROM debitocliente where status_pagamento = :status and cliente_id = :cliente_id LIMIT 1")
+    fun findByClienteIdAndStatus(cliente_id: Int, status: String): DebitoClienteDTO
 
-    @Query("SELECT * FROM debitocliente WHERE uid IN (:userIds)")
-    fun loadAllByIds(userIds: IntArray): List<DebitoCliente>
-
-    @Query("SELECT * FROM debitocliente WHERE cliente_id = :first")
-    fun findByClienteId(first: Int) : List<DebitoCliente>
+    @Query("SELECT * FROM debitocliente WHERE cliente_id = :cliente_id")
+    fun findByClienteId(cliente_id: Int) : List<DebitoCliente>
 
     @Query("SELECT * FROM debitocliente WHERE codigo = :codigo")
     fun findByCodigo(codigo: String) : DebitoCliente
