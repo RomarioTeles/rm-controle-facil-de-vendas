@@ -60,6 +60,8 @@ class CadastrarClienteActivity : BaseActivity(), IPostExecuteInsertAndUpdate {
                 task.execute(cliente)
             }
         }
+
+        hideFabOnScroll(scrollView)
     }
 
     override fun afterInsert(result: Any?) {

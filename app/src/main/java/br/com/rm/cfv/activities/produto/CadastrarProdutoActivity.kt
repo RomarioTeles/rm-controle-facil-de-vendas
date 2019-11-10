@@ -1,5 +1,6 @@
 package br.com.rm.cfv.activities.produto
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -14,6 +15,7 @@ import br.com.rm.cfv.asyncTasks.produto.InsertProdutoAsyncTask
 import br.com.rm.cfv.database.entities.Produto
 import com.google.android.material.textfield.TextInputLayout
 import br.com.rm.cfv.R
+import com.google.common.base.Strings
 import kotlinx.android.synthetic.main.activity_cadastrar_produto.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import java.io.ByteArrayOutputStream
@@ -39,6 +41,7 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
     lateinit var departs : List<String>
     private lateinit var mapFields : HashMap<String, TextInputLayout>
     private var imageBitmap: Bitmap? = null
+    private var proxCodigo : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,10 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
         mapFields["precoTabela"] = textInputLayoutPrecoTabela
 
         SelectAllNamesAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this).execute()
+
+        proxCodigo = getProximoCodigoProduto()
+        val codigoFormatado = Strings.padStart(proxCodigo.toString(), 5, '0')
+        textInputEditCodigo.setText(codigoFormatado)
 
         fab().setOnClickListener(View.OnClickListener {
             val id = textInputEditId.text.toString()
@@ -69,10 +76,15 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
             val produto = Produto(idToInt, nome, codigo, precoTabelaToDouble, precoCustoToDouble, precoRevendaToDouble, saveImage(codigo), departamento)
 
             if(produto.validate(mapFields)){
+                if(idToInt == null){
+                    salvaUltimoCodigoProduto(proxCodigo)
+                }
                InsertProdutoAsyncTask(getCfvApplication().getDataBase()!!, this).execute(produto)
             }
 
         })
+
+        hideFabOnScroll(scrollView)
     }
 
     private fun preencheProduto(){
@@ -146,6 +158,16 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
 
     override fun afterUpdate(result: Any?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun getProximoCodigoProduto(): Int{
+        val sharedPreferences = getSharedPreferences("PREF_PRODUTO", Context.MODE_PRIVATE)
+        return sharedPreferences.getInt("ULTIMO_CODIGO", 0) + 1
+    }
+
+    fun salvaUltimoCodigoProduto(codigo : Int){
+        val sharedPreferences = getSharedPreferences("PREF_PRODUTO", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putInt("ULTIMO_CODIGO", codigo).apply()
     }
 
 }

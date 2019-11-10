@@ -21,8 +21,9 @@
                       android:padding="8dp">
 
             <ImageView  android:id="@+id/imageViewIcon"
-                        app:srcCompat="@drawable/cash"
+                        android:background="@drawable/shape_circle_accent"
                         android:layout_width="50dp"
+                        android:padding="4dp"
                         android:layout_height="50dp"/>
 
             <TextView   android:id="@+id/textViewItemValor"

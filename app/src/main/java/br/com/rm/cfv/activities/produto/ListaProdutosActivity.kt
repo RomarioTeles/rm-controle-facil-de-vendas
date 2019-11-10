@@ -43,6 +43,8 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
             adapter = viewAdapter
         }
 
+        hideFabOnScroll(recyclerView)
+
         getAllProdutos()
 
         fab().setOnClickListener(View.OnClickListener {

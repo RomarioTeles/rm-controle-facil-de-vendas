@@ -14,4 +14,11 @@
         <item>Cancelar</item>
     </string-array>
 
+    <string-array name="list_item_debito_cliente">
+        <item>Detalhes</item>
+        <item>Quitar Débito</item>
+        <item>Remover registro</item>
+        <item>Cancelar</item>
+    </string-array>
+
 </resources>

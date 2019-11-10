@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.cliente.VisualizarDebitoActivity">
+        tools:context=".activities.cliente.debito.VisualizarDebitoActivity">
 
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -20,6 +20,42 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginTop="?actionBarSize"/>
+
+    <FrameLayout android:id="@+id/framelayout_total"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/primary"
+                android:padding="16dp">
+
+            <TextView android:id="@+id/textViewTotalLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_total"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primary_text"
+                    android:textSize="25dp"
+                    android:textStyle="bold"/>
+
+            <TextView android:id="@+id/textViewTotalValor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="R$ 0"
+                    android:textAllCaps="true"
+                    android:gravity="end"
+                    android:textColor="@color/primary_text"
+                    android:textSize="25dp"
+                    android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

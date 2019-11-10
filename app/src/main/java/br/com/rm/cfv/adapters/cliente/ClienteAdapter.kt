@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
-import br.com.rm.cfv.activities.cliente.ListaDebitosClienteActivity
-import br.com.rm.cfv.activities.cliente.RegistrarDebitoActivity
+import br.com.rm.cfv.activities.cliente.debito.ListaDebitosClienteActivity
+import br.com.rm.cfv.activities.cliente.debito.RegistrarDebitoActivity
 import br.com.rm.cfv.database.entities.Cliente
 
 

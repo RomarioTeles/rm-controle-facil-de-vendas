@@ -1,6 +1,7 @@
 package br.com.rm.cfv.adapters.produto
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +13,9 @@ import br.com.rm.cfv.activities.ImageUtilsActivity
 import br.com.rm.cfv.activities.produto.IOnClickProdutoListener
 import br.com.rm.cfv.database.entities.ItemProduto
 import br.com.rm.numberUtils.DecimalFormatUtils
+import com.google.common.base.Strings
 
-class ItemProdutoAdapter(private var context: ImageUtilsActivity, private var myDataset: MutableList<ItemProduto>) : RecyclerView.Adapter<ItemProdutoAdapter.ProdutoViewHolder>() {
+class ItemProdutoAdapter(private var context: Context, private var myDataset: MutableList<ItemProduto>) : RecyclerView.Adapter<ItemProdutoAdapter.ProdutoViewHolder>() {
 
     class ProdutoViewHolder(val view : View) : RecyclerView.ViewHolder(view){
 
@@ -65,7 +67,6 @@ class ItemProdutoAdapter(private var context: ImageUtilsActivity, private var my
     override fun onBindViewHolder(holder: ProdutoViewHolder, position: Int) {
 
         var item = myDataset.get(position)
-
         holder.textViewNome.text = item.nomeProduto
         holder.textViewCodigo.text = item.codigoProduto
         holder.textViewSubtotal.text = DecimalFormatUtils.decimalFormatPtBR(item.subtotal)

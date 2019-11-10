@@ -1,6 +1,7 @@
 package br.com.rm.cfv.adapters.cliente
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,35 +9,61 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
-import br.com.rm.cfv.activities.cliente.RegistrarDebitoActivity
-import br.com.rm.cfv.activities.cliente.VisualizarDebitoActivity
+import br.com.rm.cfv.activities.BaseActivity
+import br.com.rm.cfv.activities.cliente.debito.VisualizarDebitoActivity
+import br.com.rm.cfv.activities.cliente.debito.VisualizarDebitoActivity.Companion.ARG_DEBITO_CLIENTE
+import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
+import br.com.rm.cfv.asyncTasks.debitoCliente.DeleteDebitoClienteAsyncTask
 import br.com.rm.cfv.database.entities.DebitoCliente
+import br.com.rm.cfv.utils.DialogConfig
+import br.com.rm.cfv.utils.DialogUtils
+import br.com.rm.cfv.utils.ToastUtils
+import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.numberUtils.DecimalFormatUtils
 import java.util.*
 
 
-class DebitoClienteAdapter(private var context : Context, private var myDataset: List<DebitoCliente>) :
-    RecyclerView.Adapter<DebitoClienteAdapter.ClienteViewHolder>() {
+class DebitoClienteAdapter(private var context : Context, private var myDataset: MutableList<DebitoCliente>) :
+    RecyclerView.Adapter<DebitoClienteAdapter.ClienteViewHolder>(), IPostExecuteSearch {
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder.
-    // Each data item is just a string in this case that is shown in a TextView.
+    override fun afterSearch(result: Any?) {
+        if(result as Int > -1) {
+            ToastUtils.showToastSuccess(
+                context,
+                context.resources.getString(R.string.mensagem_sucesso)
+            )
+            notifyItemRemoved(result)
+            myDataset.removeAt(result)
+        }else{
+            ToastUtils.showToastError(
+                context,
+                context.resources.getString(R.string.mensagem_erro)
+            )
+        }
+    }
+
+    override fun showProgress(text: String) {
+        (context as BaseActivity).showProgress(text)
+    }
+
+    override fun hideProgress() {
+        (context as BaseActivity).hideProgress()
+    }
+
     class ClienteViewHolder(val view : View) : RecyclerView.ViewHolder(view){
         lateinit var textViewDataHora : TextView
         lateinit var  textViewTotal : TextView
     }
 
-    fun setDataset(dataset : List<DebitoCliente>){
+    fun setDataset(dataset : MutableList<DebitoCliente>){
         this.myDataset = dataset
         notifyDataSetChanged()
     }
 
-
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): DebitoClienteAdapter.ClienteViewHolder {
+                                    viewType: Int): ClienteViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_item_default, parent, false) as View
@@ -61,23 +88,35 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
 
         val item = myDataset[position]
 
-        holder.textViewTotal.text = Date(item.dataHora).toLocaleString()
+        holder.textViewTotal.text = DateFormatUtils.format(Date(item.dataHora), "dd/MM/yyyy HH:mm")
 
-        holder.textViewDataHora.text = DecimalFormatUtils.decimalFormat(item.total)
+        holder.textViewDataHora.text = "R$ ${DecimalFormatUtils.decimalFormatPtBR(item.total)}"
 
         holder.view.setOnClickListener{
             val builder = AlertDialog.Builder(context)
             builder.setTitle(R.string.pick_option)
-                .setItems(R.array.list_item_client_options) { dialog, which ->
+                .setItems(R.array.list_item_debito_cliente) { dialog, which ->
                     when (which){
                         0 ->{
-                            // Registrar debitos
                             val intent = Intent(context, VisualizarDebitoActivity::class.java)
-                            //intent.putExtra("cliente", item)
+                            intent.putExtra(ARG_DEBITO_CLIENTE, item)
                             context.startActivity(intent)
                         }
-                        4 ->{
-                            // cancelar ação
+                        2 ->{
+                            var dialogConfig = DialogConfig()
+                            dialogConfig.negativeButtonListener = Runnable {
+                                dialog.dismiss()
+                            }
+                            dialogConfig.positiveButtonListener = Runnable {
+                                var task = DeleteDebitoClienteAsyncTask(CfvApplication.database!!.debitoClienteDAO(), this)
+                                task.execute(item, position)
+                            }
+                            dialogConfig.showSubtitle = true
+                            dialogConfig.showNegativeButton = true
+
+                            DialogUtils.showDialogAlert(context, R.string.toast_title_confirm, R.string.mensagem_confirmacao_remocao_debito, dialogConfig )
+                        }
+                        3 ->{
                             dialog.dismiss()
                         }
                     }

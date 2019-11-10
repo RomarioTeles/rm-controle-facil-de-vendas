@@ -8,7 +8,8 @@
         tools:context="br.com.rm.cfv.activities.cliente.CadastrarClienteActivity">
 
     <ScrollView android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+            android:id="@+id/scrollView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

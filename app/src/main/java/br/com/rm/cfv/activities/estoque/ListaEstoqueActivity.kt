@@ -47,9 +47,9 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
        listaTipoMovimentacao = TipoMovimentacaoEstoque.values()
        listaMotivos = MotivoMovimentacao.values()
 
-        adaptertipoMovimentacao = ArrayAdapter(this, android.R.layout.select_dialog_item, listaTipoMovimentacao)
+        adaptertipoMovimentacao = ArrayAdapter(this, android.R.layout.simple_list_item_1, listaTipoMovimentacao)
 
-        adapterMotivos = ArrayAdapter(this, android.R.layout.select_dialog_item, listaMotivos)
+        adapterMotivos = ArrayAdapter(this, android.R.layout.simple_list_item_1, listaMotivos)
 
         spinner_motivo.adapter = adapterMotivos
 

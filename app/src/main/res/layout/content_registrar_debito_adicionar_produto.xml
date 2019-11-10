@@ -81,7 +81,7 @@
                         android:maxLines="1"
                         android:imeOptions="actionDone"
                         android:imeActionLabel="OK"
-                        android:hint="@string/quantidade"/>
+                        android:hint="@string/label_quantidade"/>
 
                 <Button
                         android:id="@+id/buttonIncrementarQuantidade"

@@ -1,4 +1,4 @@
-package br.com.rm.cfv.activities.cliente
+package br.com.rm.cfv.activities.cliente.debito
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
+import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
 import br.com.rm.cfv.adapters.cliente.DebitoClienteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.debitoCliente.SelectAllDebitosClienteAsyncTask
@@ -36,7 +37,7 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
 
         viewManager = LinearLayoutManager(this)
 
-        viewAdapter = DebitoClienteAdapter(this, myDataset)
+        viewAdapter = DebitoClienteAdapter(this, myDataset.toMutableList())
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             // use this setting to improve performance if you know that changes
@@ -68,6 +69,6 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
 
     override fun afterSearch(result: Any?) {
         myDataset = result as List<DebitoCliente>
-        viewAdapter.setDataset(myDataset)
+        viewAdapter.setDataset(myDataset.toMutableList())
     }
 }

@@ -13,8 +13,8 @@ interface PagamentoDebitoDAO{
     @Query("SELECT * FROM pagamentodebito where debito_cliente_id = :debitoClienteId  order by data_hora")
     fun getAll(debitoClienteId : Int): List<PagamentoDebito>
 
-    @Query("SELECT * FROM pagamentodebito WHERE uid IN (:userIds)")
-    fun loadAllByIds(userIds: IntArray): List<PagamentoDebito>
+    @Query("SELECT * FROM pagamentodebito")
+    fun getAll(): List<PagamentoDebito>
 
     @Query("SELECT * FROM PagamentoDebito WHERE codigo = :codigo")
     fun findByCodigo(codigo: String) : PagamentoDebito

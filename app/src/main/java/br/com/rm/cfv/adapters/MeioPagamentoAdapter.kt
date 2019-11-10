@@ -14,6 +14,8 @@ class MeioPagamentoAdapter(context: Context) : ArrayAdapter<MeioPagamento>(conte
 
     private val itens : List<MeioPagamento> = MeioPagamento.values().toList()
 
+    var selected : MeioPagamento = MeioPagamento.DINHEIRO
+
     private fun getItems() : List<MeioPagamento>{
         return itens
     }
@@ -29,7 +31,14 @@ class MeioPagamentoAdapter(context: Context) : ArrayAdapter<MeioPagamento>(conte
 
         val item = getItem(position)
         view!!.findViewById<TextView>(R.id.textViewItemValor).text = item!!.descricao
-        view.findViewById<ImageView>(R.id.imageViewIcon).setImageResource(item.res)
+        view!!.findViewById<ImageView>(R.id.imageViewIcon).setImageResource(item.res)
+
+        if(selected == item){
+            view.setBackgroundColor(context.resources.getColor(R.color.accent_active))
+        }else{
+            view.setBackgroundColor(context.resources.getColor(android.R.color.transparent))
+        }
+
         return view
     }
 

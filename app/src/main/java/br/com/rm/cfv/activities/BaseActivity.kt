@@ -2,6 +2,7 @@ package br.com.rm.cfv.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.CfvApplication
+import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
 import br.com.rm.cfv.activities.estoque.ListaEstoqueActivity
@@ -19,7 +22,6 @@ import br.com.rm.cfv.activities.produto.ListaProdutosActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import br.com.rm.cfv.R
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -143,4 +145,30 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     abstract fun getToobarTitle(): String
+
+    fun hideFabOnScroll(view : View){
+       hideFabOnScroll(view, fab)
+    }
+
+    fun hideFabOnScroll(view : View, fab : FloatingActionButton){
+
+        if(view is RecyclerView){
+            view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > 0)
+                        fab.hide()
+                    else if (dy < 0)
+                        fab.show()
+                }
+            })
+        }else {
+            view.viewTreeObserver.addOnScrollChangedListener {
+                Log.d("Posi Y", view.scrollY.toString())
+                if (view.scrollY > 0)
+                    fab.hide()
+                else if (view.scrollY < 0)
+                    fab.show()
+            }
+        }
+    }
 }

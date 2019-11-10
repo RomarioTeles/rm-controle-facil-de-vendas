@@ -4,9 +4,13 @@ import android.database.sqlite.SQLiteConstraintException
 import android.os.AsyncTask
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.constants.MeioPagamento
+import br.com.rm.cfv.constants.MotivoMovimentacao
+import br.com.rm.cfv.constants.TipoMovimentacaoEstoque
 import br.com.rm.cfv.constants.TipoPagamento
 import br.com.rm.cfv.database.daos.AppDataBase
 import br.com.rm.cfv.database.entities.DebitoCliente
+import br.com.rm.cfv.database.entities.ItemProduto
+import br.com.rm.cfv.database.entities.MovimentacaoEstoque
 import br.com.rm.cfv.database.entities.PagamentoDebito
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -26,8 +30,15 @@ open class InsertDebitoClienteAsyncTask(private var dao: AppDataBase?, private v
             result = dao!!.debitoClienteDAO().findByCodigo(cliente.codigo)
 
             if(result != null){
+
+                cliente.itemProdutoList.forEach {
+                    it.debitoClienteId = result.uid
+                }
+
                 dao!!.itemProdutoDAO().insertAll(cliente.itemProdutoList)
+                cliente.uid = result.uid
                 dao!!.pagamentoDebitoDAO().insertAll(*criaPagamentos(cliente))
+                atualizaEstoque(dao!!, cliente.itemProdutoList)
             }
 
             return result
@@ -62,12 +73,12 @@ open class InsertDebitoClienteAsyncTask(private var dao: AppDataBase?, private v
             val valor = debitoCliente.total / qtdeParcelas
             val juros = valor * (percentualJurosParcelas / 100)
             val valorParcela = valor+juros
-            for(num in 1..qtdeParcelas){
+            for(num in 0..qtdeParcelas){
                 val pagamentoDebito = PagamentoDebito()
                 pagamentoDebito.debitoClienteId = debitoCliente.uid
                 pagamentoDebito.meioPagamento = MeioPagamento.DINHEIRO.name
                 pagamentoDebito.valor = BigDecimal(valorParcela).setScale(2, RoundingMode.CEILING).toDouble()
-                if(num > 1){
+                if(num > 0){
                     val calendar = GregorianCalendar()
                     calendar.time = Date(debitoCliente.dataPrevistaPagamento!!)
                     calendar.add(Calendar.MONTH, num)
@@ -82,5 +93,17 @@ open class InsertDebitoClienteAsyncTask(private var dao: AppDataBase?, private v
         }
     }
 
+    fun atualizaEstoque(dao: AppDataBase, itensProdutos : List<ItemProduto>){
+
+        val date = Date().time
+        val listaEstoque = mutableListOf<MovimentacaoEstoque>()
+        itensProdutos.forEach {
+            val estoque = MovimentacaoEstoque(null, it.codigoProduto!!, MotivoMovimentacao.VENDA_ITEM, date, TipoMovimentacaoEstoque.SAIDA ,it.getQuantidade() )
+            listaEstoque.add(estoque)
+        }
+
+        dao.movimentacaoEstoqueDAO().insertAll(*listaEstoque.toTypedArray())
+
+    }
 
 }

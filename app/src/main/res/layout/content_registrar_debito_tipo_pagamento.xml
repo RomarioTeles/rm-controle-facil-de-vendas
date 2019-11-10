@@ -22,69 +22,23 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp" />
 
-    <LinearLayout android:id="@+id/buttonPagAvista"
+    <Button android:id="@+id/buttonPagAvista"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/buttonPagPrazo"
-            android:clickable="true"
-            android:background="@color/accent"
-            android:layout_marginBottom="8dp">
+            android:text="@string/label_tipo_pag_a_vista"
+            android:textStyle="bold"
+            android:background="@color/accent_active"
+            android:layout_marginBottom="8dp"
+            android:tag="selecionado"/>
 
-        <TextView
-                android:id="@+id/buttonPagAvistaIcon"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:textColor="@color/secondary_text"
-                android:textStyle="bold"/>
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="à vista"
-                android:padding="16dp"
-                android:paddingEnd="50dp"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:textColor="@color/secondary_text"
-                android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout android:id="@+id/buttonPagPrazo"
+    <Button android:id="@+id/buttonPagPrazo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:clickable="true"
-            android:background="@color/accent">
-
-    <TextView
-            android:id="@+id/buttonPagPrazoIcon"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:textColor="@color/secondary_text"
+            android:text="@string/label_tipo_pag_prazo"
+            android:background="@color/accent"
             android:textStyle="bold"/>
-
-
-    <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="à prazo"
-            android:padding="16dp"
-            android:paddingEnd="50dp"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:textColor="@color/secondary_text"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

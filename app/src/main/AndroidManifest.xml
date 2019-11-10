@@ -20,7 +20,7 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
-                android:name=".activities.cliente.VisualizarDebitoActivity"
+                android:name=".activities.cliente.debito.VisualizarDebitoActivity"
                 android:label="@string/title_activity_visualizar_debito"
                 android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
@@ -55,11 +55,11 @@
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".activities.cliente.RegistrarDebitoActivity"
+                android:name=".activities.cliente.debito.RegistrarDebitoActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".activities.cliente.ListaDebitosClienteActivity"
+                android:name=".activities.cliente.debito.ListaDebitosClienteActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar"></activity>
 

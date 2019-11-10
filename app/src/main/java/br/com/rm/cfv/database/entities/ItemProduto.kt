@@ -1,13 +1,16 @@
 package br.com.rm.cfv.database.entities
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.google.common.base.Strings
 
 @Entity
 @ForeignKey(entity = DebitoCliente::class, parentColumns = ["uid"], childColumns = ["debito_cliente_id"], onDelete = ForeignKey.CASCADE)
-open class ItemProduto {
+open class ItemProduto() : Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     var uid: Int? = null
@@ -27,6 +30,18 @@ open class ItemProduto {
     private var desconto: Double = 0.0
     @ColumnInfo(name = "acrescimo")
     private var acrescimo: Double = 0.0
+
+    constructor(parcel: Parcel) : this() {
+        uid = parcel.readValue(Int::class.java.classLoader) as? Int
+        debitoClienteId = parcel.readValue(Int::class.java.classLoader) as? Int
+        nomeProduto = parcel.readString()
+        codigoProduto = parcel.readString()
+        precoUnitario = parcel.readDouble()
+        quantidade = parcel.readInt()
+        subtotal = parcel.readDouble()
+        desconto = parcel.readDouble()
+        acrescimo = parcel.readDouble()
+    }
 
     fun atualizaSubtotal(){
         this.subtotal = (quantidade * precoUnitario) + acrescimo - desconto
@@ -81,5 +96,29 @@ open class ItemProduto {
         return result
     }
 
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(uid)
+        parcel.writeValue(debitoClienteId)
+        parcel.writeString(nomeProduto)
+        parcel.writeString(codigoProduto)
+        parcel.writeDouble(precoUnitario)
+        parcel.writeInt(quantidade)
+        parcel.writeDouble(subtotal)
+        parcel.writeDouble(desconto)
+        parcel.writeDouble(acrescimo)
+    }
 
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<ItemProduto> {
+        override fun createFromParcel(parcel: Parcel): ItemProduto {
+            return ItemProduto(parcel)
+        }
+
+        override fun newArray(size: Int): Array<ItemProduto?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

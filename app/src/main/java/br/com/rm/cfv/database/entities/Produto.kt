@@ -2,7 +2,9 @@ package br.com.rm.cfv.database.entities
 
 import androidx.room.*
 import com.google.android.material.textfield.TextInputLayout
+import com.google.common.base.Strings
 import java.io.Serializable
+import java.util.*
 
 @Entity(
     indices = arrayOf(Index(value = ["codigo"], unique = true))
@@ -11,7 +13,7 @@ import java.io.Serializable
 open class Produto (
     @PrimaryKey(autoGenerate = true) var uid: Int? = null,
     @ColumnInfo(name = "nome") var nome: String?,
-    @ColumnInfo(name = "codigo") var codigo: String?,
+    @ColumnInfo(name = "codigo") var codigo: String? = UUID.randomUUID().toString(),
     @ColumnInfo(name = "preco_tabela") var precoTabela: Double?,
     @ColumnInfo(name = "preco_custo") var precoCusto: Double?,
     @ColumnInfo(name = "preco_venda") var precoVenda: Double?,

@@ -11,6 +11,7 @@
             android:id="@+id/listViewMeioPagamento"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/list_view_item_meio_pagamento" />
+            tools:listitem="@layout/list_view_item_meio_pagamento"
+            android:divider="@android:color/transparent"/>
 
 </LinearLayout>

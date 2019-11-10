@@ -27,7 +27,7 @@
     <string name="listar_clientes_title">Clientes</string>
     <string name="listar_departamentos_title">Departamentos</string>
     <string name="movimentacao_de_estoque">Movimentacao de estoque</string>
-    <string name="quantidade">Quantidade</string>
+    <string name="label_quantidade">Quantidade</string>
     <string name="mensagem_campo_requerido">Este campo deve ser preenchido.</string>
     <string name="tipo_de_movimentacao">Tipo de Movimentação</string>
     <string name="motivo">Motivo</string>
@@ -37,7 +37,7 @@
     <string name="habilitar_camera_mensagem">Camera is not Enabled. Do you want to go to settings menu?</string>
     <string name="configuracoes">Settings</string>
     <string name="pick_option">O que você deseja fazer?</string>
-    <string name="sugestao_adicionar_produto">Clique no produto para adicioná-lo a cesta</string>
+    <string name="sugestao_adicionar_produto">Toque no produto, ou mantenha-o pressionado, para adicioná-lo a cesta</string>
     <string name="itens">Itens</string>
     <string name="label_subtotal">Subtotal</string>
     <string name="pesquise_codigo_produto">Pesquise pelo o código do produto...</string>
@@ -79,4 +79,11 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_parcelas">Promissorias</string>
     <string name="tab_lancamentos">Lançamentos</string>
+    <string name="label_desc_acresc">Desc./Acresc.</string>
+    <string name="label_preco_unitario">Preço unitário</string>
+    <string name="label_codigo">Código</string>
+    <string name="label_total">Total</string>
+    <string name="mensagem_confirmacao_remocao_debito">Este débito pode ter pagamentos pendentes de recebimento. Deseja realmente excluí-lo?</string>
+    <string name="label_tipo_pag_prazo">à prazo</string>
+    <string name="label_tipo_pag_a_vista">à vista</string>
 </resources>

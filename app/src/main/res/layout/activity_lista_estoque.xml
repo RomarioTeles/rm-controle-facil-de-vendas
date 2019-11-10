@@ -1,65 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <include layout="@layout/activity_lista_default"/>
+    <include layout="@layout/activity_lista_default" />
 
-    <FrameLayout android:id="@+id/framelayout_movimentar_estoque"
+    <FrameLayout
+            android:id="@+id/framelayout_movimentar_estoque"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_black_transparencia"
-                 app:layout_constraintTop_toTopOf="parent"
-                 app:layout_constraintStart_toStartOf="parent"
-                 app:layout_constraintEnd_toEndOf="parent"
-                 android:padding="32dip">
+            android:padding="32dip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView android:layout_width="match_parent"
-                                           android:layout_height="wrap_content"
-                                           app:cardCornerRadius="3dp"
-                                           app:cardElevation="4dp"
-                                           app:cardUseCompatPadding="true"
-                                           android:layout_gravity="center">
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:cardCornerRadius="3dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
 
-            <LinearLayout android:orientation="vertical"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:padding="16dp">
-
-                <TextView android:id="@+id/textViewItemValor"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:textColor="@color/primary_text"
-                          android:textStyle="bold"
-                          style="bold"
-                          android:textSize="16sp"
-                          android:text="@string/movimentacao_de_estoque"
-                          android:textAllCaps="true"
-                          android:layout_marginBottom="16dp"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                 <TextView
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:textColor="@color/primary_text"
-                          android:text="@string/tipo_de_movimentacao"/>
-
-                <Spinner android:id="@+id/spinner_tipo_movimentacao"
+                        android:id="@+id/textViewItemValor"
+                        style="bold"
                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:layout_marginBottom="8dp"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/movimentacao_de_estoque"
+                        android:textAllCaps="true"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/primary_text"
-                        android:text="@string/motivo"/>
+                        android:text="@string/tipo_de_movimentacao"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="16sp" />
 
-                <Spinner android:id="@+id/spinner_motivo"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:layout_marginBottom="8dp"/>
+                <Spinner
+                        android:id="@+id/spinner_tipo_movimentacao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dialog"
+                        android:layout_marginBottom="8dp" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/motivo"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="16dp"/>
+
+                <Spinner
+                        android:id="@+id/spinner_motivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dialog"
+                        android:layout_marginBottom="8dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayoutQuantidade"
@@ -71,34 +81,37 @@
                             android:id="@+id/textViewQuantidade"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="number"
-                            android:hint="@string/quantidade"/>
+                            android:hint="@string/label_quantidade"
+                            android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-                <LinearLayout android:orientation="horizontal"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:layout_marginTop="16dip">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dip"
+                        android:orientation="horizontal">
 
-                    <Button android:id="@+id/buttonCancel"
+                    <Button
+                            android:id="@+id/buttonCancel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:background="@android:color/transparent"
-                            android:textColor="@color/secondary_text"
                             android:layout_gravity="left"
-                            android:text="@string/cancelar"/>
-
-                    <Button android:id="@+id/buttonAdd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:layout_weight="2"
                             android:background="@android:color/transparent"
-                            android:textColor="@color/primary"
+                            android:text="@string/cancelar"
+                            android:textColor="@color/secondary_text" />
+
+                    <Button
+                            android:id="@+id/buttonAdd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:text="@string/salvar"/>
+                            android:layout_weight="2"
+                            android:background="@android:color/transparent"
+                            android:text="@string/salvar"
+                            android:textColor="@color/primary" />
 
                 </LinearLayout>
 

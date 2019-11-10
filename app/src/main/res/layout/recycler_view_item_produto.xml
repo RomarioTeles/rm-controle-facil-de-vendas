@@ -1,78 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="3dp"
         app:cardElevation="2dp"
-        app:cardUseCompatPadding="true">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dip"
-            android:paddingBottom="8dip">
+            android:padding="8dp">
 
-        <ImageView android:id="@+id/imageViewProduto"
-                   android:layout_width="100dip"
-                   android:layout_height="100dip"
-                   android:layout_gravity="center"
-                   app:srcCompat="@drawable/no_image"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toTopOf="parent"/>
+        <LinearLayout
+                android:id="@+id/linearLayoutNomeProduto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout android:id="@+id/linearLayoutNomeProduto"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical"
-                      app:layout_constraintStart_toEndOf="@+id/imageViewProduto"
-                      app:layout_constraintTop_toTopOf="parent"
-                      android:layout_marginStart="100dp"
-                      android:layout_marginEnd="96dp"
-                      android:layout_marginTop="8dp">
+            <ImageView
+                    android:id="@+id/imageViewProduto"
+                    android:layout_width="100dip"
+                    android:layout_height="100dip"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center|top"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/no_image" />
 
-            <TextView android:id="@+id/textViewNome"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:text="Caderno 10 materias - turma da mônica"
-                      android:maxLines="2"
-                      android:textSize="20sp"
-                      android:textColor="@android:color/black"/>
+            <LinearLayout android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp">
 
-            <TextView android:id="@+id/textViewCodigo"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="código"
-                      android:textSize="18sp"
-                      app:layout_constraintTop_toBottomOf="@+id/textViewNome"
-                      app:layout_constraintStart_toEndOf="@+id/imageViewProduto"/>
+                <TextView
+                        android:id="@+id/textViewCodigo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_codigo"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewProduto"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
+
+                <TextView
+                        android:id="@+id/textViewNome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:ellipsize="middle"
+                        android:textAllCaps="true"
+                        android:text="Caderno 10 materias - turma da mônica"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout android:id="@+id/linearLayoutPrecoProduto"
-                      android:layout_width="wrap_content"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      app:layout_constraintEnd_toEndOf="parent"
-                      app:layout_constraintTop_toTopOf="parent"
-                      android:layout_marginTop="8dp">
+        <LinearLayout
+                android:id="@+id/linearLayoutPrecoProduto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutNomeProduto">
 
-            <TextView android:id="@+id/textViewLabelSubtotal"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginEnd="16dp"
-                      android:text="preço R$"
-                      android:textSize="18sp"/>
+            <TextView
+                    android:id="@+id/textViewLabelSubtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/label_preco_unitario"
+                    android:textAllCaps="true"
+                    android:textSize="18sp" />
 
-            <TextView android:id="@+id/textViewSubtotal"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="10,00"
-                      android:layout_marginEnd="16dp"
-                      android:textSize="25sp"
-                      android:textStyle="bold"
-                      android:textColor="@color/primary_light"/>
+            <TextView
+                    android:id="@+id/textViewSubtotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="10,00"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="20sp" />
 
         </LinearLayout>
 
