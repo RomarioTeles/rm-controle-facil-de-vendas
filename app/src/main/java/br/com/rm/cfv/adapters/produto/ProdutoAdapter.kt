@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.ImageUtilsActivity
 import br.com.rm.cfv.activities.produto.IOnClickProdutoListener
 import br.com.rm.cfv.database.entities.Produto
+import br.com.rm.cfv.utils.ToastUtils
 import br.com.rm.numberUtils.DecimalFormatUtils
 
 class ProdutoAdapter(private var context: ImageUtilsActivity, private var iOnClickProdutoListener: IOnClickProdutoListener, private var myDataset: List<Produto>) : RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder>() {
@@ -64,7 +66,7 @@ class ProdutoAdapter(private var context: ImageUtilsActivity, private var iOnCli
         holder.textViewPrecoRevenda.text = """R$ ${DecimalFormatUtils.decimalFormatPtBR(item!!.precoVenda)}"""
 
         if (item.caminhoImagem != null && !item.caminhoImagem!!.isBlank()) {
-            holder.imageViewProduto.setImageBitmap(context.getBitmapFromAbsolutePath(item.caminhoImagem, false))
+            holder.imageViewProduto.setImageBitmap(context.getBitmapFromAbsolutePath(item.caminhoImagem))
         }
 
         holder.view.setOnClickListener{

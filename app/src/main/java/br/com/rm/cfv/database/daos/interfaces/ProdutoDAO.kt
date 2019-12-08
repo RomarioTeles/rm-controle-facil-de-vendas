@@ -15,7 +15,7 @@ interface ProdutoDAO{
     @Query("SELECT * FROM produto WHERE nome LIKE :first LIMIT 1")
     fun findByNome(first: String) : Produto
 
-    @Query("SELECT * FROM produto WHERE codigo LIKE :codigo LIMIT 1")
+    @Query("SELECT * FROM produto WHERE codigo LIKE :codigo or UPPER(nome) LIKE UPPER(:codigo) LIMIT 1")
     fun findByCodigo(codigo: String) : Produto
 
     @Insert

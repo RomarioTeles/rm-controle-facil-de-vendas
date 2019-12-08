@@ -1,6 +1,7 @@
 package br.com.rm.cfv.activities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.DialogInterface;
@@ -15,16 +16,19 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
-import br.com.rm.cfv.R;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import br.com.rm.cfv.R;
 
 abstract public class ImageUtilsActivity extends BaseActivity {
 
@@ -111,11 +115,13 @@ abstract public class ImageUtilsActivity extends BaseActivity {
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, Intent data){
         if (requestCode == REQUEST_TAKE_PHOTO) {
-            onPostCaptureCompleted(getBitmapFromAbsolutePath(mCurrentPhotoPath, true));
+            if(resultCode == Activity.RESULT_OK) {
+                onPostCaptureCompleted(getBitmapFromAbsolutePath(mCurrentPhotoPath), mCurrentPhotoPath);
+            }
         }
     }
 
-    public Bitmap getBitmapFromAbsolutePath(String filename, Boolean delete){
+    public Bitmap getBitmapFromAbsolutePath(String filename){
         File file = new File(filename);
         if(filename != null && file.exists()) {
             try {
@@ -126,8 +132,7 @@ abstract public class ImageUtilsActivity extends BaseActivity {
                 matrix.postRotate(exifToDegrees(orientation));
                 Bitmap myBitmap = BitmapFactory.decodeFile(filename);
                 myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
-                if (delete) file.delete();
-                return Bitmap.createScaledBitmap(myBitmap, 200, 250, false);
+                return myBitmap ;// Bitmap.createScaledBitmap(myBitmap, myBitmap.getWidth(), myBitmap.getHeight(), false);
             } catch (IOException e) {
                 Log.e("onActivityResult", e.getMessage());
             }
@@ -135,13 +140,18 @@ abstract public class ImageUtilsActivity extends BaseActivity {
         return null;
     }
 
-    public abstract void onPostCaptureCompleted(Bitmap bitmap);
+    public abstract void onPostCaptureCompleted(Bitmap bitmap, String path);
 
     public abstract View getCaptureTrigger();
 
     public File createImageFile(String filename){
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return new File(storageDir, filename);
+        try {
+            File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            return File.createTempFile(filename, null, storageDir);
+        }catch (Exception e){
+            Toast.makeText(this, "IMAGE CAPTURE ERROR!", Toast.LENGTH_LONG).show();
+        }
+        return null;
     }
 
     private static int exifToDegrees(int exifOrientation) {

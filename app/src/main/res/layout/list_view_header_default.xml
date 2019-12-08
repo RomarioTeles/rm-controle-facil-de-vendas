@@ -14,7 +14,7 @@
                                        app:cardElevation="3dp"
                                        app:cardUseCompatPadding="true">
 
-    <TextView android:id="@+id/textViewItemValor"
+    <TextView android:id="@+id/textView"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:textColor="@color/primary_text"

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path name="my_images" path="Android/data/br.com.rm.cfv/files/Pictures"/>
-</PreferenceScreen>
+    <external-cache-path name="my_files_temp" path="Android/data/br.com.rm.cfv/files/cache/Pictures" />
+</paths>

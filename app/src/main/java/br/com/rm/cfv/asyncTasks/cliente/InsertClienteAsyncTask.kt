@@ -12,9 +12,13 @@ open class InsertClienteAsyncTask(private var dao: ClienteDAO?,private val ipost
         try {
             var result: Cliente? = null
 
-            var cliente: Cliente = params.get(0)
+            val cliente: Cliente = params.get(0)
 
-            dao!!.insertAll(cliente)
+            if(cliente.uid == null) {
+                dao!!.insertAll(cliente)
+            }else{
+                dao!!.update(cliente)
+            }
 
             result = dao!!.findCpf(cliente.cpf!!)
 

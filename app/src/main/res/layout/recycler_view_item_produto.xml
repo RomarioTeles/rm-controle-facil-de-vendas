@@ -6,20 +6,20 @@
         app:cardCornerRadius="3dp"
         app:cardElevation="2dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="8dp"
+        app:cardPreventCornerOverlap="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:layout_height="wrap_content">
 
         <LinearLayout
                 android:id="@+id/linearLayoutNomeProduto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -37,16 +37,8 @@
             <LinearLayout android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp">
-
-                <TextView
-                        android:id="@+id/textViewCodigo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/label_codigo"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toEndOf="@+id/imageViewProduto"
-                        app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
+                    android:layout_marginStart="8dp"
+                    android:padding="4dp">
 
                 <TextView
                         android:id="@+id/textViewNome"
@@ -57,43 +49,29 @@
                         android:textAllCaps="true"
                         android:text="Caderno 10 materias - turma da mônica"
                         android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                <TextView
+                        android:id="@+id/textViewCodigo"
+                        android:layout_width="48dp"
+                        android:layout_height="26dp"
+                        android:text="@string/label_codigo"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewProduto"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
+
+                <TextView
+                        android:id="@+id/textViewSubtotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="10,00"
+                        android:textColor="@color/secondary_text"
                         android:textSize="18sp" />
 
             </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:id="@+id/linearLayoutPrecoProduto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutNomeProduto">
-
-            <TextView
-                    android:id="@+id/textViewLabelSubtotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/label_preco_unitario"
-                    android:textAllCaps="true"
-                    android:textSize="18sp" />
-
-            <TextView
-                    android:id="@+id/textViewSubtotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text="10,00"
-                    android:textColor="@color/secondary_text"
-                    android:textSize="20sp" />
 
         </LinearLayout>
 

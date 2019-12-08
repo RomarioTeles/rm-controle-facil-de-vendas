@@ -2,15 +2,18 @@ package br.com.rm.cfv.activities.cliente
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.asyncTasks.cliente.InsertClienteAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
-import br.com.rm.cfv.R
 import br.com.rm.cfv.utils.EditTextMaskUtil
 import kotlinx.android.synthetic.main.activity_cadastrar_cliente.*
+import kotlinx.android.synthetic.main.activity_cadastrar_cliente.scrollView
+import kotlinx.android.synthetic.main.app_bar_main.*
 import java.util.*
 
 class CadastrarClienteActivity : BaseActivity(), IPostExecuteInsertAndUpdate {
@@ -44,20 +47,23 @@ class CadastrarClienteActivity : BaseActivity(), IPostExecuteInsertAndUpdate {
 
     private fun setClickEvents(){
         fab().setOnClickListener {
-            var nome = editTextNome.text.toString()
-            var telefone = editTextTelefone.text.toString()
-            var cpf = editTextCPF.text.toString()
-            var email = editTextEmail.text.toString()
-            var dataNasc = editTextDataNascimento.text.toString()
-            var endereco = editTextEndereco.text.toString()
-            var numero = editTextNumero.text.toString()
-            var bairro = editTextBairro.text.toString()
-            var cidade = editTextCidade.text.toString()
-            var uf = editTextUf.text.toString()
-            var complemento = editTextComplemento.text.toString()
-            cliente = Cliente(null, nome, cpf, telefone, email, dataNasc, endereco, numero, complemento, bairro, cidade, uf)
+            val id = editTextId.text.toString()
+            val nome = editTextNome.text.toString()
+            val telefone = editTextTelefone.text.toString()
+            val cpf = editTextCPF.text.toString()
+            val email = editTextEmail.text.toString()
+            val dataNasc = editTextDataNascimento.text.toString()
+            val endereco = editTextEndereco.text.toString()
+            val numero = editTextNumero.text.toString()
+            val bairro = editTextBairro.text.toString()
+            val cidade = editTextCidade.text.toString()
+            val uf = editTextUf.text.toString()
+            val complemento = editTextComplemento.text.toString()
+            val idInt = if(id.isBlank()) null else id.toInt()
+
+            cliente = Cliente(idInt, nome, cpf, telefone, email, dataNasc, endereco, numero, complemento, bairro, cidade, uf)
             if(cliente.validate(mapFields)){
-                var task = InsertClienteAsyncTask(getCfvApplication().getDataBase()!!.clienteDAO(), this)
+                val task = InsertClienteAsyncTask(getCfvApplication().getDataBase()!!.clienteDAO(), this)
                 task.execute(cliente)
             }
         }
@@ -66,6 +72,35 @@ class CadastrarClienteActivity : BaseActivity(), IPostExecuteInsertAndUpdate {
         editTextDataNascimento.addTextChangedListener(EditTextMaskUtil.insert(editTextDataNascimento, EditTextMaskUtil.MASK_DATE))
 
         hideFabOnScroll(scrollView)
+
+        preencheCliente()
+
+        fab.setImageResource(R.drawable.content_save_black_24dp)
+
+    }
+
+    private fun preencheCliente(){
+        val bundle = intent.extras
+
+        if(bundle != null) {
+
+            var cliente = bundle.getSerializable("cliente") as Cliente?
+
+            if (cliente != null) {
+                editTextId.setText(cliente.uid.toString())
+                editTextNome.setText(cliente.nome)
+                editTextTelefone.setText(cliente.telefone)
+                editTextEmail.setText(cliente.email)
+                editTextCPF.setText(cliente.cpf)
+                editTextDataNascimento.setText(cliente.dataNascimento)
+                editTextEndereco.setText(cliente.endereco)
+                editTextNumero.setText(cliente.numero)
+                editTextComplemento.setText(cliente.complemento)
+                editTextBairro.setText(cliente.bairro)
+                editTextUf.setText(cliente.uf)
+                editTextCidade.setText(cliente.cidade)
+            }
+        }
     }
 
     override fun afterInsert(result: Any?) {

@@ -3,28 +3,33 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:paddingBottom="50dp"
+        android:fillViewport="true"
         android:id="@+id/scrollView">
 
     <LinearLayout android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:paddingBottom="100dp">
 
         <ImageView android:id="@+id/imageViewProduto"
-                   android:layout_width="200dip"
-                   android:layout_height="200dip"
+                   android:layout_width="200dp"
+                   android:layout_height="200dp"
                    android:layout_gravity="center"
-                   android:scaleType="center"
+                   android:scaleType="centerCrop"
                    app:srcCompat="@mipmap/ic_launcher"
                    android:layout_marginBottom="8dp"/>
 
         <TextView android:id="@+id/textViewEditarImagem"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Editar Imagem"
+                android:text="Editar imagem"
+                android:layout_gravity="center"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/shape_button_rounded_accent"
                 android:textAlignment="center"
-                android:textColor="@color/accent"
+                android:padding="4dp"
+                android:textColor="@android:color/black"
                 android:layout_marginBottom="8dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -53,7 +58,10 @@
                     android:id="@+id/textInputEditCodigo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="20"
                     android:maxLines="1"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
                     android:hint="Código"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,9 +76,38 @@
                     android:id="@+id/textInputEditNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nome"/>
+                    android:hint="Nome"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    android:imeOptions="actionNext"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutDepartamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+            <AutoCompleteTextView android:id="@+id/autocompleteTextViewDepartamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+                    android:hint="Nome do departamento"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView android:text="Tabela de Preços"
+                android:textSize="14sp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutPrecoTabela"
@@ -117,18 +154,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutDepartamento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
-
-        <AutoCompleteTextView android:id="@+id/autocompleteTextViewDepartamento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nome do departamento"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

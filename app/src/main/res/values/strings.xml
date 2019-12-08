@@ -86,4 +86,8 @@
     <string name="mensagem_confirmacao_remocao_debito">Este débito pode ter pagamentos pendentes de recebimento. Deseja realmente excluí-lo?</string>
     <string name="label_tipo_pag_prazo">à prazo</string>
     <string name="label_tipo_pag_a_vista">à vista</string>
+    <string name="imagem_expandida_title">Imagem Expandida</string>
+    <string name="parcela_label">Parcela:</string>
+    <string name="vencimento_label">Data vencimento:</string>
+    <string name="label_valor">Valor:</string>
 </resources>

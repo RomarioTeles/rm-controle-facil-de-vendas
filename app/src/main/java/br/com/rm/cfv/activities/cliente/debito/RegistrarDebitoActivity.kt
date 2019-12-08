@@ -7,12 +7,14 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.ImageUtilsActivity
 import br.com.rm.cfv.activities.produto.IOnClickProdutoListener
 import br.com.rm.cfv.adapters.MeioPagamentoAdapter
+import br.com.rm.cfv.adapters.ParcelasAdapter
 import br.com.rm.cfv.adapters.produto.ItemProdutoAdapter
 import br.com.rm.cfv.adapters.produto.ProdutoAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
@@ -77,7 +79,7 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
     private lateinit var itemProdutoEmEdicao: ItemProduto
     private var debitoCliente: DebitoCliente = DebitoCliente()
     private lateinit var cliente: Cliente
-    private lateinit var adapterParcelas: ArrayAdapter<String>
+    private lateinit var adapterParcelas: ParcelasAdapter
     private lateinit var pagWizardViewVoltar: View
     private lateinit var pagWizardViewAvancar: View
     private lateinit var pagWizardViewCurrent: View
@@ -137,16 +139,18 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
         listaLayoutsTela.add(registrarDebitoConcluido)
 
         mapWizardControls.put(
-            registrarDebitoPagamentoMeio.id,
-            arrayOf(registrarDebitoPagamentoTipo, registrarDebitoConcluido)
-        )
-        mapWizardControls.put(
             registrarDebitoPagamentoTipo.id,
-            arrayOf(registrarDebitoCesta, registrarDebitoPagamentoParcelas)
+            arrayOf(registrarDebitoCesta, registrarDebitoPagamentoMeio)
         )
+
+        mapWizardControls.put(
+            registrarDebitoPagamentoMeio.id,
+            arrayOf(registrarDebitoPagamentoTipo, registrarDebitoPagamentoParcelas)
+        )
+
         mapWizardControls.put(
             registrarDebitoPagamentoParcelas.id,
-            arrayOf(registrarDebitoPagamentoTipo, registrarDebitoPagamentoVencimento)
+            arrayOf(registrarDebitoPagamentoMeio, registrarDebitoPagamentoVencimento)
         )
         mapWizardControls.put(
             registrarDebitoPagamentoVencimento.id,
@@ -164,8 +168,7 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
 
         linearLayoutVerCesta.setOnClickListener {
             if (debitoCliente.itemProdutoList.isEmpty()) {
-                Toast.makeText(this, getString(R.string.mensagem_cesta_vazia), Toast.LENGTH_LONG)
-                    .show();
+                Toast.makeText(this, getString(R.string.mensagem_cesta_vazia), Toast.LENGTH_LONG).show()
             } else {
                 mudaEstadoDaTela(registrarDebitoCesta)
                 linearLayoutFinalizar.visibility = View.VISIBLE
@@ -273,8 +276,8 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
         }
 
         listViewMeioPagamento.setOnItemClickListener { parent, view, position, id ->
-            debitoCliente.meioPagamento = MeioPagamento.values().get(position).name
-            meioPagamentoAdapter.selected = MeioPagamento.values().get(position)
+            debitoCliente.meioPagamento = meioPagamentoAdapter.getItem(position)!!.name
+            meioPagamentoAdapter.selected = meioPagamentoAdapter.getItem(position)
             meioPagamentoAdapter.notifyDataSetChanged()
         }
 
@@ -288,25 +291,28 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
             debitoCliente.tipoPagamento = TipoPagamento.A_VISTA
             buttonPagPrazo.setBackgroundColor(resources.getColor(R.color.accent))
             buttonPagAvista.setBackgroundColor(resources.getColor(R.color.accent_active))
+            meioPagamentoAdapter.setTipoPagamento(TipoPagamento.A_VISTA)
         }
 
         buttonPagPrazo.setOnClickListener {
             debitoCliente.tipoPagamento = TipoPagamento.A_PRAZO
             buttonPagPrazo.setBackgroundColor(resources.getColor(R.color.accent_active))
             buttonPagAvista.setBackgroundColor(resources.getColor(R.color.accent))
+            meioPagamentoAdapter.setTipoPagamento(TipoPagamento.A_PRAZO)
             initListaDeParcelas()
         }
 
         buttonAvancar.setOnClickListener {
-            if (pagWizardViewCurrent == registrarDebitoPagamentoTipo) {
+
+            if(pagWizardViewCurrent == registrarDebitoPagamentoParcelas){
                 if (debitoCliente.tipoPagamento == TipoPagamento.A_VISTA) {
-                    mudaEstadoDaTela(registrarDebitoPagamentoMeio)
-                } else {
-                    mudaEstadoDaTela(registrarDebitoPagamentoParcelas)
+                    registrarPedido()
+                }else{
+                    mudaEstadoDaTela(pagWizardViewAvancar)
                 }
-            } else if (pagWizardViewCurrent == registrarDebitoPagamentoVencimento || pagWizardViewCurrent == registrarDebitoPagamentoMeio) {
+            }else if(pagWizardViewCurrent == registrarDebitoPagamentoVencimento){
                 registrarPedido()
-            } else {
+            }else{
                 mudaEstadoDaTela(pagWizardViewAvancar)
             }
         }
@@ -321,6 +327,7 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
 
         pesquisarProdutos("")
         mudaEstadoDaTela(registrarDebitoProdutos)
+        initListaDeParcelas()
     }
 
     private fun registrarPedido() {
@@ -446,8 +453,7 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
         if (produto.caminhoImagem != null && !produto.caminhoImagem!!.isBlank()) {
             imageViewItemProduto.setImageBitmap(
                 getBitmapFromAbsolutePath(
-                    produto.caminhoImagem,
-                    false
+                    produto.caminhoImagem
                 )
             )
         }
@@ -456,6 +462,7 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
             mudaEstadoDaTela(registrarDebitoAdicionarProduto)
         } else {
             buttonAdicionarProduto.performClick()
+            Toast.makeText(this, "Produto foi adicionado!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -468,7 +475,7 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
         produtoAdapter.setDataset(listaProdutos)
     }
 
-    override fun onPostCaptureCompleted(bitmap: Bitmap?) {
+    override fun onPostCaptureCompleted(bitmap: Bitmap?, path: String?) {
 
     }
 
@@ -477,30 +484,14 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
     }
 
     fun initListaDeParcelas() {
-        adapterParcelas = ArrayAdapter(this, android.R.layout.simple_list_item_1)
-        val map = mutableListOf<String>()
-        val qtdeParcelas = 12
-        val percentualJurosParcelas = BigDecimal(10.0)
-        val juros = percentualJurosParcelas.plus(BigDecimal(100)).divide(BigDecimal(100))
-        val total = BigDecimal(debitoCliente.total).multiply(juros)
-        for (i in 1..qtdeParcelas) {
-            if (i < 5) {
-                val valorSemJuros: Double = debitoCliente.total / i
-                val chave = "$i x R$ ${DecimalFormatUtils.decimalFormatPtBR(valorSemJuros)}"
-                map.add(chave)
-            } else {
-                val valorComJuros = total.divide(BigDecimal(i), 2, RoundingMode.CEILING)
-                val chave = "$i x R$ ${valorComJuros}"
-                map.add(chave)
-            }
-        }
-
-        adapterParcelas.addAll(map)
+        adapterParcelas = ParcelasAdapter(this)
+        adapterParcelas.init(debitoCliente.total, 12, 5)
         listViewParcelamento.adapter = adapterParcelas
         listViewParcelamento.setOnItemClickListener { parent, view, position, id ->
             debitoCliente.qtdeParcelas = position + 1
-            debitoCliente.percentualJurosParcelas =
-                if (debitoCliente.qtdeParcelas < 5) 0.0 else 10.0
+            debitoCliente.percentualJurosParcelas = if (debitoCliente.qtdeParcelas < 5) 0.0 else 10.0
+            adapterParcelas.selected = position
+            adapterParcelas.notifyDataSetChanged()
         }
         adapterParcelas.notifyDataSetChanged()
     }

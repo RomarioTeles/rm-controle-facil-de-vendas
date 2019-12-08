@@ -7,14 +7,18 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import br.com.rm.cfv.R
 import br.com.rm.cfv.constants.MeioPagamento
+import br.com.rm.cfv.constants.TipoPagamento
 
 class MeioPagamentoAdapter(context: Context) : ArrayAdapter<MeioPagamento>(context, R.layout.list_view_item_meio_pagamento) {
 
-    private val itens : List<MeioPagamento> = MeioPagamento.values().toList()
+    private var itens : List<MeioPagamento> = MeioPagamento.getMeiosPagamentosAvista()
 
-    var selected : MeioPagamento = MeioPagamento.DINHEIRO
+    var selected : MeioPagamento? = MeioPagamento.DINHEIRO
+
+    private var tipoPagamento = TipoPagamento.A_VISTA
 
     private fun getItems() : List<MeioPagamento>{
         return itens
@@ -30,13 +34,13 @@ class MeioPagamentoAdapter(context: Context) : ArrayAdapter<MeioPagamento>(conte
         }
 
         val item = getItem(position)
-        view!!.findViewById<TextView>(R.id.textViewItemValor).text = item!!.descricao
+        view!!.findViewById<TextView>(R.id.textView).text = item!!.descricao
         view!!.findViewById<ImageView>(R.id.imageViewIcon).setImageResource(item.res)
 
         if(selected == item){
-            view.setBackgroundColor(context.resources.getColor(R.color.accent_active))
+           view.setBackgroundColor(ContextCompat.getColor(context, R.color.accent_active))
         }else{
-            view.setBackgroundColor(context.resources.getColor(android.R.color.transparent))
+           view.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
         }
 
         return view
@@ -52,5 +56,20 @@ class MeioPagamentoAdapter(context: Context) : ArrayAdapter<MeioPagamento>(conte
 
     override fun getItemId(position: Int): Long {
         return getItem(position)!!.ordinal.toLong()
+    }
+
+    fun setTipoPagamento(tipoPagamento: String){
+        this.tipoPagamento = tipoPagamento
+        if(this.tipoPagamento == TipoPagamento.A_PRAZO){
+            itens = MeioPagamento.getMeiosPagamentosPrazo()
+        }else{
+            itens = MeioPagamento.getMeiosPagamentosAvista()
+        }
+        selected = null
+        notifyDataSetChanged()
+    }
+
+    fun getTipoPagamento(): String{
+        return tipoPagamento;
     }
 }

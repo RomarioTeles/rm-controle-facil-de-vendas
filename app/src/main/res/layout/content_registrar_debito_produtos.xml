@@ -5,32 +5,43 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-                android:background="@android:color/white"
-        android:paddingBottom="78dp">
+              android:background="@android:color/white"
+              android:paddingBottom="78dp">
 
-    <EditText android:id="@+id/editTextSearch"
+    <androidx.cardview.widget.CardView android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:maxLines="1"
-            android:inputType="text"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:imeOptions="actionSearch"
-            android:hint="@string/pesquise_codigo_produto"/>
+            app:cardElevation="4dp">
 
-    <TextView android:id="@+id/textViewSugestao"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="@string/sugestao_adicionar_produto"
-              android:gravity="center|start"
-              android:textSize="14sp"
-              android:layout_marginStart="16dp"
-              android:layout_marginEnd="16dp"
-              app:layout_constraintTop_toBottomOf="@+id/editTextSearch"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"/>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+
+            <EditText android:id="@+id/editTextSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:drawableEnd="@drawable/search"
+                    android:imeOptions="actionSearch"
+                    android:hint="@string/pesquise_codigo_produto"/>
+
+            <TextView android:id="@+id/textViewSugestao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sugestao_adicionar_produto"
+                    android:gravity="center|start"
+                    android:textSize="14sp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewProdutos"
@@ -38,6 +49,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="100dp"
             tools:listitem="@layout/recycler_view_item_produto"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSugestao"/>
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

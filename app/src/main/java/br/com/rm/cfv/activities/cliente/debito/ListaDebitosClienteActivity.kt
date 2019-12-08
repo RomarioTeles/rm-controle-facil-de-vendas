@@ -72,6 +72,6 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
         val dto = result as DebitoClienteDTO
         myDataset = dto.debitos!!
         viewAdapter.setDataset(myDataset.toMutableList())
-        textViewTotalValor.text = DecimalFormatUtils.decimalFormatPtBR(dto.total)
+        textViewTotalValor.text = DecimalFormatUtils.decimalFormatPtBR(dto.getTotalNullSafed())
     }
 }

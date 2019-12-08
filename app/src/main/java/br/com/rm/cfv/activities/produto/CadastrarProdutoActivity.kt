@@ -15,6 +15,7 @@ import br.com.rm.cfv.asyncTasks.produto.InsertProdutoAsyncTask
 import br.com.rm.cfv.database.entities.Produto
 import com.google.android.material.textfield.TextInputLayout
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.VisualizarImagemActivity
 import com.google.common.base.Strings
 import kotlinx.android.synthetic.main.activity_cadastrar_produto.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -25,8 +26,9 @@ import java.util.*
 
 class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPostExecuteInsertAndUpdate{
 
-    override fun onPostCaptureCompleted(bitmap: Bitmap?) {
+    override fun onPostCaptureCompleted(bitmap: Bitmap?, path: String?) {
         this.imageBitmap = bitmap!!
+        this.imageFilePath = path!!
         imageViewProduto.setImageBitmap(bitmap)
     }
 
@@ -42,10 +44,12 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
     private lateinit var mapFields : HashMap<String, TextInputLayout>
     private var imageBitmap: Bitmap? = null
     private var proxCodigo : Int = 0
+    private var imageFilePath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastrar_produto)
+
         toolbar.title = "Cadastro de Produto"
         mapFields = HashMap()
         mapFields["codigo"] = textInputLayoutCodigo
@@ -84,6 +88,16 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
 
         })
 
+        fab.setImageResource(R.drawable.content_save_black_24dp)
+
+        imageViewProduto.setOnClickListener{
+            if(imageFilePath !== null){
+                val intent = Intent(it.context, VisualizarImagemActivity::class.java)
+                intent.putExtra("filepath", imageFilePath)
+                startActivity(intent)
+            }
+        }
+
         hideFabOnScroll(scrollView)
     }
 
@@ -110,7 +124,8 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
                 autocompleteTextViewDepartamento.dismissDropDown()
 
                 if (produto.caminhoImagem != null && !produto.caminhoImagem!!.isBlank()) {
-                    imageBitmap = getBitmapFromAbsolutePath(produto.caminhoImagem, false)
+                    imageFilePath = produto.caminhoImagem!!
+                    imageBitmap = getBitmapFromAbsolutePath(produto.caminhoImagem)
                     imageViewProduto.setImageBitmap(imageBitmap)
                 }
             }
@@ -129,6 +144,7 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
         fos.write(bitmapdata)
         fos.flush()
         fos.close()
+        imageFilePath = file.absolutePath
         return file.absolutePath
     }
 

@@ -16,7 +16,7 @@ class SelectAllProdutosAsyncTask(private val dao : ProdutoDAO, private var ipost
         if(params.isEmpty() || params[0]!!.isBlank()) {
             return dao.getAll()
         }else{
-            return dao.search(params[0])
+            return dao.search(params[0]+"%")
         }
     }
 

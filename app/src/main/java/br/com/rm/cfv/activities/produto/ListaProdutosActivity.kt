@@ -66,7 +66,7 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
         viewAdapter.setDataset(myDataset)
     }
 
-    override fun onPostCaptureCompleted(bitmap: Bitmap?) {}
+    override fun onPostCaptureCompleted(bitmap: Bitmap?, path: String) {}
 
     override fun getCaptureTrigger(): View? {
         return null

@@ -2,12 +2,14 @@ package br.com.rm.cfv.adapters.cliente
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.cliente.debito.DetalheParcelaDebitoActivity
 import br.com.rm.cfv.database.entities.PagamentoDebito
 import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.dateutils.DateOperationsUtils
@@ -80,6 +82,13 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
             if(DateOperationsUtils.getMin(hoje, vencimento) == vencimento){
                 holder.textViewDataVencimento.setTextColor(context.resources.getColor(R.color.color_error))
             }
+        }
+
+        holder.view.setOnClickListener {
+            var intent = Intent(context, DetalheParcelaDebitoActivity::class.java)
+            intent.putExtra("PagamentoDebito", item)
+            intent.putExtra("parcela", position+1)
+            context.startActivity(intent)
         }
 
     }

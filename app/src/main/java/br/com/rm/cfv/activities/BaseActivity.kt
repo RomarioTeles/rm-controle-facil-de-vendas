@@ -163,10 +163,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             })
         }else {
             view.viewTreeObserver.addOnScrollChangedListener {
-                Log.d("Posi Y", view.scrollY.toString())
                 if (view.scrollY > 0)
                     fab.hide()
-                else if (view.scrollY < 0)
+                else if (view.scrollY < 50)
                     fab.show()
             }
         }

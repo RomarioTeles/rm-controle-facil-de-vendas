@@ -1,9 +1,6 @@
 package br.com.rm.cfv.database.daos.interfaces
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import br.com.rm.cfv.database.entities.Cliente
 
 @Dao
@@ -26,6 +23,9 @@ public interface ClienteDAO {
 
     @Insert
     fun insertAll(vararg users: Cliente)
+
+    @Update
+    fun update(cliente: Cliente)
 
     @Delete
     fun delete(cliente: Cliente)

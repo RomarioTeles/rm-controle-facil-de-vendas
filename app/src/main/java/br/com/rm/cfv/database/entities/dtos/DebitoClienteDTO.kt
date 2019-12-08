@@ -12,4 +12,8 @@ class DebitoClienteDTO () {
     @ColumnInfo(name = "total")
     var total: Double? = 0.0
     @Ignore var debitos: List<DebitoCliente>? = null
+
+    fun getTotalNullSafed() : Double{
+        return if (total == null) 0.0 else total!!
+    }
 }

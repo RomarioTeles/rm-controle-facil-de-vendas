@@ -73,10 +73,10 @@ open class InsertDebitoClienteAsyncTask(private var dao: AppDataBase?, private v
             val valor = debitoCliente.total / qtdeParcelas
             val juros = valor * (percentualJurosParcelas / 100)
             val valorParcela = valor+juros
-            for(num in 0..qtdeParcelas){
+            for(num in 0 until qtdeParcelas){
                 val pagamentoDebito = PagamentoDebito()
                 pagamentoDebito.debitoClienteId = debitoCliente.uid
-                pagamentoDebito.meioPagamento = MeioPagamento.DINHEIRO.name
+                pagamentoDebito.meioPagamento = debitoCliente.meioPagamento
                 pagamentoDebito.valor = BigDecimal(valorParcela).setScale(2, RoundingMode.CEILING).toDouble()
                 if(num > 0){
                     val calendar = GregorianCalendar()
