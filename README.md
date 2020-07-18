@@ -2,11 +2,11 @@
 
 Um simples App para registrar Produtos, Estoques, Clientes e Debitos de Clientes.
 
-![Tela 1](/docs/Screenshot_2020-07-18-02-46-26-769_br.com.rm.cfv.jpg | width=100)
+![Tela 1](/docs/Screenshot_2020-07-18-02-46-26-769_br.com.rm.cfv.jpg){:height="50%" width="50%"}
 
-![Tela 2](/docs/Screenshot_2020-07-18-02-46-26-769_br.com.rm.cfv.jpg | width=100)
+![Tela 2](/docs/Screenshot_2020-07-18-02-46-26-769_br.com.rm.cfv.jpg){:height="50%" width="50%"}
 
-![Tela 3](/docs/Screenshot_2020-07-18-02-47-54-369_br.com.rm.cfv.jpg | width=100)
+![Tela 3](/docs/Screenshot_2020-07-18-02-47-54-369_br.com.rm.cfv.jpg){:height="50%" width="50%"}
 
 ![Tela 4](/docs/Screenshot_2020-07-18-02-52-06-676_br.com.rm.cfv.jpg | width=100)
 
