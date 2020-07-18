@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.interfaces.IMovimentacaoEstoque
 import br.com.rm.cfv.adapters.estoque.EstoqueAdapter
@@ -17,9 +18,9 @@ import br.com.rm.cfv.constants.MotivoMovimentacao
 import br.com.rm.cfv.constants.TipoMovimentacaoEstoque
 import br.com.rm.cfv.database.entities.MovimentacaoEstoque
 import br.com.rm.cfv.database.entities.dtos.EstoqueDTO
-import br.com.rm.cfv.R
 import kotlinx.android.synthetic.main.activity_lista_estoque.*
 import java.util.*
+
 
 class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEstoque, IPostExecuteInsertAndUpdate {
 
@@ -79,8 +80,14 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
     private fun addClickEvents() {
 
         buttonCancel.setOnClickListener{
-            framelayout_movimentar_estoque.visibility = View.GONE
             estoque = null
+            framelayout_movimentar_estoque.animate().setDuration(400)
+                .alpha(0.0F)
+                .withEndAction {
+                    framelayout_movimentar_estoque.visibility = View.GONE
+                    framelayout_movimentar_estoque.alpha = 1.0F
+                }
+                .start()
         }
 
         buttonAdd.setOnClickListener{
@@ -106,7 +113,12 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
 
     override fun preparaMovimentacao(estoque: EstoqueDTO) {
        this.estoque = estoque
+        framelayout_movimentar_estoque.alpha = 0.0F
         framelayout_movimentar_estoque.visibility = View.VISIBLE
+        framelayout_movimentar_estoque.animate().setDuration(600)
+            .alpha(1.0F)
+            .start()
+
     }
 
     fun confirmarMovimentacao() {
@@ -125,6 +137,7 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
             isValid = false
         }
         if(isValid) {
+            textInputLayoutQuantidade.error = null
             var movimentacao = MovimentacaoEstoque(
                 null, estoque!!.codigo!!,
                 motivo,
@@ -147,7 +160,7 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
         }else{
             Toast.makeText(this, "Erro ao inserir registro.", Toast.LENGTH_LONG).show()
         }
-
+        textViewQuantidade.text = null
         framelayout_movimentar_estoque.visibility = View.GONE
     }
 

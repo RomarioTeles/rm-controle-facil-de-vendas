@@ -14,12 +14,12 @@ open class InsertDepartamentoAsyncTask(private var dao: DepartamentoDAO?, privat
 
             var departamento: Departamento = params.get(0)
 
-            var pai = dao!!.findByNome(departamento.departamentoPai!!)
+            /*var pai = dao!!.findByNome(departamento.departamentoPai!!)
 
             if(pai == null){
                 var departamentoPai = Departamento(null, departamento.departamentoPai, null)
                 dao!!.insertAll(departamentoPai)
-            }
+            }*/
 
             dao!!.insertAll(departamento)
 

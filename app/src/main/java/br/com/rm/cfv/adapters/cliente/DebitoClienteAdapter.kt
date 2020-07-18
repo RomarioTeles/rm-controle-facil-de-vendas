@@ -1,5 +1,6 @@
 package br.com.rm.cfv.adapters.cliente
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -11,10 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
+import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
+import br.com.rm.cfv.activities.cliente.debito.ListaDebitosClienteActivity
+import br.com.rm.cfv.activities.cliente.debito.RegistrarDebitoActivity
 import br.com.rm.cfv.activities.cliente.debito.VisualizarDebitoActivity
 import br.com.rm.cfv.activities.cliente.debito.VisualizarDebitoActivity.Companion.ARG_DEBITO_CLIENTE
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.debitoCliente.DeleteDebitoClienteAsyncTask
+import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
+import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
+import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
+import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 import br.com.rm.cfv.utils.DialogConfig
 import br.com.rm.cfv.utils.DialogUtils
@@ -107,35 +115,55 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
         holder.textViewObs.visibility = View.INVISIBLE
 
         holder.view.setOnClickListener{
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle(R.string.pick_option)
-                .setItems(R.array.list_item_debito_cliente) { dialog, which ->
-                    when (which){
-                        0 ->{
-                            val intent = Intent(context, VisualizarDebitoActivity::class.java)
-                            intent.putExtra(ARG_DEBITO_CLIENTE, item)
-                            context.startActivity(intent)
-                        }
-                        2 ->{
-                            var dialogConfig = DialogConfig()
-                            dialogConfig.negativeButtonListener = Runnable {
-                                dialog.dismiss()
-                            }
-                            dialogConfig.positiveButtonListener = Runnable {
-                                var task = DeleteDebitoClienteAsyncTask(CfvApplication.database!!.debitoClienteDAO(), this)
-                                task.execute(item.id, position)
-                            }
-                            dialogConfig.showSubtitle = true
-                            dialogConfig.showNegativeButton = true
 
-                            DialogUtils.showDialogAlert(context, R.string.toast_title_confirm, R.string.mensagem_confirmacao_remocao_debito, dialogConfig )
+
+            val settings = BottomSheetDialogSettings(
+                holder.textViewDataHora.text.toString(),
+                false,
+                true,
+                false,
+                true
+            )
+            settings.textoEditar = "Detalhes"
+            var iPostExecuteSearch = this
+            ItemOptionsBottomSheetDialog().openDialog(
+                context as Activity,
+                item,
+                settings,
+                object : IBottomSheetOptions {
+                    override fun buttonSheetAdiciona(item: Any?) {
+                        val intent = Intent(context, RegistrarDebitoActivity::class.java)
+                        intent.putExtra("cliente", item as Cliente)
+                        context.startActivity(intent)
+                    }
+
+                    override fun buttonSheetEdita(item: Any?) {
+                        val intent = Intent(context, VisualizarDebitoActivity::class.java)
+                        intent.putExtra(ARG_DEBITO_CLIENTE, item as PagamentoDebitoSubtotalDTO)
+                        context.startActivity(intent)
+                    }
+
+                    override fun buttonSheetLista(item: Any?) {
+
+                    }
+
+                    override fun buttonSheetRemove(item: Any?) {
+                        var debito = item as PagamentoDebitoSubtotalDTO
+                        var dialogConfig = DialogConfig()
+                        dialogConfig.negativeButtonListener = Runnable {
+
                         }
-                        3 ->{
-                            dialog.dismiss()
+                        dialogConfig.positiveButtonListener = Runnable {
+                            var task = DeleteDebitoClienteAsyncTask(CfvApplication.database!!.debitoClienteDAO(), iPostExecuteSearch)
+                            task.execute(debito.id, position)
                         }
+                        dialogConfig.showSubtitle = true
+                        dialogConfig.showNegativeButton = true
+
+                        DialogUtils.showDialogAlert(context, R.string.toast_title_confirm, R.string.mensagem_confirmacao_remocao_debito, dialogConfig )
                     }
                 }
-            builder.show()
+            )
         }
     }
 

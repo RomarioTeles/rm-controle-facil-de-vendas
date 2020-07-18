@@ -12,15 +12,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_black_transparencia"
-            android:padding="32dip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:animateLayoutChanges="true">
 
         <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="bottom"
                 app:cardCornerRadius="3dp"
                 app:cardElevation="4dp"
                 app:cardUseCompatPadding="true">
@@ -33,43 +33,46 @@
 
                 <TextView
                         android:id="@+id/textView"
-                        style="bold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
+                        android:gravity="center"
                         android:text="@string/movimentacao_de_estoque"
-                        android:textAllCaps="true"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"/>
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/tipo_de_movimentacao"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:layout_marginBottom="8dp"/>
 
                 <Spinner
                         android:id="@+id/spinner_tipo_movimentacao"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:spinnerMode="dialog"
+                        android:layout_height="40dp"
+                        android:background="@drawable/shape_rectangule_rounded_white"
                         android:layout_marginBottom="8dp" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/motivo"
-                        android:textColor="@color/secondary_text"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp"
+                        android:layout_marginBottom="8dp"/>
 
                 <Spinner
                         android:id="@+id/spinner_motivo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:spinnerMode="dialog"
+                        android:layout_height="40dp"
+                        android:background="@drawable/shape_rectangule_rounded_white"
                         android:layout_marginBottom="8dp" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_quantidade"
+                        android:textSize="16dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textInputLayoutQuantidade"
@@ -80,8 +83,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/textViewQuantidade"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/label_quantidade"
+                            android:layout_height="40dp"
+                            android:padding="4dp"
+                            android:background="@drawable/shape_rectangule_rounded_white"
                             android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>

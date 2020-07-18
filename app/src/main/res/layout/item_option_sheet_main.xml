@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+    <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Ações"
+            android:textSize="18sp" />
+
+    <LinearLayout android:id="@+id/listar_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:src="@drawable/view_list"
+                android:background="@drawable/shape_button_rounded_primary"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="2dp"
+                android:layout_gravity="center"/>
+
+        <TextView
+                android:id="@+id/listar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start"
+                android:padding="16dp"
+                android:text="Listar"
+                android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <View   android:background="?android:attr/listDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+    <LinearLayout android:id="@+id/adicionar_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:src="@drawable/plus_white_24dp"
+                android:background="@drawable/shape_button_rounded_primary"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="2dp"
+                android:layout_gravity="center"/>
+
+        <TextView
+                android:id="@+id/adicionar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start"
+                android:padding="16dp"
+                android:text="Adicionar"
+                android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <View   android:background="?android:attr/listDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+    <LinearLayout android:id="@+id/editar_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:src="@drawable/playlist_edit"
+                android:background="@drawable/shape_button_rounded_primary"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="2dp"
+                android:layout_gravity="center"/>
+
+        <TextView
+                android:id="@+id/editar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start"
+                android:padding="16dp"
+                android:text="Editar"
+                android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <View   android:background="?android:attr/listDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+    <LinearLayout android:id="@+id/remover_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:src="@drawable/delete"
+                android:background="@drawable/shape_button_rounded_primary"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="2dp"
+                android:layout_gravity="center"/>
+
+        <TextView
+                android:id="@+id/remover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start"
+                android:padding="16dp"
+                android:text="Excluir"
+                android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <View   android:background="?android:attr/listDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:src="@drawable/close"
+                android:background="@drawable/shape_button_rounded_primary"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="2dp"
+                android:layout_gravity="center"/>
+
+        <TextView
+                android:id="@+id/cancelar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start"
+                android:padding="16dp"
+                android:text="Cancelar"
+                android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

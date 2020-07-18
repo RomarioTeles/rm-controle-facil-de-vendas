@@ -27,6 +27,10 @@ android {
     testOptions {
         unitTests.includeAndroidResources = true
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {

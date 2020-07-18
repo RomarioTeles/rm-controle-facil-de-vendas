@@ -1,6 +1,6 @@
 package br.com.rm.cfv.adapters.cliente
 
-import android.app.AlertDialog
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -12,6 +12,9 @@ import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
 import br.com.rm.cfv.activities.cliente.debito.ListaDebitosClienteActivity
 import br.com.rm.cfv.activities.cliente.debito.RegistrarDebitoActivity
+import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
+import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
+import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
 import br.com.rm.cfv.database.entities.Cliente
 
 
@@ -65,39 +68,46 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
         holder.textViewTelefone.text = item.telefone
 
         holder.view.setOnClickListener{
-            val builder = AlertDialog.Builder(context)
-            builder.setTitle(R.string.pick_option)
-                .setItems(R.array.list_item_client_options) { dialog, which ->
-                    when (which){
-                        0 ->{
-                            // Registrar debitos
-                            val intent = Intent(context, RegistrarDebitoActivity::class.java)
-                            intent.putExtra("cliente", item)
-                            context.startActivity(intent)
-                        }
-                        1 ->{
-                            //Listar debitos
-                            val intent = Intent(context, ListaDebitosClienteActivity::class.java)
-                            intent.putExtra("cliente", item)
-                            context.startActivity(intent)
-                        }
-                        2 ->{
-                            //Editar registro
-                            val intent = Intent(context, CadastrarClienteActivity::class.java)
-                            intent.putExtra("cliente", item)
-                            context.startActivity(intent)
-                        }
-                        3 ->{
-                            //Remover registro
-                            dialog.dismiss()
-                        }
-                        4 ->{
-                            // cancelar ação
-                            dialog.dismiss()
-                        }
+
+            val settings = BottomSheetDialogSettings(
+                item.nome,
+                true,
+                true,
+                true,
+                false
+            )
+            settings.textoAdicionar = "Registrar Débito"
+
+
+            ItemOptionsBottomSheetDialog().openDialog(
+                context as Activity,
+                item,
+                settings,
+                object : IBottomSheetOptions {
+                    override fun buttonSheetAdiciona(item: Any?) {
+                        val intent = Intent(context, RegistrarDebitoActivity::class.java)
+                        intent.putExtra("cliente", item as Cliente)
+                        context.startActivity(intent)
+                    }
+
+                    override fun buttonSheetEdita(item: Any?) {
+                        val intent = Intent(context, CadastrarClienteActivity::class.java)
+                        intent.putExtra("cliente", item as Cliente)
+                        context.startActivity(intent)
+                    }
+
+                    override fun buttonSheetLista(item: Any?) {
+                        val intent = Intent(context, ListaDebitosClienteActivity::class.java)
+                        intent.putExtra("cliente", item as Cliente)
+                        context.startActivity(intent)
+                    }
+
+                    override fun buttonSheetRemove(item: Any?) {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                     }
                 }
-            builder.show()
+            )
+
         }
     }
 
