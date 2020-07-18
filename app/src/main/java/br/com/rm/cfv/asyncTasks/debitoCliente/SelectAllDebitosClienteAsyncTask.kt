@@ -6,6 +6,7 @@ import br.com.rm.cfv.constants.StatusPagamento
 import br.com.rm.cfv.database.daos.interfaces.DebitoClienteDAO
 import br.com.rm.cfv.database.entities.DebitoCliente
 import br.com.rm.cfv.database.entities.dtos.DebitoClienteDTO
+import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 
 class SelectAllDebitosClienteAsyncTask(private val dao : DebitoClienteDAO, private var ipostExecuteSearch : IPostExecuteSearch) : AsyncTask<Any, Any, DebitoClienteDTO>(){
 
@@ -18,9 +19,9 @@ class SelectAllDebitosClienteAsyncTask(private val dao : DebitoClienteDAO, priva
 
         var cliente_id = params[0]
 
-        var debitos = dao.findByClienteId(cliente_id as Int)
+        var debitos = dao.getSubtotal(cliente_id as Int)
 
-        var dto : DebitoClienteDTO = dao.findByClienteIdAndStatus(cliente_id, StatusPagamento.PENDENTE)
+        var dto : DebitoClienteDTO = dao.findByClienteIdAndStatus(cliente_id)
         if(dto != null) {
             dto.debitos = debitos
         }else{

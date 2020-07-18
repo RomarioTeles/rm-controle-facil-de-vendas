@@ -3,6 +3,7 @@ package br.com.rm.cfv.database.entities.dtos
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
 import br.com.rm.cfv.database.entities.DebitoCliente
+import java.lang.Exception
 
 class DebitoClienteDTO () {
     @ColumnInfo(name = "cliente_id")
@@ -11,9 +12,9 @@ class DebitoClienteDTO () {
     var nome: String? = null
     @ColumnInfo(name = "total")
     var total: Double? = 0.0
-    @Ignore var debitos: List<DebitoCliente>? = null
+    @Ignore var debitos: List<PagamentoDebitoSubtotalDTO>? = null
 
-    fun getTotalNullSafed() : Double{
-        return if (total == null) 0.0 else total!!
+    fun getTotalFaltaPagar() : Double?{
+        return if (total == null)  0.0 else total
     }
 }

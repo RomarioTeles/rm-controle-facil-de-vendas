@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:background="@color/primary"
-                android:padding="16dp">
+                android:padding="8dp">
 
             <TextView android:id="@+id/textViewTotalLabel"
                     android:layout_width="0dp"
@@ -39,19 +39,47 @@
                     android:text="@string/label_total"
                     android:textAllCaps="true"
                     android:textColor="@color/primary_text"
-                    android:textSize="25dp"
-                    android:textStyle="bold"/>
+                    android:textSize="20dp"/>
+
+        <LinearLayout android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:background="@color/primary">
 
             <TextView android:id="@+id/textViewTotalValor"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="R$ 0"
+                    android:text="R$ 50"
                     android:textAllCaps="true"
                     android:gravity="end"
                     android:textColor="@color/primary_text"
-                    android:textSize="25dp"
-                    android:textStyle="bold"/>
+                    android:textSize="12sp"/>
+
+            <TextView android:id="@+id/textViewTotalValorPago"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="- R$ 20"
+                    android:textAllCaps="true"
+                    android:gravity="end"
+                    android:textColor="@color/primary_text"
+                    android:textSize="12sp"/>
+
+            <TextView android:id="@+id/textViewTotalValorTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="= R$ 20"
+                    android:textAllCaps="true"
+                    android:gravity="end"
+                    android:textColor="@color/primary_text"
+                    android:textSize="20dp"/>
+
+        </LinearLayout>
+
 
         </LinearLayout>
 

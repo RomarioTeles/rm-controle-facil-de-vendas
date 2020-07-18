@@ -6,13 +6,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import br.com.rm.cfv.R
 import br.com.rm.cfv.database.entities.DebitoCliente
+import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_lancamentos,
     R.string.tab_parcelas
 )
 
-class VisualizarDebitoPagerAdapter(private val context: Context, private val debitoCliente: DebitoCliente, fm: FragmentManager) :
+class VisualizarDebitoPagerAdapter(private val context: Context, private val debitoCliente: PagamentoDebitoSubtotalDTO, fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {

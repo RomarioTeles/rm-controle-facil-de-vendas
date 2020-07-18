@@ -40,7 +40,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_item_promissoria, parent, false) as View
 
-        val textViewParcela = view.findViewById<TextView>(R.id.textViewParcela)
+        val textViewParcela = view.findViewById<TextView>(R.id.textViewObservacao)
 
         val textViewValor = view.findViewById<TextView>(R.id.textViewValor)
 
@@ -65,13 +65,25 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
         var item = myDataset.get(position)
 
         holder.textViewParcela.text = String.format("%dª Parcela", position+1)
-        holder.textViewValor.text = DecimalFormatUtils.decimalFormatPtBR(item.valor)
-        holder.textViewDataVencimento.text = DateFormatUtils.format(Date(item.dataVencimento), "dd/MM/yyyy")
+        holder.textViewValor.text = "R$ "+ DecimalFormatUtils.decimalFormatPtBR(item.valor)
+        var data = DateFormatUtils.format(Date(item.dataVencimento), "dd") + "\n"
+        data += DateFormatUtils.format(Date(item.dataVencimento), "MMMM") + "\n"
+        data += DateFormatUtils.format(Date(item.dataVencimento), "yyyy")
+
+        holder.textViewDataVencimento.text = data.toUpperCase()
 
         if (item.valorPago >= item.valor){
             holder.textViewStatus.text = "PAGO"
             holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_success))
-        }else{
+        }else if(item.valorPago > 0 && item.valorPago < item.valor){
+            holder.textViewStatus.text = "PAG. PARCIAL"
+            holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_success))
+        }else if(item.observacao != null){
+            holder.textViewParcela.text = item.observacao
+            holder.textViewStatus.text = "PENDENTE"
+            holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_alert))
+        }
+        else{
             holder.textViewStatus.text = "PENDENTE"
             holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_alert))
 

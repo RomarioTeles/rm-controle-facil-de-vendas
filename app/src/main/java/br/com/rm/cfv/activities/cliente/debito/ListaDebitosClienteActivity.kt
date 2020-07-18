@@ -1,19 +1,16 @@
 package br.com.rm.cfv.activities.cliente.debito
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
 import br.com.rm.cfv.adapters.cliente.DebitoClienteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.debitoCliente.SelectAllDebitosClienteAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
-import br.com.rm.cfv.database.entities.DebitoCliente
 import br.com.rm.cfv.database.entities.dtos.DebitoClienteDTO
+import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_lista_debitos_cliente.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -27,7 +24,7 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: DebitoClienteAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var myDataset : List<DebitoCliente> = ArrayList()
+    private var myDataset : List<PagamentoDebitoSubtotalDTO> = ArrayList()
     private lateinit var cliente : Cliente
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +69,6 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
         val dto = result as DebitoClienteDTO
         myDataset = dto.debitos!!
         viewAdapter.setDataset(myDataset.toMutableList())
-        textViewTotalValor.text = DecimalFormatUtils.decimalFormatPtBR(dto.getTotalNullSafed())
+        textViewTotalValor.text = "R$ "+ DecimalFormatUtils.decimalFormatPtBR(dto.getTotalFaltaPagar())
     }
 }

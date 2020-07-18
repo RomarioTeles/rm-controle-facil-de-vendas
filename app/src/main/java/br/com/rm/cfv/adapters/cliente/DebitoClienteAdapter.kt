@@ -1,7 +1,6 @@
 package br.com.rm.cfv.adapters.cliente
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -16,16 +15,15 @@ import br.com.rm.cfv.activities.cliente.debito.VisualizarDebitoActivity
 import br.com.rm.cfv.activities.cliente.debito.VisualizarDebitoActivity.Companion.ARG_DEBITO_CLIENTE
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.debitoCliente.DeleteDebitoClienteAsyncTask
-import br.com.rm.cfv.database.entities.DebitoCliente
+import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 import br.com.rm.cfv.utils.DialogConfig
 import br.com.rm.cfv.utils.DialogUtils
 import br.com.rm.cfv.utils.ToastUtils
 import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.numberUtils.DecimalFormatUtils
-import java.util.*
 
 
-class DebitoClienteAdapter(private var context : Context, private var myDataset: MutableList<DebitoCliente>) :
+class DebitoClienteAdapter(private var context : Context, private var myDataset: MutableList<PagamentoDebitoSubtotalDTO>) :
     RecyclerView.Adapter<DebitoClienteAdapter.ClienteViewHolder>(), IPostExecuteSearch {
 
     override fun afterSearch(result: Any?) {
@@ -55,9 +53,11 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
     class ClienteViewHolder(val view : View) : RecyclerView.ViewHolder(view){
         lateinit var textViewDataHora : TextView
         lateinit var  textViewTotal : TextView
+        lateinit var  textViewStatus : TextView
+        lateinit var textViewObs : TextView
     }
 
-    fun setDataset(dataset : MutableList<DebitoCliente>){
+    fun setDataset(dataset : MutableList<PagamentoDebitoSubtotalDTO>){
         this.myDataset = dataset
         notifyDataSetChanged()
     }
@@ -66,17 +66,23 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
                                     viewType: Int): ClienteViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_view_item_default, parent, false) as View
+            .inflate(R.layout.recycler_view_item_promissoria, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
 
-        val textViewNome = view.findViewById<TextView>(R.id.textViewNome)
+        val textViewTotal = view.findViewById<TextView>(R.id.textViewValor)
 
-        val textViewTelefone = view.findViewById<TextView>(R.id.textViewItemCodigo)
+        val textViewDataHora = view.findViewById<TextView>(R.id.textViewVencimento)
+
+        val textViewObs = view.findViewById<TextView>(R.id.textViewObservacao)
+
+        val textViewStatus = view.findViewById<TextView>(R.id.textViewStatus)
 
         var holder = ClienteViewHolder(view)
 
-        holder.textViewDataHora = textViewTelefone
-        holder.textViewTotal = textViewNome
+        holder.textViewDataHora = textViewDataHora
+        holder.textViewTotal = textViewTotal
+        holder.textViewStatus = textViewStatus
+        holder.textViewObs = textViewObs
 
         return holder
     }
@@ -88,9 +94,17 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
 
         val item = myDataset[position]
 
-        holder.textViewTotal.text = DateFormatUtils.format(Date(item.dataHora), "dd/MM/yyyy HH:mm")
+        holder.textViewDataHora.text = DateFormatUtils.format(item.getDataHora(), "dd\nMMMM\nyyyy").toUpperCase()
 
-        holder.textViewDataHora.text = "R$ ${DecimalFormatUtils.decimalFormatPtBR(item.total)}"
+        holder.textViewTotal.text = "R$ ${DecimalFormatUtils.decimalFormatPtBR(item.total)}"
+
+        holder.textViewStatus.text = item.getStatus()
+
+        if("PAGO".equals(item.getStatus())){
+            holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_success))
+        }
+
+        holder.textViewObs.visibility = View.INVISIBLE
 
         holder.view.setOnClickListener{
             val builder = AlertDialog.Builder(context)
@@ -109,7 +123,7 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
                             }
                             dialogConfig.positiveButtonListener = Runnable {
                                 var task = DeleteDebitoClienteAsyncTask(CfvApplication.database!!.debitoClienteDAO(), this)
-                                task.execute(item, position)
+                                task.execute(item.id, position)
                             }
                             dialogConfig.showSubtitle = true
                             dialogConfig.showNegativeButton = true

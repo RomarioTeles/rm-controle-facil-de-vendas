@@ -35,7 +35,7 @@ open class LancamentosDebitoViewModel : PageViewModel(), IPostExecuteSearch {
 
     fun buscarLancamentos(){
         val task = SelectAllLancamentosAsyncTask(CfvApplication.database!!.itemProdutoDAO(), this)
-        task.execute(debitoCliente.uid)
+        task.execute(debitoCliente.id)
     }
 
 }

@@ -35,7 +35,7 @@ class ParcelasDebitoViewModel : PageViewModel(), IPostExecuteSearch {
 
     fun buscarParcelas(){
         val task = SelectAllParcelasAsyncTask(CfvApplication.database!!.pagamentoDebitoDAO(), this)
-        task.execute(debitoCliente.uid)
+        task.execute(debitoCliente.id)
     }
 
 

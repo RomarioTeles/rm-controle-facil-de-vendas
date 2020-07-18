@@ -69,10 +69,10 @@ class ItemProdutoAdapter(private var context: Context, private var myDataset: Mu
         var item = myDataset.get(position)
         holder.textViewNome.text = item.nomeProduto
         holder.textViewCodigo.text = item.codigoProduto
-        holder.textViewSubtotal.text = DecimalFormatUtils.decimalFormatPtBR(item.subtotal)
+        holder.textViewSubtotal.text = "R$ "+DecimalFormatUtils.decimalFormatPtBR(item.subtotal)
         holder.textViewQuantidade.text = item.getQuantidade().toString()
-        holder.textViewPrecoOriginal.text = DecimalFormatUtils.decimalFormatPtBR(item.precoUnitario)
-        holder.textViewDescAcresc.text = DecimalFormatUtils.decimalFormatPtBR(item.getDescAcresc())
+        holder.textViewPrecoOriginal.text = "R$ "+DecimalFormatUtils.decimalFormatPtBR(item.precoUnitario)
+        holder.textViewDescAcresc.text = "R$ "+DecimalFormatUtils.decimalFormatPtBR(item.getDescAcresc())
     }
 
     override fun getItemCount() = myDataset.size

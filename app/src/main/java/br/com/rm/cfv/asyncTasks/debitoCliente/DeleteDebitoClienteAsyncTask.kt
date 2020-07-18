@@ -15,11 +15,12 @@ class DeleteDebitoClienteAsyncTask(private val dao : DebitoClienteDAO, private v
 
     override fun doInBackground(vararg params: Any?): Int {
 
-        val debito = params[0]
+        val id = params[0]
         val position = params[1]
 
         try {
-            dao.delete(debito as DebitoCliente)
+            var debito = dao.findById(id as Int)
+            dao.delete(debito)
             return position as Int
         }catch (e : Exception){
             e.printStackTrace()

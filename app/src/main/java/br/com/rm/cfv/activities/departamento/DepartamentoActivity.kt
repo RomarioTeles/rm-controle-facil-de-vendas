@@ -93,7 +93,7 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
                 departs.add(it.nome!!)
             }
         }
-        val adapter = ArrayAdapter(this, android.R.layout.select_dialog_item, departs)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, departs)
         val actv = autocompleteTextViewDepartamentoPai
         actv.threshold = 1
         actv.setAdapter(adapter)

@@ -42,7 +42,7 @@
                     android:textSize="14sp" />
 
             <TextView
-                    android:id="@+id/textViewParcela"
+                    android:id="@+id/textViewObservacao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"

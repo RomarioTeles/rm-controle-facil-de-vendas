@@ -7,8 +7,11 @@ import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 @Dao
 interface PagamentoDebitoDAO{
 
-    @Query("SELECT SUM(pd.valor_pago) AS valorPago, dc.total AS total  FROM pagamentodebito pd JOIN DebitoCliente dc ON pd.debito_cliente_id = dc.uid where pd.debito_cliente_id = :debitoClienteId")
-    fun getSubtotal(debitoClienteId : Int): List<PagamentoDebitoSubtotalDTO>
+    @Query("SELECT pd.debito_cliente_id AS id, SUM(pd.valor_pago) AS valorPago, dc.total AS total, pd.data_hora AS dataHora " +
+            "FROM pagamentodebito pd JOIN DebitoCliente dc ON pd.debito_cliente_id = dc.uid " +
+            "WHERE pd.debito_cliente_id = :debitoClienteId " +
+            "GROUP BY pd.debito_cliente_id")
+    fun getSubtotalByDebitoClienteId(debitoClienteId : Int): PagamentoDebitoSubtotalDTO
 
     @Query("SELECT * FROM pagamentodebito where debito_cliente_id = :debitoClienteId  order by data_hora")
     fun getAll(debitoClienteId : Int): List<PagamentoDebito>

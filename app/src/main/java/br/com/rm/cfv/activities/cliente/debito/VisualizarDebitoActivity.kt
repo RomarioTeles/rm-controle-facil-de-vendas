@@ -5,12 +5,17 @@ import android.util.Log
 import androidx.viewpager.widget.ViewPager
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
+import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
+import br.com.rm.cfv.asyncTasks.debitoCliente.SelectValorPagarByPagamentoDebitoIdAsyncTask
 import br.com.rm.cfv.database.entities.DebitoCliente
+import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 import br.com.rm.numberUtils.DecimalFormatUtils
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_visualizar_debito.*
 
-class VisualizarDebitoActivity : BaseActivity() {
+class VisualizarDebitoActivity : BaseActivity(), IPostExecuteSearch{
+
+    lateinit var debitoCliente : PagamentoDebitoSubtotalDTO
 
     companion object{
         const val ARG_DEBITO_CLIENTE = "DEBITO_CLIENTE"
@@ -24,7 +29,7 @@ class VisualizarDebitoActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualizar_debito)
         hideFab()
-        val debitoCliente = intent.getParcelableExtra<DebitoCliente>(ARG_DEBITO_CLIENTE)
+        debitoCliente = intent.getParcelableExtra(ARG_DEBITO_CLIENTE)
 
         if(debitoCliente == null){
             finish()
@@ -40,6 +45,21 @@ class VisualizarDebitoActivity : BaseActivity() {
             viewPager.adapter = sectionsPagerAdapter
             val tabs: TabLayout = findViewById(R.id.tabs)
             tabs.setupWithViewPager(viewPager)
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        SelectValorPagarByPagamentoDebitoIdAsyncTask(getCfvApplication().getDataBase()!!.pagamentoDebitoDAO(), this).execute(debitoCliente)
+    }
+
+    override fun afterSearch(result: Any?) {
+        if(result != null){
+            var dto = result as PagamentoDebitoSubtotalDTO
+            textViewTotalValor.text = "R$ ${DecimalFormatUtils.decimalFormatPtBR(dto.total)}"
+            textViewTotalValorPago.text = "- R$ ${DecimalFormatUtils.decimalFormatPtBR(dto.valorPago)}"
+            textViewTotalValorTotal.text = "= R$ ${DecimalFormatUtils.decimalFormatPtBR(dto.getValorFaltaPagar())}"
         }
     }
 }

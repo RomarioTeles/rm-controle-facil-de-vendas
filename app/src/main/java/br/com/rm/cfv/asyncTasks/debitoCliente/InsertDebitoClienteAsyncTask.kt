@@ -69,10 +69,8 @@ open class InsertDebitoClienteAsyncTask(private var dao: AppDataBase?, private v
         }else{
             val lista : ArrayList<PagamentoDebito> = ArrayList()
             val qtdeParcelas = debitoCliente.qtdeParcelas
-            val percentualJurosParcelas= debitoCliente.percentualJurosParcelas
             val valor = debitoCliente.total / qtdeParcelas
-            val juros = valor * (percentualJurosParcelas / 100)
-            val valorParcela = valor+juros
+            val valorParcela = valor
             for(num in 0 until qtdeParcelas){
                 val pagamentoDebito = PagamentoDebito()
                 pagamentoDebito.debitoClienteId = debitoCliente.uid

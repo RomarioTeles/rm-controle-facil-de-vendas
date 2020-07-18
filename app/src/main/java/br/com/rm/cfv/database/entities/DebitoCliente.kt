@@ -18,7 +18,7 @@ open class DebitoCliente() : Parcelable{
     @ColumnInfo(name = "data_hora")  var dataHora : Long = Date().time
     @ColumnInfo(name = "status_pagamento")  var statusPagamento : String = StatusPagamento.PENDENTE
     @ColumnInfo(name = "tipo_pagamento")  var tipoPagamento : String = TipoPagamento.A_VISTA
-    @ColumnInfo(name = "data_prevista_pagamento")  var dataPrevistaPagamento : Long? = null
+    @ColumnInfo(name = "data_prevista_pagamento")  var dataPrevistaPagamento : Long? = Date().time
     @ColumnInfo(name = "total")  var total : Double = 0.0
     @ColumnInfo(name = "codigo") var codigo: String = UUID.randomUUID().toString()
     @ColumnInfo(name = "qtde_parcelas")  var qtdeParcelas : Int = 1
@@ -95,7 +95,12 @@ open class DebitoCliente() : Parcelable{
         itemProdutoList.forEach {
             subtotal += it.subtotal
         }
-        return subtotal
+
+        if(percentualJurosParcelas > 0) {
+            return subtotal + (subtotal * (percentualJurosParcelas / 100))
+        }else{
+            return subtotal
+        }
     }
 
     fun atualizaTotal(){

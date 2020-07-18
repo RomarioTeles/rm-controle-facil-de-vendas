@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.database.entities.DebitoCliente
+import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 
 /**
  * A placeholder fragment containing a simple view.
@@ -35,6 +36,10 @@ class LancamentosDebitoFragment : Fragment() {
             view = viewRoot
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         pageViewModel.buscarLancamentos()
     }
 
@@ -42,7 +47,7 @@ class LancamentosDebitoFragment : Fragment() {
         private const val ARG_DEBITO_CLIENTE = "DEBITO_CLIENTE"
 
         @JvmStatic
-        fun newInstance(debitoCliente: DebitoCliente): LancamentosDebitoFragment {
+        fun newInstance(debitoCliente: PagamentoDebitoSubtotalDTO): LancamentosDebitoFragment {
             return LancamentosDebitoFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_DEBITO_CLIENTE, debitoCliente)

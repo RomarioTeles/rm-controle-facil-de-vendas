@@ -7,8 +7,11 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import br.com.rm.cfv.constants.MeioPagamento
+import br.com.rm.dateutils.DateFormatUtils
 import com.google.android.material.textfield.TextInputLayout
 import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 import java.util.*
 
 @Entity
@@ -23,7 +26,7 @@ open class PagamentoDebito : Parcelable {
     @ColumnInfo(name = "valor")  var valor : Double = 0.0
     @ColumnInfo(name = "codigo") var codigo: String = UUID.randomUUID().toString()
     @ColumnInfo(name = "debito_cliente_id")  var debitoClienteId : Int? = null
-
+    @ColumnInfo(name = "observacao") var observacao : String? = null
 
     val messageNullable : String?
         get() = "%s não pode ser vazio."
@@ -61,7 +64,12 @@ open class PagamentoDebito : Parcelable {
             novoPagamento.valor = valor.minus(valorPago)
             novoPagamento.codigo = "$codigo-R"
             novoPagamento.debitoClienteId = this.debitoClienteId
+            val data = Date(this.dataVencimento)
+            val parcelaorigem = DateFormatUtils.format(data, "MM/yyyy")
+            novoPagamento.observacao = "Débito de pagamento parcial efetivado. Parcela origem: ${parcelaorigem}."
+
             return novoPagamento
+
         }else{
             return null
         }

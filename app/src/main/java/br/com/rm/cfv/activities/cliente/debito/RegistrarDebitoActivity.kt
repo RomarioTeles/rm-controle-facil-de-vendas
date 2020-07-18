@@ -361,7 +361,7 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
     private fun atualizaResumoCesta() {
         textViewquantidadeItens.text = debitoCliente.itemProdutoList.size.toString()
         textViewSubtotalItens.text =
-            DecimalFormatUtils.decimalFormatPtBR(debitoCliente.getSubtotal())
+            "R$ "+DecimalFormatUtils.decimalFormatPtBR(debitoCliente.getSubtotal())
     }
 
     private fun limpaItemProduto() {
@@ -490,6 +490,9 @@ class RegistrarDebitoActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnCli
         listViewParcelamento.setOnItemClickListener { parent, view, position, id ->
             debitoCliente.qtdeParcelas = position + 1
             debitoCliente.percentualJurosParcelas = if (debitoCliente.qtdeParcelas < 5) 0.0 else 10.0
+            debitoCliente.atualizaTotal()
+            textViewPagandoSubtotal.text =
+                "R$ ${DecimalFormatUtils.decimalFormatPtBR(debitoCliente.total)}"
             adapterParcelas.selected = position
             adapterParcelas.notifyDataSetChanged()
         }
