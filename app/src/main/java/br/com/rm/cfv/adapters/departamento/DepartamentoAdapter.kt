@@ -15,13 +15,13 @@ class DepartamentoAdapter( context : Context, items : MutableList<Departamento>)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
-        val rowView = inflater.inflate(R.layout.recycler_view_item_default, parent, false)
+        val rowView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
 
-        var primary = rowView.findViewById<TextView>(R.id.textViewNome)
-        var secondary = rowView.findViewById<TextView>(R.id.textViewItemCodigo)
+        var primary = rowView.findViewById<TextView>(android.R.id.text1)
+        //var secondary = rowView.findViewById<TextView>(R.id.textViewItemCodigo)
 
         primary.text = getItem(position).nome
-        secondary.text = getItem(position).departamentoPai
+        //secondary.text = getItem(position).departamentoPai
 
         return rowView
     }

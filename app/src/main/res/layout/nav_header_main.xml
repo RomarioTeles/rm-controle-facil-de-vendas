@@ -18,7 +18,7 @@
             android:layout_height="64dp"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="8dp"
-            app:srcCompat="@drawable/ic_logo_app"
+            app:srcCompat="@mipmap/ic_launcher_round"
             android:contentDescription="@string/nav_header_desc"
             android:id="@+id/imageView"/>
 

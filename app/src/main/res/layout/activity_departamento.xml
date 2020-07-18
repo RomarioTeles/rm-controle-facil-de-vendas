@@ -7,25 +7,18 @@
         android:layout_height="match_parent"
         tools:context="br.com.rm.cfv.activities.departamento.DepartamentoActivity">
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  android:layout_marginBottom="8dp"
-                  app:layout_constraintBottom_toBottomOf="parent"
-                  app:layout_constraintStart_toStartOf="parent"
-                  app:layout_constraintEnd_toEndOf="parent"
-                  android:padding="16dip">
 
         <ListView
                 android:id="@+id/listViewDepartamentos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:divider="@android:color/transparent"
                 tools:listitem="@layout/recycler_view_item_default"
-                tools:listheader="@layout/list_view_header_default"/>
+                tools:listheader="@layout/list_view_header_default"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-    </LinearLayout>
 
     <FrameLayout android:id="@+id/framelayout_cad_departamento"
                  android:layout_width="match_parent"
@@ -51,7 +44,7 @@
                 <TextView android:id="@+id/textView"
                           android:layout_width="match_parent"
                           android:layout_height="wrap_content"
-                          android:textColor="@color/primary_text"
+                          android:textColor="@color/secondary_text"
                           android:textStyle="bold"
                           style="bold"
                           android:textSize="16sp"
@@ -64,7 +57,8 @@
                         android:id="@+id/textInputLayoutDepartamentoPai"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone">
 
                     <AutoCompleteTextView android:id="@+id/autocompleteTextViewDepartamentoPai"
                                           android:layout_width="match_parent"

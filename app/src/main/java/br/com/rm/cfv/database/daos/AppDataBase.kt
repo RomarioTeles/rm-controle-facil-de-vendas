@@ -13,7 +13,7 @@ import br.com.rm.cfv.database.entities.*
     DebitoCliente::class,
     ItemProduto::class,
     PagamentoDebito::class),
-version = 4, exportSchema = false)
+version = 5, exportSchema = false)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun clienteDAO(): ClienteDAO
     abstract fun departamentoDAO() : DepartamentoDAO
