@@ -2,7 +2,6 @@ package br.com.rm.cfv.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,9 +14,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.balancete.ListaBalanceteActivity
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
 import br.com.rm.cfv.activities.estoque.ListaEstoqueActivity
+import br.com.rm.cfv.activities.fornecedor.ListaFornecedorActivity
 import br.com.rm.cfv.activities.produto.ListaProdutosActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -108,6 +109,12 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             R.id.nav_estoque ->{
                 startActivity(Intent(this, ListaEstoqueActivity::class.java))
+            }
+            R.id.nav_fornecedores->{
+                startActivity(Intent(this, ListaFornecedorActivity::class.java))
+            }
+            R.id.nav_balancete->{
+                startActivity(Intent(this, ListaBalanceteActivity::class.java))
             }
         }
 

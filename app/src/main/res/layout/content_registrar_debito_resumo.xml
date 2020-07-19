@@ -75,9 +75,9 @@
         <TextView android:id="@+id/textViewVisualizar"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  android:gravity="center|start"
+                  android:gravity="center|end"
                   android:textColor="@color/primary_text"
-                  android:textSize="20sp"
+                  android:textSize="18sp"
                   android:textStyle="bold"
                   android:textAllCaps="true"
                   android:text="@string/ver_cesta"/>
@@ -95,7 +95,7 @@
                   android:layout_height="match_parent"
                   android:gravity="center|start"
                   android:textColor="@color/primary_text"
-                  android:textSize="20sp"
+                  android:textSize="18sp"
                   android:textStyle="bold"
                   android:textAllCaps="true"
                   android:text="@string/finalizar"/>

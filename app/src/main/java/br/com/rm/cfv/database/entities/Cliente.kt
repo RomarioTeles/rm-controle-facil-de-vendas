@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.utils.EmailValidate
 import br.com.rm.cpfutils.CPFUtils
 import br.com.rm.dateutils.DateFormatUtils
@@ -28,7 +29,7 @@ open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
                     @ColumnInfo(name = "bairro") var bairro: String? = "",
                     @ColumnInfo(name = "cidade") var cidade: String? = "",
                     @ColumnInfo(name = "uf") var uf: String = ""
-) : Serializable{
+) : Serializable, IReferencia{
     
     val messageNullable : String?
     get() = "%s não pode ser vazio."
@@ -37,30 +38,36 @@ open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
     val messageInvalid : String?
     get() = "Informe um(a) %s válido(a)."
 
+    override fun getNomeRef() : String?{
+        return nome
+    }
+
+    override fun getIdRef() : Int?{
+        return uid
+    }
+
+    override fun getTipoRef(): String? {
+        return TipoReferencia.CLIENTE
+    }
+
     fun validate(fields : Map<String, EditText>): Boolean {
         var hasError = false
         if(nome == null || nome!!.isBlank()){
-            fields!!["nome"]!!.error = String.format(messageNullable!!,"Nome")
+            fields["nome"]!!.error = String.format(messageNullable!!,"Nome")
             hasError = true
         }
         if(cpf == null || cpf!!.isBlank()){
-            fields!!["cpf"]!!.error = String.format(messageNullable!!,"CPF")
-            hasError = true
-        }else if(!CPFUtils.isCPF(cpf)){
-            fields!!["cpf"]!!.error = String.format(messageInvalid!!,"CPF")
+            fields["cpf"]!!.error = String.format(messageNullable!!,"CPF")
             hasError = true
         }
 
         if(telefone == null || telefone!!.isBlank()){
-            fields!!["telefone"]!!.error = String.format(messageNullable!!,"Telefone")
+            fields["telefone"]!!.error = String.format(messageNullable!!,"Telefone")
             hasError = true
         }
 
-        if(email == null || email!!.isBlank()){
-            fields!!["email"]!!.error = String.format(messageNullable!!,"E-mail")
-            hasError = true
-        }else if(!EmailValidate.validate(email!!)){
-            fields!!["email"]!!.error = String.format(messageInvalid!!,"E-mail")
+        if(email != null && email!!.isNotBlank() && !EmailValidate.validate(email!!)){
+            fields["email"]!!.error = String.format(messageInvalid!!,"E-mail")
             hasError = true
         }
 

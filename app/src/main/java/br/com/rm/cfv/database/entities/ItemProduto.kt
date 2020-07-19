@@ -6,10 +6,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.google.common.base.Strings
 
 @Entity
-@ForeignKey(entity = DebitoCliente::class, parentColumns = ["uid"], childColumns = ["debito_cliente_id"], onDelete = ForeignKey.CASCADE)
+@ForeignKey(entity = ContaPagarReceber::class, parentColumns = ["uid"], childColumns = ["debito_cliente_id"], onDelete = ForeignKey.CASCADE)
 open class ItemProduto() : Parcelable {
 
     @PrimaryKey(autoGenerate = true)
@@ -44,6 +43,10 @@ open class ItemProduto() : Parcelable {
     }
 
     fun atualizaSubtotal(){
+        this.subtotal = (quantidade * precoUnitario) + acrescimo - desconto
+    }
+
+    fun atualizaSubtotalDeCusto(){
         this.subtotal = (quantidade * precoUnitario) + acrescimo - desconto
     }
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
-import br.com.rm.cfv.activities.cliente.debito.DetalheParcelaDebitoActivity
+import br.com.rm.cfv.activities.contaPagarReceber.DetalheParcelaDebitoActivity
 import br.com.rm.cfv.database.entities.PagamentoDebito
 import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.dateutils.DateOperationsUtils

@@ -90,4 +90,9 @@
     <string name="parcela_label">Parcela:</string>
     <string name="vencimento_label">Data vencimento:</string>
     <string name="label_valor">Valor:</string>
+    <string name="cliente_sessao_dados_fornecedor">Dados do Fornecedor</string>
+    <string name="cliente_CPF_CNPJ">CPF ou CNPJ</string>
+    <string name="cadastrar_fornecedor_title">Cadastro de Fornecedor</string>
+    <string name="listar_fornecedores_title">Listar Fornecedores</string>
+    <string name="listar_itens_balancetes_title">Itens Balancete</string>
 </resources>

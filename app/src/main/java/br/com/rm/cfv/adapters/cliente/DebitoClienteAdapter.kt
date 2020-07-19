@@ -1,7 +1,6 @@
 package br.com.rm.cfv.adapters.cliente
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -12,13 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
-import br.com.rm.cfv.activities.cliente.debito.ListaDebitosClienteActivity
-import br.com.rm.cfv.activities.cliente.debito.RegistrarDebitoActivity
-import br.com.rm.cfv.activities.cliente.debito.VisualizarDebitoActivity
-import br.com.rm.cfv.activities.cliente.debito.VisualizarDebitoActivity.Companion.ARG_DEBITO_CLIENTE
+import br.com.rm.cfv.activities.contaPagarReceber.RegistrarContaPagarReceberActivity
+import br.com.rm.cfv.activities.contaPagarReceber.VisualizarDebitoActivity
+import br.com.rm.cfv.activities.contaPagarReceber.VisualizarDebitoActivity.Companion.ARG_DEBITO_CLIENTE
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.asyncTasks.debitoCliente.DeleteDebitoClienteAsyncTask
+import br.com.rm.cfv.asyncTasks.contaPagarReceber.DeleteDebitoClienteAsyncTask
 import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
 import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
 import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
@@ -132,8 +129,8 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
                 settings,
                 object : IBottomSheetOptions {
                     override fun buttonSheetAdiciona(item: Any?) {
-                        val intent = Intent(context, RegistrarDebitoActivity::class.java)
-                        intent.putExtra("cliente", item as Cliente)
+                        val intent = Intent(context, RegistrarContaPagarReceberActivity::class.java)
+                        intent.putExtra("referencia", item as Cliente)
                         context.startActivity(intent)
                     }
 
@@ -154,7 +151,7 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
 
                         }
                         dialogConfig.positiveButtonListener = Runnable {
-                            var task = DeleteDebitoClienteAsyncTask(CfvApplication.database!!.debitoClienteDAO(), iPostExecuteSearch)
+                            var task = DeleteDebitoClienteAsyncTask(CfvApplication.database!!.contaPagarReceberDAO(), iPostExecuteSearch)
                             task.execute(debito.id, position)
                         }
                         dialogConfig.showSubtitle = true

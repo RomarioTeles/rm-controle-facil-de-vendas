@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".activities.cliente.debito.RegistrarDebitoActivity">
+        tools:context=".activities.contaPagarReceber.RegistrarContaPagarReceberActivity">
 
 
     <include android:id="@+id/registrarDebitoProdutos"

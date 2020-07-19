@@ -19,13 +19,13 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.cliente.debito.DetalheParcelaDebitoActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="br.com.rm.cfv.activities.contaPagarReceber.DetalheParcelaDebitoActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".activities.VisualizarImagemActivity"
                 android:label="@string/imagem_expandida_title"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".activities.cliente.debito.VisualizarDebitoActivity"
+                android:name="br.com.rm.cfv.activities.contaPagarReceber.VisualizarDebitoActivity"
                 android:label="@string/title_activity_visualizar_debito"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -48,6 +48,26 @@
             </intent-filter>
         </activity>
         <activity
+                android:name=".activities.fornecedor.ListaFornecedorActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".activities.fornecedor.CadastrarFornecedorActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".activities.balancete.ListaBalanceteActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".activities.balancete.ListaItensBalanceteActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
                 android:name=".activities.departamento.DepartamentoActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar" />
@@ -61,11 +81,11 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustPan" />
         <activity
-                android:name=".activities.cliente.debito.RegistrarDebitoActivity"
+                android:name="br.com.rm.cfv.activities.contaPagarReceber.RegistrarContaPagarReceberActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".activities.cliente.debito.ListaDebitosClienteActivity"
+                android:name="br.com.rm.cfv.activities.contaPagarReceber.ListaDebitosClienteActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar" />
 

@@ -1,159 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:id="@+id/scrollView">
+        android:fillViewport="true">
 
-    <LinearLayout android:orientation="vertical"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:orientation="vertical"
             android:paddingBottom="100dp">
 
-        <ImageView android:id="@+id/imageViewProduto"
-                   android:layout_width="200dp"
-                   android:layout_height="200dp"
-                   android:layout_gravity="center"
-                   android:scaleType="centerCrop"
-                   app:srcCompat="@mipmap/ic_launcher"
-                   android:layout_marginBottom="8dp"/>
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center">
 
-        <TextView android:id="@+id/textViewEditarImagem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Editar imagem"
-                android:layout_gravity="center"
-                android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                android:background="@drawable/shape_button_rounded_accent"
-                android:textAlignment="center"
-                android:padding="4dp"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="8dp"/>
+            <ImageView
+                    android:id="@+id/imageViewProduto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/no_image" />
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutId"
+            <TextView
+                    android:id="@+id/textViewEditarImagem"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/bg_black_transparencia"
+                    android:drawableTop="@drawable/camera"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="Editar Imagem"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditId"
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:visibility="gone"
-                    android:hint="Id"/>
+                    android:layout_marginBottom="8dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:hint="Id"
+                        android:visibility="gone" />
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutCodigo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditCodigo"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutCodigo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="20"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"
-                    android:hint="Código"/>
+                    android:layout_marginBottom="8dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditCodigo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Código"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLength="20"
+                        android:maxLines="1" />
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutNome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditNome"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nome"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:maxLength="100"
-                    android:imeOptions="actionNext"/>
+                    android:layout_marginBottom="8dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditNome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nome"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:maxLines="1" />
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutDepartamento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <AutoCompleteTextView android:id="@+id/autocompleteTextViewDepartamento"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutDepartamento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:hint="Nome do departamento"/>
+                    android:layout_marginBottom="8dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <AutoCompleteTextView
+                        android:id="@+id/autocompleteTextViewDepartamento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nome do departamento"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLines="1" />
 
-        <TextView android:text="Tabela de Preços"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:textColor="@android:color/black"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutPrecoTabela"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditPrecoTabela"
+            <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="Preço de Tabela"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Tabela de Preços"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutPrecoCusto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditPrecoCusto"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutPrecoTabela"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="Preço de Custo"/>
+                    android:layout_marginBottom="8dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditPrecoTabela"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Preço de Tabela"
+                        android:inputType="numberDecimal" />
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutPrecoRevenda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditPrecoRevenda"
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutPrecoCusto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="Preço de Revenda"/>
+                    android:layout_marginBottom="8dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditPrecoCusto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Preço de Custo"
+                        android:inputType="numberDecimal" />
 
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutPrecoRevenda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditPrecoRevenda"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Preço de Revenda"
+                        android:inputType="numberDecimal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

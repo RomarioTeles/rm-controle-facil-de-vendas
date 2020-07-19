@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
-import br.com.rm.cfv.activities.cliente.debito.ListaDebitosClienteActivity
-import br.com.rm.cfv.activities.cliente.debito.RegistrarDebitoActivity
+import br.com.rm.cfv.activities.contaPagarReceber.ListaDebitosClienteActivity
+import br.com.rm.cfv.activities.contaPagarReceber.RegistrarContaPagarReceberActivity
 import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
 import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
 import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
@@ -85,20 +85,20 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
                 settings,
                 object : IBottomSheetOptions {
                     override fun buttonSheetAdiciona(item: Any?) {
-                        val intent = Intent(context, RegistrarDebitoActivity::class.java)
-                        intent.putExtra("cliente", item as Cliente)
+                        val intent = Intent(context, RegistrarContaPagarReceberActivity::class.java)
+                        intent.putExtra(RegistrarContaPagarReceberActivity.ARG_REFERENCIA, item as Cliente)
                         context.startActivity(intent)
                     }
 
                     override fun buttonSheetEdita(item: Any?) {
                         val intent = Intent(context, CadastrarClienteActivity::class.java)
-                        intent.putExtra("cliente", item as Cliente)
+                        intent.putExtra(RegistrarContaPagarReceberActivity.ARG_REFERENCIA, item as Cliente)
                         context.startActivity(intent)
                     }
 
                     override fun buttonSheetLista(item: Any?) {
                         val intent = Intent(context, ListaDebitosClienteActivity::class.java)
-                        intent.putExtra("cliente", item as Cliente)
+                        intent.putExtra(RegistrarContaPagarReceberActivity.ARG_REFERENCIA, item as Cliente)
                         context.startActivity(intent)
                     }
 

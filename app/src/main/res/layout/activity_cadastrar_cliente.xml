@@ -20,17 +20,17 @@
                 android:text="@string/cliente_sessao_dados_pessoais"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"/>
 
         <EditText
                 android:id="@+id/editTextId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:enabled="false"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:hint="Id"
                 android:inputType="text"
                 android:visibility="gone" />
@@ -40,8 +40,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_nome"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="text" />
 
         <EditText
@@ -49,8 +51,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_telefone"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="text" />
 
         <EditText
@@ -58,8 +62,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_email"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="textEmailAddress" />
 
         <EditText
@@ -67,8 +73,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_CPF"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="number" />
 
         <EditText
@@ -76,8 +84,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_dataNascimento"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="number" />
 
         <TextView
@@ -85,21 +95,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:padding="8dp"
                 android:text="@string/cliente_sessao_endereco"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="16sp"/>
 
         <EditText
                 android:id="@+id/editTextEndereco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_logradouro"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="text" />
 
         <EditText
@@ -107,8 +118,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_numero"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="text" />
 
         <EditText
@@ -116,8 +129,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_complemento"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="text" />
 
         <EditText
@@ -125,8 +140,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_bairro"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="text" />
 
         <EditText
@@ -134,8 +151,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/cliente_uf"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="text" />
 
         <EditText
@@ -143,9 +162,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="50dp"
                 android:hint="@string/cliente_cidade"
+                android:background="@drawable/shape_rectangule_rounded_white"
+                android:padding="4dp"
                 android:inputType="text" />
 
     </LinearLayout>

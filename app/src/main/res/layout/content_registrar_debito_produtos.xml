@@ -5,8 +5,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/white"
-              android:paddingBottom="78dp">
+              android:background="@android:color/white">
 
     <androidx.cardview.widget.CardView android:id="@+id/cardView"
             android:layout_width="match_parent"
@@ -17,7 +16,7 @@
             app:cardElevation="4dp">
 
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="8dp">
@@ -29,15 +28,10 @@
                     android:maxLines="1"
                     android:inputType="text"
                     android:drawableEnd="@drawable/search"
+                    android:background="@drawable/shape_rectangule_rounded_white"
+                    android:padding="4dp"
                     android:imeOptions="actionSearch"
                     android:hint="@string/pesquise_codigo_produto"/>
-
-            <TextView android:id="@+id/textViewSugestao"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sugestao_adicionar_produto"
-                    android:gravity="center|start"
-                    android:textSize="14sp"/>
 
         </LinearLayout>
 
@@ -47,7 +41,7 @@
             android:id="@+id/recyclerViewProdutos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="55dp"
             tools:listitem="@layout/recycler_view_item_produto"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"/>
 

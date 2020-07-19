@@ -9,8 +9,8 @@ import br.com.rm.cfv.database.entities.ItemProduto
 @Dao
 public interface ItemProdutoDAO {
 
-    @Query("SELECT * FROM itemproduto WHERE debito_cliente_id = :debitoClienteId")
-    fun getAll(debitoClienteId: Int): List<ItemProduto>
+    @Query("SELECT * FROM itemproduto WHERE debito_cliente_id = :contaPagarReceberId")
+    fun getAll(contaPagarReceberId: Int): List<ItemProduto>
 
     @Query("SELECT * FROM itemproduto")
     fun getAll(): List<ItemProduto>

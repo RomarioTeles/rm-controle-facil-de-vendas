@@ -9,13 +9,10 @@ import androidx.room.PrimaryKey
 import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.dateutils.DateFormatUtils
 import com.google.android.material.textfield.TextInputLayout
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
 import java.util.*
 
 @Entity
-@ForeignKey(entity = DebitoCliente::class, parentColumns = ["uid"], childColumns = ["debito_cliente_id"], onDelete = ForeignKey.SET_NULL)
+@ForeignKey(entity = ContaPagarReceber::class, parentColumns = ["uid"], childColumns = ["conta_pagar_receber_id"], onDelete = ForeignKey.SET_NULL)
 open class PagamentoDebito : Parcelable {
 
     @PrimaryKey(autoGenerate = true) var uid: Int? = null
@@ -25,7 +22,7 @@ open class PagamentoDebito : Parcelable {
     @ColumnInfo(name = "valor_pago")  var valorPago : Double = 0.0
     @ColumnInfo(name = "valor")  var valor : Double = 0.0
     @ColumnInfo(name = "codigo") var codigo: String = UUID.randomUUID().toString()
-    @ColumnInfo(name = "debito_cliente_id")  var debitoClienteId : Int? = null
+    @ColumnInfo(name = "conta_pagar_receber_id")  var contaPagarReceberId : Int? = null
     @ColumnInfo(name = "observacao") var observacao : String? = null
 
     val messageNullable : String?
@@ -43,7 +40,7 @@ open class PagamentoDebito : Parcelable {
         valorPago = parcel.readDouble()
         valor = parcel.readDouble()
         codigo = parcel.readString()
-        debitoClienteId = parcel.readValue(Int::class.java.classLoader) as? Int
+        contaPagarReceberId = parcel.readValue(Int::class.java.classLoader) as? Int
     }
 
     constructor()
@@ -63,7 +60,7 @@ open class PagamentoDebito : Parcelable {
             novoPagamento.valorPago = 0.0
             novoPagamento.valor = valor.minus(valorPago)
             novoPagamento.codigo = "$codigo-R"
-            novoPagamento.debitoClienteId = this.debitoClienteId
+            novoPagamento.contaPagarReceberId = this.contaPagarReceberId
             val data = Date(this.dataVencimento)
             val parcelaorigem = DateFormatUtils.format(data, "MM/yyyy")
             novoPagamento.observacao = "Débito de pagamento parcial efetivado. Parcela origem: ${parcelaorigem}."
@@ -83,7 +80,7 @@ open class PagamentoDebito : Parcelable {
         parcel.writeDouble(valorPago)
         parcel.writeDouble(valor)
         parcel.writeString(codigo)
-        parcel.writeValue(debitoClienteId)
+        parcel.writeValue(contaPagarReceberId)
     }
 
     override fun describeContents(): Int {
