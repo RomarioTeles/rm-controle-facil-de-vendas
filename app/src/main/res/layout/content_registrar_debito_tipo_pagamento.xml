@@ -16,29 +16,37 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/label_tipo_pagamento"
-            android:textColor="@color/secondary_text"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp"
-            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/buttonPagAvista"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp" />
 
-    <Button android:id="@+id/buttonPagAvista"
-            android:layout_width="match_parent"
+    <Button
+            android:id="@+id/buttonPagAvista"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/buttonPagPrazo"
+            android:background="@color/secondaryColor"
+            android:tag="selecionado"
             android:text="@string/label_tipo_pag_a_vista"
             android:textStyle="bold"
-            android:background="@color/accent_active"
-            android:layout_marginBottom="8dp"
-            android:tag="selecionado"/>
-
-    <Button android:id="@+id/buttonPagPrazo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginEnd="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+            android:id="@+id/buttonPagPrazo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/secondaryColor"
             android:text="@string/label_tipo_pag_prazo"
-            android:background="@color/accent"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginStart="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

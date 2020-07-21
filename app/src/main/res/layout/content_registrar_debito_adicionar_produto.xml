@@ -25,7 +25,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_weight="1"
-                          android:textColor="@color/secondary_text"
+                          android:textColor="@color/secondaryTextColor"
                           android:textStyle="bold"
                           style="bold"
                           android:textSize="16sp"
@@ -95,7 +95,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/secondary_text"
+                    android:textColor="@color/secondaryTextColor"
                     android:textSize="14sp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="16dp"
@@ -178,7 +178,7 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:layout_weight="1"
-                          android:textColor="@color/secondary_text"
+                          android:textColor="@color/secondaryTextColor"
                           android:textStyle="bold"
                           android:layout_gravity="end"
                           style="bold"
@@ -195,7 +195,7 @@
                           android:layout_gravity="end"
                           android:textAlignment="textEnd"
                           android:layout_weight="1"
-                          android:textColor="@color/primary_light"
+                          android:textColor="@color/primaryLightColor"
                           android:textStyle="bold"
                           style="bold"
                           android:textSize="20sp"
@@ -219,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/secondary_text"
+                    android:textColor="@color/secondaryTextColor"
                     android:layout_gravity="start"
                     android:text="@string/cancelar"/>
 
@@ -229,7 +229,7 @@
                     android:textStyle=""
                     android:layout_weight="2"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/primaryColor"
                     android:layout_gravity="end"
                     android:text="@string/adicionar_produto"/>
 

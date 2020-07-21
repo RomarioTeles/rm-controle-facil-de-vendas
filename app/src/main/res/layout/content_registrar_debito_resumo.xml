@@ -8,7 +8,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
-              android:background="@color/primary"
+              android:background="@color/primaryColor"
               android:layout_gravity="bottom"
               android:padding="8dp">
 
@@ -23,7 +23,7 @@
                   android:layout_height="0dp"
                   android:layout_weight="1"
                   android:gravity="center|start"
-                  android:textColor="@color/primary_text"
+                  android:textColor="@color/primaryTextColor"
                   android:textSize="25sp"
                   android:textStyle="bold"
                   android:text="0"/>
@@ -33,7 +33,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center|start"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryTextColor"
                 android:text="@string/itens"
                 android:textSize="16sp"
                 android:textAllCaps="true"/>
@@ -50,7 +50,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:gravity="center|start"
-                  android:textColor="@color/primary_text"
+                  android:textColor="@color/primaryTextColor"
                   android:textSize="25sp"
                   android:textStyle="bold"
                   android:text="0,00"/>
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|start"
-                android:textColor="@color/primary_text"
+                android:textColor="@color/primaryTextColor"
                 android:text="@string/label_subtotal"
                 android:textAllCaps="true"
                 android:textSize="16sp"/>
@@ -76,7 +76,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:gravity="center|end"
-                  android:textColor="@color/primary_text"
+                  android:textColor="@color/primaryTextColor"
                   android:textSize="18sp"
                   android:textStyle="bold"
                   android:textAllCaps="true"
@@ -94,7 +94,7 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:gravity="center|start"
-                  android:textColor="@color/primary_text"
+                  android:textColor="@color/primaryTextColor"
                   android:textSize="18sp"
                   android:textStyle="bold"
                   android:textAllCaps="true"

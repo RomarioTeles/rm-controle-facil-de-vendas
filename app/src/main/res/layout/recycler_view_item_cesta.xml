@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/label_subtotal"
                         android:gravity="bottom"
-                        android:textColor="@color/secondary_text"
+                        android:textColor="@color/secondaryTextColor"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textAllCaps="true"/>
@@ -146,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="bottom|end"
                         android:text="9,00"
-                        android:textColor="@color/secondary_text"
+                        android:textColor="@color/secondaryTextColor"
                         android:textSize="25sp"
                         android:textStyle="bold" />
 

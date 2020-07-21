@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/label_data_venc_1_parcela"
-            android:textColor="@color/secondary_text"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"

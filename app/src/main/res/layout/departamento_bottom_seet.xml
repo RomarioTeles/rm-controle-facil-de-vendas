@@ -18,7 +18,7 @@
                 style="bold"
                 android:textSize="16sp"
                 android:gravity="center"
-                android:text="Adicionar Departamento"
+                android:text="@string/label_adicionar_departamento"
                 android:layout_marginBottom="16dp"/>
 
 
@@ -45,7 +45,7 @@
             <com.google.android.material.textfield.TextInputEditText android:id="@+id/textViewDepartamento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nome do departamento"/>
+                    android:hint="@string/nome_do_departamento"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/secondary_text"
+                    android:textColor="@color/secondaryTextColor"
                     android:layout_gravity="left"
                     android:text="@string/cancelar"/>
 
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@android:color/transparent"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/primaryColor"
                     android:layout_gravity="right"
                     android:text="@string/salvar"/>
 

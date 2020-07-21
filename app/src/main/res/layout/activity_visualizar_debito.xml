@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@color/primary"
+                android:background="@color/primaryColor"
                 android:padding="8dp">
 
             <TextView android:id="@+id/textViewTotalLabel"
@@ -38,7 +38,7 @@
                     android:layout_weight="1"
                     android:text="@string/label_total"
                     android:textAllCaps="true"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="20dp"/>
 
         <LinearLayout android:orientation="vertical"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="bottom"
-                android:background="@color/primary">
+                android:background="@color/primaryColor">
 
             <TextView android:id="@+id/textViewTotalValor"
                     android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:text="R$ 50"
                     android:textAllCaps="true"
                     android:gravity="end"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="12sp"/>
 
             <TextView android:id="@+id/textViewTotalValorPago"
@@ -65,7 +65,7 @@
                     android:text="- R$ 20"
                     android:textAllCaps="true"
                     android:gravity="end"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="12sp"/>
 
             <TextView android:id="@+id/textViewTotalValorTotal"
@@ -75,7 +75,7 @@
                     android:text="= R$ 20"
                     android:textAllCaps="true"
                     android:gravity="end"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="20dp"/>
 
         </LinearLayout>

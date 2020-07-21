@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import androidx.core.view.GravityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
@@ -26,7 +26,6 @@ import br.com.rm.cfv.constants.TipoPagamento
 import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.entities.*
 import br.com.rm.numberUtils.DecimalFormatUtils
-import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_registrar_debito.*
 import kotlinx.android.synthetic.main.content_registrar_debito_adicionar_produto.*
 import kotlinx.android.synthetic.main.content_registrar_debito_cesta.*
@@ -291,16 +290,16 @@ class RegistrarContaPagarReceberActivity : ImageUtilsActivity(), IPostExecuteSea
 
         buttonPagAvista.setOnClickListener {
             contaPagarReceber.tipoPagamento = TipoPagamento.A_VISTA
-            buttonPagPrazo.setBackgroundColor(resources.getColor(R.color.accent))
-            buttonPagAvista.setBackgroundColor(resources.getColor(R.color.accent_active))
+            buttonPagPrazo.setBackgroundColor(ContextCompat.getColor(this, R.color.secondaryColor))
+            buttonPagAvista.setBackgroundColor(ContextCompat.getColor(this,R.color.secondaryLightColor))
             meioPagamentoAdapter.setTipoPagamento(TipoPagamento.A_VISTA)
             initListaDeParcelas()
         }
 
         buttonPagPrazo.setOnClickListener {
             contaPagarReceber.tipoPagamento = TipoPagamento.A_PRAZO
-            buttonPagPrazo.setBackgroundColor(resources.getColor(R.color.accent_active))
-            buttonPagAvista.setBackgroundColor(resources.getColor(R.color.accent))
+            buttonPagPrazo.setBackgroundColor(ContextCompat.getColor(this,R.color.secondaryLightColor))
+            buttonPagAvista.setBackgroundColor(ContextCompat.getColor(this,R.color.secondaryColor))
             meioPagamentoAdapter.setTipoPagamento(TipoPagamento.A_PRAZO)
             initListaDeParcelas()
         }

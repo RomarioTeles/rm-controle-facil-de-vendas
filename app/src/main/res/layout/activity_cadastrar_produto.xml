@@ -111,7 +111,7 @@
                         android:id="@+id/autocompleteTextViewDepartamento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Nome do departamento"
+                        android:hint="@string/nome_do_departamento"
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:maxLines="1" />

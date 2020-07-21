@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@color/primary"
+                android:background="@color/primaryColor"
                 android:padding="16dp">
 
             <TextView android:id="@+id/textViewTotalLabel"
@@ -33,7 +33,7 @@
                     android:layout_weight="1"
                     android:text="@string/label_total"
                     android:textAllCaps="true"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="25dp"
                     android:textStyle="bold"/>
 
@@ -44,7 +44,7 @@
                     android:text="R$ 0"
                     android:textAllCaps="true"
                     android:gravity="end"
-                    android:textColor="@color/primary_text"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="25dp"
                     android:textStyle="bold"/>
 

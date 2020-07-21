@@ -68,7 +68,7 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:text="10,00"
-                        android:textColor="@color/secondary_text"
+                        android:textColor="@color/secondaryTextColor"
                         android:textSize="18sp" />
 
             </LinearLayout>

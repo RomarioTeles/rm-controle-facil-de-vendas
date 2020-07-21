@@ -5,7 +5,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary"
+        android:background="@color/primaryColor"
         android:padding="16dp">
 
     <TextView
@@ -35,12 +35,14 @@
             android:id="@+id/buttonConcluido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/accent"
+            android:background="@android:color/transparent"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/label_fechar"
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

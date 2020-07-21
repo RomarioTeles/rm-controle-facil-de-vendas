@@ -16,7 +16,7 @@
               android:textStyle="bold"
               android:textAlignment="center"
               android:text="@string/toast_title_sucess"
-              android:textColor="@color/secondary_text" />
+              android:textColor="@color/secondaryTextColor" />
 
     <ImageView android:id="@+id/image"
                app:srcCompat="@drawable/check_circle_outline"
@@ -30,7 +30,7 @@
               android:layout_gravity="center"
               android:textSize="16sp"
               android:text="@string/mensagem_sucesso"
-              android:textColor="@color/secondary_text" />
+              android:textColor="@color/secondaryTextColor" />
 
 
 

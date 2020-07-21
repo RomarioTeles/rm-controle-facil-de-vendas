@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">RM Meu Negócio</string>
+    <string name="app_name">App da Bodega</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">RM Meu Negócio</string>
+    <string name="nav_header_title">App da Bodega</string>
     <string name="nav_header_subtitle">Registre vendas e estoque</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -19,13 +19,13 @@
     <string name="cliente_bairro">Bairro</string>
     <string name="cliente_uf">Estado</string>
     <string name="cliente_cidade">Cidade</string>
-    <string name="nome_do_departamento">Nome do departamento</string>
+    <string name="nome_do_departamento">Nome da categoria</string>
     <string name="salvar">Salvar</string>
     <string name="cancelar">Cancelar</string>
     <string name="listar_produtos_title">Produtos</string>
     <string name="listar_estoques_title">Estoque</string>
     <string name="listar_clientes_title">Clientes</string>
-    <string name="listar_departamentos_title">Departamentos</string>
+    <string name="listar_departamentos_title">Categorias</string>
     <string name="movimentacao_de_estoque">Movimentacao de estoque</string>
     <string name="label_quantidade">Quantidade</string>
     <string name="mensagem_campo_requerido">Este campo deve ser preenchido.</string>
@@ -95,4 +95,11 @@
     <string name="cadastrar_fornecedor_title">Cadastro de Fornecedor</string>
     <string name="listar_fornecedores_title">Listar Fornecedores</string>
     <string name="listar_itens_balancetes_title">Itens Balancete</string>
+    <string name="menu_clientes">Clientes</string>
+    <string name="menu_fornecedores">Fornecedores</string>
+    <string name="menu_balancete">Balancete</string>
+    <string name="menu_categorias">categorias</string>
+    <string name="menu_produtos">Produtos</string>
+    <string name="menu_estoque">Estoque</string>
+    <string name="label_adicionar_departamento">Adicionar Departamento</string>
 </resources>
