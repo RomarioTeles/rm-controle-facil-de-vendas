@@ -11,8 +11,7 @@
                   android:layout_height="wrap_content"
                   android:orientation="vertical"
                   android:background="@color/color_success"
-                  android:padding="4dp"
-                  android:layout_margin="5dp">
+                  android:padding="4dp">
 
         <ImageView android:id="@+id/image"
                    app:srcCompat="@drawable/check_circle_outline_white"
@@ -32,7 +31,6 @@
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
                   android:textSize="25sp"
-                  android:textStyle="bold"
                   android:textAlignment="center"
                   android:text="@string/toast_title_sucess"
                   android:textColor="@color/secondaryTextColor" />

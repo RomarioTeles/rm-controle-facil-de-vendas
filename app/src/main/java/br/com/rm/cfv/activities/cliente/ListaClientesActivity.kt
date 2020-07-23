@@ -2,7 +2,10 @@ package br.com.rm.cfv.activities.cliente
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
@@ -30,7 +33,7 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
 
         viewManager = LinearLayoutManager(this)
 
-        viewAdapter = ClienteAdapter(this, myDataset)
+        viewAdapter = ClienteAdapter(this, getCfvApplication().getDataBase()!!.clienteDAO(), myDataset.toMutableList())
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             // use this setting to improve performance if you know that changes
@@ -51,17 +54,42 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
         })
     }
 
-    fun getAllClientes(){
+    fun getAllClientes(query: String?  = null, showProgress: Boolean = true){
         var task =
             SelectAllClientesAsyncTask(
                 getCfvApplication().getDataBase()!!.clienteDAO(),
-                this
+                this, showProgress
             )
-        task.execute()
+        task.execute(query)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
+        getMenuInflater().inflate(R.menu.menu_search,menu)
+
+        var menuItem : MenuItem = menu.findItem(R.id.searchView)
+
+        var searchView = menuItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String) : Boolean {
+
+                getAllClientes(newText, false)
+
+                return true
+            }
+        })
+
+        return true
     }
 
     override fun afterSearch(result: Any?) {
         myDataset = result as List<Cliente>
-        viewAdapter.setDataset(myDataset)
+        viewAdapter.setDataset(myDataset.toMutableList())
     }
 }

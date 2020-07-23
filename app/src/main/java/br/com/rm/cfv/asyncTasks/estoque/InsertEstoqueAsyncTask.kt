@@ -11,7 +11,7 @@ open class InsertEstoqueAsyncTask(private var dao: MovimentacaoEstoqueDAO, priva
     override fun doInBackground(vararg params: MovimentacaoEstoque?): Boolean {
 
         try {
-            var estoque: MovimentacaoEstoque? = params[0]
+            val estoque: MovimentacaoEstoque? = params[0]
 
             dao.insertAll(estoque!!)
 

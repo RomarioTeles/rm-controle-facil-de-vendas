@@ -11,8 +11,7 @@
                   android:layout_height="wrap_content"
                   android:orientation="vertical"
                   android:background="@color/primaryColor"
-                  android:padding="4dp"
-                  android:layout_margin="5dp">
+                  android:padding="4dp">
 
         <ImageView android:id="@+id/image"
                    app:srcCompat="@drawable/alert_circle_outline_white"
@@ -32,10 +31,9 @@
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
                   android:textSize="25sp"
-                  android:textStyle="bold"
                   android:textAlignment="center"
                   android:text="@string/toast_title_confirm"
-                  android:textColor="@color/secondaryTextColor" />
+                  android:textColor="@color/primaryTextColor" />
 
         <TextView android:id="@+id/text"
                   android:layout_width="wrap_content"

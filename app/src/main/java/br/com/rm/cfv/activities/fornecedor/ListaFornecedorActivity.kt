@@ -2,7 +2,10 @@ package br.com.rm.cfv.activities.fornecedor
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
@@ -30,7 +33,7 @@ class ListaFornecedorActivity : BaseActivity(), IPostExecuteSearch{
 
         viewManager = LinearLayoutManager(this)
 
-        viewAdapter = FornecedorAdapter(this, myDataset)
+        viewAdapter = FornecedorAdapter(this, getCfvApplication().getDataBase()!!.fornecedorDAO(), myDataset.toMutableList())
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             // use this setting to improve performance if you know that changes
@@ -51,17 +54,42 @@ class ListaFornecedorActivity : BaseActivity(), IPostExecuteSearch{
         })
     }
 
-    fun getAllFornecedors(){
+    fun getAllFornecedors(query: String?  = null, showProgress: Boolean = true){
         var task =
             SelectAllFornecedorsAsyncTask(
                 getCfvApplication().getDataBase()!!.fornecedorDAO(),
-                this
+                this, showProgress
             )
-        task.execute()
+        task.execute(query)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
+        getMenuInflater().inflate(R.menu.menu_search,menu)
+
+        var menuItem : MenuItem = menu.findItem(R.id.searchView)
+
+        var searchView = menuItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String) : Boolean {
+
+                getAllFornecedors(newText, false)
+
+                return true
+            }
+        })
+
+        return true
     }
 
     override fun afterSearch(result: Any?) {
         myDataset = result as List<Fornecedor>
-        viewAdapter.setDataset(myDataset)
+        viewAdapter.setDataset(myDataset.toMutableList())
     }
 }

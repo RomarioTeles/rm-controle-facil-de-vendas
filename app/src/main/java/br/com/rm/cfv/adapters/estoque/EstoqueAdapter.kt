@@ -33,12 +33,12 @@ class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, pri
                                     viewType: Int): EstoqueAdapter.ProdutoViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_view_item_default, parent, false) as View
+            .inflate(R.layout.recycler_view_item_default_2, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
 
-        val textViewProduto = view.findViewById<TextView>(R.id.textViewNome)
+        val textViewProduto = view.findViewById<TextView>(R.id.textView1)
 
-        val textViewQuantidade = view.findViewById<TextView>(R.id.textViewItemCodigo)
+        val textViewQuantidade = view.findViewById<TextView>(R.id.textView2)
 
         var holder = ProdutoViewHolder(view)
 
@@ -55,7 +55,8 @@ class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, pri
 
         var item = myDataset.get(position)
 
-        holder.textViewQuantidade.text = """Quantidade em estoque: ${item.quantidade()}"""
+        val quantidade = if (item.quantidade() < 0 ) 0 else item.quantidade()
+        holder.textViewQuantidade.text = """Quantidade em estoque: ${quantidade}"""
 
         holder.textViewProduto.text = item.toString()
 

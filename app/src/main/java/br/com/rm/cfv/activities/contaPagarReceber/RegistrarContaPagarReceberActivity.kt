@@ -440,7 +440,7 @@ class RegistrarContaPagarReceberActivity : ImageUtilsActivity(), IPostExecuteSea
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onProdutoClick(produto: Produto, isLongClick: Boolean) {
+    override fun onProdutoClick(produto: Produto, position: Int?, isLongClick: Boolean) {
         itemProdutoEmEdicao = ItemProduto()
 
         itemProdutoEmEdicao.codigoProduto = produto.codigo

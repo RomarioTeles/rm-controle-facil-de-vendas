@@ -10,22 +10,22 @@ open class InsertDepartamentoAsyncTask(private var dao: DepartamentoDAO?, privat
 
     override fun doInBackground(vararg params: Departamento): Departamento? {
         try {
-            var result: Departamento? = null
 
-            var departamento: Departamento = params.get(0)
+            val departamento: Departamento = params.get(0)
 
-            /*var pai = dao!!.findByNome(departamento.departamentoPai!!)
+            if(departamento.uid != null) {
 
-            if(pai == null){
-                var departamentoPai = Departamento(null, departamento.departamentoPai, null)
-                dao!!.insertAll(departamentoPai)
-            }*/
+                dao!!.update(departamento)
 
-            dao!!.insertAll(departamento)
+                return departamento
+            }else{
+                val id : Long = dao!!.insert(departamento)
 
-            result = dao!!.findByNome(departamento.nome!!)
+                departamento.uid = id.toInt()
 
-            return result
+                return departamento
+            }
+
         }catch (e : SQLiteConstraintException){
             return null
         }

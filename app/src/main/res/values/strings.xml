@@ -102,4 +102,5 @@
     <string name="menu_produtos">Produtos</string>
     <string name="menu_estoque">Estoque</string>
     <string name="label_adicionar_departamento">Adicionar Departamento</string>
+    <string name="label_total_devedor">Saldo devedor</string>
 </resources>

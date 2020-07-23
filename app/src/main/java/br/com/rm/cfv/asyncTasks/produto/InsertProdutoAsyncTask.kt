@@ -1,6 +1,5 @@
 package br.com.rm.cfv.asyncTasks.produto
 
-import android.database.sqlite.SQLiteConstraintException
 import android.os.AsyncTask
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.database.daos.AppDataBase
@@ -19,7 +18,7 @@ open class InsertProdutoAsyncTask(private var appdatabase: AppDataBase, private 
 
             if(departamento == null){
                 departamento = Departamento(null, produto.departamento,  null)
-                appdatabase.departamentoDAO().insertAll(departamento)
+                appdatabase.departamentoDAO().insert(departamento)
             }
 
             if(produto.uid == null)

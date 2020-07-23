@@ -121,11 +121,15 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
                 false,
                 true
             )
+
             settings.textoEditar = "Detalhes"
+
+            settings.isShowRemoveDialog = false
+
             var iPostExecuteSearch = this
             ItemOptionsBottomSheetDialog().openDialog(
                 context as Activity,
-                item,
+                item, position,
                 settings,
                 object : IBottomSheetOptions {
                     override fun buttonSheetAdiciona(item: Any?) {
@@ -144,7 +148,7 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
 
                     }
 
-                    override fun buttonSheetRemove(item: Any?) {
+                    override fun buttonSheetRemove(item: Any?, position: Int) {
                         var debito = item as PagamentoDebitoSubtotalDTO
                         var dialogConfig = DialogConfig()
                         dialogConfig.negativeButtonListener = Runnable {

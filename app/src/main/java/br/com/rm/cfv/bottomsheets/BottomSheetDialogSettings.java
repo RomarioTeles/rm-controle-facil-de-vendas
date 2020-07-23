@@ -11,6 +11,7 @@ public class BottomSheetDialogSettings {
     private boolean showEditar = true;
     private boolean showAdicionar = true;
     private boolean showRemover = true;
+    private boolean showRemoveDialog = true;
 
     public BottomSheetDialogSettings() {
         super();
@@ -104,5 +105,13 @@ public class BottomSheetDialogSettings {
 
     public void setTextoRemover(String textoRemover) {
         this.textoRemover = textoRemover;
+    }
+
+    public boolean isShowRemoveDialog() {
+        return showRemoveDialog;
+    }
+
+    public void setShowRemoveDialog(boolean showRemoveDialog) {
+        this.showRemoveDialog = showRemoveDialog;
     }
 }

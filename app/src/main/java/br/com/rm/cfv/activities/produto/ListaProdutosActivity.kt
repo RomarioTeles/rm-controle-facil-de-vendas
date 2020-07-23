@@ -3,17 +3,26 @@ package br.com.rm.cfv.activities.produto
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.ImageUtilsActivity
 import br.com.rm.cfv.adapters.produto.ProdutoAdapter
+import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
+import br.com.rm.cfv.asyncTasks.produto.DeleteProdutoAsyncTask
 import br.com.rm.cfv.asyncTasks.produto.SelectAllProdutosAsyncTask
+import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
+import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
+import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
 import br.com.rm.cfv.database.entities.Produto
+import br.com.rm.cfv.utils.ToastUtils
 
-class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener {
+class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener, IBottomSheetOptions, IPostExecuteDelete{
 
     override fun getToobarTitle(): String {
         return getString(R.string.listar_produtos_title)
@@ -22,7 +31,7 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ProdutoAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var myDataset : List<Produto> = ArrayList()
+    private var myDataset : MutableList<Produto> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,17 +61,17 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
         })
     }
 
-    fun getAllProdutos(){
-        var task =
+    fun getAllProdutos(query: String? = null, showProgress: Boolean = true){
+        val task =
             SelectAllProdutosAsyncTask(
                 getCfvApplication().getDataBase()!!.produtoDAO(),
-                this
+                this, showProgress
             )
-        task.execute()
+        task.execute(query)
     }
 
     override fun afterSearch(result: Any?) {
-        myDataset = result as List<Produto>
+        myDataset = result as MutableList<Produto>
         viewAdapter.setDataset(myDataset)
     }
 
@@ -72,9 +81,75 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
         return null
     }
 
-    override fun onProdutoClick(produto: Produto, isLongClick: Boolean) {
+    override fun onProdutoClick(produto: Produto,  position: Int?, isLongClick: Boolean) {
+        val settings = BottomSheetDialogSettings(
+            produto.nome,
+            false,
+            true,
+            false,
+            true
+        )
+
+        ItemOptionsBottomSheetDialog().openDialog( this, produto, position, settings, this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
+        getMenuInflater().inflate(R.menu.menu_search,menu)
+
+        var menuItem : MenuItem = menu.findItem(R.id.searchView)
+
+        var searchView = menuItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String) : Boolean {
+
+                getAllProdutos(newText, false)
+
+                return true
+            }
+        })
+
+        return true
+    }
+
+    override fun buttonSheetLista(item: Any?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun buttonSheetAdiciona(item: Any?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun buttonSheetRemove(item: Any?, position: Int) {
+        DeleteProdutoAsyncTask(getCfvApplication().getDataBase()!!.produtoDAO(), this)
+            .execute((item as Produto).uid, position)
+    }
+
+    override fun buttonSheetEdita(item: Any?) {
         var intent = Intent(this, CadastrarProdutoActivity::class.java)
-        intent.putExtra("produto", produto)
+        intent.putExtra("produto", item as Produto)
         startActivity(intent)
+    }
+
+    override fun afterDelete(result: Any?) {
+        if(result as Int > -1) {
+            ToastUtils.showToastSuccess(
+                this,
+                getString(R.string.mensagem_sucesso)
+            )
+            myDataset.removeAt(result)
+            viewAdapter.notifyDataSetChanged()
+        }else{
+            ToastUtils.showToastError(
+                this,
+                getString(R.string.mensagem_erro)
+            )
+        }
     }
 }

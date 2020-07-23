@@ -8,18 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
 import br.com.rm.cfv.activities.contaPagarReceber.ListaDebitosClienteActivity
 import br.com.rm.cfv.activities.contaPagarReceber.RegistrarContaPagarReceberActivity
+import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
+import br.com.rm.cfv.asyncTasks.cliente.DeleteClienteAsyncTask
 import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
 import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
 import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
+import br.com.rm.cfv.database.daos.interfaces.ClienteDAO
 import br.com.rm.cfv.database.entities.Cliente
+import br.com.rm.cfv.utils.ToastUtils
 
 
-class ClienteAdapter(private var context : Context, private var myDataset: List<Cliente>) :
-    RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder>() {
+class ClienteAdapter(private var context : Context, private var clienteDAO: ClienteDAO, private var myDataset: MutableList<Cliente>) :
+    RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder>(), IPostExecuteDelete{
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -30,7 +36,7 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
         lateinit var  textViewNome : TextView
     }
 
-    fun setDataset(dataset : List<Cliente>){
+    fun setDataset(dataset : MutableList<Cliente>){
         this.myDataset = dataset
         notifyDataSetChanged()
     }
@@ -41,12 +47,12 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
                                     viewType: Int): ClienteAdapter.ClienteViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_view_item_default, parent, false) as View
+            .inflate(R.layout.recycler_view_item_default_2, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
 
-        val textViewNome = view.findViewById<TextView>(R.id.textViewNome)
+        val textViewNome = view.findViewById<TextView>(R.id.textView1)
 
-        val textViewTelefone = view.findViewById<TextView>(R.id.textViewItemCodigo)
+        val textViewTelefone = view.findViewById<TextView>(R.id.textView2)
 
         var holder = ClienteViewHolder(view)
 
@@ -74,14 +80,17 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
                 true,
                 true,
                 true,
-                false
+                true
             )
-            settings.textoAdicionar = "Registrar Débito"
+            settings.textoAdicionar = "Registrar venda"
+            settings.textoListar = "Vendas realizadas"
 
+            val ipostExecuteDelete = this
 
             ItemOptionsBottomSheetDialog().openDialog(
                 context as Activity,
                 item,
+                position,
                 settings,
                 object : IBottomSheetOptions {
                     override fun buttonSheetAdiciona(item: Any?) {
@@ -102,13 +111,37 @@ class ClienteAdapter(private var context : Context, private var myDataset: List<
                         context.startActivity(intent)
                     }
 
-                    override fun buttonSheetRemove(item: Any?) {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    override fun buttonSheetRemove(item: Any?, position: Int) {
+                        DeleteClienteAsyncTask(clienteDAO, ipostExecuteDelete).execute((item as Cliente).uid, position)
                     }
                 }
             )
 
         }
+    }
+
+    override fun afterDelete(result: Any?) {
+        if(result as Int > -1) {
+            ToastUtils.showToastSuccess(
+                context,
+                context.resources.getString(R.string.mensagem_sucesso)
+            )
+            notifyItemRemoved(result)
+            myDataset.removeAt(result)
+        }else{
+            ToastUtils.showToastError(
+                context,
+                context.resources.getString(R.string.mensagem_erro)
+            )
+        }
+    }
+
+    override fun showProgress(text: String) {
+        (context as BaseActivity).showProgress(text)
+    }
+
+    override fun hideProgress() {
+        (context as BaseActivity).hideProgress()
     }
 
     // Return the size of your dataset (invoked by the layout manager)

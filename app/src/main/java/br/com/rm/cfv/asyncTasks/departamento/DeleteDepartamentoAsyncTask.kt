@@ -1,15 +1,15 @@
-package br.com.rm.cfv.asyncTasks.contaPagarReceber
+package br.com.rm.cfv.asyncTasks.departamento
 
 import android.os.AsyncTask
-import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.database.daos.interfaces.ContaPagarReceberDAO
+import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
+import br.com.rm.cfv.database.daos.interfaces.DepartamentoDAO
 import java.lang.Exception
 
-class DeleteDebitoClienteAsyncTask(private val dao : ContaPagarReceberDAO, private var ipostExecuteSearch : IPostExecuteSearch) : AsyncTask<Any, Any, Int>(){
+class DeleteDepartamentoAsyncTask(private val dao : DepartamentoDAO, private var ipostExecuteSearch : IPostExecuteDelete) : AsyncTask<Any, Any, Int>(){
 
     override fun onPreExecute() {
         super.onPreExecute()
-        ipostExecuteSearch.showProgress("Removendo Débito...")
+        ipostExecuteSearch.showProgress("Removendo categoria...")
     }
 
     override fun doInBackground(vararg params: Any?): Int {
@@ -18,8 +18,8 @@ class DeleteDebitoClienteAsyncTask(private val dao : ContaPagarReceberDAO, priva
         val position = params[1]
 
         try {
-            val debito = dao.findById(id as Int)
-            dao.delete(debito)
+            val departamento = dao.findById(id as Int)
+            dao.delete(departamento!!)
             return position as Int
         }catch (e : Exception){
             e.printStackTrace()
@@ -29,7 +29,7 @@ class DeleteDebitoClienteAsyncTask(private val dao : ContaPagarReceberDAO, priva
 
     override fun onPostExecute(result: Int) {
         super.onPostExecute(result)
-        ipostExecuteSearch.afterSearch(result)
+        ipostExecuteSearch.afterDelete(result)
         ipostExecuteSearch.hideProgress()
     }
 

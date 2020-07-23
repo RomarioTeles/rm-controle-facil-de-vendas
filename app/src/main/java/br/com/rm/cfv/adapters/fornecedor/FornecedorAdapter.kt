@@ -9,16 +9,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.contaPagarReceber.RegistrarContaPagarReceberActivity
 import br.com.rm.cfv.activities.fornecedor.CadastrarFornecedorActivity
+import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
+import br.com.rm.cfv.asyncTasks.fornecedor.DeleteFornecedorAsyncTask
 import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
 import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
 import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
+import br.com.rm.cfv.database.daos.interfaces.FornecedorDAO
 import br.com.rm.cfv.database.entities.Fornecedor
+import br.com.rm.cfv.utils.ToastUtils
 
 
-class FornecedorAdapter(private var context : Context, private var myDataset: List<Fornecedor>) :
-    RecyclerView.Adapter<FornecedorAdapter.FornecedorViewHolder>() {
+class FornecedorAdapter(private var context : Context,private var fornecedorDAO: FornecedorDAO, private var myDataset: MutableList<Fornecedor>) :
+    RecyclerView.Adapter<FornecedorAdapter.FornecedorViewHolder>(), IPostExecuteDelete{
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -29,7 +34,7 @@ class FornecedorAdapter(private var context : Context, private var myDataset: Li
         lateinit var  textViewNome : TextView
     }
 
-    fun setDataset(dataset : List<Fornecedor>){
+    fun setDataset(dataset : MutableList<Fornecedor>){
         this.myDataset = dataset
         notifyDataSetChanged()
     }
@@ -40,12 +45,12 @@ class FornecedorAdapter(private var context : Context, private var myDataset: Li
                                     viewType: Int): FornecedorAdapter.FornecedorViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_view_item_default, parent, false) as View
+            .inflate(R.layout.recycler_view_item_default_2, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
 
-        val textViewNome = view.findViewById<TextView>(R.id.textViewNome)
+        val textViewNome = view.findViewById<TextView>(R.id.textView1)
 
-        val textViewTelefone = view.findViewById<TextView>(R.id.textViewItemCodigo)
+        val textViewTelefone = view.findViewById<TextView>(R.id.textView2)
 
         var holder = FornecedorViewHolder(view)
 
@@ -73,14 +78,16 @@ class FornecedorAdapter(private var context : Context, private var myDataset: Li
                 false,
                 true,
                 true,
-                false
+                true
             )
 
-            settings.textoAdicionar = "Registrar Despesa"
+            settings.textoAdicionar = "Registrar Compra"
+
+            val ipostExecuteDelete = this
 
             ItemOptionsBottomSheetDialog().openDialog(
                 context as Activity,
-                item,
+                item, position,
                 settings,
                 object : IBottomSheetOptions {
                     override fun buttonSheetAdiciona(item: Any?) {
@@ -99,7 +106,8 @@ class FornecedorAdapter(private var context : Context, private var myDataset: Li
 
                     }
 
-                    override fun buttonSheetRemove(item: Any?) {
+                    override fun buttonSheetRemove(item: Any?, position: Int) {
+                        DeleteFornecedorAsyncTask(fornecedorDAO, ipostExecuteDelete).execute((item as Fornecedor).uid, position)
                     }
                 }
             )
@@ -107,6 +115,29 @@ class FornecedorAdapter(private var context : Context, private var myDataset: Li
         }
     }
 
+    override fun afterDelete(result: Any?) {
+        if(result as Int > -1) {
+            ToastUtils.showToastSuccess(
+                context,
+                context.resources.getString(R.string.mensagem_sucesso)
+            )
+            notifyItemRemoved(result)
+            myDataset.removeAt(result)
+        }else{
+            ToastUtils.showToastError(
+                context,
+                context.resources.getString(R.string.mensagem_erro)
+            )
+        }
+    }
+
+    override fun showProgress(text: String) {
+        (context as BaseActivity).showProgress(text)
+    }
+
+    override fun hideProgress() {
+        (context as BaseActivity).hideProgress()
+    }
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
 }

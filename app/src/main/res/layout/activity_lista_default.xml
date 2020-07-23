@@ -12,7 +12,7 @@
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/recycler_view_item_default"
+            tools:listitem="@layout/recycler_view_item_default_2"
             android:clipToPadding="false"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

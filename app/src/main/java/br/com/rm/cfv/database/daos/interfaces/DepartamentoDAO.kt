@@ -22,11 +22,14 @@ interface DepartamentoDAO {
     fun findByNome(nome: String) : Departamento?
 
     @Query("SELECT * FROM Departamento WHERE uid = :id LIMIT 1")
-    fun findById(id: Int) : Departamento
+    fun findById(id: Int) : Departamento?
 
     @Insert
-    fun insertAll(vararg departs: Departamento)
+    fun insert(departamento: Departamento) : Long
 
     @Delete
     fun delete(departamento: Departamento)
+
+    @Delete
+    fun update(departamento: Departamento) : Int
 }

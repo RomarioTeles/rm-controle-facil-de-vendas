@@ -1,10 +1,7 @@
 package br.com.rm.cfv.activities.departamento
 
 import android.os.Bundle
-import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.departamento.DepartamentoAdapter
@@ -14,16 +11,21 @@ import br.com.rm.cfv.asyncTasks.cliente.InsertDepartamentoAsyncTask
 import br.com.rm.cfv.asyncTasks.cliente.SelectAllDepartamentosAsyncTask
 import br.com.rm.cfv.database.entities.Departamento
 import br.com.rm.cfv.R
+import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
+import br.com.rm.cfv.asyncTasks.departamento.DeleteDepartamentoAsyncTask
+import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
+import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
+import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
+import br.com.rm.cfv.utils.ToastUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_departamento.*
+import java.util.concurrent.CompletableFuture
 
-class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteInsertAndUpdate {
+class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteInsertAndUpdate, IPostExecuteDelete,
+    IBottomSheetOptions {
 
-    override fun getToobarTitle(): String {
-        return getString(R.string.listar_departamentos_title)
-    }
 
     var departamento : Departamento? = null
 
@@ -43,13 +45,6 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
         listViewDepartamentos.adapter = adapter
 
-        /**
-         * adiciona header a listview
-         */
-        //val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        //var listViewHeader =inflater.inflate(R.layout.list_view_header_default, null)
-        //listViewDepartamentos.addHeaderView(listViewHeader)
-
         setClickEvents()
 
     }
@@ -57,15 +52,24 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
     private fun setClickEvents(){
 
         fab().setOnClickListener {
-            openDialog()
+            openInsertDialog(null)
+        }
+
+        listViewDepartamentos.setOnItemClickListener { parent, view, position, id ->
+            val item = adapter.getItem(position)
+            openOptionsDialog(item!!, position)
         }
 
     }
 
-    private fun openDialog(){
+    private fun openInsertDialog(item: Departamento?){
+
         val view = getLayoutInflater().inflate(R.layout.departamento_bottom_seet, null)
         var dialog = BottomSheetDialog(this)
         dialog.setContentView(view)
+        if(item != null){
+            view.findViewById<TextInputEditText>(R.id.textViewDepartamento).setText(item.nome)
+        }
 
         view.findViewById<Button>(R.id.buttonAddDepart).setOnClickListener {
             var nome = view.findViewById<TextInputEditText>(R.id.textViewDepartamento).text.toString()
@@ -74,7 +78,12 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
             }else{
                 view.findViewById<TextInputLayout>(R.id.textInputLayoutDepartamento).error = null
                 view.findViewById<TextInputEditText>(R.id.textViewDepartamento).text = null
-                departamento = Departamento(null, nome, null)
+                if(item != null){
+                    departamento = Departamento(item.uid, nome, null)
+                }else {
+                    departamento = Departamento(null, nome, null)
+                }
+
                 var task = InsertDepartamentoAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this)
                 task.execute(departamento)
             }
@@ -85,6 +94,19 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
         }
 
         dialog.show()
+    }
+
+    private fun openOptionsDialog(item : Departamento, position: Int?){
+
+        val settings = BottomSheetDialogSettings(
+            item.nome,
+            false,
+            true,
+            false,
+            true
+        )
+
+        ItemOptionsBottomSheetDialog().openDialog( this, item, position, settings, this)
     }
 
     override fun onResume() {
@@ -123,6 +145,42 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     override fun afterUpdate(result: Any?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun buttonSheetLista(item: Any?) {
+    }
+
+    override fun buttonSheetAdiciona(item: Any?) {
+    }
+
+    override fun buttonSheetRemove(item: Any?, position: Int) {
+        DeleteDepartamentoAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this)
+            .execute((item as Departamento).uid, position)
+    }
+
+    override fun buttonSheetEdita(item: Any?) {
+        openInsertDialog(item as Departamento)
+
+    }
+
+    override fun afterDelete(result: Any?) {
+        if(result as Int > -1) {
+            ToastUtils.showToastSuccess(
+                this,
+                getString(R.string.mensagem_sucesso)
+            )
+            departamentos.removeAt(result)
+            adapter.notifyDataSetChanged()
+        }else{
+            ToastUtils.showToastError(
+                this,
+                getString(R.string.mensagem_erro)
+            )
+        }
+    }
+
+    override fun getToobarTitle(): String {
+        return getString(R.string.listar_departamentos_title)
     }
 
 }

@@ -2,6 +2,7 @@ package br.com.rm.cfv.database.daos.interfaces
 
 import androidx.room.*
 import br.com.rm.cfv.database.entities.Cliente
+import br.com.rm.cfv.database.entities.Fornecedor
 
 @Dao
 public interface ClienteDAO {
@@ -18,6 +19,9 @@ public interface ClienteDAO {
     @Query("SELECT * FROM cliente WHERE nome LIKE :first LIMIT 1")
     fun findByNome(first: String) : Cliente
 
+    @Query("SELECT * FROM cliente WHERE uid = :id LIMIT 1")
+    fun findById(id: Int) : Cliente
+
     @Query("SELECT * FROM cliente WHERE cpf LIKE :cpf LIMIT 1")
     fun findCpf(cpf: String) : Cliente
 
@@ -29,4 +33,7 @@ public interface ClienteDAO {
 
     @Delete
     fun delete(cliente: Cliente)
+
+    @Query("SELECT * FROM cliente WHERE nome LIKE :search or cpf LIKE :search order by nome")
+    fun search(search: String?): List<Cliente>
 }

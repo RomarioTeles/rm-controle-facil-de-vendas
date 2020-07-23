@@ -18,6 +18,9 @@ interface ProdutoDAO{
     @Query("SELECT * FROM produto WHERE codigo LIKE :codigo or UPPER(nome) LIKE UPPER(:codigo) LIMIT 1")
     fun findByCodigo(codigo: String) : Produto
 
+    @Query("SELECT * FROM produto WHERE uid = :id LIMIT 1")
+    fun findById(id: Int) : Produto
+
     @Insert
     fun insertAll(vararg users: Produto)
 

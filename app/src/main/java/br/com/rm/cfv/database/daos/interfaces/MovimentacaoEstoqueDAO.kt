@@ -15,6 +15,13 @@ interface MovimentacaoEstoqueDAO{
             +   " FROM produto p LEFT JOIN estoque e ON p.codigo = e.codigo_produto" )
     fun getAllEstoque(): List<EstoqueDTO>
 
+    @Query("""SELECT  distinct p.uid AS id, p.codigo AS codigo, p.nome AS nome,
+                            ( SELECT SUM(sq.quantidade) FROM estoque sq WHERE sq.tipo = 'ENTRADA' and sq.codigo_produto = p.codigo) AS qtdEntrada, 
+                            ( SELECT SUM(sq2.quantidade) FROM estoque sq2 WHERE sq2.tipo = 'SAIDA' and sq2.codigo_produto = p.codigo) AS qtdSaida
+                    FROM produto p LEFT JOIN estoque e ON p.codigo = e.codigo_produto 
+                    WHERE p.nome LIKE :query or p.codigo LIKE :query """ )
+    fun search(query: String?): List<EstoqueDTO>
+
     @Query("SELECT * FROM estoque WHERE codigo_produto LIKE :codigo order by data_hora desc")
     fun findByCodigoProduto(codigo: String) : List<MovimentacaoEstoque>
 

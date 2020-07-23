@@ -29,8 +29,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:enabled="false"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:hint="Id"
                 android:inputType="text"
                 android:visibility="gone" />
@@ -42,8 +41,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_nome"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="text" />
 
         <EditText
@@ -53,8 +51,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_telefone"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="text" />
 
         <EditText
@@ -64,8 +61,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_email"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="textEmailAddress" />
 
         <EditText
@@ -75,8 +71,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_CPF_CNPJ"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="number" />
 
         <TextView
@@ -98,8 +93,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_logradouro"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="text" />
 
         <EditText
@@ -109,8 +103,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_numero"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="text" />
 
         <EditText
@@ -120,8 +113,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_complemento"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="text" />
 
         <EditText
@@ -131,8 +123,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_bairro"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="text" />
 
         <EditText
@@ -142,8 +133,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_uf"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="text" />
 
         <EditText
@@ -154,8 +144,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="50dp"
                 android:hint="@string/cliente_cidade"
-                android:background="@drawable/shape_rectangule_rounded_white"
-                android:padding="4dp"
+                android:padding="8dp"
                 android:inputType="text" />
 
     </LinearLayout>

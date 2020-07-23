@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="70dp"
-            tools:listitem="@layout/recycler_view_item_default"
+            tools:listitem="@layout/recycler_view_item_default_2"
             android:clipToPadding="false"/>
 
     <FrameLayout android:id="@+id/framelayout_total"
@@ -31,10 +31,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/label_total"
+                    android:text="@string/label_total_devedor"
                     android:textAllCaps="true"
                     android:textColor="@color/primaryTextColor"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"/>
 
             <TextView android:id="@+id/textViewTotalValor"

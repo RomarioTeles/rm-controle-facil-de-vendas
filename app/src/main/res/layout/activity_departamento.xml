@@ -12,12 +12,13 @@
                 android:id="@+id/listViewDepartamentos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/recycler_view_item_default"
-                tools:listheader="@layout/list_view_header_default"
+                tools:listitem="@layout/recycler_view_item_default_1"
+                android:divider="@android:color/transparent"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                android:listSelector="@android:color/transparent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

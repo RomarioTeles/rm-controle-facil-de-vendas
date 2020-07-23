@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.ImageUtilsActivity
 import br.com.rm.cfv.activities.produto.IOnClickProdutoListener
 import br.com.rm.cfv.database.entities.Produto
-import br.com.rm.cfv.utils.ToastUtils
 import br.com.rm.numberUtils.DecimalFormatUtils
 
 class ProdutoAdapter(private var context: ImageUtilsActivity, private var iOnClickProdutoListener: IOnClickProdutoListener, private var myDataset: List<Produto>) : RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder>() {
@@ -36,7 +34,7 @@ class ProdutoAdapter(private var context: ImageUtilsActivity, private var iOnCli
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_item_produto, parent, false) as View
 
-        val textViewNome = view.findViewById<TextView>(R.id.textViewNome)
+        val textViewNome = view.findViewById<TextView>(R.id.textView1)
 
         val textViewPrecoRevenda = view.findViewById<TextView>(R.id.textViewSubtotal)
 
@@ -70,11 +68,11 @@ class ProdutoAdapter(private var context: ImageUtilsActivity, private var iOnCli
         }
 
         holder.view.setOnClickListener{
-            iOnClickProdutoListener.onProdutoClick(item, false)
+            iOnClickProdutoListener.onProdutoClick(item, position,false)
         }
 
         holder.view.setOnLongClickListener{
-            iOnClickProdutoListener.onProdutoClick(item, true)
+            iOnClickProdutoListener.onProdutoClick(item, position,true)
             true
         }
     }

@@ -5,21 +5,27 @@ import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.database.daos.interfaces.MovimentacaoEstoqueDAO
 import br.com.rm.cfv.database.entities.dtos.EstoqueDTO
 
-class SelectAllEstoqueAsyncTask(private val dao : MovimentacaoEstoqueDAO, private var ipostExecuteSearch : IPostExecuteSearch) : AsyncTask<Any, Any, List<EstoqueDTO>>(){
+class SelectAllEstoqueAsyncTask(private val dao : MovimentacaoEstoqueDAO, private var ipostExecuteSearch : IPostExecuteSearch, private var showProgress : Boolean = true) : AsyncTask<Any, Any, List<EstoqueDTO>>(){
 
     override fun onPreExecute() {
         super.onPreExecute()
-        ipostExecuteSearch.showProgress("Buscando Produtos...")
+        if(showProgress)
+            ipostExecuteSearch.showProgress("Buscando Produtos...")
     }
 
     override fun doInBackground(vararg params: Any?): List<EstoqueDTO> {
-        return dao.getAllEstoque()
+        if(params.isEmpty() || params[0] == null) {
+            return dao.getAllEstoque()
+        }else{
+            return dao.search("%"+params[0]+"%")
+        }
     }
 
     override fun onPostExecute(result: List<EstoqueDTO>?) {
         super.onPostExecute(result)
         ipostExecuteSearch.afterSearch(result)
-        ipostExecuteSearch.hideProgress()
+        if(showProgress)
+            ipostExecuteSearch.hideProgress()
     }
 
 }

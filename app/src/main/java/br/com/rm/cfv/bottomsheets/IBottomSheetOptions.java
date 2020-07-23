@@ -6,7 +6,7 @@ public interface IBottomSheetOptions {
 
     void buttonSheetAdiciona(Object item);
 
-    void buttonSheetRemove(Object item);
+    void buttonSheetRemove(Object item, int position);
 
     void buttonSheetEdita(Object item);
 

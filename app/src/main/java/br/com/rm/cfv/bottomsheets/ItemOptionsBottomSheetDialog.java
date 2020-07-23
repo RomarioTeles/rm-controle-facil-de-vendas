@@ -7,16 +7,18 @@ import android.widget.TextView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import br.com.rm.cfv.R;
+import br.com.rm.cfv.utils.DialogConfig;
+import br.com.rm.cfv.utils.DialogUtils;
 
 public class ItemOptionsBottomSheetDialog {
 
     private BottomSheetDialog dialog;
 
     public void openDialog(Activity context, Object item, IBottomSheetOptions options) {
-        openDialog(context, item, new BottomSheetDialogSettings(), options);
+        openDialog(context, item, null, new BottomSheetDialogSettings(), options);
     }
 
-    public void openDialog(final Activity context, final Object item, final BottomSheetDialogSettings settings, final IBottomSheetOptions options) {
+    public void openDialog(final Activity context, final Object item, final Integer position, final BottomSheetDialogSettings settings, final IBottomSheetOptions options) {
 
         BottomSheetDialogSettings buttonSettings = settings == null ? new BottomSheetDialogSettings() : settings;
 
@@ -58,8 +60,17 @@ public class ItemOptionsBottomSheetDialog {
             dialog.dismiss();
         });
         buttonDeletar.setOnClickListener(v -> {
-            options.buttonSheetRemove(item);
             dialog.dismiss();
+            if(settings.isShowRemoveDialog()) {
+                DialogConfig configs = new DialogConfig();
+                configs.setNegativeButtonListener(() -> dialog.dismiss());
+                configs.setPositiveButtonListener(() -> options.buttonSheetRemove(item, position));
+                configs.setShowNegativeButton(true);
+                configs.setShowSubtitle(false);
+                DialogUtils.Companion.showDialogConfirm(context, R.string.mensagem_confirmacao, 0, configs);
+            }else{
+                options.buttonSheetRemove(item, position);
+            }
         });
         buttonCancelar.setOnClickListener(v -> {
             dialog.dismiss();
