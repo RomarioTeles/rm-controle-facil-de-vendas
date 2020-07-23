@@ -6,7 +6,7 @@ import br.com.rm.cfv.database.entities.Fornecedor
 @Dao
 public interface FornecedorDAO {
 
-    @Query("SELECT * FROM fornecedor")
+    @Query("SELECT * FROM fornecedor order by nome")
     fun getAll(): List<Fornecedor>
 
     @Query("SELECT * FROM fornecedor WHERE uid IN (:userIds)")

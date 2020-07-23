@@ -27,9 +27,15 @@ import java.util.*
 class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPostExecuteInsertAndUpdate{
 
     override fun onPostCaptureCompleted(bitmap: Bitmap?, path: String?) {
-        this.imageBitmap = bitmap!!
-        this.imageFilePath = path!!
-        imageViewProduto.setImageBitmap(bitmap)
+        if(bitmap == null){
+            this.imageBitmap = null
+            this.imageFilePath = null
+            imageViewProduto.setImageResource(R.drawable.no_image)
+        }else {
+            this.imageBitmap = bitmap!!
+            this.imageFilePath = path!!
+            imageViewProduto.setImageBitmap(bitmap)
+        }
     }
 
     override fun getCaptureTrigger(): View {

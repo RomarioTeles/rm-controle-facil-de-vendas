@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.balancete.ListaItensBalanceteActivity
 import br.com.rm.cfv.database.entities.Balancete
+import java.text.DateFormatSymbols
 
 
 class BalanceteAdapter(private var context : Context, private var myDataset: List<Balancete>) :
@@ -27,9 +29,9 @@ class BalanceteAdapter(private var context : Context, private var myDataset: Lis
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): BalanceteAdapter.BalanceteViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(android.R.layout.simple_list_item_1, parent, false) as View
+            .inflate(R.layout.recycler_view_item_default_1, parent, false) as View
 
-        val textViewData = view.findViewById<TextView>(android.R.id.text1)
+        val textViewData = view.findViewById<TextView>(R.id.textView1)
 
         var holder = BalanceteViewHolder(view)
 
@@ -45,13 +47,11 @@ class BalanceteAdapter(private var context : Context, private var myDataset: Lis
 
         val item = myDataset[position]
 
-        var mes : String = item.mes.toString()
+        var mes : Int = item.mes!!.minus(1)
 
-        if(mes.length < 2){
-            mes = "0$mes"
-        }
+        var nomeMes = DateFormatSymbols().months.get(mes)
 
-        holder.textViewData.text = "${mes}/${item.ano}"
+        holder.textViewData.text = "${nomeMes} ${item.ano}"
 
         holder.view.setOnClickListener {
             var intent =  Intent(context, ListaItensBalanceteActivity::class.java)

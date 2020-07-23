@@ -32,4 +32,7 @@ interface DepartamentoDAO {
 
     @Delete
     fun update(departamento: Departamento) : Int
+
+    @Query("SELECT * FROM departamento WHERE nome LIKE :search order by nome")
+    fun search(search: String?): List<Departamento>
 }

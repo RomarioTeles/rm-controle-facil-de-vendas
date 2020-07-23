@@ -1,7 +1,10 @@
 package br.com.rm.cfv.activities.departamento
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.SearchView
 import android.widget.Toast
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.departamento.DepartamentoAdapter
@@ -111,8 +114,13 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     override fun onResume() {
         super.onResume()
-        var task = SelectAllDepartamentosAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this)
-        task.execute()
+        getAllDepartamentos()
+
+    }
+
+    private fun getAllDepartamentos(query: String? = null, showProgress: Boolean = true){
+        var task = SelectAllDepartamentosAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this, showProgress)
+        task.execute(query)
     }
 
     override fun afterSearch(result: Any?) {
@@ -129,16 +137,16 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     override fun afterInsert(result: Any?) {
         if (result == null) {
-            Toast.makeText(this, "Erro ao criar departamento!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.mensagem_error_departamento_criacao), Toast.LENGTH_LONG).show()
         } else {
             var depart = result as Departamento?
             if (depart!!.uid != null) {
                 departamentos.add(depart)
                 adapter.notifyDataSetChanged()
                 departamento = null
-                Toast.makeText(this, "Criado com sucesso!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.mensagem_criado_sucesso), Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Erro ao criar departamento!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.mensagem_error_departamento_criacao), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -181,6 +189,31 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     override fun getToobarTitle(): String {
         return getString(R.string.listar_departamentos_title)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
+        getMenuInflater().inflate(R.menu.menu_search,menu)
+
+        var menuItem : MenuItem = menu.findItem(R.id.searchView)
+
+        var searchView = menuItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String) : Boolean {
+
+                getAllDepartamentos(newText, false)
+
+                return true
+            }
+        })
+
+        return true
     }
 
 }

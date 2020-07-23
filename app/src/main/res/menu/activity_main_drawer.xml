@@ -7,17 +7,17 @@
 
         <item
                 android:id="@+id/nav_main"
-                android:icon="@drawable/account_black_24dp"
+                android:icon="@drawable/account_heart"
                 android:title="@string/menu_clientes"/>
 
         <item
                 android:id="@+id/nav_fornecedores"
-                android:icon="@drawable/account_black_24dp"
+                android:icon="@drawable/account_tie"
                 android:title="@string/menu_fornecedores"/>
 
         <item
                 android:id="@+id/nav_balancete"
-                android:icon="@drawable/tag_plus_white_24dp"
+                android:icon="@drawable/clipboard_flow"
                 android:title="@string/menu_balancete"/>
 
         <item

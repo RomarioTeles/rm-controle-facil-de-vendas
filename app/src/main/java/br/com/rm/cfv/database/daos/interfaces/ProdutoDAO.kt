@@ -6,7 +6,7 @@ import br.com.rm.cfv.database.entities.Produto
 @Dao
 interface ProdutoDAO{
     
-    @Query("SELECT * FROM produto")
+    @Query("SELECT * FROM produto order by nome")
     fun getAll(): List<Produto>
 
     @Query("SELECT * FROM produto WHERE uid IN (:userIds)")

@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -24,6 +25,7 @@ import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +35,8 @@ import br.com.rm.cfv.R;
 abstract public class ImageUtilsActivity extends BaseActivity {
 
     String mCurrentPhotoPath;
-    private final int REQUEST_TAKE_PHOTO = 1034;
+    private final int REQUEST_TAKE_PHOTO = 1;
+    private final int REQUEST_GALLERY = 2;
     private final int MY_PERMISSIONS_REQUEST_TAKE_PHOTO = 1;
 
     private final String[] myPermissions = new String[]{Manifest.permission.CAMERA,
@@ -56,7 +59,7 @@ abstract public class ImageUtilsActivity extends BaseActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
         && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            dispatchTakePictureIntent();
+            choosePictureSource();
         }else{
             ActivityCompat.requestPermissions(this,
                     myPermissions,
@@ -78,6 +81,38 @@ abstract public class ImageUtilsActivity extends BaseActivity {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
+    }
+
+    private void dispatchGalleryIntent(){
+        File photoFile = createImageFile(new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())+".jpeg");
+        mCurrentPhotoPath = photoFile.getAbsolutePath();
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, REQUEST_GALLERY);
+    }
+
+    private void choosePictureSource(){
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setItems(new String[]{"Tirar uma foto", "Imagem Existente", "Remover imagem", "Cancelar"},
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case 0:
+                                        dispatchTakePictureIntent();
+                                        break;
+                                    case 1:
+                                        dispatchGalleryIntent();
+                                        break;
+                                    case 2:
+                                        onPostCaptureCompleted(null, null);
+                                        break;
+                                    default:
+                                        Log.i("Take Picture", "Default Selected");
+                                }
+                                dialog.dismiss();
+                            }
+                        }).show();
     }
 
     @Override
@@ -117,6 +152,20 @@ abstract public class ImageUtilsActivity extends BaseActivity {
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if(resultCode == Activity.RESULT_OK) {
                 onPostCaptureCompleted(getBitmapFromAbsolutePath(mCurrentPhotoPath), mCurrentPhotoPath);
+            }
+        }
+        if (requestCode == REQUEST_GALLERY) {
+            if(resultCode == Activity.RESULT_OK) {
+                try {
+                    Uri selectedImage = data.getData();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                    try (FileOutputStream out = new FileOutputStream(mCurrentPhotoPath)) {
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                        onPostCaptureCompleted(bitmap, mCurrentPhotoPath);
+                    }
+                } catch (IOException e) {
+                    Log.i("TAG", "Some exception " + e);
+                }
             }
         }
     }
