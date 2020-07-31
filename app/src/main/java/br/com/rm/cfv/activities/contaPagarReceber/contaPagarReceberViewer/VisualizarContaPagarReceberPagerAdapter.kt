@@ -1,4 +1,4 @@
-package br.com.rm.cfv.activities.contaPagarReceber
+package br.com.rm.cfv.activities.contaPagarReceber.contaPagarReceberViewer
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -12,16 +12,16 @@ private val TAB_TITLES = arrayOf(
     R.string.tab_parcelas
 )
 
-class VisualizarDebitoPagerAdapter(private val context: Context, private val pagamentoDebito: PagamentoDebitoSubtotalDTO, fm: FragmentManager) :
+class VisualizarContaPagarReceberPagerAdapter(private val context: Context, private val pagamentoDebito: PagamentoDebitoSubtotalDTO, fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         if(position == 0){
-            return LancamentosDebitoFragment.newInstance(
+            return LancamentosFragment.newInstance(
                 pagamentoDebito
             )
         }
-        return ParcelasDebitoFragment.newInstance(
+        return ParcelasFragment.newInstance(
             pagamentoDebito
         )
     }

@@ -68,8 +68,9 @@ class CadastrarClienteActivity : BaseActivity(), IPostExecuteInsertAndUpdate {
             }
         }
 
-        editTextCPF.addTextChangedListener(EditTextMaskUtil.insert(editTextCPF, EditTextMaskUtil.MASK_CPF))
+        editTextCPF.addTextChangedListener(EditTextMaskUtil.insert(editTextCPF, EditTextMaskUtil.MASK_CPF_CNPJ))
         editTextDataNascimento.addTextChangedListener(EditTextMaskUtil.insert(editTextDataNascimento, EditTextMaskUtil.MASK_DATE))
+        editTextTelefone.addTextChangedListener(EditTextMaskUtil.insert(editTextTelefone, EditTextMaskUtil.MASK_TELEFONE))
 
         hideFabOnScroll(scrollView)
 

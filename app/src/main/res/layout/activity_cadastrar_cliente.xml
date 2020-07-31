@@ -52,7 +52,7 @@
                 android:layout_marginTop="16dp"
                 android:hint="@string/cliente_telefone"
                 android:padding="8dp"
-                android:inputType="text" />
+                android:inputType="phone" />
 
         <EditText
                 android:id="@+id/editTextEmail"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:hint="@string/cliente_CPF"
+                android:hint="@string/cliente_CPF_CNPJ"
                 android:padding="8dp"
                 android:inputType="number" />
 

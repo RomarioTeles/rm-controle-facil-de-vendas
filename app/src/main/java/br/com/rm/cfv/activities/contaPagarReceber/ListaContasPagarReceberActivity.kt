@@ -15,7 +15,7 @@ import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_lista_debitos_cliente.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
+class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
 
     override fun getToobarTitle(): String {
         return getString(R.string.listar_clientes_title)
@@ -29,6 +29,7 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_lista_debitos_cliente)
 
         referencia = intent.getSerializableExtra("referencia") as IReferencia
@@ -51,18 +52,21 @@ class ListaDebitosClienteActivity : BaseActivity(), IPostExecuteSearch{
             adapter = viewAdapter
         }
 
-        getAllClientes()
-
         hideFab()
     }
 
-    fun getAllClientes(){
+    override fun onResume() {
+        super.onResume()
+        getAllDebitos()
+    }
+
+    fun getAllDebitos(){
         var task =
             SelectAllDebitosClienteAsyncTask(
                 getCfvApplication().getDataBase()!!.contaPagarReceberDAO(),
                 this
             )
-        task.execute(referencia.getIdRef())
+        task.execute(referencia)
     }
 
     override fun afterSearch(result: Any?) {

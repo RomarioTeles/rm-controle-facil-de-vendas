@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.activities.contaPagarReceber.RegistrarContaPagarReceberActivity
-import br.com.rm.cfv.activities.contaPagarReceber.VisualizarDebitoActivity
-import br.com.rm.cfv.activities.contaPagarReceber.VisualizarDebitoActivity.Companion.ARG_DEBITO_CLIENTE
+import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
+import br.com.rm.cfv.activities.contaPagarReceber.VisualizarContaPagarReceberActivity
+import br.com.rm.cfv.activities.contaPagarReceber.VisualizarContaPagarReceberActivity.Companion.ARG_DEBITO_CLIENTE
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.contaPagarReceber.DeleteDebitoClienteAsyncTask
 import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
@@ -133,13 +133,13 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
                 settings,
                 object : IBottomSheetOptions {
                     override fun buttonSheetAdiciona(item: Any?) {
-                        val intent = Intent(context, RegistrarContaPagarReceberActivity::class.java)
+                        val intent = Intent(context, RegistrarCompraVendaActivity::class.java)
                         intent.putExtra("referencia", item as Cliente)
                         context.startActivity(intent)
                     }
 
                     override fun buttonSheetEdita(item: Any?) {
-                        val intent = Intent(context, VisualizarDebitoActivity::class.java)
+                        val intent = Intent(context, VisualizarContaPagarReceberActivity::class.java)
                         intent.putExtra(ARG_DEBITO_CLIENTE, item as PagamentoDebitoSubtotalDTO)
                         context.startActivity(intent)
                     }

@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
-import br.com.rm.cfv.activities.balancete.ListaItensBalanceteActivity
+import br.com.rm.cfv.activities.balancete.BalanceteActivity
+import br.com.rm.cfv.activities.balancete.BalanceteTipoFragment
 import br.com.rm.cfv.database.entities.Balancete
 import java.text.DateFormatSymbols
 
@@ -54,8 +55,8 @@ class BalanceteAdapter(private var context : Context, private var myDataset: Lis
         holder.textViewData.text = "${nomeMes} ${item.ano}"
 
         holder.view.setOnClickListener {
-            var intent =  Intent(context, ListaItensBalanceteActivity::class.java)
-            intent.putExtra("balancete", item )
+            var intent =  Intent(context, BalanceteActivity::class.java)
+            intent.putExtra(BalanceteTipoFragment.ARG_BALANCETE, item )
             context.startActivity(intent)
         }
     }

@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
-import br.com.rm.cfv.activities.contaPagarReceber.ListaDebitosClienteActivity
-import br.com.rm.cfv.activities.contaPagarReceber.RegistrarContaPagarReceberActivity
+import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
+import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
 import br.com.rm.cfv.asyncTasks.cliente.DeleteClienteAsyncTask
 import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
@@ -94,20 +93,20 @@ class ClienteAdapter(private var context : Context, private var clienteDAO: Clie
                 settings,
                 object : IBottomSheetOptions {
                     override fun buttonSheetAdiciona(item: Any?) {
-                        val intent = Intent(context, RegistrarContaPagarReceberActivity::class.java)
-                        intent.putExtra(RegistrarContaPagarReceberActivity.ARG_REFERENCIA, item as Cliente)
+                        val intent = Intent(context, RegistrarCompraVendaActivity::class.java)
+                        intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, item as Cliente)
                         context.startActivity(intent)
                     }
 
                     override fun buttonSheetEdita(item: Any?) {
                         val intent = Intent(context, CadastrarClienteActivity::class.java)
-                        intent.putExtra(RegistrarContaPagarReceberActivity.ARG_REFERENCIA, item as Cliente)
+                        intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, item as Cliente)
                         context.startActivity(intent)
                     }
 
                     override fun buttonSheetLista(item: Any?) {
-                        val intent = Intent(context, ListaDebitosClienteActivity::class.java)
-                        intent.putExtra(RegistrarContaPagarReceberActivity.ARG_REFERENCIA, item as Cliente)
+                        val intent = Intent(context, ListaContasPagarReceberActivity::class.java)
+                        intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, item as Cliente)
                         context.startActivity(intent)
                     }
 

@@ -46,10 +46,6 @@ open class ItemProduto() : Parcelable {
         this.subtotal = (quantidade * precoUnitario) + acrescimo - desconto
     }
 
-    fun atualizaSubtotalDeCusto(){
-        this.subtotal = (quantidade * precoUnitario) + acrescimo - desconto
-    }
-
     fun setQuantidade(quantidade : Int){
         this.quantidade = quantidade
         atualizaSubtotal()
@@ -57,12 +53,12 @@ open class ItemProduto() : Parcelable {
 
     fun setDesconto(desconto : Double){
         this.desconto = desconto
-        this.subtotal = this.subtotal - desconto
+        atualizaSubtotal()
     }
 
     fun setAcrescimo(acrescimo : Double){
         this.acrescimo = acrescimo
-        this.subtotal = this.subtotal + acrescimo
+        atualizaSubtotal()
     }
 
     fun getAcrescimo(): Double {

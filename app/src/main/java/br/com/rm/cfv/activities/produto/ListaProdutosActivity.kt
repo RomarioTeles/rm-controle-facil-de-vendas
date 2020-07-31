@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewStub
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
@@ -31,11 +33,17 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ProdutoAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewStub: ViewStub
     private var myDataset : MutableList<Produto> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_default)
+
+        viewStub = findViewById(R.id.viewStub)
+        viewStub.inflate()
+        viewStub.visibility = View.GONE
+
         viewManager = LinearLayoutManager(this)
 
         viewAdapter = ProdutoAdapter(this, this, myDataset)
@@ -73,6 +81,13 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
     override fun afterSearch(result: Any?) {
         myDataset = result as MutableList<Produto>
         viewAdapter.setDataset(myDataset)
+        if(myDataset == null || myDataset.isEmpty()){
+            viewStub.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        }else{
+            viewStub.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
     }
 
     override fun onPostCaptureCompleted(bitmap: Bitmap?, path: String) {}

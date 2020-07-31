@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
-import br.com.rm.cfv.activities.contaPagarReceber.DetalheParcelaDebitoActivity
+import br.com.rm.cfv.activities.contaPagarReceber.contaPagarReceberViewer.detalhe.DetalheParcelaActivity
 import br.com.rm.cfv.database.entities.PagamentoDebito
 import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.dateutils.DateOperationsUtils
@@ -97,7 +97,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
         }
 
         holder.view.setOnClickListener {
-            var intent = Intent(context, DetalheParcelaDebitoActivity::class.java)
+            var intent = Intent(context, DetalheParcelaActivity::class.java)
             intent.putExtra("PagamentoDebito", item)
             intent.putExtra("parcela", position+1)
             context.startActivity(intent)

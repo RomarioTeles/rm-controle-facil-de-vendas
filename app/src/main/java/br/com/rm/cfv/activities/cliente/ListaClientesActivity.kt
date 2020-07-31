@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewStub
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import br.com.rm.cfv.adapters.cliente.ClienteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
+import kotlinx.android.synthetic.main.activity_lista_default.*
 
 class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
 
@@ -24,12 +26,17 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ClienteAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewStub: ViewStub
     private var myDataset : List<Cliente> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_lista_default)
+
+        viewStub = findViewById(R.id.viewStub)
+        viewStub.inflate()
+        viewStub.visibility = View.GONE
 
         viewManager = LinearLayoutManager(this)
 
@@ -91,5 +98,12 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
     override fun afterSearch(result: Any?) {
         myDataset = result as List<Cliente>
         viewAdapter.setDataset(myDataset.toMutableList())
+        if(myDataset == null || myDataset.isEmpty()){
+            viewStub.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        }else{
+            viewStub.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
     }
 }

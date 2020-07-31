@@ -13,7 +13,7 @@ import br.com.rm.cfv.database.entities.Balancete
 class ListaBalanceteActivity : BaseActivity(), IPostExecuteSearch{
 
     override fun getToobarTitle(): String {
-        return getString(R.string.listar_clientes_title)
+        return getString(R.string.listar_balancetes)
     }
 
     private lateinit var recyclerView: RecyclerView

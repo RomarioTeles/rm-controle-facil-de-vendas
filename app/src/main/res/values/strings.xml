@@ -105,4 +105,11 @@
     <string name="label_total_devedor">Saldo devedor</string>
     <string name="mensagem_error_departamento_criacao">Erro ao criar categoria!</string>
     <string name="mensagem_criado_sucesso">Criado com sucesso!</string>
+    <string name="lista_vazia_hint">A lista está vazia. Você pode adicionar novos registros clicando no botão +, no canto inferior direito da tela.</string>
+    <string name="estoque_produtos_nao_cadastrados_hint">Não há produtos cadastrados.</string>
+    <string name="listar_balancetes">Balancete</string>
+    <string name="title_activity_balancete">BalanceteActivity</string>
+    <string name="tab_receitas">Receitas</string>
+    <string name="tab_despesas">Despesas</string>
+    <string name="tab_balancete">Balanço</string>
 </resources>

@@ -1,10 +1,12 @@
 package br.com.rm.cfv.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +15,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.CfvApplication
-import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.balancete.ListaBalanceteActivity
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
@@ -25,7 +26,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-
+import br.com.rm.cfv.R
 
 abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -176,5 +177,14 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                     fab.show()
             }
         }
+    }
+
+    fun hideKeyboard() {
+        val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = currentFocus
+        if (view == null) {
+            view = View(this)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

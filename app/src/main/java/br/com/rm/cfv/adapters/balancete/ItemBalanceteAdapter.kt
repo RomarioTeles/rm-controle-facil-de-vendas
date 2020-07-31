@@ -36,7 +36,7 @@ class ItemBalanceteAdapter(private var context : Context, private var myDataset:
 
 
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): ItemBalanceteAdapter.BalanceteViewHolder {
+                                    viewType: Int): BalanceteViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_item_balancete, parent, false) as View
 

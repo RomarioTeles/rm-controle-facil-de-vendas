@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewStub
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,10 +40,17 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
     private lateinit var listaTipoMovimentacao : Array<String>
     private lateinit var adaptertipoMovimentacao : ArrayAdapter<String>
     private lateinit var adapterMotivos : ArrayAdapter<String>
+    private lateinit var viewStub: ViewStub
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_estoque)
+
+        viewStub = findViewById(R.id.viewStub)
+        val viewStubView = viewStub.inflate()
+        viewStubView.findViewById<TextView>(R.id.textViewHint).text = getString(R.string.estoque_produtos_nao_cadastrados_hint)
+        viewStub.visibility = View.GONE
+
         viewManager = LinearLayoutManager(this)
 
         viewAdapter = EstoqueAdapter(this, myDataset)
@@ -107,6 +115,13 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
     override fun afterSearch(result: Any?) {
         myDataset = result as List<EstoqueDTO>
         viewAdapter.setDataset(myDataset)
+        if(myDataset == null || myDataset.isEmpty()){
+            viewStub.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        }else{
+            viewStub.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
     }
 
     override fun preparaMovimentacao(estoque: EstoqueDTO) {

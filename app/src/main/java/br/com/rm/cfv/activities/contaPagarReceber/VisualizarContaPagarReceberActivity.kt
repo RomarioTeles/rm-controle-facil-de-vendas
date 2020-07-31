@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.viewpager.widget.ViewPager
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
+import br.com.rm.cfv.activities.contaPagarReceber.contaPagarReceberViewer.VisualizarContaPagarReceberPagerAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.contaPagarReceber.SelectValorPagarByPagamentoDebitoIdAsyncTask
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
@@ -12,7 +13,7 @@ import br.com.rm.numberUtils.DecimalFormatUtils
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_visualizar_debito.*
 
-class VisualizarDebitoActivity : BaseActivity(), IPostExecuteSearch{
+class VisualizarContaPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
 
     lateinit var debitoCliente : PagamentoDebitoSubtotalDTO
 
@@ -35,11 +36,12 @@ class VisualizarDebitoActivity : BaseActivity(), IPostExecuteSearch{
         }else {
             Log.d("DEBITO", debitoCliente.toString())
             textViewTotalValor.text = DecimalFormatUtils.decimalFormatPtBR(debitoCliente.total)
-            val sectionsPagerAdapter = VisualizarDebitoPagerAdapter(
-                this,
-                debitoCliente,
-                supportFragmentManager
-            )
+            val sectionsPagerAdapter =
+                VisualizarContaPagarReceberPagerAdapter(
+                    this,
+                    debitoCliente,
+                    supportFragmentManager
+                )
             val viewPager: ViewPager = findViewById(R.id.view_pager)
             viewPager.adapter = sectionsPagerAdapter
             val tabs: TabLayout = findViewById(R.id.tabs)

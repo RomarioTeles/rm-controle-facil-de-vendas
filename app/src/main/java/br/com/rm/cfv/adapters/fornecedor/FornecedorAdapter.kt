@@ -10,7 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.activities.contaPagarReceber.RegistrarContaPagarReceberActivity
+import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
+import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.activities.fornecedor.CadastrarFornecedorActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
 import br.com.rm.cfv.asyncTasks.fornecedor.DeleteFornecedorAsyncTask
@@ -75,13 +76,14 @@ class FornecedorAdapter(private var context : Context,private var fornecedorDAO:
 
             val settings = BottomSheetDialogSettings(
                 item.nome,
-                false,
+                true,
                 true,
                 true,
                 true
             )
 
             settings.textoAdicionar = "Registrar Compra"
+            settings.textoListar = "Compras Realizadas"
 
             val ipostExecuteDelete = this
 
@@ -91,8 +93,8 @@ class FornecedorAdapter(private var context : Context,private var fornecedorDAO:
                 settings,
                 object : IBottomSheetOptions {
                     override fun buttonSheetAdiciona(item: Any?) {
-                        val intent = Intent(context, RegistrarContaPagarReceberActivity::class.java)
-                        intent.putExtra(RegistrarContaPagarReceberActivity.ARG_REFERENCIA, item as Fornecedor)
+                        val intent = Intent(context, RegistrarCompraVendaActivity::class.java)
+                        intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, item as Fornecedor)
                         context.startActivity(intent)
                     }
 
@@ -103,7 +105,9 @@ class FornecedorAdapter(private var context : Context,private var fornecedorDAO:
                     }
 
                     override fun buttonSheetLista(item: Any?) {
-
+                        val intent = Intent(context, ListaContasPagarReceberActivity::class.java)
+                        intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, item as Fornecedor)
+                        context.startActivity(intent)
                     }
 
                     override fun buttonSheetRemove(item: Any?, position: Int) {

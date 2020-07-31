@@ -1,4 +1,4 @@
-package br.com.rm.cfv.activities.contaPagarReceber
+package br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -42,7 +42,7 @@ import kotlinx.android.synthetic.main.content_registrar_debito_tipo_vencimento.*
 import java.util.*
 import kotlin.collections.HashMap
 
-class RegistrarContaPagarReceberActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener,
+class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener,
     IPostExecuteInsertAndUpdate {
 
     override fun afterInsert(result: Any?) {
@@ -265,6 +265,7 @@ class RegistrarContaPagarReceberActivity : ImageUtilsActivity(), IPostExecuteSea
         editTextItemDescAcresc.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 atualizaDescAcresc()
+                hideKeyboard()
                 true
             } else {
                 false
@@ -344,16 +345,13 @@ class RegistrarContaPagarReceberActivity : ImageUtilsActivity(), IPostExecuteSea
         var valDouble = if (valor.isBlank()) 0.0 else valor.toDouble()
         itemProdutoEmEdicao.setDesconto(0.0)
         itemProdutoEmEdicao.setAcrescimo(0.0)
-        itemProdutoEmEdicao.atualizaSubtotal()
         if (radioAcrescimo.isChecked) {
             itemProdutoEmEdicao.setAcrescimo(valDouble)
         } else if (radioDesconto.isChecked) {
             itemProdutoEmEdicao.setDesconto(valDouble)
         }
         atualizaSubtotalItemEmEdicao(itemProdutoEmEdicao.subtotal)
-        if (valor.isNotBlank()) {
-            imageButtonConfirmDescAcresc.isEnabled = false
-        }
+
     }
 
     private fun atualizaSubtotalItemEmEdicao(valor: Double) {

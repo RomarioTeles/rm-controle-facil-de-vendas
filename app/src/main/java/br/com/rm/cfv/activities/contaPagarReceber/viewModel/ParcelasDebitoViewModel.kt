@@ -1,4 +1,4 @@
-package br.com.rm.cfv.activities.contaPagarReceber
+package br.com.rm.cfv.activities.contaPagarReceber.viewModel
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.rm.cfv.CfvApplication

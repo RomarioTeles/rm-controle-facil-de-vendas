@@ -16,7 +16,7 @@ open class ContaPagarReceber() : Parcelable{
     @ColumnInfo(name = "id_ref")  var idRef : Int? = null
     @ColumnInfo(name = "nome_ref")  var nomeRef : String? = null
     @ColumnInfo(name = "data_hora")  var dataHora : Long = Date().time
-    @ColumnInfo(name = "tipo_ref")  var tipoRef : String? = TipoReferencia.OUTRAS_DESPESA
+    @ColumnInfo(name = "tipo_ref")  var tipoRef : String? = TipoReferencia.DESPESAS
     @ColumnInfo(name = "status_pagamento")  var statusPagamento : String = StatusPagamento.PENDENTE
     @ColumnInfo(name = "tipo_pagamento")  var tipoPagamento : String = TipoPagamento.A_VISTA
     @ColumnInfo(name = "data_prevista_pagamento")  var dataPrevistaPagamento : Long? = Date().time

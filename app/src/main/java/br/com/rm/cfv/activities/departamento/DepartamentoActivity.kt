@@ -3,6 +3,8 @@ package br.com.rm.cfv.activities.departamento
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewStub
 import android.widget.Button
 import android.widget.SearchView
 import android.widget.Toast
@@ -36,11 +38,17 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     lateinit var departamentos : MutableList<Departamento>
 
+    private lateinit var viewStub: ViewStub
+
     var departs : MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_departamento)
+
+        viewStub = findViewById(R.id.viewStub)
+        viewStub.inflate()
+        viewStub.visibility = View.GONE
 
         departamentos = mutableListOf()
 
@@ -89,6 +97,8 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
                 var task = InsertDepartamentoAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this)
                 task.execute(departamento)
+
+                dialog.dismiss()
             }
         }
 
@@ -128,10 +138,19 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
         departamentos.clear()
         departamentos.addAll(listaDepartamento.toList())
         adapter.notifyDataSetChanged()
+
         if(departamentos.size > 0){
             departamentos.forEach {
                 departs.add(it.nome!!)
             }
+        }
+
+        if(departamentos.isEmpty()){
+            viewStub.visibility = View.VISIBLE
+            listViewDepartamentos.visibility = View.GONE
+        }else{
+            viewStub.visibility = View.GONE
+            listViewDepartamentos.visibility = View.VISIBLE
         }
     }
 
@@ -145,6 +164,8 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
                 adapter.notifyDataSetChanged()
                 departamento = null
                 Toast.makeText(this, getString(R.string.mensagem_criado_sucesso), Toast.LENGTH_LONG).show()
+                viewStub.visibility = View.GONE
+                listViewDepartamentos.visibility = View.VISIBLE
             } else {
                 Toast.makeText(this, getString(R.string.mensagem_error_departamento_criacao), Toast.LENGTH_LONG).show()
             }

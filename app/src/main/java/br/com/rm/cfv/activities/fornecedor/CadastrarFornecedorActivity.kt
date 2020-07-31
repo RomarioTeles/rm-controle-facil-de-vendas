@@ -10,7 +10,20 @@ import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.asyncTasks.fornecedor.InsertFornecedorAsyncTask
 import br.com.rm.cfv.database.entities.Fornecedor
 import br.com.rm.cfv.utils.EditTextMaskUtil
+import kotlinx.android.synthetic.main.activity_cadastrar_cliente.*
 import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.*
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextBairro
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextCPF
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextCidade
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextComplemento
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextEmail
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextEndereco
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextId
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextNome
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextNumero
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextTelefone
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextUf
+import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.scrollView
 import kotlinx.android.synthetic.main.app_bar_main.*
 import java.util.*
 
@@ -64,7 +77,8 @@ class CadastrarFornecedorActivity : BaseActivity(), IPostExecuteInsertAndUpdate 
             }
         }
 
-        //editTextCPF.addTextChangedListener(EditTextMaskUtil.insert(editTextCPF, EditTextMaskUtil.MASK_CPF))
+        editTextCPF.addTextChangedListener(EditTextMaskUtil.insert(editTextCPF, EditTextMaskUtil.MASK_CPF_CNPJ))
+        editTextTelefone.addTextChangedListener(EditTextMaskUtil.insert(editTextTelefone, EditTextMaskUtil.MASK_TELEFONE))
 
         hideFabOnScroll(scrollView)
 

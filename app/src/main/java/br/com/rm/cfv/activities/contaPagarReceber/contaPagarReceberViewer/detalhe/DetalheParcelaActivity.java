@@ -1,4 +1,4 @@
-package br.com.rm.cfv.activities.contaPagarReceber;
+package br.com.rm.cfv.activities.contaPagarReceber.contaPagarReceberViewer.detalhe;
 
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +23,7 @@ import br.com.rm.cfv.utils.ToastUtils;
 import br.com.rm.dateutils.DateFormatUtils;
 import br.com.rm.numberUtils.DecimalFormatUtils;
 
-public class DetalheParcelaDebitoActivity extends BaseActivity implements IPostExecuteInsertAndUpdate {
+public class DetalheParcelaActivity extends BaseActivity implements IPostExecuteInsertAndUpdate {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class DetalheParcelaDebitoActivity extends BaseActivity implements IPostE
                         pagamentoDebito.setValorPago(Double.valueOf(textInputEditValorPagar.getText().toString()));
                         new UpdatePagamentoDebitoAsyncTask(
                                 getCfvApplication().getDataBase(),
-                                DetalheParcelaDebitoActivity.this).execute(pagamentoDebito);
+                                DetalheParcelaActivity.this).execute(pagamentoDebito);
                     }
                 }
             });
@@ -87,7 +87,7 @@ public class DetalheParcelaDebitoActivity extends BaseActivity implements IPostE
     public void afterUpdate(@Nullable Object result) {
         Boolean isSuccess = (Boolean) result;
         if(isSuccess){
-            ToastUtils.Companion.showToastSuccess(DetalheParcelaDebitoActivity.this, getString(R.string.mensagem_sucesso));
+            ToastUtils.Companion.showToastSuccess(DetalheParcelaActivity.this, getString(R.string.mensagem_sucesso));
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {

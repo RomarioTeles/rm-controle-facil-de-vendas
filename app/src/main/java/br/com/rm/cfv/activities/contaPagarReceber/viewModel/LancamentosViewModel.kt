@@ -1,4 +1,4 @@
-package br.com.rm.cfv.activities.contaPagarReceber
+package br.com.rm.cfv.activities.contaPagarReceber.viewModel
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.rm.cfv.CfvApplication
@@ -8,7 +8,7 @@ import br.com.rm.cfv.asyncTasks.contaPagarReceber.SelectAllLancamentosAsyncTask
 import br.com.rm.cfv.database.entities.ItemProduto
 import kotlinx.android.synthetic.main.fragment_visualizar_debito.view.*
 
-open class LancamentosDebitoViewModel : PageViewModel(), IPostExecuteSearch {
+open class LancamentosViewModel : PageViewModel(), IPostExecuteSearch {
 
     lateinit var listaLancamentos : List<ItemProduto>
     lateinit var itemProdutoAdapter : ItemProdutoAdapter

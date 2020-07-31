@@ -13,19 +13,25 @@
     <application
             android:name=".CfvApplication"
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/ic_launcher_foreground"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="br.com.rm.cfv.activities.contaPagarReceber.DetalheParcelaDebitoActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".activities.balancete.BalanceteActivity"
+                android:label="@string/title_activity_balancete"
+                android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+                android:name=".activities.contaPagarReceber.contaPagarReceberViewer.detalhe.DetalheParcelaActivity"
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activities.VisualizarImagemActivity"
                 android:label="@string/imagem_expandida_title"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name="br.com.rm.cfv.activities.contaPagarReceber.VisualizarDebitoActivity"
+                android:name=".activities.contaPagarReceber.VisualizarContaPagarReceberActivity"
                 android:label="@string/title_activity_visualizar_debito"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -50,23 +56,19 @@
         <activity
                 android:name=".activities.fornecedor.ListaFornecedorActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+                android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
                 android:name=".activities.fornecedor.CadastrarFornecedorActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+                android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
                 android:name=".activities.balancete.ListaBalanceteActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+                android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".activities.balancete.ListaItensBalanceteActivity"
+                android:name=".activities.balancete.BalanceteTipoFragment"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+                android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
                 android:name=".activities.departamento.DepartamentoActivity"
                 android:screenOrientation="portrait"
@@ -81,11 +83,11 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:windowSoftInputMode="adjustPan" />
         <activity
-                android:name="br.com.rm.cfv.activities.contaPagarReceber.RegistrarContaPagarReceberActivity"
+                android:name=".activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name="br.com.rm.cfv.activities.contaPagarReceber.ListaDebitosClienteActivity"
+                android:name=".activities.contaPagarReceber.ListaContasPagarReceberActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar" />
 

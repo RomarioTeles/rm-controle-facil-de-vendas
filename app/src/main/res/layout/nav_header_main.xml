@@ -16,7 +16,7 @@
     <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/novo_logo_app"
+            android:background="@drawable/playstore_icon"
             android:scaleType="centerInside"
             android:contentDescription="@string/nav_header_desc"
             android:id="@+id/imageView"/>

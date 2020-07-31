@@ -6,16 +6,17 @@ import br.com.rm.cfv.database.daos.interfaces.ItemBalanceteDAO
 import br.com.rm.cfv.database.entities.Balancete
 import br.com.rm.cfv.database.entities.ItemBalancete
 
-class SelectAllItemBalanceteAsyncTask(private val dao : ItemBalanceteDAO, private var ipostExecuteSearch : IPostExecuteSearch) : AsyncTask<Balancete, List<ItemBalancete>, List<ItemBalancete>>(){
+class SelectAllItemBalanceteAsyncTask(private val dao : ItemBalanceteDAO, private var ipostExecuteSearch : IPostExecuteSearch) : AsyncTask<Any, List<ItemBalancete>, List<ItemBalancete>>(){
 
     override fun onPreExecute() {
         super.onPreExecute()
         ipostExecuteSearch.showProgress("Buscando Balancetes...")
     }
 
-    override fun doInBackground(vararg params: Balancete?): List<ItemBalancete> {
+    override fun doInBackground(vararg params: Any?): List<ItemBalancete> {
         var balancete = params[0] as Balancete
-        return dao.findByBalanceteId(balancete.uid!!)
+        var tipo = params[1] as String
+        return dao.findByBalanceteIdAndTipo(balancete.uid!!, tipo)
     }
 
     override fun onPostExecute(result: List<ItemBalancete>?) {

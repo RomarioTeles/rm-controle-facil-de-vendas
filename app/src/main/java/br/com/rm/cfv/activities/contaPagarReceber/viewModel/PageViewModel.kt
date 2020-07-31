@@ -1,4 +1,4 @@
-package br.com.rm.cfv.activities.contaPagarReceber
+package br.com.rm.cfv.activities.contaPagarReceber.viewModel
 
 import android.view.View
 import androidx.lifecycle.ViewModel
