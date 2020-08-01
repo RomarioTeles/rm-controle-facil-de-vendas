@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.text.DateFormatSymbols
 
 @Entity(
     indices = arrayOf(Index(value = ["mes","ano"], unique = true))
@@ -41,5 +42,11 @@ data class Balancete(
         override fun newArray(size: Int): Array<Balancete?> {
             return arrayOfNulls(size)
         }
+    }
+
+    override fun toString(): String {
+        var mes : Int = this.mes!!.minus(1)
+        var nomeMes = DateFormatSymbols().months.get(mes!!)
+        return "${nomeMes} ${ano}".toUpperCase()
     }
 }
