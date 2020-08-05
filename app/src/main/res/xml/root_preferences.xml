@@ -1,0 +1,72 @@
+<!--
+  ~ Copyright 2018 The app Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="Opções de Parcelamento">
+
+        <EditTextPreference
+                app:key="max_parcela"
+                app:title="Quant. máxima de parcelas"
+                app:defaultValue="1"
+                app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+                app:key="valor_minimo_parcelamento"
+                app:title="Valor mínimo para parcelamento"
+                app:defaultValue="0"
+                app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+                app:key="flag_juros"
+                app:defaultValue="true"
+                app:title="Parcelamento com juros?" />
+
+
+        <EditTextPreference
+                app:dependency="flag_juros"
+                app:key="juros_parcela"
+                app:title="A partir de qual parcela?"
+                app:defaultValue="1"
+                app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+                app:dependency="flag_juros"
+                app:key="juros_valor"
+                app:title="Percentual de juros"
+                app:defaultValue="0"
+                app:useSimpleSummaryProvider="true" />
+
+
+    </PreferenceCategory>
+
+    <!--<PreferenceCategory app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+                app:key="sync"
+                app:title="@string/sync_title" />
+
+        <SwitchPreferenceCompat
+                app:dependency="sync"
+                app:key="attachment"
+                app:summaryOff="@string/attachment_summary_off"
+                app:summaryOn="@string/attachment_summary_on"
+                app:title="@string/attachment_title" />
+
+    </PreferenceCategory>-->
+
+</PreferenceScreen>

@@ -46,7 +46,7 @@ open class InsertContaPagarReceberAsyncTask(private var dao: AppDataBase?, priva
 
     override fun onPreExecute() {
         super.onPreExecute()
-        ipostExecuteInsert.showProgress("Registrando Debito pra o Cliente...")
+        ipostExecuteInsert.showProgress("Registrando...")
     }
 
     override fun onPostExecute(result: ContaPagarReceber?) {

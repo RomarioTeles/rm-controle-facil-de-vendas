@@ -1,8 +1,11 @@
 package br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +25,7 @@ import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.contaPagarReceber.InsertContaPagarReceberAsyncTask
 import br.com.rm.cfv.asyncTasks.produto.SelectAllProdutosAsyncTask
+import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.cfv.constants.TipoPagamento
 import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.entities.*
@@ -39,6 +43,7 @@ import kotlinx.android.synthetic.main.content_registrar_debito_resumo.*
 import kotlinx.android.synthetic.main.content_registrar_debito_resumo.textViewSubtotalItens
 import kotlinx.android.synthetic.main.content_registrar_debito_tipo_pagamento.*
 import kotlinx.android.synthetic.main.content_registrar_debito_tipo_vencimento.*
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -399,14 +404,30 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
         }
 
         if (v.id in listViewsPagamento) {
+            contaPagarReceber.percentualJurosParcelas = getPercentualJuros(contaPagarReceber.qtdeParcelas)
             mudaEstadoTelaPagamento(v)
         } else {
+            contaPagarReceber.percentualJurosParcelas = 0.0
             mudaEstadoTelaVenda(v)
         }
     }
 
     fun mudaEstadoTelaPagamento(v: View) {
         if (v.id != registrarDebitoConcluido.id) {
+
+            if(contaPagarReceber.total >= getValorMinimoParcelamento()){
+                buttonPagPrazo.visibility = View.VISIBLE
+            }else{
+                buttonPagPrazo.visibility = View.GONE
+            }
+
+            if(contaPagarReceber.tipoPagamento == TipoPagamento.A_VISTA){
+                buttonPagAvista.performClick()
+            }else{
+                meioPagamentoAdapter.selected = MeioPagamento.PARCELAMENTO_DA_LOJA
+                buttonPagPrazo.performClick()
+            }
+
             registrarDebitoPagamento.visibility = View.VISIBLE
             registrarDebitoResumo.visibility = View.GONE
 
@@ -491,18 +512,25 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
 
     fun initListaDeParcelas() {
         adapterParcelas = ParcelasAdapter(this)
-        adapterParcelas.init(contaPagarReceber.total, 12, 5)
+        var total = contaPagarReceber.total
+        adapterParcelas.init(total, getQuantidadeDeParcela(total), getParcelasComJuros(), getJurosValor())
         listViewParcelamento.adapter = adapterParcelas
         listViewParcelamento.setOnItemClickListener { parent, view, position, id ->
-            contaPagarReceber.qtdeParcelas = position + 1
-            contaPagarReceber.percentualJurosParcelas = if (contaPagarReceber.qtdeParcelas < 5) 0.0 else 10.0
-            contaPagarReceber.atualizaTotal()
-            textViewPagandoSubtotal.text =
-                "R$ ${DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total)}"
+            atualizaTotalPagamento(position+1)
             adapterParcelas.selected = position
             adapterParcelas.notifyDataSetChanged()
         }
+        atualizaTotalPagamento(1)
+        adapterParcelas.selected = 0
         adapterParcelas.notifyDataSetChanged()
+    }
+
+    fun atualizaTotalPagamento(qtdeParcelas: Int? = 1){
+        contaPagarReceber.qtdeParcelas = qtdeParcelas!!
+        contaPagarReceber.percentualJurosParcelas = getPercentualJuros(contaPagarReceber.qtdeParcelas)
+        contaPagarReceber.atualizaTotal()
+        textViewPagandoSubtotal.text =
+            "R$ ${DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total)}"
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -526,5 +554,63 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
             else -> return super.onOptionsItemSelected(item)
         }
 
+    }
+
+    private fun getPercentualJuros(qtdeParcelas: Int) : Double{
+        val prefParcela = getParcelasComJuros()
+        val prefJuros = getJurosValor()
+        return if (qtdeParcelas < prefParcela) 0.0 else prefJuros
+    }
+
+    private fun getParcelasComJuros(): Int{
+        try{
+            val prefParcela = getPreferences().getString("juros_parcela", "1")
+            return prefParcela.toInt()
+        }catch (e: Exception){
+            return 1
+        }
+    }
+
+    private fun getNumeroMaxParcelas(): Int{
+        try{
+            val prefParcela = getPreferences().getString("max_parcela", "1")
+            return prefParcela.toInt()
+        }catch (e: Exception){
+            return 1
+        }
+    }
+
+    private fun getJurosValor(): Double{
+        try {
+            val prefJuros = getPreferences().getString("juros_valor", "0")
+            return prefJuros.toDouble()
+        }catch (e: Exception){
+            return 0.0
+        }
+    }
+
+    private fun getValorMinimoParcelamento(): Double{
+        try {
+            val prefValorMin = getPreferences().getString("valor_minimo_parcelamento", "0.0")
+            return prefValorMin.toDouble()
+        }catch (e: Exception){
+            return 0.0
+        }
+    }
+
+    private fun getQuantidadeDeParcela(totalDaCompra: Double = 0.0): Int{
+        try {
+            val valorMinimoParcela = getValorMinimoParcelamento()
+            var numeroMaxParcelas = getNumeroMaxParcelas()
+            val quantParcelas = Math.floor(totalDaCompra.div(valorMinimoParcela)).toInt()
+            return Math.min(quantParcelas, numeroMaxParcelas)
+        }catch (e: Exception){
+            Log.e("Quantidade Parcelas", e.message, e)
+            return 1
+        }
+    }
+
+    private fun getPreferences(): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(this)
     }
 }

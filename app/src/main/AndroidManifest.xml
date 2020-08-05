@@ -20,9 +20,13 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <activity
+                android:name=".activities.configuracao.ConfiguracoesActivity"
+                android:label="@string/configuracoes"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
                 android:name=".activities.balancete.BalanceteActivity"
                 android:label="@string/title_activity_balancete"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activities.contaPagarReceber.contaPagarReceberViewer.detalhe.DetalheParcelaActivity"
                 android:theme="@style/AppTheme.NoActionBar" />
@@ -56,19 +60,19 @@
         <activity
                 android:name=".activities.fornecedor.ListaFornecedorActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activities.fornecedor.CadastrarFornecedorActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activities.balancete.ListaBalanceteActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activities.balancete.BalanceteTipoFragment"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activities.departamento.DepartamentoActivity"
                 android:screenOrientation="portrait"

@@ -100,7 +100,7 @@ class ClienteAdapter(private var context : Context, private var clienteDAO: Clie
 
                     override fun buttonSheetEdita(item: Any?) {
                         val intent = Intent(context, CadastrarClienteActivity::class.java)
-                        intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, item as Cliente)
+                        intent.putExtra("cliente", item as Cliente)
                         context.startActivity(intent)
                     }
 

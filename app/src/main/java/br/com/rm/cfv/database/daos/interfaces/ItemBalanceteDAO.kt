@@ -13,9 +13,9 @@ public interface ItemBalanceteDAO {
     @Query("SELECT * FROM itembalancete WHERE balancete_id = :balanceteId ORDER BY data_hora DESC")
     fun findByBalanceteId(balanceteId: Int): List<ItemBalancete>
 
-    @Query("""SELECT SUM(coalesce(despesa.valor, 0)) AS total_despesas, SUM(coalesce(receita.valor, 0)) AS total_receitas
-        FROM ( select * from itembalancete desp where desp.balancete_id = :balanceteId and desp.tipo = 'DESPESA') AS despesa
-        ,(select * from itembalancete receita where receita.balancete_id = :balanceteId and receita.tipo = 'RECEITA') AS receita
+    @Query("""SELECT despesa.valor AS total_despesas, receita.valor AS total_receitas
+        FROM ( select coalesce(SUM(coalesce(desp.valor, 0.0)), 0.0) AS valor from itembalancete desp where desp.balancete_id = :balanceteId and desp.tipo = 'DESPESA') AS despesa
+        ,(select coalesce(SUM(coalesce(receita.valor, 0.0)), 0.0) AS valor from itembalancete receita where receita.balancete_id = :balanceteId and receita.tipo = 'RECEITA') AS receita
         LIMIT 1""")
     fun getTotalBalancete(balanceteId: Int): TotalBalanceteDTO
 

@@ -18,9 +18,9 @@ class ParcelasAdapter(context: Context) : ArrayAdapter<Int>(context, R.layout.li
 
     var selected : Int? = 0
 
-    fun init(totalVenda: Double, parcelas : Int, parcelaComJuros: Int){
+    fun init(totalVenda: Double, parcelas : Int, parcelaComJuros: Int, juros: Double){
         val qtdeParcelas = parcelas
-        val percentualJurosParcelas = BigDecimal(10.0)
+        val percentualJurosParcelas = BigDecimal(juros)
         val juros = percentualJurosParcelas.plus(BigDecimal(100)).divide(BigDecimal(100))
         val total = BigDecimal(totalVenda).multiply(juros)
         for (i in 1..qtdeParcelas) {

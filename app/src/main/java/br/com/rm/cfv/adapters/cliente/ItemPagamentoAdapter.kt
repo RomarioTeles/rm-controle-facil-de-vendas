@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.contaPagarReceber.contaPagarReceberViewer.detalhe.DetalheParcelaActivity
@@ -74,25 +75,25 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
 
         if (item.valorPago >= item.valor){
             holder.textViewStatus.text = "PAGO"
-            holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_success))
+            holder.textViewStatus.setTextColor(ContextCompat.getColor(context, R.color.color_success))
         }else if(item.valorPago > 0 && item.valorPago < item.valor){
             holder.textViewStatus.text = "PAG. PARCIAL"
-            holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_success))
+            holder.textViewStatus.setTextColor(ContextCompat.getColor(context,R.color.color_success))
         }else if(item.observacao != null){
             holder.textViewParcela.text = item.observacao
             holder.textViewStatus.text = "PENDENTE"
-            holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_alert))
+            holder.textViewStatus.setTextColor(ContextCompat.getColor(context,R.color.color_alert))
         }
         else{
             holder.textViewStatus.text = "PENDENTE"
-            holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_alert))
+            holder.textViewStatus.setTextColor(ContextCompat.getColor(context,R.color.color_alert))
 
             var hoje = Date()
             hoje = DateOperationsUtils.removeTimeFromDate(hoje)
             var vencimento = Date(item.dataVencimento)
             vencimento = DateOperationsUtils.removeTimeFromDate(vencimento)
             if(DateOperationsUtils.getMin(hoje, vencimento) == vencimento){
-                holder.textViewDataVencimento.setTextColor(context.resources.getColor(R.color.color_error))
+                holder.textViewDataVencimento.setTextColor(ContextCompat.getColor(context,R.color.color_error))
             }
         }
 

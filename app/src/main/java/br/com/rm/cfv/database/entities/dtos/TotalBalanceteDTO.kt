@@ -15,6 +15,14 @@ open class TotalBalanceteDTO (
         return totalReceitas!!.minus(totalDespesas!!)
     }
 
+    /*fun getTotalDespesas(): Double{
+        return if (totalDespesas == null) 0.0 else totalDespesas!!
+    }
+
+    fun getTotalReceitas(): Double{
+        return if (totalReceitas == null) 0.0 else totalReceitas!!
+    }*/
+
     override fun toString(): String {
         return DecimalFormatUtils.decimalFormatPtBR(total())
     }

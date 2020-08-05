@@ -12,7 +12,7 @@ import br.com.rm.cfv.R
 import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.cfv.constants.TipoPagamento
 
-class MeioPagamentoAdapter(context: Context) : ArrayAdapter<MeioPagamento>(context, R.layout.list_view_item_meio_pagamento) {
+class MeioPagamentoAdapter(context: Context, private val spinnerMode: Boolean = false) : ArrayAdapter<MeioPagamento>(context, R.layout.list_view_item_meio_pagamento, R.id.textView) {
 
     private var itens : List<MeioPagamento> = MeioPagamento.getMeiosPagamentosAvista()
 
@@ -37,13 +37,17 @@ class MeioPagamentoAdapter(context: Context) : ArrayAdapter<MeioPagamento>(conte
         view!!.findViewById<TextView>(R.id.textView).text = item!!.descricao
         view!!.findViewById<ImageView>(R.id.imageViewIcon).setImageResource(item.res)
 
-        if(selected == item){
-           view.setBackgroundColor(ContextCompat.getColor(context, R.color.accent_active))
+        if(selected == item && !spinnerMode){
+           view.setBackgroundColor(ContextCompat.getColor(context, R.color.secondaryLightColor))
         }else{
            view.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
         }
 
         return view
+    }
+
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+        return getView(position, convertView, parent)
     }
 
     override fun getCount(): Int {
@@ -62,10 +66,11 @@ class MeioPagamentoAdapter(context: Context) : ArrayAdapter<MeioPagamento>(conte
         this.tipoPagamento = tipoPagamento
         if(this.tipoPagamento == TipoPagamento.A_PRAZO){
             itens = MeioPagamento.getMeiosPagamentosPrazo()
+            selected = MeioPagamento.PARCELAMENTO_DA_LOJA
         }else{
             itens = MeioPagamento.getMeiosPagamentosAvista()
+            selected = MeioPagamento.DINHEIRO
         }
-        selected = null
         notifyDataSetChanged()
     }
 

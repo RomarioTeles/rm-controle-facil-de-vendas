@@ -55,7 +55,7 @@ class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, pri
 
         var item = myDataset.get(position)
 
-        val quantidade = if (item.quantidade() < 0 ) 0 else item.quantidade()
+        val quantidade = item.quantidade()
         holder.textViewQuantidade.text = """Quantidade em estoque: ${quantidade}"""
 
         holder.textViewProduto.text = item.toString()

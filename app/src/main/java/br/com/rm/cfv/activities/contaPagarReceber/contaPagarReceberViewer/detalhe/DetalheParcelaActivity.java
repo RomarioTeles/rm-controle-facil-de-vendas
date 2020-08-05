@@ -2,7 +2,10 @@ package br.com.rm.cfv.activities.contaPagarReceber.contaPagarReceberViewer.detal
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -16,6 +19,7 @@ import java.util.Date;
 
 import br.com.rm.cfv.R;
 import br.com.rm.cfv.activities.BaseActivity;
+import br.com.rm.cfv.adapters.MeioPagamentoAdapter;
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate;
 import br.com.rm.cfv.asyncTasks.contaPagarReceber.UpdatePagamentoDebitoAsyncTask;
 import br.com.rm.cfv.database.entities.PagamentoDebito;
@@ -24,6 +28,11 @@ import br.com.rm.dateutils.DateFormatUtils;
 import br.com.rm.numberUtils.DecimalFormatUtils;
 
 public class DetalheParcelaActivity extends BaseActivity implements IPostExecuteInsertAndUpdate {
+
+    private MeioPagamentoAdapter meioPagamentoAdapter;
+
+
+    private Spinner listViewMeioPagamento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +44,21 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
         if(bundle != null) {
             final PagamentoDebito pagamentoDebito = bundle.getParcelable("PagamentoDebito");
             int parcela = bundle.getInt("parcela");
+
             TextView textViewParcela = findViewById(R.id.textViewObservacao);
             textViewParcela.setText(String.valueOf(parcela));
+
             TextView textViewVencimento = findViewById(R.id.textViewVencimento);
             textViewVencimento.setText( DateFormatUtils.format(new Date(pagamentoDebito.getDataVencimento()), "dd/MM/yyyy"));
+
             TextView textViewValor = findViewById(R.id.textViewValor);
             textViewValor.setText("R$ "+ DecimalFormatUtils.decimalFormatPtBR(pagamentoDebito.getValor()));
+
             SwitchCompat switchCompat = findViewById(R.id.switchPagarTotal);
+
             final TextInputEditText textInputEditValorPagar = findViewById(R.id.textInputEditValorPagar);
             textInputEditValorPagar.setText(String.valueOf(pagamentoDebito.getValorPago()));
+
             if(pagamentoDebito.getValor() <= pagamentoDebito.getValorPago()){
                 switchCompat.setEnabled(false);
                 switchCompat.setChecked(true);
@@ -56,15 +71,32 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
                     }
                 });
             }
-            fab().setOnClickListener(new View.OnClickListener() {
+
+            listViewMeioPagamento = findViewById(R.id.listViewMeioPagamento);
+            meioPagamentoAdapter = new MeioPagamentoAdapter(this, true);
+            listViewMeioPagamento.setAdapter(meioPagamentoAdapter);
+
+
+            listViewMeioPagamento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onClick(View v) {
-                    if(!textInputEditValorPagar.getText().toString().isEmpty()) {
-                        pagamentoDebito.setValorPago(Double.valueOf(textInputEditValorPagar.getText().toString()));
-                        new UpdatePagamentoDebitoAsyncTask(
-                                getCfvApplication().getDataBase(),
-                                DetalheParcelaActivity.this).execute(pagamentoDebito);
-                    }
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    pagamentoDebito.setMeioPagamento(meioPagamentoAdapter.getItem(position).name());
+                    meioPagamentoAdapter.setSelected(meioPagamentoAdapter.getItem(position));
+                    meioPagamentoAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+            fab().setOnClickListener(v -> {
+                if(!textInputEditValorPagar.getText().toString().isEmpty()) {
+                    pagamentoDebito.setValorPago(Double.valueOf(textInputEditValorPagar.getText().toString()));
+                    new UpdatePagamentoDebitoAsyncTask(
+                            getCfvApplication().getDataBase(),
+                            DetalheParcelaActivity.this).execute(pagamentoDebito);
                 }
             });
         }else{

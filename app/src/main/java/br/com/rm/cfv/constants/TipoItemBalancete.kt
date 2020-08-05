@@ -7,7 +7,7 @@ class TipoItemBalancete{
         }
 
         val RECEITA: String = "RECEITA"
-        val DESPESA: String = "DESPESAS"
+        val DESPESA: String = "DESPESA"
 
         fun getByTipoReferencia(tipoRef : String?) : String?{
             if (tipoRef == null) {

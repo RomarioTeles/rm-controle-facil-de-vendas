@@ -27,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.configuracao.ConfiguracoesActivity
 
 abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -90,6 +91,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                 }
                 return true
             }
+            R.id.action_settings ->{
+                startActivity(Intent(this, ConfiguracoesActivity::class.java))
+            }
             else -> return super.onOptionsItemSelected(item)
         }
 
@@ -116,6 +120,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             R.id.nav_balancete->{
                 startActivity(Intent(this, ListaBalanceteActivity::class.java))
+            }
+            R.id.nav_config ->{
+                startActivity(Intent(this, ConfiguracoesActivity::class.java))
             }
         }
 

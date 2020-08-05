@@ -156,7 +156,7 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
                 motivo,
                 Date().time,
                 tipo,
-                quantidade.toInt()
+                qtdInserir
             )
 
             InsertEstoqueAsyncTask(getCfvApplication().getDataBase()!!.movimentacaoEstoqueDAO(), this).execute(movimentacao)

@@ -21,6 +21,7 @@
                 android:textSize="14sp"
                 android:textAllCaps="true"
                 android:layout_marginBottom="8dp"
+                android:visibility="gone"
                 android:textStyle="bold"/>
 
         <View   android:background="@android:color/black"
@@ -32,7 +33,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="8dp"
+                android:visibility="gone">
 
             <TextView
                     android:id="@+id/textViewParcelaLabel"
@@ -93,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="R$ 90,00"
+                    android:text="R$ 0,00"
                     android:textSize="14sp" />
 
         </LinearLayout>
@@ -101,7 +103,7 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Editar Pagamento"
+                android:text="Pagamento"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:textAllCaps="true"
@@ -119,7 +121,6 @@
                 android:checked="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:text="Pagar Total"/>
 
 
@@ -138,6 +139,20 @@
                     android:hint="Valor Pagar"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:id="@+id/textViewMeioPagLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meio de Pagamento"
+                android:textColor="@color/secondaryTextColor"
+                android:layout_marginBottom="8dp"
+                android:textSize="14sp" />
+
+        <Spinner android:id="@+id/listViewMeioPagamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dialog"/>
 
     </LinearLayout>
 

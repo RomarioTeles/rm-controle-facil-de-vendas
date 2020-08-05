@@ -26,7 +26,7 @@ open class Fornecedor (
     @ColumnInfo(name = "complemento") var complemento: String? = "",
     @ColumnInfo(name = "bairro") var bairro: String? = "",
     @ColumnInfo(name = "cidade") var cidade: String? = "",
-    @ColumnInfo(name = "uf") var uf: String = ""
+    @ColumnInfo(name = "uf") var uf: String? = ""
 
 ): Serializable, IReferencia{
 
