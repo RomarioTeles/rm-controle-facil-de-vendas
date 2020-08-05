@@ -39,6 +39,8 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
             activity!!.finish()
         }
 
+        textViewlabelMes.text = "${balancete}"
+
         getBalancete()
 
     }

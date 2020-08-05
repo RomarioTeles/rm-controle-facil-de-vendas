@@ -124,6 +124,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.nav_config ->{
                 startActivity(Intent(this, ConfiguracoesActivity::class.java))
             }
+            R.id.nav_charts ->{
+                startActivity(Intent(this, ChartsActivity::class.java))
+            }
         }
 
         drawer_layout!!.closeDrawer(GravityCompat.START)

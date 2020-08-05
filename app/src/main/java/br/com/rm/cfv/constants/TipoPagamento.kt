@@ -5,16 +5,11 @@ class TipoPagamento {
     companion object {
         val A_VISTA: String = "A_VISTA"
         val A_PRAZO : String = "A_PRAZO"
-        val map = HashMap<String, String>()
+        val map = mapOf(A_VISTA to "à vista", A_PRAZO to "à prazo")
 
         fun getDescricaoPeloNome(nome : String): String? {
-            return map[nome]
+            return map.get(nome)
         }
-    }
-
-    init {
-        map.put(A_VISTA, "Pagamento a vista")
-        map.put(A_PRAZO, "Pagamento a prazo")
     }
 
 }

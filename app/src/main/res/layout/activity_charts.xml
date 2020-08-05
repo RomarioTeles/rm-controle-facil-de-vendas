@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.ChartsActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="2dp"
+                app:contentPadding="8dp"
+                app:cardUseCompatPadding="true">
+
+            <TextView android:id="@+id/button_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_gravity="end"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/shape_button_rounded_accent"
+                    android:textColor="@color/primaryTextColor"
+                    android:textStyle="bold"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="Julho 2020"
+                    android:drawablePadding="8dp"
+                    android:drawableEnd="@drawable/calendar_range"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView android:id="@+id/calendarViewTotalReceber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                <TextView
+                        android:id="@+id/textViewTotalReceberLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total a receber no mês"
+                        android:textSize="20sp" />
+
+                <TextView
+                        android:id="@+id/textViewTotalReceber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="R$ 0,00"
+                        android:textSize="30sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Percentual de pagamentos x meios de pagamentos."
+                    android:padding="16dp"
+                    android:textSize="18sp"/>
+
+            <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/chart_total_meio_pag"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:layout_marginTop="70dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pagamentos à vista vs Pagamentos à prazo"
+                    android:padding="16dp"
+                    android:textSize="18sp" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/chart_total_tipo_pag"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:layout_marginTop="70dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

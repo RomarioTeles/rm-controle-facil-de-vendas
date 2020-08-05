@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="2">
+
+        <TextView android:id="@+id/textViewAno"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:background="@color/primaryColor"
+                android:textColor="@color/secondaryTextColor"
+                android:padding="4dp"
+                android:layout_columnWeight="1"
+                android:text="Ano"/>
+
+        <TextView android:id="@+id/textViewMes"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:background="@color/primaryColor"
+                android:textColor="@color/secondaryTextColor"
+                android:padding="4dp"
+                android:layout_columnWeight="1"
+                android:text="Mes"/>
+
+        <NumberPicker android:id="@+id/numberpicker_ano"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_columnWeight="1"/>
+
+        <NumberPicker android:id="@+id/numberpicker_mes"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_columnWeight="1"
+                android:layout_weight="1" />
+
+</GridLayout>

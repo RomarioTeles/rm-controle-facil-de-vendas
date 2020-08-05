@@ -19,10 +19,19 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activities.ChartsActivity"
+                android:label="@string/charts"
+                android:theme="@style/splashScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
                 android:name=".activities.configuracao.ConfiguracoesActivity"
                 android:label="@string/configuracoes"
-                android:theme="@style/AppTheme.NoActionBar"/>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".activities.balancete.BalanceteActivity"
                 android:label="@string/title_activity_balancete"
@@ -50,12 +59,7 @@
                 android:name=".activities.cliente.ListaClientesActivity"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
-                android:theme="@style/splashScreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".activities.fornecedor.ListaFornecedorActivity"

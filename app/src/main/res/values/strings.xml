@@ -129,4 +129,5 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="menu_configuracoes">Configurações</string>
+    <string name="charts">Gráficos</string>
 </resources>
