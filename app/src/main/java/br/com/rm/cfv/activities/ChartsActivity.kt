@@ -17,7 +17,6 @@ import br.com.rm.cfv.utils.charts.PieChatUtil
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_charts.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.toast_layout.view.*
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
@@ -29,7 +28,6 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_charts)
 
         val cal = Calendar.getInstance()
@@ -54,7 +52,7 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             val map = result as Map<String, Any>
 
             if(map.get("totalReceberData") != null){
-                textViewTotalReceber.text = "R$ " +DecimalFormatUtils.decimalFormatPtBR((map.get("totalReceberData") as Double))
+                textViewTotalReceber.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR((map.get("totalReceberData") as Double)))
             }
 
             val totalMeioPagData = (map.get("totalMeioPagData") as List<ChartGrupoValor>)
@@ -63,10 +61,10 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
                 totalMeioPagData.forEach { valor  ->
                     entries.put( MeioPagamento.valueOf(valor.grupo!!).descricao, valor.total.toFloat())
                 }
-                createPieChart("Meio de Pagamento", R.id.chart_total_meio_pag, entries)
+                createPieChart(getString(R.string.chart_meio_pagamento), R.id.chart_total_meio_pag, entries)
             }else{
-                val entries = mapOf("Nenhuma venda efetivada" to 1.0f)
-                createPieChart("Meio de Pagamento", R.id.chart_total_meio_pag, entries)
+                val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
+                createPieChart(getString(R.string.chart_meio_pagamento), R.id.chart_total_meio_pag, entries)
             }
 
             val totalTipoPagData = (map.get("totalTipoPagData") as List<ChartGrupoValor>)
@@ -75,10 +73,10 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
                 totalTipoPagData.forEach { valor  ->
                     entries.put(TipoPagamento.getDescricaoPeloNome(valor.grupo!!)!!, valor.total.toFloat())
                 }
-                createPieChart("Tipo de Pagamento", R.id.chart_total_tipo_pag, entries)
+                createPieChart(getString(R.string.chart_tipo_pagamento), R.id.chart_total_tipo_pag, entries)
             }else{
-                val entries = mapOf("Nenhuma venda efetivada" to 1.0f)
-                createPieChart("Tipo de Pagamento", R.id.chart_total_tipo_pag, entries)
+                val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
+                createPieChart(getString(R.string.chart_tipo_pagamento), R.id.chart_total_tipo_pag, entries)
             }
 
         }
@@ -112,9 +110,9 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             Log.i("Positive Button", which.toString())
             val cal = Calendar.getInstance()
 
-            calendarViewTotalReceber.visibility = View.GONE
+            linearLayoutTotalReceber.visibility = View.GONE
             if(cal.get(Calendar.YEAR) == ano && mes!! >= (cal.get(Calendar.MONTH) + 1) ){
-                calendarViewTotalReceber.visibility = View.VISIBLE
+                linearLayoutTotalReceber.visibility = View.VISIBLE
             }
 
             cal.set(Calendar.YEAR, ano!!)

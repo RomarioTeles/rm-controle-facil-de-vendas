@@ -3,8 +3,6 @@ package br.com.rm.cfv.activities.contaPagarReceber.contaPagarReceberViewer.detal
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -49,10 +47,10 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
             textViewParcela.setText(String.valueOf(parcela));
 
             TextView textViewVencimento = findViewById(R.id.textViewVencimento);
-            textViewVencimento.setText( DateFormatUtils.format(new Date(pagamentoDebito.getDataVencimento()), "dd/MM/yyyy"));
+            textViewVencimento.setText(DateFormatUtils.format(new Date(pagamentoDebito.getDataVencimento()), "dd/MM/yyyy"));
 
             TextView textViewValor = findViewById(R.id.textViewValor);
-            textViewValor.setText("R$ "+ DecimalFormatUtils.decimalFormatPtBR(pagamentoDebito.getValor()));
+            textViewValor.setText(getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(pagamentoDebito.getValor())));
 
             SwitchCompat switchCompat = findViewById(R.id.switchPagarTotal);
 
@@ -64,11 +62,8 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
                 switchCompat.setChecked(true);
             }else {
                 switchCompat.setChecked(false);
-                switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
                         textInputEditValorPagar.setText(String.valueOf(pagamentoDebito.getValor()));
-                    }
                 });
             }
 

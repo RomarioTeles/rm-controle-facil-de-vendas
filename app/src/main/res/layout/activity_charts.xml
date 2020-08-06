@@ -32,39 +32,31 @@
                     android:drawablePadding="8dp"
                     android:drawableEnd="@drawable/calendar_range"/>
 
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView android:id="@+id/calendarViewTotalReceber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="2dp"
-                app:cardUseCompatPadding="true">
-
-            <LinearLayout
+            <LinearLayout android:id="@+id/linearLayoutTotalReceber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="vertical">
 
                 <TextView
                         android:id="@+id/textViewTotalReceberLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Total a receber no mês"
+                        android:padding="8dp"
                         android:textSize="20sp" />
 
                 <TextView
                         android:id="@+id/textViewTotalReceber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
+                        android:gravity="start"
                         android:text="R$ 0,00"
                         android:textSize="30sp" />
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
 
         <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -75,7 +67,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Percentual de pagamentos x meios de pagamentos."
+                    android:text="@string/chart_percentual_meios_pagamentos"
                     android:padding="16dp"
                     android:textSize="18sp"/>
 
@@ -97,7 +89,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pagamentos à vista vs Pagamentos à prazo"
+                    android:text="@string/chart_percentual_tipo_pagamento"
                     android:padding="16dp"
                     android:textSize="18sp" />
 

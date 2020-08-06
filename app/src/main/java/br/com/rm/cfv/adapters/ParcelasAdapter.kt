@@ -26,7 +26,7 @@ class ParcelasAdapter(context: Context) : ArrayAdapter<Int>(context, R.layout.li
         for (i in 1..qtdeParcelas) {
             if (i < parcelaComJuros) {
                 val valorSemJuros: Double = totalVenda / i
-                val label = "$i x R$ ${DecimalFormatUtils.decimalFormatPtBR(valorSemJuros)}"
+                val label = context.getString(R.string.parcela_x_currency_format, i, DecimalFormatUtils.decimalFormatPtBR(valorSemJuros))
                 itens.put(i, label)
             } else {
                 val valorComJuros = total.divide(BigDecimal(i), 2, RoundingMode.CEILING)

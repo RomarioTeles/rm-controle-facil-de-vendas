@@ -73,6 +73,6 @@ class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
         val dto = result as DebitoClienteDTO
         myDataset = dto.debitos!!
         viewAdapter.setDataset(myDataset.toMutableList())
-        textViewTotalValor.text = "R$ "+ DecimalFormatUtils.decimalFormatPtBR(dto.getTotalFaltaPagar())
+        textViewTotalValor.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(dto.getTotalFaltaPagar()))
     }
 }

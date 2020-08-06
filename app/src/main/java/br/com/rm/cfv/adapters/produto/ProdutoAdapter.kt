@@ -61,7 +61,7 @@ class ProdutoAdapter(private var context: ImageUtilsActivity, private var iOnCli
 
         holder.textViewCodigo.text = item.codigo
 
-        holder.textViewPrecoRevenda.text = """R$ ${DecimalFormatUtils.decimalFormatPtBR(item!!.precoVenda)}"""
+        holder.textViewPrecoRevenda.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item!!.precoVenda))
 
         if (item.caminhoImagem != null && !item.caminhoImagem!!.isBlank()) {
             holder.imageViewProduto.setImageBitmap(context.getBitmapFromAbsolutePath(item.caminhoImagem))

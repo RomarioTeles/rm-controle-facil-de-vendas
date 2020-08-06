@@ -58,9 +58,9 @@ class VisualizarContaPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
     override fun afterSearch(result: Any?) {
         if(result != null){
             var dto = result as PagamentoDebitoSubtotalDTO
-            textViewTotalValor.text = "R$ ${DecimalFormatUtils.decimalFormatPtBR(dto.total)}"
-            textViewTotalValorPago.text = "- R$ ${DecimalFormatUtils.decimalFormatPtBR(dto.valorPago)}"
-            textViewTotalValorTotal.text = "= R$ ${DecimalFormatUtils.decimalFormatPtBR(dto.getValorFaltaPagar())}"
+            textViewTotalValor.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(dto.total))
+            textViewTotalValorPago.text = getString(R.string.currency_format_negative, DecimalFormatUtils.decimalFormatPtBR(dto.valorPago))
+            textViewTotalValorTotal.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(dto.getValorFaltaPagar()))
         }
     }
 }

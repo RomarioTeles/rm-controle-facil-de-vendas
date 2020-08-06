@@ -1,7 +1,6 @@
 package br.com.rm.cfv.activities.balancete
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
-import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.balancete.SelectTotalBalanceteAsyncTask
 import br.com.rm.cfv.database.entities.Balancete
@@ -57,15 +55,15 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
     override fun afterSearch(result: Any?) {
         if(result != null){
             val totalBalancete = result as TotalBalanceteDTO?
-            textViewTotalDespesas.text = "R$ " + DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.totalDespesas)
-            textViewTotalReceitas.text = "R$ " + DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.totalReceitas)
-            textViewTotal.text = "R$ " + DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.total())
+            textViewTotalDespesas.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.totalDespesas))
+            textViewTotalReceitas.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.totalReceitas))
+            textViewTotal.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.total()))
             if(totalBalancete!!.total() < 0){
                 textViewTotal.setTextColor(ContextCompat.getColor(this.context!!, R.color.color_error))
             }
             val p = PieChatUtil(activity, R.id.chart1)
             p.build()
-            val entries = mapOf("Receitas" to totalBalancete!!.totalReceitas!!.toFloat(), "Despesas" to totalBalancete!!.totalDespesas!!.toFloat())
+            val entries = mapOf(getString(R.string.chart_receitas) to totalBalancete!!.totalReceitas!!.toFloat(), getString(R.string.chart_despesas) to totalBalancete!!.totalDespesas!!.toFloat())
             p.setData(balancete.toString(), entries)
         }
 

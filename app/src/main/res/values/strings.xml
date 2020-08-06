@@ -130,4 +130,21 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="menu_configuracoes">Configurações</string>
     <string name="charts">Gráficos</string>
+    <string name="chart_receitas">Receitas</string>
+    <string name="chart_despesas">Despesas</string>
+    <string name="currency_format">R$ %1$s</string>
+    <string name="currency_format_negative">- R$ %1$s</string>
+    <string name="parcela_x_currency_format">%1$d x R$ %2$s</string>
+    <string name="chart_meio_pagamento">Meio de pagamento</string>
+    <string name="chart_nenhum_venda_efetivada">Nenhuma venda efetivada</string>
+    <string name="chart_tipo_pagamento">Tipo de Pagamento</string>
+    <string name="chart_percentual_meios_pagamentos">Percentual por meios de pagamentos.</string>
+    <string name="chart_percentual_tipo_pagamento">Pagamentos à vista vs Pagamentos à prazo</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="dash_nova_venda">Venda</string>
+    <string name="dash_estoque">Estoque</string>
+    <string name="dash_clientes">Clientes</string>
+    <string name="dash_fornecedores">Fornecedores</string>
+    <string name="dash_produtos">Produtos</string>
+    <string name="dash_categorias">Categorias</string>
 </resources>

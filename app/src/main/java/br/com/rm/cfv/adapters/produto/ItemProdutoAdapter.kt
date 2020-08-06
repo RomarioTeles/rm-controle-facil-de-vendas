@@ -65,10 +65,10 @@ class ItemProdutoAdapter(private var context: Context, private var myDataset: Mu
         var item = myDataset.get(position)
         holder.textViewNome.text = item.nomeProduto
         holder.textViewCodigo.text = item.codigoProduto
-        holder.textViewSubtotal.text = "R$ "+DecimalFormatUtils.decimalFormatPtBR(item.subtotal)
+        holder.textViewSubtotal.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item.subtotal))
         holder.textViewQuantidade.text = item.getQuantidade().toString()
-        holder.textViewPrecoOriginal.text = "R$ "+DecimalFormatUtils.decimalFormatPtBR(item.precoUnitario)
-        holder.textViewDescAcresc.text = "R$ "+DecimalFormatUtils.decimalFormatPtBR(item.getDescAcresc())
+        holder.textViewPrecoOriginal.text = context.getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(item.precoUnitario))
+        holder.textViewDescAcresc.text = context.getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(item.getDescAcresc()))
     }
 
     override fun getItemCount() = myDataset.size

@@ -27,22 +27,22 @@
 
         <item
                 android:id="@+id/nav_departamento"
-                android:icon="@drawable/shape_white_24dp"
+                android:icon="@drawable/shape"
                 android:title="@string/menu_categorias"/>
 
         <item
                 android:id="@+id/nav_produto"
-                android:icon="@drawable/tag_white_24dp"
+                android:icon="@drawable/tag"
                 android:title="@string/menu_produtos"/>
 
         <item
                 android:id="@+id/nav_estoque"
-                android:icon="@drawable/tag_plus_white_24dp"
+                android:icon="@drawable/tag_plus"
                 android:title="@string/menu_estoque"/>
 
         <item
                 android:id="@+id/nav_config"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/cog"
                 android:title="@string/menu_configuracoes"/>
 
     </group>

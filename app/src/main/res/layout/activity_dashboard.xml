@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryColor">
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:theme="@style/AppTheme"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+
+    <TextView
+            android:id="@+id/textViewAppName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/cards"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="16dp" />
+
+
+    <ScrollView
+            android:id="@+id/cards"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/scrollViewMenuInferior"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linearLayoutSaldo"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/shape_rectangule_rounded_white_no_border"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id="@+id/textViewBalanceteLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/clipboard_flow"
+                        android:drawablePadding="16dp"
+                        android:gravity="center|start"
+                        android:padding="16dp"
+                        android:text="Resultado do periodo"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                        android:id="@+id/textViewPeriodo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="bottom|start"
+                        android:paddingStart="16dp"
+                        android:text="Janeiro 2020"
+                        android:textAllCaps="true"
+                        android:textColor="@color/secondaryColor"
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toBottomOf="@id/textViewBalanceteLabel" />
+
+
+                <TextView
+                        android:id="@+id/textViewBalancete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom|start"
+                        android:paddingStart="16dp"
+                        android:text="R$ 0,00"
+                        android:textColor="@color/secondaryColor"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/textViewPeriodo" />
+
+
+                <TextView
+                        android:id="@+id/textViewRodape"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F0F0F0"
+                        android:drawableStart="@drawable/chart_pie"
+                        android:drawablePadding="8dp"
+                        android:gravity="bottom|start"
+                        android:padding="16dp"
+                        android:text="Clique aqui para obter mais detalhes sobre o resultado do período."
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+
+                </TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linearLayoutSaldoReceber"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/shape_rectangule_rounded_white_no_border"
+                    android:orientation="vertical"
+                    android:clipChildren="true">
+
+                <TextView
+                        android:id="@+id/textViewReceberLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/clipboard_flow"
+                        android:drawablePadding="16dp"
+                        android:gravity="center|start"
+                        android:padding="16dp"
+                        android:text="A receber no período"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                        android:id="@+id/textViewPeriodoReceber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="bottom|start"
+                        android:paddingStart="16dp"
+                        android:text="Janeiro 2020"
+                        android:textAllCaps="true"
+                        android:textColor="@color/margentaTextColor"
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toBottomOf="@id/textViewReceberLabel" />
+
+
+                <TextView
+                        android:id="@+id/textViewSaldoReceber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="bottom|start"
+                        android:paddingStart="16dp"
+                        android:text="R$ 0,00"
+                        android:textColor="@color/margentaTextColor"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/textViewPeriodoReceber" />
+
+
+                <TextView
+                        android:id="@+id/textViewRodapeReceber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F0F0F0"
+                        android:drawableStart="@drawable/chart_pie"
+                        android:drawablePadding="8dp"
+                        android:gravity="bottom|start"
+                        android:justificationMode="inter_word"
+                        android:padding="16dp"
+                        android:text="Clique aqui para obter dados estatísticos de suas vendas."
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+
+                </TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <HorizontalScrollView
+            android:id="@+id/scrollViewMenuInferior"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:padding="16dp"
+            android:background="@color/primaryColor"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <FrameLayout
+                    android:id="@+id/button_nova_venda"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape_rectangule_rounded_primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="8dp">
+
+                <TextView
+                        android:id="@+id/textViewVendalabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="bottom|start"
+                        android:text="@string/dash_nova_venda" />
+
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/cart" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                    android:id="@+id/button_estoque"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape_rectangule_rounded_primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="8dp">
+
+                <TextView
+                        android:id="@+id/textViewEstoquelabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="bottom|start"
+                        android:text="@string/dash_estoque" />
+
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/tag_plus" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                    android:id="@+id/button_clientes"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape_rectangule_rounded_primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="8dp">
+
+                <TextView
+                        android:id="@+id/textViewClienteslabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="bottom|start"
+                        android:text="@string/dash_clientes" />
+
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/account_heart" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                    android:id="@+id/button_fornecedores"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape_rectangule_rounded_primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="8dp">
+
+                <TextView
+                        android:id="@+id/textViewFornecedoreslabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="bottom|start"
+                        android:singleLine="true"
+                        android:text="@string/dash_fornecedores" />
+
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/account_tie" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                    android:id="@+id/button_produtos"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape_rectangule_rounded_primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="8dp">
+
+                <TextView
+                        android:id="@+id/textViewProdutoslabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="bottom|start"
+                        android:singleLine="true"
+                        android:text="@string/dash_produtos" />
+
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/tag" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                    android:id="@+id/button_categorias"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape_rectangule_rounded_primary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="8dp">
+
+                <TextView
+                        android:id="@+id/textViewCategoriaslabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="bottom|start"
+                        android:singleLine="true"
+                        android:text="@string/dash_categorias" />
+
+                <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/shape" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -184,7 +184,7 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
         linearLayoutFinalizar.setOnClickListener {
             contaPagarReceber.atualizaTotal()
             textViewPagandoSubtotal.text =
-                "R$ ${DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total)}"
+                getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total))
             mudaEstadoDaTela(registrarDebitoPagamentoTipo)
         }
 
@@ -360,13 +360,13 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
     }
 
     private fun atualizaSubtotalItemEmEdicao(valor: Double) {
-        textViewItemSubtotal.text = """R$ ${DecimalFormatUtils.decimalFormatPtBR(valor)}"""
+        textViewItemSubtotal.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(valor))
     }
 
     private fun atualizaResumoCesta() {
         textViewquantidadeItens.text = contaPagarReceber.itemProdutoList.size.toString()
         textViewSubtotalItens.text =
-            "R$ "+DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.getSubtotal())
+            getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.getSubtotal()))
         if(contaPagarReceber.itemProdutoList.size > 0){
             menu.getItem(0).setIcon(R.drawable.basket)
         }else{
@@ -530,7 +530,7 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
         contaPagarReceber.percentualJurosParcelas = getPercentualJuros(contaPagarReceber.qtdeParcelas)
         contaPagarReceber.atualizaTotal()
         textViewPagandoSubtotal.text =
-            "R$ ${DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total)}"
+            getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -53,7 +53,7 @@
 
                 <TextView
                         android:id="@+id/textViewCodigo"
-                        android:layout_width="48dp"
+                        android:layout_width="match_parent"
                         android:layout_height="26dp"
                         android:text="@string/label_codigo"
                         android:textSize="12sp"

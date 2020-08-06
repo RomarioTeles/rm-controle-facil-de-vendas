@@ -19,6 +19,15 @@ public interface ItemBalanceteDAO {
         LIMIT 1""")
     fun getTotalBalancete(balanceteId: Int): TotalBalanceteDTO
 
+    @Query("""SELECT despesa.valor AS total_despesas, receita.valor AS total_receitas
+        FROM
+        ( select coalesce(SUM(coalesce(desp.valor, 0.0)), 0.0) AS valor from balancete b join itembalancete desp
+                on b.uid = desp.balancete_id where desp.tipo = 'DESPESA' and b.ano = :ano and b.mes = :mes) AS despesa
+        ,(select coalesce(SUM(coalesce(receita.valor, 0.0)), 0.0) AS valor from balancete b join itembalancete receita 
+                on receita.balancete_id = b.uid where receita.tipo = 'RECEITA' and b.ano = :ano and b.mes = :mes) AS receita
+        LIMIT 1""")
+    fun getTotalBalanceteByMesAndAno(mes: Int, ano: Int): TotalBalanceteDTO
+
     @Query("SELECT * FROM itembalancete WHERE balancete_id = :balanceteId and tipo = :tipo ORDER BY data_hora DESC")
     fun findByBalanceteIdAndTipo(balanceteId: Int, tipo: String): List<ItemBalancete>
 

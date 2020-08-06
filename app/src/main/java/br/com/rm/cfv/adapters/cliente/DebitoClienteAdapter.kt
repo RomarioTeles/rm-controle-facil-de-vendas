@@ -101,7 +101,7 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
 
         holder.textViewDataHora.text = DateFormatUtils.format(item.getDataHora(), "dd\nMMMM\nyyyy").toUpperCase()
 
-        holder.textViewTotal.text = "R$ ${DecimalFormatUtils.decimalFormatPtBR(item.total)}"
+        holder.textViewTotal.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item.total))
 
         holder.textViewStatus.text = item.getStatus()
 

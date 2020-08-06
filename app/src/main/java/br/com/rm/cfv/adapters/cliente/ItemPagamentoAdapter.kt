@@ -66,7 +66,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
         var item = myDataset.get(position)
 
         holder.textViewParcela.text = ""//String.format("%dª Parcela", position+1)
-        holder.textViewValor.text = "R$ "+ DecimalFormatUtils.decimalFormatPtBR(item.valor)
+        holder.textViewValor.text = context.getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(item.valor))
         var data = DateFormatUtils.format(Date(item.dataVencimento), "dd") + "\n"
         data += DateFormatUtils.format(Date(item.dataVencimento), "MMMM") + "\n"
         data += DateFormatUtils.format(Date(item.dataVencimento), "yyyy")

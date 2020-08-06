@@ -15,7 +15,7 @@ interface ChartsDAO {
 
     @Query("""SELECT pd.meio_pagamento AS grupo, SUM(coalesce(pd.valor, 0)) AS valor 
             FROM pagamentodebito pd 
-            where pd.data_vencimento >= :dataInicial and pd.data_vencimento <= :dataFinal
+            where pd.data_vencimento >= :dataInicial and pd.data_vencimento <= :dataFinal and coalesce(pd.valor_pago, 0) > 0
             group by pd.meio_pagamento 
             order by valor DESC""")
     fun getTotalPorMeioPagamento(dataInicial: Long, dataFinal: Long): List<ChartGrupoValor>
