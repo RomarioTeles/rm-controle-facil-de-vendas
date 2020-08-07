@@ -104,6 +104,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_main -> {
+                startActivity(Intent(this, DashboardActivity::class.java))
+            }
+            R.id.nav_clientes -> {
                 startActivity(Intent(this, ListaClientesActivity::class.java))
             }
             R.id.nav_produto -> {

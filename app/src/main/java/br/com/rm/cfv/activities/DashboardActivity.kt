@@ -13,6 +13,7 @@ import br.com.rm.cfv.activities.balancete.BalanceteActivity
 import br.com.rm.cfv.activities.balancete.ListaBalanceteActivity
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.configuracao.ConfiguracoesActivity
+import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
 import br.com.rm.cfv.activities.estoque.ListaEstoqueActivity
 import br.com.rm.cfv.activities.fornecedor.ListaFornecedorActivity
@@ -54,7 +55,7 @@ class DashboardActivity : AppCompatActivity(), IPostExecuteSearch{
     fun setEventListeners(){
 
         button_nova_venda.setOnClickListener { v ->
-            startActivity(Intent(this, ListaClientesActivity::class.java))
+            startActivity(Intent(this, RegistrarCompraVendaActivity::class.java))
         }
 
         button_estoque.setOnClickListener { v ->

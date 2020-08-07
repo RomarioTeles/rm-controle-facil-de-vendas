@@ -17,5 +17,6 @@
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
     <color name="margentaTextColor">#FF0051</color>
+    <color name="cinza_padrao_android">#808080</color>
 
 </resources>

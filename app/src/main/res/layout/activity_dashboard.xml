@@ -21,7 +21,7 @@
             android:id="@+id/textViewAppName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="50dp"
             android:gravity="center"
             android:text="@string/app_name"
             android:textAllCaps="true"
@@ -29,15 +29,13 @@
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/cards"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
     <ScrollView
             android:id="@+id/cards"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="480dp"
             android:fillViewport="true"
             android:scrollbars="none"
             android:layout_marginBottom="20dp"
@@ -54,8 +52,8 @@
                     android:id="@+id/linearLayoutSaldo"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/shape_rectangule_rounded_white_no_border"
                     android:orientation="vertical">
@@ -64,7 +62,7 @@
                         android:id="@+id/textViewBalanceteLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/clipboard_flow"
+                        android:drawableStart="@drawable/clipboard_flow_outline"
                         android:drawablePadding="16dp"
                         android:gravity="center|start"
                         android:padding="16dp"
@@ -104,7 +102,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#F0F0F0"
-                        android:drawableStart="@drawable/chart_pie"
+                        android:drawableStart="@drawable/chart_donut"
                         android:drawablePadding="8dp"
                         android:gravity="bottom|start"
                         android:padding="16dp"
@@ -121,8 +119,8 @@
                     android:id="@+id/linearLayoutSaldoReceber"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/shape_rectangule_rounded_white_no_border"
                     android:orientation="vertical"
                     android:clipChildren="true">
@@ -131,7 +129,7 @@
                         android:id="@+id/textViewReceberLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/clipboard_flow"
+                        android:drawableStart="@drawable/currency_usd_circle_outline"
                         android:drawablePadding="16dp"
                         android:gravity="center|start"
                         android:padding="16dp"
@@ -171,7 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="#F0F0F0"
-                        android:drawableStart="@drawable/chart_pie"
+                        android:drawableStart="@drawable/chart_donut"
                         android:drawablePadding="8dp"
                         android:gravity="bottom|start"
                         android:justificationMode="inter_word"
@@ -223,12 +221,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:gravity="bottom|start"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
                         android:text="@string/dash_nova_venda" />
 
                 <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/cart" />
+                        android:src="@drawable/cart_outline" />
 
             </FrameLayout>
 
@@ -248,12 +248,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:gravity="bottom|start"
+                        android:textStyle="bold"
+                        android:textSize="11sp"
                         android:text="@string/dash_estoque" />
 
                 <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/tag_plus" />
+                        android:src="@drawable/tag_plus_outline" />
 
             </FrameLayout>
 
@@ -273,12 +275,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:gravity="bottom|start"
+                        android:textStyle="bold"
+                        android:textSize="11sp"
                         android:text="@string/dash_clientes" />
 
                 <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/account_heart" />
+                        android:src="@drawable/account_heart_outline" />
 
             </FrameLayout>
 
@@ -298,13 +302,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:gravity="bottom|start"
-                        android:singleLine="true"
+                        android:textStyle="bold"
+                        android:textSize="11sp"
                         android:text="@string/dash_fornecedores" />
 
                 <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/account_tie" />
+                        android:src="@drawable/account_tie_outline" />
 
             </FrameLayout>
 
@@ -325,12 +330,14 @@
                         android:layout_height="80dp"
                         android:gravity="bottom|start"
                         android:singleLine="true"
+                        android:textStyle="bold"
+                        android:textSize="11sp"
                         android:text="@string/dash_produtos" />
 
                 <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/tag" />
+                        android:src="@drawable/tag_outline" />
 
             </FrameLayout>
 
@@ -351,12 +358,14 @@
                         android:layout_height="80dp"
                         android:gravity="bottom|start"
                         android:singleLine="true"
+                        android:textStyle="bold"
+                        android:textSize="11sp"
                         android:text="@string/dash_categorias" />
 
                 <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/shape" />
+                        android:src="@drawable/shape_outline" />
 
             </FrameLayout>
 

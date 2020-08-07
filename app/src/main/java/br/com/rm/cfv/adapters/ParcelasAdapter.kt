@@ -56,7 +56,7 @@ class ParcelasAdapter(context: Context) : ArrayAdapter<Int>(context, R.layout.li
         }
 
         if(selected == position){
-           view!!.setBackgroundColor(ContextCompat.getColor(context, R.color.accent_active))
+           view!!.setBackgroundColor(ContextCompat.getColor(context, R.color.secondaryLightColor))
         }else{
            view!!.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
         }

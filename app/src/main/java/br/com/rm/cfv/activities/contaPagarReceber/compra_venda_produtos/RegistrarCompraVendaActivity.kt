@@ -96,11 +96,16 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
         setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_registrar_debito)
 
-        referencia = intent.getSerializableExtra(ARG_REFERENCIA) as IReferencia
-
-        contaPagarReceber.idRef = referencia.getIdRef()
-        contaPagarReceber.nomeRef = referencia.getNomeRef()
-        contaPagarReceber.tipoRef = referencia.getTipoRef()
+        if(intent.hasExtra(ARG_REFERENCIA)){
+            referencia = intent.getSerializableExtra(ARG_REFERENCIA) as IReferencia
+            contaPagarReceber.idRef = referencia.getIdRef()
+            contaPagarReceber.nomeRef = referencia.getNomeRef()
+            contaPagarReceber.tipoRef = referencia.getTipoRef()
+        }else{
+            contaPagarReceber.idRef = -1
+            contaPagarReceber.nomeRef = getString(R.string.cliente_nao_informado)
+            contaPagarReceber.tipoRef = TipoReferencia.CLIENTE
+        }
 
         adicionaAcoesComponentes()
     }
@@ -261,6 +266,7 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
                 var valor: Int = if (v.text.isBlank()) 0 else v.text.toString().toInt()
                 itemProdutoEmEdicao.setQuantidade(valor)
                 atualizaSubtotalItemEmEdicao(itemProdutoEmEdicao.subtotal)
+                hideKeyboard()
                 true
             } else {
                 false
@@ -415,7 +421,7 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
     fun mudaEstadoTelaPagamento(v: View) {
         if (v.id != registrarDebitoConcluido.id) {
 
-            if(contaPagarReceber.total >= getValorMinimoParcelamento()){
+            if(contaPagarReceber.total >= getValorMinimoParcelamento() && (contaPagarReceber.idRef!!).coerceAtLeast(-1) > -1 ){
                 buttonPagPrazo.visibility = View.VISIBLE
             }else{
                 buttonPagPrazo.visibility = View.GONE
@@ -464,18 +470,23 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
 
         itemProdutoEmEdicao.codigoProduto = produto.codigo
         itemProdutoEmEdicao.nomeProduto = produto.nome
-        var preco = if (referencia.getTipoRef() == TipoReferencia.CLIENTE) produto.precoVenda!! else produto.precoCusto!!
+        var preco = if (contaPagarReceber.tipoRef == TipoReferencia.CLIENTE) produto.precoVenda!! else produto.precoCusto!!
         itemProdutoEmEdicao.precoUnitario = preco
         itemProdutoEmEdicao.subtotal = preco
 
         if (contaPagarReceber.itemProdutoList.contains(itemProdutoEmEdicao)) {
             itemProdutoEmEdicao =
                 contaPagarReceber.itemProdutoList.find { it.codigoProduto == itemProdutoEmEdicao.codigoProduto }!!
-            itemProdutoEmEdicao.setQuantidade(itemProdutoEmEdicao.getQuantidade() + 1)
+            if(isLongClick && itemProdutoEmEdicao.getQuantidade() == 0) {
+                itemProdutoEmEdicao.setQuantidade(itemProdutoEmEdicao.getQuantidade() + 1)
+            }else{
+                itemProdutoEmEdicao.setQuantidade(itemProdutoEmEdicao.getQuantidade())
+            }
         }
 
         textInputQuantidade.setText(itemProdutoEmEdicao.getQuantidade().toString())
         textViewItemNomeProduto.text = itemProdutoEmEdicao.nomeProduto.toString()
+        textViewItemPrecoProduto.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(preco))
         atualizaSubtotalItemEmEdicao(itemProdutoEmEdicao.subtotal)
         if (produto.caminhoImagem != null && !produto.caminhoImagem!!.isBlank()) {
             imageViewItemProduto.setImageBitmap(

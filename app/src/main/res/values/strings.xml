@@ -43,7 +43,7 @@
     <string name="pesquise_codigo_produto">Pesquise pelo o código do produto...</string>
     <string name="ver_cesta">Ver Cesta</string>
     <string name="finalizar">Finalizar</string>
-    <string name="adicionar_produto">adicionar produto</string>
+    <string name="adicionar_produto">adicionar</string>
     <string name="acrescimo">Acréscimo</string>
     <string name="desconto">Desconto</string>
     <string name="aplicar_desconto_acrescimo">Aplique desconto ou acréscimo</string>
@@ -147,4 +147,6 @@
     <string name="dash_fornecedores">Fornecedores</string>
     <string name="dash_produtos">Produtos</string>
     <string name="dash_categorias">Categorias</string>
+    <string name="cliente_nao_informado">Não informado</string>
+    <string name="menu_dash">Dashboard</string>
 </resources>
