@@ -2,8 +2,10 @@ package br.com.rm.cfv.database.daos.interfaces
 
 import androidx.room.Dao
 import androidx.room.Query
+import br.com.rm.cfv.database.entities.dtos.BarChartItem
 import br.com.rm.cfv.database.entities.dtos.ChartGrupoValor
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
+import java.util.*
 
 @Dao
 interface ChartsDAO {
@@ -34,5 +36,12 @@ interface ChartsDAO {
             GROUP BY dc.nome_ref
             order by dc.nome_ref""" )
     fun getClientesComAtrasoNoPagamento(data: Long): List<ChartGrupoValor>
+
+    @Query("""SELECT SUM(coalesce(pd.valor, 0)) AS axisY , pd.data_vencimento AS axisX
+            FROM pagamentodebito pd 
+            where pd.data_vencimento >= :dataInicial and pd.data_vencimento <= :dataFinal and coalesce(pd.valor_pago, 0) = 0 
+            Group by axisX
+            Order by axisX """)
+    fun getTotalReceberAgrupadoPorMes(dataInicial: Date, dataFinal: Date): List<BarChartItem>
 
 }

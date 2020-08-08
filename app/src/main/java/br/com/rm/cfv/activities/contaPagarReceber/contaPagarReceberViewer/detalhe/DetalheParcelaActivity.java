@@ -47,7 +47,7 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
             textViewParcela.setText(String.valueOf(parcela));
 
             TextView textViewVencimento = findViewById(R.id.textViewVencimento);
-            textViewVencimento.setText(DateFormatUtils.format(new Date(pagamentoDebito.getDataVencimento()), "dd/MM/yyyy"));
+            textViewVencimento.setText(DateFormatUtils.format(pagamentoDebito.getDataVencimento(), "dd/MM/yyyy"));
 
             TextView textViewValor = findViewById(R.id.textViewValor);
             textViewValor.setText(getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(pagamentoDebito.getValor())));

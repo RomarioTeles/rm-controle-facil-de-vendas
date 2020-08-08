@@ -117,9 +117,9 @@ open class InsertContaPagarReceberAsyncTask(private var dao: AppDataBase?, priva
                     val calendar = GregorianCalendar()
                     calendar.time = Date(debitoCliente.dataPrevistaPagamento!!)
                     calendar.add(Calendar.MONTH, num)
-                    pagamentoDebito.dataVencimento = calendar.time.time
+                    pagamentoDebito.dataVencimento = calendar.time
                 }else{
-                    pagamentoDebito.dataVencimento = debitoCliente.dataPrevistaPagamento!!
+                    pagamentoDebito.dataVencimento = Date(debitoCliente.dataPrevistaPagamento!!)
                 }
 
                 lista.add(pagamentoDebito)

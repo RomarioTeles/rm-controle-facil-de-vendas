@@ -55,14 +55,14 @@ public class PieChatUtil implements OnChartValueSelectedListener {
         //chart.setCenterTextTypeface(tfLight);
         //chart.setCenterText(generateCenterSpannableText());
 
-        chart.setDrawHoleEnabled(false);
-        chart.setHoleColor(Color.WHITE);
+        chart.setDrawHoleEnabled(true);
+        chart.setHoleColor(Color.TRANSPARENT);
 
         chart.setTransparentCircleColor(Color.WHITE);
         chart.setTransparentCircleAlpha(110);
 
-        chart.setHoleRadius(58f);
-        chart.setTransparentCircleRadius(61f);
+        chart.setHoleRadius(40f);
+        chart.setTransparentCircleRadius(42f);
 
         chart.setDrawCenterText(true);
 
@@ -109,7 +109,7 @@ public class PieChatUtil implements OnChartValueSelectedListener {
 
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
-        dataSet.setSelectionShift(5f);
+        dataSet.setSelectionShift(10f);
 
         // add a lot of colors
 

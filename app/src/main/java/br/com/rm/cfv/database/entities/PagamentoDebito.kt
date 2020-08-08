@@ -16,8 +16,8 @@ import java.util.*
 open class PagamentoDebito : Parcelable {
 
     @PrimaryKey(autoGenerate = true) var uid: Int? = null
-    @ColumnInfo(name = "data_hora")  var dataHora : Long = Date().time
-    @ColumnInfo(name = "data_vencimento")  var dataVencimento : Long = Date().time
+    @ColumnInfo(name = "data_hora")  var dataHora : Date = Date()
+    @ColumnInfo(name = "data_vencimento")  var dataVencimento : Date = Date()
     @ColumnInfo(name = "meio_pagamento")  var meioPagamento : String = MeioPagamento.DINHEIRO.name
     @ColumnInfo(name = "valor_pago")  var valorPago : Double = 0.0
     @ColumnInfo(name = "valor")  var valor : Double = 0.0
@@ -34,8 +34,8 @@ open class PagamentoDebito : Parcelable {
 
     constructor(parcel: Parcel) : this() {
         uid = parcel.readValue(Int::class.java.classLoader) as? Int
-        dataHora = parcel.readLong()
-        dataVencimento = parcel.readLong()
+        dataHora = parcel.readSerializable() as Date
+        dataVencimento = parcel.readSerializable() as Date
         meioPagamento = parcel.readString()
         valorPago = parcel.readDouble()
         valor = parcel.readDouble()
@@ -61,7 +61,7 @@ open class PagamentoDebito : Parcelable {
             novoPagamento.valor = valor.minus(valorPago)
             novoPagamento.codigo = "$codigo-R"
             novoPagamento.contaPagarReceberId = this.contaPagarReceberId
-            val data = Date(this.dataVencimento)
+            val data = Date(this.dataVencimento.time)
             val parcelaorigem = DateFormatUtils.format(data, "MM/yyyy")
             novoPagamento.observacao = "Débito de pagamento parcial efetivado. Parcela origem: ${parcelaorigem}."
 
@@ -74,8 +74,8 @@ open class PagamentoDebito : Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(uid)
-        parcel.writeLong(dataHora)
-        parcel.writeLong(dataVencimento)
+        parcel.writeSerializable(dataHora)
+        parcel.writeSerializable(dataVencimento)
         parcel.writeString(meioPagamento)
         parcel.writeDouble(valorPago)
         parcel.writeDouble(valor)

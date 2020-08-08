@@ -531,7 +531,7 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
             adapterParcelas.selected = position
             adapterParcelas.notifyDataSetChanged()
         }
-        atualizaTotalPagamento(1)
+        atualizaTotalPagamento(contaPagarReceber.qtdeParcelas)
         adapterParcelas.selected = 0
         adapterParcelas.notifyDataSetChanged()
     }
@@ -612,9 +612,13 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
     private fun getQuantidadeDeParcela(totalDaCompra: Double = 0.0): Int{
         try {
             val valorMinimoParcela = getValorMinimoParcelamento()
-            var numeroMaxParcelas = getNumeroMaxParcelas()
-            val quantParcelas = Math.floor(totalDaCompra.div(valorMinimoParcela)).toInt()
-            return Math.min(quantParcelas, numeroMaxParcelas)
+            if(valorMinimoParcela.coerceAtLeast(0.0) > 0) {
+                var numeroMaxParcelas = getNumeroMaxParcelas()
+                val quantParcelas = Math.floor(totalDaCompra.div(valorMinimoParcela)).toInt()
+                return Math.min(quantParcelas, numeroMaxParcelas)
+            }else{
+                return getNumeroMaxParcelas()
+            }
         }catch (e: Exception){
             Log.e("Quantidade Parcelas", e.message, e)
             return 1

@@ -12,11 +12,14 @@ import br.com.rm.cfv.R
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.cfv.constants.TipoPagamento
+import br.com.rm.cfv.database.entities.dtos.BarChartItem
 import br.com.rm.cfv.database.entities.dtos.ChartGrupoValor
+import br.com.rm.cfv.utils.charts.BarChartUtil
 import br.com.rm.cfv.utils.charts.PieChatUtil
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_charts.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import java.text.DateFormatSymbols
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
@@ -33,6 +36,9 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
         val cal = Calendar.getInstance()
         ano = cal.get(Calendar.YEAR)
         mes = cal.get(Calendar.MONTH) + 1
+
+        setLabelButtonPeriodo(mes!!.minus(1), ano!!)
+
         LoadDataAsync(this).execute(cal)
 
         button_data.setOnClickListener { view ->
@@ -40,6 +46,10 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
         }
 
         fab.hide()
+    }
+
+    private fun setLabelButtonPeriodo( mes : Int, ano : Int){
+        button_data.text = "${DateFormatSymbols.getInstance().months.get(mes)} ${ano}".toUpperCase()
     }
 
     override fun getToobarTitle(): String {
@@ -68,7 +78,7 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             }
 
             val totalTipoPagData = (map.get("totalTipoPagData") as List<ChartGrupoValor>)
-            if(map.get("totalTipoPagData") != null && !totalTipoPagData.isEmpty()){
+            if(totalTipoPagData != null && !totalTipoPagData.isEmpty()){
                 val entries = LinkedHashMap<String, Float>()
                 totalTipoPagData.forEach { valor  ->
                     entries.put(TipoPagamento.getDescricaoPeloNome(valor.grupo!!)!!, valor.total.toFloat())
@@ -77,6 +87,25 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             }else{
                 val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
                 createPieChart(getString(R.string.chart_tipo_pagamento), R.id.chart_total_tipo_pag, entries)
+            }
+
+            val barchartdata = (map.get("barchartdata")) as List<BarChartItem>
+            if(barchartdata != null && !barchartdata.isEmpty()){
+                val entries = LinkedHashMap<Float, Float>()
+                barchartdata.forEach { valor  ->
+                    var cal = Calendar.getInstance()
+                    cal.timeInMillis = valor.axisX!!
+
+                    val month = cal.get(Calendar.MONTH) * 1.0F
+                    if(entries.containsKey(month)){
+                        entries.put(month, entries.get(month)!!.plus(valor.axisY))
+                    }else{
+                        entries.put(month, valor.axisY)
+                    }
+                }
+                val p = BarChartUtil(this, R.id.chart_bar)
+                p.build()
+                p.setData("", entries)
             }
 
         }
@@ -99,7 +128,7 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
 
         var year = cal.get(Calendar.YEAR)
         yearPicker.minValue = year - 5
-        yearPicker.maxValue = year
+        yearPicker.maxValue = year + 1
         yearPicker.value = ano!!
 
         monthPicker.setOnValueChangedListener { picker, oldVal, newVal -> mes = newVal  }
@@ -118,6 +147,7 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             cal.set(Calendar.YEAR, ano!!)
             cal.set(Calendar.MONTH, mes!!)
 
+            setLabelButtonPeriodo(mes!!.minus(1), ano!!)
 
             LoadDataAsync(this).execute(cal)
         })
@@ -160,6 +190,13 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
 
             val totalTipoPagData = dao.getTotalPorTipoPagamento(dataInicio.timeInMillis, dataFinal.timeInMillis)
             map.put("totalTipoPagData", totalTipoPagData)
+
+
+            dataInicio.set(Calendar.MONTH, 0)
+            dataFinal.set(Calendar.MONTH, 11)
+
+            val barchartdata = dao.getTotalReceberAgrupadoPorMes(dataInicio.time, dataFinal.time)
+            map.put("barchartdata", barchartdata)
 
             return map
         }

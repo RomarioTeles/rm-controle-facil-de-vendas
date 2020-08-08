@@ -7,7 +7,7 @@
 
         <TextView android:id="@+id/textViewAno"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:background="@color/primaryColor"
@@ -18,7 +18,7 @@
 
         <TextView android:id="@+id/textViewMes"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:background="@color/primaryColor"

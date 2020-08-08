@@ -67,9 +67,9 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
 
         holder.textViewParcela.text = ""//String.format("%dª Parcela", position+1)
         holder.textViewValor.text = context.getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(item.valor))
-        var data = DateFormatUtils.format(Date(item.dataVencimento), "dd") + "\n"
-        data += DateFormatUtils.format(Date(item.dataVencimento), "MMMM") + "\n"
-        data += DateFormatUtils.format(Date(item.dataVencimento), "yyyy")
+        var data = DateFormatUtils.format(item.dataVencimento, "dd") + "\n"
+        data += DateFormatUtils.format(item.dataVencimento, "MMMM") + "\n"
+        data += DateFormatUtils.format(item.dataVencimento, "yyyy")
 
         holder.textViewDataVencimento.text = data.toUpperCase()
 
@@ -90,7 +90,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
 
             var hoje = Date()
             hoje = DateOperationsUtils.removeTimeFromDate(hoje)
-            var vencimento = Date(item.dataVencimento)
+            var vencimento = Date(item.dataVencimento.time)
             vencimento = DateOperationsUtils.removeTimeFromDate(vencimento)
             if(DateOperationsUtils.getMin(hoje, vencimento) == vencimento){
                 holder.textViewDataVencimento.setTextColor(ContextCompat.getColor(context,R.color.color_error))
