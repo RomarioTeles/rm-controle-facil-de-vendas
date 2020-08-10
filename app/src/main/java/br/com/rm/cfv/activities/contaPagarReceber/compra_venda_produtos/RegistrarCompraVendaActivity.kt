@@ -48,6 +48,7 @@ import kotlinx.android.synthetic.main.content_registrar_debito_resumo.*
 import kotlinx.android.synthetic.main.content_registrar_debito_resumo.textViewSubtotalItens
 import kotlinx.android.synthetic.main.content_registrar_debito_tipo_pagamento.*
 import kotlinx.android.synthetic.main.content_registrar_debito_tipo_vencimento.*
+import kotlinx.android.synthetic.main.item_option_sheet_main.*
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.HashMap
@@ -192,7 +193,6 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         }
 
         linearLayoutFinalizar.setOnClickListener {
-            contaPagarReceber.atualizaTotal()
             textViewPagandoSubtotal.text =
                 getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total))
             mudaEstadoDaTela(registrarDebitoPagamentoTipo)
@@ -352,7 +352,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     private fun registrarPedido() {
         var task = InsertContaPagarReceberAsyncTask(getCfvApplication().getDataBase(), this)
         contaPagarReceber.itemProdutoList = itemProdutoAdapter.getListaProdutos().toMutableList()
-        contaPagarReceber.atualizaTotal()
+        contaPagarReceber.atualizaTotal(getParcelasComJuros())
         task.execute(contaPagarReceber)
     }
 
@@ -377,7 +377,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     private fun atualizaResumoCesta() {
         textViewquantidadeItens.text = contaPagarReceber.itemProdutoList.size.toString()
         textViewSubtotalItens.text =
-            getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.getSubtotal()))
+            getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.getSubtotal(getParcelasComJuros())))
         if(contaPagarReceber.itemProdutoList.size > 0){
             menu.getItem(0).setIcon(R.drawable.basket)
         }else{
@@ -536,7 +536,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     fun atualizaTotalPagamento(qtdeParcelas: Int? = 1){
         contaPagarReceber.qtdeParcelas = qtdeParcelas!!
         contaPagarReceber.percentualJurosParcelas = getPercentualJuros(contaPagarReceber.qtdeParcelas)
-        contaPagarReceber.atualizaTotal()
+        contaPagarReceber.atualizaTotal(getParcelasComJuros())
         textViewPagandoSubtotal.text =
             getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total))
     }
@@ -544,7 +544,12 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         this.menu = menu
         menuInflater.inflate(R.menu.menu_registrar_debito, menu)
-
+        if(contaPagarReceber.idRef!!.compareTo(-1) > 0){
+            menu.getItem(1).setIcon(R.drawable.account_black_24dp)
+            if(contaPagarReceber.tipoRef == TipoReferencia.FORNECEDOR){
+                menu.getItem(1).setVisible(false)
+            }
+        }
         return true
     }
 
@@ -560,9 +565,11 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
                 return true
             }
             R.id.action_ref ->{
-                val intent = Intent(this, ListaClientesActivity::class.java)
-                intent.putExtra("SELECTABLE", true)
-                startActivityForResult(intent, 1)
+                if(contaPagarReceber.tipoRef == TipoReferencia.CLIENTE) {
+                    val intent = Intent(this, ListaClientesActivity::class.java)
+                    intent.putExtra("SELECTABLE", true)
+                    startActivityForResult(intent, 1)
+                }
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -595,8 +602,12 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
 
     private fun getJurosValor(): Double{
         try {
-            val prefJuros = getPreferences().getString("juros_valor", "0")
-            return prefJuros.toDouble()
+            if(contaPagarReceber.tipoRef == TipoReferencia.FORNECEDOR){
+                return 0.0
+            }else {
+                val prefJuros = getPreferences().getString("juros_valor", "0")
+                return prefJuros!!.toDouble()
+            }
         }catch (e: Exception){
             return 0.0
         }

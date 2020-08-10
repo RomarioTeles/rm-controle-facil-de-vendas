@@ -91,22 +91,22 @@ open class ContaPagarReceber() : Parcelable{
         return !hasError
     }
 
-    fun getSubtotal(): Double {
+    fun getSubtotal(numeroParcelaSomarJuros: Int = 0): Double {
         var subtotal = 0.0
 
         itemProdutoList.forEach {
             subtotal += it.subtotal
         }
 
-        if(percentualJurosParcelas > 0) {
+        if(tipoPagamento == TipoPagamento.A_PRAZO && percentualJurosParcelas > 0 && qtdeParcelas >= numeroParcelaSomarJuros) {
             return subtotal + (subtotal * (percentualJurosParcelas / 100))
         }else{
             return subtotal
         }
     }
 
-    fun atualizaTotal(){
-        total = getSubtotal()
+    fun atualizaTotal(numeroParcelaSomarJuros: Int = 0){
+        total = getSubtotal(numeroParcelaSomarJuros)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

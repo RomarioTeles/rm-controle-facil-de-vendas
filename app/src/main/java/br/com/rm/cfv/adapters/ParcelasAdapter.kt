@@ -21,15 +21,15 @@ class ParcelasAdapter(context: Context) : ArrayAdapter<Int>(context, R.layout.li
     fun init(totalVenda: Double, parcelas : Int, parcelaComJuros: Int, juros: Double){
         val qtdeParcelas = parcelas
         val percentualJurosParcelas = BigDecimal(juros)
-        val juros = percentualJurosParcelas.plus(BigDecimal(100)).divide(BigDecimal(100))
-        val total = BigDecimal(totalVenda).multiply(juros)
+        val total = BigDecimal(totalVenda)
         for (i in 1..qtdeParcelas) {
             if (i < parcelaComJuros) {
                 val valorSemJuros: Double = totalVenda / i
                 val label = context.getString(R.string.parcela_x_currency_format, i, DecimalFormatUtils.decimalFormatPtBR(valorSemJuros))
                 itens.put(i, label)
             } else {
-                val valorComJuros = total.divide(BigDecimal(i), 2, RoundingMode.CEILING)
+                val valorComJuros = (total.plus(    percentualJurosParcelas.divide(BigDecimal(100)).multiply(total)) )
+                    .divide(BigDecimal(i), 2, RoundingMode.CEILING)
                 val label = "$i x R$ ${valorComJuros}"
                 itens.put(i, label)
             }
