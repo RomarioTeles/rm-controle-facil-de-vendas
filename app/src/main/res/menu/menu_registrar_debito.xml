@@ -3,9 +3,18 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_cesta"
-        android:icon="@drawable/basket_off"
-        android:orderInCategory="100"
-        android:title="Cesta"
-        app:showAsAction="always" />
+            android:id="@+id/action_cesta"
+            android:icon="@drawable/basket_off"
+            android:orderInCategory="100"
+            android:title="Cesta"
+            app:showAsAction="always" />
+
+    <item
+            android:id="@+id/action_ref"
+            android:icon="@drawable/account_question"
+            android:orderInCategory="100"
+            android:title="Ref"
+            app:showAsAction="always" />
+
+
 </menu>

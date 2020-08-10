@@ -45,6 +45,10 @@ public class ItemOptionsBottomSheetDialog {
         hideOption(view.findViewById(R.id.remover_parent), buttonSettings.isShowRemover());
         buttonDeletar.setText(buttonSettings.getTextoRemover());
 
+        TextView buttonSelecionar = view.findViewById(R.id.selecionar);
+        hideOption(view.findViewById(R.id.selecionar_parent), buttonSettings.isShowSelecionar());
+        buttonSelecionar.setText(buttonSettings.getTextoSelecionar());
+
         TextView buttonCancelar = view.findViewById(R.id.cancelar);
 
         buttonListar.setOnClickListener(v -> {
@@ -59,6 +63,7 @@ public class ItemOptionsBottomSheetDialog {
             options.buttonSheetEdita(item);
             dialog.dismiss();
         });
+
         buttonDeletar.setOnClickListener(v -> {
             dialog.dismiss();
             if(settings.isShowRemoveDialog()) {
@@ -72,6 +77,12 @@ public class ItemOptionsBottomSheetDialog {
                 options.buttonSheetRemove(item, position);
             }
         });
+
+        buttonSelecionar.setOnClickListener( v -> {
+            dialog.dismiss();
+            options.buttonSheetSeleciona(item);
+        });
+
         buttonCancelar.setOnClickListener(v -> {
             dialog.dismiss();
         });

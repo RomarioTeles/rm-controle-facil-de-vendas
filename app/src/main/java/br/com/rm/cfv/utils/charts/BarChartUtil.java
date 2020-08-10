@@ -22,11 +22,12 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import br.com.rm.cfv.utils.charts.common.MyValueFormatter;
-import br.com.rm.cfv.utils.charts.common.monthAxisValueFormatter;
+import br.com.rm.cfv.utils.charts.common.BarChartDataSet;
+import br.com.rm.cfv.utils.charts.common.XYMarkerView;
 
 public class BarChartUtil implements OnChartValueSelectedListener {
 
@@ -36,14 +37,21 @@ public class BarChartUtil implements OnChartValueSelectedListener {
     private int resourceId;
     private BarChart chart;
 
+    private ValueFormatter xAxisFormatter;
+    private ValueFormatter yAxisFormatter;
+
     public BarChartUtil(Activity activity, int resourceId) {
         this.activity = activity;
         this.resourceId = resourceId;
     }
 
-    public void build(){
+    public void build(ValueFormatter xAxisFormatter, ValueFormatter yAxisFormatter) {
+
+        this.xAxisFormatter = xAxisFormatter;
+        this.yAxisFormatter = yAxisFormatter;
 
         chart = activity.findViewById(resourceId);
+        chart.animateXY(2000, 2000);
         chart.setOnChartValueSelectedListener(this);
 
         chart.setDrawBarShadow(false);
@@ -59,35 +67,26 @@ public class BarChartUtil implements OnChartValueSelectedListener {
         chart.setPinchZoom(false);
 
         chart.setDrawGridBackground(false);
-        // chart.setDrawYLabels(false);
 
-        ValueFormatter xAxisFormatter = new monthAxisValueFormatter(chart);
+        chart.setHorizontalScrollBarEnabled(true);
+        // chart.setDrawYLabels(false);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(tfLight);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // only intervals of 1 day
-        xAxis.setLabelCount(7);
+        xAxis.setLabelCount(12);
         xAxis.setValueFormatter(xAxisFormatter);
-
-        ValueFormatter custom = new MyValueFormatter("R$");
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
         leftAxis.setLabelCount(10, false);
-        leftAxis.setValueFormatter(custom);
+        leftAxis.setValueFormatter(yAxisFormatter);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
-        YAxis rightAxis = chart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setTypeface(tfLight);
-        rightAxis.setLabelCount(8, false);
-        rightAxis.setValueFormatter(custom);
-        rightAxis.setSpaceTop(15f);
-        rightAxis.setAxisMinimum(0f);
 
         Legend l = chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -95,66 +94,80 @@ public class BarChartUtil implements OnChartValueSelectedListener {
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
         l.setForm(Legend.LegendForm.SQUARE);
-        l.setFormSize(9f);
-        l.setTextSize(11f);
-        l.setXEntrySpace(4f);
+        l.setFormSize(10f);
+        l.setTextSize(12f);
+        l.setXEntrySpace(5f);
 
-
+        XYMarkerView mv = new XYMarkerView(activity, xAxisFormatter);
+        mv.setChartView(chart); // For bounds control
+        chart.setMarker(mv); // Set the marker to the chart
     }
 
-    public void setData(String label, Map<Float, Float> dataEntries) {
-        List<BarEntry> values = new ArrayList<>();
+    public void setData(List<BarChartDataSet> datasets) {
 
-        for(Map.Entry<Float, Float> entity : dataEntries.entrySet()){
-            BarEntry pieEntry = new BarEntry(entity.getKey(), entity.getValue());
-            values.add(pieEntry);
-        }
-
-        BarDataSet set1;
-
+        float groupSpace = 0.00f;
+        float barSpace = 0.01f;
+        float barWidth = 0.49f;
+        List<Float> mins = new ArrayList<>();
+        List<Float> maxs = new ArrayList<>();
         if (chart.getData() != null &&
                 chart.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
+            int idx = 0;
+            for (BarChartDataSet bardataset : datasets) {
+
+                List<BarEntry> values = new ArrayList<>();
+                for (Map.Entry<Float, Float> entity : bardataset.getDataset().entrySet()) {
+                    BarEntry pieEntry = new BarEntry(entity.getKey(), entity.getValue());
+                    values.add(pieEntry);
+                }
+                BarDataSet set1 = (BarDataSet) chart.getData().getDataSetByIndex(idx++);
+                set1.setColor(ContextCompat.getColor(activity, bardataset.getColor()));
+                set1.setValues(values);
+            }
+
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
 
-        } else {
-            set1 = new BarDataSet(values, label);
-
-            set1.setDrawIcons(false);
-
-            int startColor1 = ContextCompat.getColor(activity, android.R.color.holo_orange_light);
-            int startColor2 = ContextCompat.getColor(activity, android.R.color.holo_blue_light);
-            int startColor3 = ContextCompat.getColor(activity, android.R.color.holo_orange_light);
-            int startColor4 = ContextCompat.getColor(activity, android.R.color.holo_green_light);
-            int startColor5 = ContextCompat.getColor(activity, android.R.color.holo_red_light);
-            int endColor1  = ContextCompat.getColor(activity, android.R.color.holo_blue_dark);
-            int endColor2  = ContextCompat.getColor(activity, android.R.color.holo_purple);
-            int endColor3  = ContextCompat.getColor(activity, android.R.color.holo_green_dark);
-            int endColor4  = ContextCompat.getColor(activity, android.R.color.holo_red_dark);
-            int endColor5  = ContextCompat.getColor(activity, android.R.color.holo_orange_dark);
-
-            set1.setColors(startColor1,
-                    startColor2,
-                    startColor3,
-                    startColor4,
-                    startColor5,
-                    endColor1,
-                    endColor2,
-                    endColor3,
-                    endColor4,
-                    endColor5 );
+        }else {
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set1);
+
+            for (BarChartDataSet bardataset : datasets) {
+                mins.add(bardataset.getMinX());
+                maxs.add(bardataset.getMaxX());
+
+                List<BarEntry> values = new ArrayList<>();
+                for (Map.Entry<Float, Float> entity : bardataset.getDataset().entrySet()) {
+                    BarEntry pieEntry = new BarEntry(entity.getKey(), entity.getValue());
+                    values.add(pieEntry);
+                }
+
+                BarDataSet set1 = new BarDataSet(values, bardataset.getLabel());
+                set1.setColor(ContextCompat.getColor(activity, bardataset.getColor()));
+                set1.setDrawIcons(false);
+                dataSets.add(set1);
+            }
 
             BarData data = new BarData(dataSets);
-            data.setValueTextSize(10f);
+            data.setValueTextSize(12f);
             data.setValueTypeface(tfLight);
-            data.setBarWidth(0.9f);
-
             chart.setData(data);
+
+            // specify the width each bar should have
+            chart.getBarData().setBarWidth(barWidth);
+            // restrict the x-axis range
+            Float min = Collections.min(mins);
+            Float max = Collections.max(maxs);
+
+            chart.setVisibleXRangeMaximum(4);
+            chart.moveViewToX(min);
+            chart.enableScroll();
+
+            chart.getXAxis().setAxisMinimum(min);
+            // barData.getGroupWith(...) is a helper that calculates the width each group needs based on the provided parameters
+            chart.getXAxis().setAxisMaximum(max + 2);
+            chart.groupBars(min, groupSpace, barSpace);
+            chart.invalidate();
         }
     }
 
@@ -181,5 +194,9 @@ public class BarChartUtil implements OnChartValueSelectedListener {
     @Override
     public void onNothingSelected() {
         Log.i("BarChart", "nothing selected");
+    }
+
+    public BarChart getChart() {
+        return chart;
     }
 }

@@ -1,6 +1,7 @@
 package br.com.rm.cfv.adapters.produto
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import br.com.rm.cfv.activities.produto.IOnClickProdutoListener
 import br.com.rm.cfv.database.entities.Produto
 import br.com.rm.numberUtils.DecimalFormatUtils
 
-class ProdutoAdapter(private var context: ImageUtilsActivity, private var iOnClickProdutoListener: IOnClickProdutoListener, private var myDataset: List<Produto>) : RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder>() {
+class ProdutoAdapter(private var context: Context, private var iOnClickProdutoListener: IOnClickProdutoListener, private var myDataset: List<Produto>) : RecyclerView.Adapter<ProdutoAdapter.ProdutoViewHolder>() {
 
     class ProdutoViewHolder(val view : View) : RecyclerView.ViewHolder(view){
 
@@ -64,7 +65,7 @@ class ProdutoAdapter(private var context: ImageUtilsActivity, private var iOnCli
         holder.textViewPrecoRevenda.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item!!.precoVenda))
 
         if (item.caminhoImagem != null && !item.caminhoImagem!!.isBlank()) {
-            holder.imageViewProduto.setImageBitmap(context.getBitmapFromAbsolutePath(item.caminhoImagem))
+            holder.imageViewProduto.setImageBitmap(ImageUtilsActivity.getBitmapFromAbsolutePath(item.caminhoImagem))
         }
 
         holder.view.setOnClickListener{

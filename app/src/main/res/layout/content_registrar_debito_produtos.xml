@@ -42,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="55dp"
+            android:paddingBottom="75dp"
             tools:listitem="@layout/recycler_view_item_produto"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"/>
 

@@ -15,34 +15,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chart_projecao_pagar_vs_receber"
+                    android:padding="16dp"
+                    android:textSize="18sp"/>
+
+            <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/chart_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_marginTop="70dp"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="2dp"
                 app:contentPadding="8dp"
                 app:cardUseCompatPadding="true">
 
-            <TextView android:id="@+id/button_data"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_gravity="end"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/shape_button_rounded_accent"
-                    android:textColor="@color/primaryTextColor"
-                    android:textStyle="bold"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:text="Julho 2020"
-                    android:drawablePadding="8dp"
-                    android:drawableEnd="@drawable/calendar_range"/>
-
-            <LinearLayout android:id="@+id/linearLayoutTotalReceber"
+            <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/linearLayoutTotalReceber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                <TextView android:id="@+id/button_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:layout_gravity="end"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/shape_button_rounded_accent"
+                        android:textColor="@color/primaryTextColor"
+                        android:textStyle="bold"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:text="Mês Ano"
+                        android:drawablePadding="4dp"
+                        android:drawableEnd="@drawable/calendar_range"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
                 <TextView
                         android:id="@+id/textViewTotalReceberLabel"
-                        android:layout_width="match_parent"
+                        android:layout_width="220dp"
                         android:layout_height="wrap_content"
-                        android:text="Total a receber no mês"
-                        android:padding="8dp"
+                        android:text="@string/chart_total_a_receber_no_mes"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:textSize="20sp" />
 
                 <TextView
@@ -50,10 +74,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start"
+                        android:padding="8dp"
                         android:text="R$ 0,00"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTotalReceberLabel"
                         android:textSize="30sp" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -101,26 +128,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardElevation="2dp"
-                app:cardUseCompatPadding="true">
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Chart Bar"
-                    android:padding="16dp"
-                    android:textSize="18sp"/>
-
-            <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/chart_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:layout_marginTop="70dp"/>
-
-        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 

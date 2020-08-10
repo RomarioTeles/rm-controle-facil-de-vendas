@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.cliente.CadastrarClienteActivity
+import br.com.rm.cfv.activities.cliente.ClienteViewHolder
 import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
 import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
@@ -24,16 +25,7 @@ import br.com.rm.cfv.utils.ToastUtils
 
 
 class ClienteAdapter(private var context : Context, private var clienteDAO: ClienteDAO, private var myDataset: MutableList<Cliente>) :
-    RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder>(), IPostExecuteDelete{
-
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder.
-    // Each data item is just a string in this case that is shown in a TextView.
-    class ClienteViewHolder(val view : View) : RecyclerView.ViewHolder(view){
-        lateinit var textViewTelefone : TextView
-        lateinit var  textViewNome : TextView
-    }
+    RecyclerView.Adapter<ClienteViewHolder>(), IPostExecuteDelete{
 
     fun setDataset(dataset : MutableList<Cliente>){
         this.myDataset = dataset
@@ -43,7 +35,7 @@ class ClienteAdapter(private var context : Context, private var clienteDAO: Clie
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): ClienteAdapter.ClienteViewHolder {
+                                    viewType: Int): ClienteViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_item_default_2, parent, false) as View

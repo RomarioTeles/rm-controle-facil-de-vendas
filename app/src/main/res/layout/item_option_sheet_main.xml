@@ -14,8 +14,35 @@
             android:focusable="true"
             android:gravity="center"
             android:padding="16dp"
+            android:textAllCaps="true"
             android:text="Ações"
             android:textSize="18sp" />
+
+    <LinearLayout android:id="@+id/selecionar_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:src="@drawable/check_white"
+                android:background="@drawable/shape_button_rounded_primary"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="2dp"
+                android:layout_gravity="center"/>
+
+        <TextView
+                android:id="@+id/selecionar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start"
+                android:padding="16dp"
+                android:text="Selecionar"
+                android:textSize="18sp" />
+
+    </LinearLayout>
 
     <LinearLayout android:id="@+id/listar_parent"
             android:layout_width="match_parent"
@@ -43,10 +70,6 @@
 
     </LinearLayout>
 
-    <View   android:background="?android:attr/listDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-
     <LinearLayout android:id="@+id/adicionar_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -72,10 +95,6 @@
                 android:textSize="18sp" />
 
     </LinearLayout>
-
-    <View   android:background="?android:attr/listDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
 
     <LinearLayout android:id="@+id/editar_parent"
             android:layout_width="match_parent"
@@ -103,16 +122,12 @@
 
     </LinearLayout>
 
-    <View   android:background="?android:attr/listDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-
     <LinearLayout android:id="@+id/remover_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/delete"
+                android:src="@drawable/delete_white"
                 android:background="@drawable/shape_button_rounded_primary"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -133,16 +148,13 @@
 
     </LinearLayout>
 
-    <View   android:background="?android:attr/listDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/close"
+                android:src="@drawable/close_white"
                 android:background="@drawable/shape_button_rounded_primary"
                 android:layout_width="30dp"
                 android:layout_height="30dp"

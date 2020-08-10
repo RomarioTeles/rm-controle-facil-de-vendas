@@ -149,4 +149,10 @@
     <string name="dash_categorias">Categorias</string>
     <string name="cliente_nao_informado">Não informado</string>
     <string name="menu_dash">Dashboard</string>
+    <string name="title_activity_graficos">GraficosActivity</string>
+    <string name="tab_chart_1">12 meses</string>
+    <string name="tab_chart_2">Meio Pagamento</string>
+    <string name="tab_chart_3">Tipo de pagamento</string>
+    <string name="chart_projecao_pagar_vs_receber">Projeção: Pagar vs Receber</string>
+    <string name="chart_total_a_receber_no_mes">Total a receber no mês</string>
 </resources>

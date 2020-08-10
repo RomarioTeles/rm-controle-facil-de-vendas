@@ -149,6 +149,7 @@ abstract public class ImageUtilsActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if(resultCode == Activity.RESULT_OK) {
                 onPostCaptureCompleted(getBitmapFromAbsolutePath(mCurrentPhotoPath), mCurrentPhotoPath);
@@ -170,7 +171,7 @@ abstract public class ImageUtilsActivity extends BaseActivity {
         }
     }
 
-    public Bitmap getBitmapFromAbsolutePath(String filename){
+    public static Bitmap getBitmapFromAbsolutePath(String filename){
         File file = new File(filename);
         if(filename != null && file.exists()) {
             try {

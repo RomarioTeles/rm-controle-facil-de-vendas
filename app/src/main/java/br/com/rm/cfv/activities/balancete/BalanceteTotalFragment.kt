@@ -12,7 +12,7 @@ import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.balancete.SelectTotalBalanceteAsyncTask
 import br.com.rm.cfv.database.entities.Balancete
 import br.com.rm.cfv.database.entities.dtos.TotalBalanceteDTO
-import br.com.rm.cfv.utils.charts.PieChatUtil
+import br.com.rm.cfv.utils.charts.PieChartUtil
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.fragment_balancete.*
 
@@ -61,7 +61,7 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
             if(totalBalancete!!.total() < 0){
                 textViewTotal.setTextColor(ContextCompat.getColor(this.context!!, R.color.color_error))
             }
-            val p = PieChatUtil(activity, R.id.chart1)
+            val p = PieChartUtil(activity, R.id.chart1)
             p.build()
             val entries = mapOf(getString(R.string.chart_receitas) to totalBalancete!!.totalReceitas!!.toFloat(), getString(R.string.chart_despesas) to totalBalancete!!.totalDespesas!!.toFloat())
             p.setData(balancete.toString(), entries)

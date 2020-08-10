@@ -1,6 +1,8 @@
 package br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -15,7 +17,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.ImageUtilsActivity
+import br.com.rm.cfv.activities.ImageUtilsActivity.getBitmapFromAbsolutePath
+import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.produto.IOnClickProdutoListener
 import br.com.rm.cfv.adapters.MeioPagamentoAdapter
 import br.com.rm.cfv.adapters.ParcelasAdapter
@@ -47,7 +52,7 @@ import java.lang.Exception
 import java.util.*
 import kotlin.collections.HashMap
 
-class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener,
+class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClickProdutoListener,
     IPostExecuteInsertAndUpdate {
 
     override fun afterInsert(result: Any?) {
@@ -513,14 +518,6 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
         produtoAdapter.setDataset(listaProdutos)
     }
 
-    override fun onPostCaptureCompleted(bitmap: Bitmap?, path: String?) {
-
-    }
-
-    override fun getCaptureTrigger(): View? {
-        return null
-    }
-
     fun initListaDeParcelas() {
         adapterParcelas = ParcelasAdapter(this)
         var total = contaPagarReceber.total
@@ -562,9 +559,14 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
                 }
                 return true
             }
+            R.id.action_ref ->{
+                val intent = Intent(this, ListaClientesActivity::class.java)
+                intent.putExtra("SELECTABLE", true)
+                startActivityForResult(intent, 1)
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
-
     }
 
     private fun getPercentualJuros(qtdeParcelas: Int) : Double{
@@ -627,5 +629,19 @@ class RegistrarCompraVendaActivity : ImageUtilsActivity(), IPostExecuteSearch, I
 
     private fun getPreferences(): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            if(data!!.hasExtra("result")) {
+                var cliente = data!!.extras.get("result") as Cliente
+                contaPagarReceber.tipoRef = cliente.getTipoRef()
+                contaPagarReceber.idRef = cliente.getIdRef()
+                contaPagarReceber.nomeRef = cliente.getNomeRef()
+                menu.getItem(1).setIcon(R.drawable.account_black_24dp)
+            }
+        }
     }
 }

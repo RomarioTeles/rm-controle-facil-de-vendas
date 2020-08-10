@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class PieChatUtil implements OnChartValueSelectedListener {
+public class PieChartUtil implements OnChartValueSelectedListener {
 
     protected Typeface tfRegular;
     protected Typeface tfLight;
@@ -34,7 +34,7 @@ public class PieChatUtil implements OnChartValueSelectedListener {
     private int resourceId;
     private PieChart chart;
 
-    public PieChatUtil(Activity activity, int resourceId) {
+    public PieChartUtil(Activity activity, int resourceId) {
         this.activity = activity;
         this.resourceId = resourceId;
     }

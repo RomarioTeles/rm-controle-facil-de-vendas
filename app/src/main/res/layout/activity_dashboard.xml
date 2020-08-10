@@ -149,7 +149,7 @@
                         android:paddingStart="16dp"
                         android:text="Janeiro 2020"
                         android:textAllCaps="true"
-                        android:textColor="@color/margentaTextColor"
+                        android:textColor="@color/margentaColor"
                         android:textSize="18sp"
                         app:layout_constraintTop_toBottomOf="@id/textViewReceberLabel" />
 
@@ -161,7 +161,7 @@
                         android:gravity="bottom|start"
                         android:paddingStart="16dp"
                         android:text="R$ 0,00"
-                        android:textColor="@color/margentaTextColor"
+                        android:textColor="@color/margentaColor"
                         android:textSize="30sp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toBottomOf="@id/textViewPeriodoReceber" />
@@ -226,7 +226,8 @@
                         android:gravity="bottom|start"
                         android:textSize="11sp"
                         android:textStyle="bold"
-                        android:text="@string/dash_nova_venda" />
+                        android:text="@string/dash_nova_venda"
+                        android:textColor="@color/cinza_padrao_android"/>
 
                 <ImageView
                         android:layout_width="30dp"
@@ -253,7 +254,8 @@
                         android:gravity="bottom|start"
                         android:textStyle="bold"
                         android:textSize="11sp"
-                        android:text="@string/dash_estoque" />
+                        android:text="@string/dash_estoque"
+                        android:textColor="@color/cinza_padrao_android"/>
 
                 <ImageView
                         android:layout_width="30dp"
@@ -280,7 +282,8 @@
                         android:gravity="bottom|start"
                         android:textStyle="bold"
                         android:textSize="11sp"
-                        android:text="@string/dash_clientes" />
+                        android:text="@string/dash_clientes"
+                        android:textColor="@color/cinza_padrao_android"/>
 
                 <ImageView
                         android:layout_width="30dp"
@@ -307,7 +310,8 @@
                         android:gravity="bottom|start"
                         android:textStyle="bold"
                         android:textSize="11sp"
-                        android:text="@string/dash_fornecedores" />
+                        android:text="@string/dash_fornecedores"
+                        android:textColor="@color/cinza_padrao_android"/>
 
                 <ImageView
                         android:layout_width="30dp"
@@ -335,7 +339,8 @@
                         android:singleLine="true"
                         android:textStyle="bold"
                         android:textSize="11sp"
-                        android:text="@string/dash_produtos" />
+                        android:text="@string/dash_produtos"
+                        android:textColor="@color/cinza_padrao_android"/>
 
                 <ImageView
                         android:layout_width="30dp"
@@ -363,7 +368,8 @@
                         android:singleLine="true"
                         android:textStyle="bold"
                         android:textSize="11sp"
-                        android:text="@string/dash_categorias" />
+                        android:text="@string/dash_categorias"
+                        android:textColor="@color/cinza_padrao_android"/>
 
                 <ImageView
                         android:layout_width="30dp"

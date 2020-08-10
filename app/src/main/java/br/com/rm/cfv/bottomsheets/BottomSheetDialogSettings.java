@@ -6,11 +6,13 @@ public class BottomSheetDialogSettings {
     private String textoAdicionar = "Adicionar";
     private String textoEditar = "Editar";
     private String textoRemover = "Remover";
+    private String textoSelecionar = "Selecionar";
 
     private boolean showListar = true;
     private boolean showEditar = true;
     private boolean showAdicionar = true;
     private boolean showRemover = true;
+    private boolean showSelecionar = false;
     private boolean showRemoveDialog = true;
 
     public BottomSheetDialogSettings() {
@@ -113,5 +115,21 @@ public class BottomSheetDialogSettings {
 
     public void setShowRemoveDialog(boolean showRemoveDialog) {
         this.showRemoveDialog = showRemoveDialog;
+    }
+
+    public String getTextoSelecionar() {
+        return textoSelecionar;
+    }
+
+    public void setTextoSelecionar(String textoSelecionar) {
+        this.textoSelecionar = textoSelecionar;
+    }
+
+    public boolean isShowSelecionar() {
+        return showSelecionar;
+    }
+
+    public void setShowSelecionar(boolean showSelecionar) {
+        this.showSelecionar = showSelecionar;
     }
 }

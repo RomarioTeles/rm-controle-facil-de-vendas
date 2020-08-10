@@ -2,12 +2,22 @@ package br.com.rm.cfv.bottomsheets;
 
 public interface IBottomSheetOptions {
 
-    void buttonSheetLista(Object item);
+    default void buttonSheetLista(Object item){
 
-    void buttonSheetAdiciona(Object item);
+    }
 
-    void buttonSheetRemove(Object item, int position);
+    default void buttonSheetAdiciona(Object item){
 
-    void buttonSheetEdita(Object item);
+    }
+
+    default void buttonSheetRemove(Object item, int position){
+
+    }
+
+    default void buttonSheetEdita(Object item){
+    }
+
+    default void buttonSheetSeleciona(Object item){
+    }
 
 }
