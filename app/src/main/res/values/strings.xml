@@ -51,7 +51,7 @@
     <string name="caderno_de_contas">Caderno de Contas</string>
     <string name="description_imagem_do_produto">Imagem do produto</string>
     <string name="mensagem_cesta_vazia">A cesta está vazia</string>
-    <string name="label_cliente">Cliente:</string>
+    <string name="label_cliente">Cliente</string>
     <string name="label_status_pagamento">Status do Pagamento:</string>
     <string name="label_tipo_pagamento">Escolha o tipo de pagamento</string>
     <string name="label_pagamento_a_vista">Pagamento à vista</string>
@@ -136,7 +136,7 @@
     <string name="currency_format_negative">- R$ %1$s</string>
     <string name="parcela_x_currency_format">%1$d x R$ %2$s</string>
     <string name="chart_meio_pagamento">Meio de pagamento</string>
-    <string name="chart_nenhum_venda_efetivada">Nenhuma venda efetivada</string>
+    <string name="chart_nenhum_venda_efetivada">Nenhum valor recebido.</string>
     <string name="chart_tipo_pagamento">Tipo de Pagamento</string>
     <string name="chart_percentual_meios_pagamentos">Percentual por meios de pagamentos.</string>
     <string name="chart_percentual_tipo_pagamento">Pagamentos à vista vs Pagamentos à prazo</string>
@@ -155,4 +155,15 @@
     <string name="tab_chart_3">Tipo de pagamento</string>
     <string name="chart_projecao_pagar_vs_receber">Projeção: Pagar vs Receber</string>
     <string name="chart_total_a_receber_no_mes">Total a receber no mês</string>
+    <string name="cadastrar_receita">Cadastrar receita</string>
+    <string name="label_escolha_referencia">Referente (Opcional)</string>
+    <string name="empty_nome_ref">Cadastro de %1$s.</string>
+    <string name="data_invalida">Informe uma data válida</string>
+    <string name="data_retroativa">Este campo não aceita datas retroativas.</string>
+    <string name="label_fornecedor">Fornecedor</string>
+    <string name="escolha_uma_opcao">Escolha uma das opções</string>
+    <string name="menu_receitas">Receitas</string>
+    <string name="menu_despesas">Despesas</string>
+    <string name="cadastrar_despesa">Cadastrar despesa</string>
+    <string name="mensagem_campo_maior_zero">Este campo não aceita zero.</string>
 </resources>

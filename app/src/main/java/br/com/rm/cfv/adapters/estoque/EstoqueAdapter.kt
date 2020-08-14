@@ -3,11 +3,13 @@ package br.com.rm.cfv.adapters.estoque
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.activities.interfaces.IMovimentacaoEstoque
 import br.com.rm.cfv.database.entities.dtos.EstoqueDTO
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.ImageUtilsActivity
 
 class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, private var myDataset: List<EstoqueDTO>) :
     RecyclerView.Adapter<EstoqueAdapter.ProdutoViewHolder>() {
@@ -20,6 +22,7 @@ class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, pri
 
         lateinit var textViewProduto : TextView
         lateinit var  textViewQuantidade : TextView
+        lateinit var imageViewIcon: ImageView
     }
 
     fun setDataset(dataset : List<EstoqueDTO>){
@@ -33,17 +36,20 @@ class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, pri
                                     viewType: Int): EstoqueAdapter.ProdutoViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_view_item_default_2, parent, false) as View
+            .inflate(R.layout.recycler_view_item_estoque, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
 
         val textViewProduto = view.findViewById<TextView>(R.id.textView1)
 
         val textViewQuantidade = view.findViewById<TextView>(R.id.textView2)
 
+        val imageViewIcon = view.findViewById<ImageView>(R.id.imageViewIcon)
+
         var holder = ProdutoViewHolder(view)
 
         holder.textViewQuantidade = textViewQuantidade
         holder.textViewProduto = textViewProduto
+        holder.imageViewIcon = imageViewIcon
 
         return holder
     }
@@ -56,9 +62,18 @@ class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, pri
         var item = myDataset.get(position)
 
         val quantidade = item.quantidade()
-        holder.textViewQuantidade.text = """Quantidade em estoque: ${quantidade}"""
+        holder.textViewQuantidade.text = quantidade.toString()
+        holder.textViewQuantidade.textSize = 16F
 
         holder.textViewProduto.text = item.toString()
+
+        holder.imageViewIcon.visibility = View.VISIBLE
+        if(item.imagePath != null && item.imagePath!!.isNotBlank()){
+            val bitmap = ImageUtilsActivity.getBitmapFromAbsolutePath(item.imagePath)
+            if(bitmap != null){
+                holder.imageViewIcon.setImageBitmap(bitmap)
+            }
+        }
 
         holder.view.setOnClickListener {
             iMovimentacaoEstoque.preparaMovimentacao(item)

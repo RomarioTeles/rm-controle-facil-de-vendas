@@ -15,30 +15,31 @@ open class InsertContaPagarReceberAsyncTask(private var dao: AppDataBase?, priva
 
     override fun doInBackground(vararg params: ContaPagarReceber): ContaPagarReceber? {
         try {
-            var result: ContaPagarReceber? = null
 
             var conta: ContaPagarReceber = params.get(0)
 
-            dao!!.contaPagarReceberDAO().insertAll(conta)
-
-            result = dao!!.contaPagarReceberDAO().findByCodigo(conta.codigo)
+            var result = dao!!.contaPagarReceberDAO().insert(conta)
 
             if(result != null){
 
-                conta.itemProdutoList.forEach {
-                    it.debitoClienteId = result.uid
+                conta.uid = result.toInt()
+
+                if(conta.itemProdutoList != null && conta.itemProdutoList.isNotEmpty()) {
+                    conta.itemProdutoList.forEach {
+                        it.debitoClienteId = result.toInt()
+                    }
+
+                    dao!!.itemProdutoDAO().insertAll(conta.itemProdutoList)
+
                 }
 
-                dao!!.itemProdutoDAO().insertAll(conta.itemProdutoList)
-                conta.uid = result.uid
-
-                var pagamentos = criaPagamentos(conta)
+                val pagamentos = criaPagamentos(conta)
                 dao!!.pagamentoDebitoDAO().insertAll(*pagamentos)
                 atualizaEstoque(dao!!, conta)
                 criaBalancete(conta, pagamentos)
             }
 
-            return result
+            return conta
         }catch (e : SQLiteConstraintException){
             return null
         }
@@ -73,7 +74,7 @@ open class InsertContaPagarReceberAsyncTask(private var dao: AppDataBase?, priva
 
             var tipoRef = TipoItemBalancete.getByTipoReferencia(conta.tipoRef)
 
-            if (conta.tipoRef == TipoReferencia.CLIENTE) {
+            if (conta.tipoRef == TipoReferencia.CLIENTE || conta.tipoRef == TipoReferencia.RECEITAS) {
                 tipoRef = TipoItemBalancete.RECEITA
             }
 

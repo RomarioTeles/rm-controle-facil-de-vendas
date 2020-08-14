@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewStub
 import android.widget.*
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
@@ -51,7 +52,7 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
         viewStubView.findViewById<TextView>(R.id.textViewHint).text = getString(R.string.estoque_produtos_nao_cadastrados_hint)
         viewStub.visibility = View.GONE
 
-        viewManager = LinearLayoutManager(this)
+        viewManager = GridLayoutManager(this, 2)
 
         viewAdapter = EstoqueAdapter(this, myDataset)
 

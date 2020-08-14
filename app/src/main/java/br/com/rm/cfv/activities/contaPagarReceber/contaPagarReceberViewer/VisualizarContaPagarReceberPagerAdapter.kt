@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import br.com.rm.cfv.R
+import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 
 private val TAB_TITLES = arrayOf(
@@ -13,17 +14,17 @@ private val TAB_TITLES = arrayOf(
 )
 
 class VisualizarContaPagarReceberPagerAdapter(private val context: Context, private val pagamentoDebito: PagamentoDebitoSubtotalDTO, fm: FragmentManager) :
-    FragmentPagerAdapter(fm) {
+    FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
-        if(position == 0){
-            return LancamentosFragment.newInstance(
-                pagamentoDebito
-            )
+        if(count == 2) {
+            if (position == 0) {
+                return LancamentosFragment.newInstance(pagamentoDebito)
+            }
+            return ParcelasFragment.newInstance(pagamentoDebito)
+        }else{
+            return ParcelasFragment.newInstance(pagamentoDebito)
         }
-        return ParcelasFragment.newInstance(
-            pagamentoDebito
-        )
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
@@ -31,6 +32,7 @@ class VisualizarContaPagarReceberPagerAdapter(private val context: Context, priv
     }
 
     override fun getCount(): Int {
-        return 2
+        return if (pagamentoDebito.tipoRef in listOf(TipoReferencia.CLIENTE, TipoReferencia.FORNECEDOR)) 2 else 1
     }
+
 }

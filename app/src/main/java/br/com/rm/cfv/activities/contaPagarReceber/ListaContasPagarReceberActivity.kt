@@ -1,13 +1,18 @@
 package br.com.rm.cfv.activities.contaPagarReceber
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
+import br.com.rm.cfv.activities.receita.CadastrarReceitaDespesaActivity
 import br.com.rm.cfv.adapters.cliente.DebitoClienteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.contaPagarReceber.SelectAllDebitosClienteAsyncTask
+import br.com.rm.cfv.constants.TipoReferencia
+import br.com.rm.cfv.database.entities.DefaultReferencia
 import br.com.rm.cfv.database.entities.IReferencia
 import br.com.rm.cfv.database.entities.dtos.DebitoClienteDTO
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
@@ -27,18 +32,22 @@ class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
     private var myDataset : List<PagamentoDebitoSubtotalDTO> = ArrayList()
     private lateinit var referencia : IReferencia
 
+    companion object{
+        val ARG_REFERENCIA = "referencia"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_lista_debitos_cliente)
 
-        referencia = intent.getSerializableExtra("referencia") as IReferencia
+        referencia = intent.getParcelableExtra<Parcelable>(ARG_REFERENCIA) as IReferencia
 
         toolbar.title = referencia.getNomeRef()
 
         viewManager = LinearLayoutManager(this)
 
-        viewAdapter = DebitoClienteAdapter(this, myDataset.toMutableList())
+        viewAdapter = DebitoClienteAdapter(this, referencia.getTipoRef()!!, myDataset.toMutableList())
 
         recyclerView = findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             // use this setting to improve performance if you know that changes
@@ -53,6 +62,14 @@ class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
         }
 
         hideFab()
+
+        if(referencia.getIdRef()!!.coerceAtLeast(-1) == -1) {
+            fabAdicionar.setOnClickListener {
+                val intent = Intent(this, CadastrarReceitaDespesaActivity::class.java)
+                intent.putExtra(CadastrarReceitaDespesaActivity.ARG_TIPO_REF, referencia.getTipoRef())
+                startActivity(intent)
+            }
+        }
     }
 
     override fun onResume() {

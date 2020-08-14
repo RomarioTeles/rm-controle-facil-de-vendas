@@ -21,6 +21,16 @@
                 android:title="@string/menu_fornecedores"/>
 
         <item
+                android:id="@+id/nav_receitas"
+                android:icon="@drawable/clipboard_arrow_down"
+                android:title="@string/menu_receitas"/>
+
+        <item
+                android:id="@+id/nav_despesas"
+                android:icon="@drawable/clipboard_arrow_up"
+                android:title="@string/menu_despesas"/>
+
+        <item
                 android:id="@+id/nav_balancete"
                 android:icon="@drawable/clipboard_flow"
                 android:title="@string/menu_balancete"/>

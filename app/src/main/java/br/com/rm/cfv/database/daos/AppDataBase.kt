@@ -18,7 +18,7 @@ import br.com.rm.cfv.database.entities.*
     Fornecedor::class,
     Balancete::class,
     ItemBalancete::class),
-version = 10, exportSchema = false)
+version = 13, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun clienteDAO(): ClienteDAO

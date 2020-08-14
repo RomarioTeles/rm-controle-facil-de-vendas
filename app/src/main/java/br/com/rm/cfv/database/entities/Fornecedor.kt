@@ -1,5 +1,7 @@
 package br.com.rm.cfv.database.entities
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.widget.EditText
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -28,7 +30,7 @@ open class Fornecedor (
     @ColumnInfo(name = "cidade") var cidade: String? = "",
     @ColumnInfo(name = "uf") var uf: String? = ""
 
-): Serializable, IReferencia{
+): Parcelable, IReferencia{
 
     val messageNullable : String?
     get() = "%s não pode ser vazio."
@@ -36,6 +38,20 @@ open class Fornecedor (
 
     val messageInvalid : String?
     get() = "Informe um(a) %s válido(a)."
+
+    constructor(parcel: Parcel) : this(
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    )
 
     override fun getNomeRef() : String?{
         return nome
@@ -71,5 +87,33 @@ open class Fornecedor (
         }
 
         return !hasError
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(uid)
+        parcel.writeString(nome)
+        parcel.writeString(cpfCnpj)
+        parcel.writeString(telefone)
+        parcel.writeString(email)
+        parcel.writeString(endereco)
+        parcel.writeString(numero)
+        parcel.writeString(complemento)
+        parcel.writeString(bairro)
+        parcel.writeString(cidade)
+        parcel.writeString(uf)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Fornecedor> {
+        override fun createFromParcel(parcel: Parcel): Fornecedor {
+            return Fornecedor(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Fornecedor?> {
+            return arrayOfNulls(size)
+        }
     }
 }

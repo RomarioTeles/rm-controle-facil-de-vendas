@@ -3,6 +3,7 @@ package br.com.rm.cfv.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -28,6 +29,11 @@ import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.configuracao.ConfiguracoesActivity
+import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
+import br.com.rm.cfv.activities.receita.CadastrarReceitaDespesaActivity
+import br.com.rm.cfv.constants.TipoReferencia
+import br.com.rm.cfv.database.entities.DefaultReferencia
+import br.com.rm.cfv.database.entities.IReferencia
 
 abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -130,10 +136,27 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.nav_charts ->{
                 startActivity(Intent(this, ChartsActivity::class.java))
             }
+            R.id.nav_receitas ->{
+                val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
+                val referencia = getArgReferencia(TipoReferencia.RECEITAS)
+                intent.putExtra(ListaContasPagarReceberActivity.ARG_REFERENCIA, referencia as DefaultReferencia)
+                startActivity(intent)
+            }
+            R.id.nav_despesas ->{
+                val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
+                val referencia = getArgReferencia(TipoReferencia.DESPESAS)
+                intent.putExtra(ListaContasPagarReceberActivity.ARG_REFERENCIA, referencia as DefaultReferencia)
+                startActivity(intent)
+            }
         }
 
         drawer_layout!!.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun getArgReferencia(tipoRef: String) : IReferencia{
+        val nome = if (tipoRef == TipoReferencia.RECEITAS) getString(R.string.menu_receitas) else getString(R.string.menu_despesas)
+        return DefaultReferencia(-1, nome, tipoRef)
     }
 
     fun fab() : FloatingActionButton {

@@ -61,7 +61,7 @@ public class BarChartUtil implements OnChartValueSelectedListener {
 
         // if more than 60 entries are displayed in the chart, no values will be
         // drawn
-        chart.setMaxVisibleValueCount(60);
+        chart.setMaxVisibleValueCount(12);
 
         // scaling can now only be done on x- and y-axis separately
         chart.setPinchZoom(false);
@@ -72,9 +72,10 @@ public class BarChartUtil implements OnChartValueSelectedListener {
         // chart.setDrawYLabels(false);
 
         XAxis xAxis = chart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setPosition(XAxis.XAxisPosition.TOP);
         xAxis.setTypeface(tfLight);
-        xAxis.setDrawGridLines(false);
+        xAxis.setDrawGridLines(true);
+        xAxis.setCenterAxisLabels(true);
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setLabelCount(12);
         xAxis.setValueFormatter(xAxisFormatter);
@@ -82,11 +83,13 @@ public class BarChartUtil implements OnChartValueSelectedListener {
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTypeface(tfLight);
         leftAxis.setLabelCount(10, false);
+        leftAxis.setDrawGridLines(false);
         leftAxis.setValueFormatter(yAxisFormatter);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
+        chart.getAxisRight().setEnabled(false);
 
         Legend l = chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -133,8 +136,8 @@ public class BarChartUtil implements OnChartValueSelectedListener {
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
 
             for (BarChartDataSet bardataset : datasets) {
-                mins.add(bardataset.getMinX());
-                maxs.add(bardataset.getMaxX());
+                mins.add(bardataset.getMinX(0f));
+                maxs.add(bardataset.getMaxX(12f));
 
                 List<BarEntry> values = new ArrayList<>();
                 for (Map.Entry<Float, Float> entity : bardataset.getDataset().entrySet()) {
@@ -152,6 +155,7 @@ public class BarChartUtil implements OnChartValueSelectedListener {
             data.setValueTextSize(12f);
             data.setValueTypeface(tfLight);
             chart.setData(data);
+            data.setValueFormatter(yAxisFormatter);
 
             // specify the width each bar should have
             chart.getBarData().setBarWidth(barWidth);

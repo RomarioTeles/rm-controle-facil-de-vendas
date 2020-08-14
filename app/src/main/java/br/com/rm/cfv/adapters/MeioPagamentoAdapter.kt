@@ -20,8 +20,8 @@ class MeioPagamentoAdapter(context: Context, private val spinnerMode: Boolean = 
 
     private var tipoPagamento = TipoPagamento.A_VISTA
 
-    private fun getItems() : List<MeioPagamento>{
-        return itens
+    fun getItems() : List<MeioPagamento>{
+        return itens.toList()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

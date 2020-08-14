@@ -28,7 +28,7 @@ import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.numberUtils.DecimalFormatUtils
 
 
-class DebitoClienteAdapter(private var context : Context, private var myDataset: MutableList<PagamentoDebitoSubtotalDTO>) :
+class DebitoClienteAdapter(private var context : Context, private var tipoRef: String, private var myDataset: MutableList<PagamentoDebitoSubtotalDTO>) :
     RecyclerView.Adapter<DebitoClienteAdapter.ClienteViewHolder>(), IPostExecuteSearch {
 
     override fun afterSearch(result: Any?) {
@@ -132,15 +132,11 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
                 item, position,
                 settings,
                 object : IBottomSheetOptions {
-                    override fun buttonSheetAdiciona(item: Any?) {
-                        val intent = Intent(context, RegistrarCompraVendaActivity::class.java)
-                        intent.putExtra("referencia", item as Cliente)
-                        context.startActivity(intent)
-                    }
 
                     override fun buttonSheetEdita(item: Any?) {
                         val intent = Intent(context, VisualizarContaPagarReceberActivity::class.java)
-                        intent.putExtra(ARG_DEBITO_CLIENTE, item as PagamentoDebitoSubtotalDTO)
+                        (item as PagamentoDebitoSubtotalDTO).tipoRef = tipoRef
+                        intent.putExtra(ARG_DEBITO_CLIENTE, item )
                         context.startActivity(intent)
                     }
 
@@ -149,13 +145,13 @@ class DebitoClienteAdapter(private var context : Context, private var myDataset:
                     }
 
                     override fun buttonSheetRemove(item: Any?, position: Int) {
-                        var debito = item as PagamentoDebitoSubtotalDTO
-                        var dialogConfig = DialogConfig()
+                        val debito = item as PagamentoDebitoSubtotalDTO
+                        val dialogConfig = DialogConfig()
                         dialogConfig.negativeButtonListener = Runnable {
 
                         }
                         dialogConfig.positiveButtonListener = Runnable {
-                            var task = DeleteDebitoClienteAsyncTask(CfvApplication.database!!.contaPagarReceberDAO(), iPostExecuteSearch)
+                            val task = DeleteDebitoClienteAsyncTask(CfvApplication.database!!.contaPagarReceberDAO(), iPostExecuteSearch)
                             task.execute(debito.id, position)
                         }
                         dialogConfig.showSubtitle = true

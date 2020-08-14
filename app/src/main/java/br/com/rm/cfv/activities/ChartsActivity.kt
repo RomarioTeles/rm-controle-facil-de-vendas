@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import br.com.rm.cfv.CfvApplication
@@ -18,7 +17,7 @@ import br.com.rm.cfv.utils.charts.BarChartUtil
 import br.com.rm.cfv.utils.charts.PieChartUtil
 import br.com.rm.cfv.utils.charts.common.BarChartDataSet
 import br.com.rm.cfv.utils.charts.common.MyValueFormatter
-import br.com.rm.cfv.utils.charts.common.monthAxisValueFormatter
+import br.com.rm.cfv.utils.charts.common.MonthAxisValueFormatter
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_charts.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -97,69 +96,17 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             if(firstLoad) {
 
                 val barchartDataSets = ArrayList<BarChartDataSet>()
-                val p = BarChartUtil(this, R.id.chart_bar)
-                val barchartTotalReceberdata =
-                    (map.get("barchartTotalReceberdata")) as List<BarChartItem>
-                if (barchartTotalReceberdata != null && !barchartTotalReceberdata.isEmpty()) {
-                    val entries = LinkedHashMap<Float, Float>()
-                    barchartTotalReceberdata.forEach { valor ->
-                        var cal = Calendar.getInstance()
-                        cal.timeInMillis = valor.axisX!!
+                val barchart = BarChartUtil(this, R.id.chart_bar)
+                val entriesReceber = (map.get("barchartTotalReceberdata")) as Map<Float, Float>
+                barchart.build(MonthAxisValueFormatter(barchart.chart), MyValueFormatter("R$"))
+                barchartDataSets.add(BarChartDataSet("Receber", android.R.color.holo_green_light, entriesReceber))
 
-                        val month = cal.get(Calendar.MONTH) * 1.0F
-                        if (entries.containsKey(month)) {
-                            entries.put(month, entries.get(month)!!.plus(valor.axisY))
-                        } else {
-                            entries.put(month, valor.axisY)
-                        }
-                    }
-
-                    p.build(monthAxisValueFormatter(p.chart), MyValueFormatter("R$"))
-                    val barchart = BarChartDataSet("Receber", android.R.color.holo_green_light, entries)
-                    barchartDataSets.add(barchart)
-
-                }
-
-                val barchartTotalPagardata =
-                    (map.get("barchartTotalPagardata")) as List<BarChartItem>
-                if (barchartTotalPagardata != null && !barchartTotalPagardata.isEmpty()) {
-                    val entries = LinkedHashMap<Float, Float>()
-                    barchartTotalPagardata.forEach { valor ->
-                        var cal = Calendar.getInstance()
-                        cal.timeInMillis = valor.axisX!!
-
-                        val month = cal.get(Calendar.MONTH) * 1.0F
-                        if (entries.containsKey(month)) {
-                            entries.put(month, entries.get(month)!!.plus(valor.axisY))
-                        } else {
-                            entries.put(month, valor.axisY)
-                        }
-                    }
-
-                    p.build(monthAxisValueFormatter(p.chart), MyValueFormatter("R$"))
-                    val barchart = BarChartDataSet("Pagar", android.R.color.holo_red_light, entries)
-                    barchartDataSets.add(barchart)
-
-                }
-
-
-                /*val test = ArrayList<BarChartDataSet>()
-
-            val entriespagar = LinkedHashMap<Float, Float>()
-            val entriesreceber = LinkedHashMap<Float, Float>()
-            for ( x in 0..11){
-                entriespagar.put(x*1.0f, 200.0f)
-                entriesreceber.put(x*1.0f, 130.0f)
-            }
-
-            val barchart1 = BarChartDataSet("Receber", R.color.color_success, entriesreceber)
-            test.add(barchart1)
-
-            val barchart2 = BarChartDataSet("Pagar", R.color.color_error, entriespagar)
-            test.add(barchart2) */
+                val entriesPagar = (map.get("barchartTotalPagardata")) as Map<Float, Float>
+                barchart.build(MonthAxisValueFormatter(barchart.chart), MyValueFormatter("R$"))
+                barchartDataSets.add(BarChartDataSet("Pagar", android.R.color.holo_red_light, entriesPagar))
 
                 if (barchartDataSets.isNotEmpty()) {
-                    p.setData(barchartDataSets)
+                    barchart.setData(barchartDataSets)
                 }
             }
 
@@ -247,13 +194,16 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
 
 
             dataInicio.set(Calendar.MONTH, 0)
-            dataFinal.set(Calendar.MONTH, 11)
+            dataFinal.add(Calendar.MONTH, 12)
+
+
+            val today = Calendar.getInstance()
 
             val barchartTotalReceberdata = dao.getTotalReceberAgrupadoPorMes(dataInicio.time, dataFinal.time)
-            map.put("barchartTotalReceberdata", barchartTotalReceberdata)
+            map.put("barchartTotalReceberdata", getBarchartData(barchartTotalReceberdata, today))
 
             val barchartTotalPagardata = dao.getTotalPagarAgrupadoPorMes(dataInicio.time, dataFinal.time)
-            map.put("barchartTotalPagardata", barchartTotalPagardata)
+            map.put("barchartTotalPagardata", getBarchartData(barchartTotalPagardata, today))
 
             return map
         }
@@ -261,6 +211,32 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
         override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
             iPostExecuteSearch.afterSearch(result)
+        }
+
+        private fun getBarchartData(barcharItens: List<BarChartItem>, dataInicio: Calendar) : Map<Float, Float>{
+            val entries = LinkedHashMap<Float, Float>()
+
+            val mes = dataInicio.get(Calendar.MONTH)
+            for ( x in (mes - 1)..(mes + 12)){
+                entries.put(1.0f * x, 0.0f)
+            }
+
+
+            if (barcharItens.isNotEmpty()) {
+                barcharItens.forEach { valor ->
+                    val cal = Calendar.getInstance()
+                    cal.timeInMillis = valor.axisX!!
+                    val fator = if (cal.get(Calendar.YEAR) > dataInicio.get(Calendar.YEAR)) 12.0f else 0.0f
+                    val xAxis = (cal.get(Calendar.MONTH) * 1.0f) + fator
+                    if (entries.containsKey(xAxis)) {
+                        entries.put(xAxis, entries.get(xAxis)!!.plus(valor.axisY))
+                    } else {
+                        entries.put(xAxis, valor.axisY)
+                    }
+                }
+            }
+
+            return entries
         }
 
     }

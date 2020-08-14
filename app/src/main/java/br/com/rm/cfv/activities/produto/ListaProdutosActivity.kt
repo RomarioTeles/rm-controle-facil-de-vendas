@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewStub
 import android.widget.SearchView
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
@@ -44,7 +45,7 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
         viewStub.inflate()
         viewStub.visibility = View.GONE
 
-        viewManager = LinearLayoutManager(this)
+        viewManager = GridLayoutManager(this, 2)
 
         viewAdapter = ProdutoAdapter(this, this, myDataset)
 

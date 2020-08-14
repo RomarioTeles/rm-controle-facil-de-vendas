@@ -24,6 +24,7 @@
     <FrameLayout android:id="@+id/contentActivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             android:layout_marginTop="?attr/actionBarSize"/>
 
     <FrameLayout android:id="@+id/progress"

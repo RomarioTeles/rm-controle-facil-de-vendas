@@ -1,7 +1,12 @@
 package br.com.rm.cfv.utils.charts.common;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import kotlin.collections.AbstractMutableSet;
 
 public class BarChartDataSet {
 
@@ -29,19 +34,46 @@ public class BarChartDataSet {
         return dataset;
     }
 
-    public Float getMinX(){
-        return Collections.min(dataset.keySet());
+    public Float getMinX(Float def){
+        try {
+            return Collections.min(dataset.keySet());
+        }catch (Exception e){
+            return def;
+        }
     }
 
-    public Float getMinY(){
-        return Collections.min(dataset.values());
+    public Float getMinY(Float def){
+        try {
+            return Collections.min(dataset.values());
+        }catch (Exception e){
+            return def;
+        }
     }
 
-    public Float getMaxX(){
+    public Float getMaxX(Float def){
+        try{
         return Collections.max(dataset.keySet());
+        }catch (Exception e){
+            return def;
+        }
     }
 
-    public Float getMaxY(){
-        return Collections.max(dataset.values());
+
+    public Float getMaxY(Float def){
+        try {
+            return Collections.max(dataset.values());
+        }catch (Exception e){
+            return def;
+        }
+    }
+
+    public static float findSmallest(List<Float> arr) {
+        float smallest = Float.MAX_VALUE;
+        for(int i=0; i<arr.size(); i++) {
+            if(arr.get(0) > 0 && arr.get(0)<smallest) {
+                smallest = arr.get(0);
+            }
+        }
+        return smallest;
     }
 }

@@ -12,7 +12,7 @@ class TipoItemBalancete{
         fun getByTipoReferencia(tipoRef : String?) : String?{
             if (tipoRef == null) {
                 return null
-            }else if(tipoRef == TipoReferencia.FORNECEDOR){
+            }else if(tipoRef in listOf(TipoReferencia.FORNECEDOR, TipoReferencia.DESPESAS)){
                 return DESPESA
             }else{
                 return RECEITA

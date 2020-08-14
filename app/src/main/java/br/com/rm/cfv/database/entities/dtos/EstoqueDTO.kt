@@ -7,7 +7,8 @@ open class EstoqueDTO(
     @ColumnInfo(name = "nome") var nome: String?,
     @ColumnInfo(name = "codigo") var codigo: String?,
     @ColumnInfo(name = "qtdEntrada") var qtdEntrada: Int?,
-    @ColumnInfo(name = "qtdSaida") var qtdSaida: Int?
+    @ColumnInfo(name = "qtdSaida") var qtdSaida: Int?,
+    @ColumnInfo(name = "image_path") var imagePath: String?
     ){
 
     fun quantidade() : Int{

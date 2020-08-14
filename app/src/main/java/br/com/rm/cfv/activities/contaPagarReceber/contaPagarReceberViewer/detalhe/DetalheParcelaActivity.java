@@ -29,7 +29,6 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
 
     private MeioPagamentoAdapter meioPagamentoAdapter;
 
-
     private Spinner listViewMeioPagamento;
 
     @Override
@@ -85,6 +84,8 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
 
                 }
             });
+
+            fab().setImageResource(R.drawable.content_save_black_24dp);
 
             fab().setOnClickListener(v -> {
                 if(!textInputEditValorPagar.getText().toString().isEmpty()) {

@@ -3,6 +3,7 @@ package br.com.rm.cfv.database.entities.dtos
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo
+import androidx.room.Ignore
 import br.com.rm.cfv.constants.StatusPagamento
 import java.lang.Exception
 import java.util.*
@@ -13,12 +14,14 @@ open class PagamentoDebitoSubtotalDTO() : Parcelable{
     @ColumnInfo(name = "valorPago") var valorPago: Double? = null
     @ColumnInfo(name = "total") var total: Double? = null
     @ColumnInfo(name = "dataHora") var dataHora: Long? = null
+    @Ignore var tipoRef: String? = null
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
         valorPago = parcel.readValue(Double::class.java.classLoader) as? Double
         total = parcel.readValue(Double::class.java.classLoader) as? Double
         dataHora = parcel.readValue(Long::class.java.classLoader) as? Long
+        tipoRef = parcel.readValue(String::class.java.classLoader) as? String
     }
 
     fun getStatus(): String{
@@ -50,6 +53,7 @@ open class PagamentoDebitoSubtotalDTO() : Parcelable{
         parcel.writeValue(valorPago)
         parcel.writeValue(total)
         parcel.writeValue(dataHora)
+        parcel.writeValue(tipoRef)
     }
 
     override fun describeContents(): Int {

@@ -58,10 +58,10 @@ open class CfvApplication : Application() {
                                 for (x in 1..10){
                                     var contentValues = ContentValues()
                                     contentValues.put("nome", "produto "+x)
-                                    contentValues.put("codigo",UUID.randomUUID().toString())
-                                    contentValues.put("preco_tabela", 10.0)
-                                    contentValues.put("preco_custo", 6.0)
-                                    contentValues.put("preco_venda", 8.0)
+                                    contentValues.put("codigo", x)
+                                    contentValues.put("preco_tabela", 10.0 * x)
+                                    contentValues.put("preco_custo", 6.0 * x)
+                                    contentValues.put("preco_venda", 8.0 * x)
                                     contentValues.put("departamento", "Departamento1")
 
                                     insert("produto",5, contentValues )

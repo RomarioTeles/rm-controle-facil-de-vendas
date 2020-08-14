@@ -9,13 +9,13 @@ import br.com.rm.cfv.database.entities.dtos.EstoqueDTO
 @Dao
 interface MovimentacaoEstoqueDAO{
     
-    @Query("""SELECT distinct p.uid AS id, p.codigo AS codigo, p.nome AS nome,
+    @Query("""SELECT distinct p.uid AS id, p.codigo AS codigo, p.nome AS nome, p.caminho_imagem AS image_path,
                 ( SELECT SUM(sq.quantidade) FROM estoque sq WHERE sq.tipo = 'ENTRADA' and sq.codigo_produto = p.codigo) AS qtdEntrada, 
                 ( SELECT SUM(sq2.quantidade) FROM estoque sq2 WHERE sq2.tipo = 'SAIDA' and sq2.codigo_produto = p.codigo) AS qtdSaida
                 FROM produto p LEFT JOIN estoque e ON p.codigo = e.codigo_produto order by p.nome""" )
     fun getAllEstoque(): List<EstoqueDTO>
 
-    @Query("""SELECT  distinct p.uid AS id, p.codigo AS codigo, p.nome AS nome,
+    @Query("""SELECT  distinct p.uid AS id, p.codigo AS codigo, p.nome AS nome, p.caminho_imagem AS image_path,
                             ( SELECT SUM(sq.quantidade) FROM estoque sq WHERE sq.tipo = 'ENTRADA' and sq.codigo_produto = p.codigo) AS qtdEntrada, 
                             ( SELECT SUM(sq2.quantidade) FROM estoque sq2 WHERE sq2.tipo = 'SAIDA' and sq2.codigo_produto = p.codigo) AS qtdSaida
                     FROM produto p LEFT JOIN estoque e ON p.codigo = e.codigo_produto 
@@ -25,7 +25,7 @@ interface MovimentacaoEstoqueDAO{
     @Query("SELECT * FROM estoque WHERE codigo_produto LIKE :codigo order by data_hora desc")
     fun findByCodigoProduto(codigo: String) : List<MovimentacaoEstoque>
 
-    @Query("SELECT p.codigo AS codigo, p.nome AS nome,"
+    @Query("SELECT p.codigo AS codigo, p.nome AS nome, p.caminho_imagem AS image_path,"
             +   "( SELECT SUM(sq.quantidade) FROM estoque sq WHERE sq.tipo = 'ENTRADA' and sq.codigo_produto = p.codigo) AS qtdEntrada, "
             +   "( SELECT SUM(sq2.quantidade) FROM estoque sq2 WHERE sq2.tipo = 'SAIDA' and sq2.codigo_produto = p.codigo) AS qtdSaida"
             +   " FROM estoque e JOIN produto p ON p.codigo = e.codigo_produto WHERE p.codigo = :codigo LIMIT 1" )

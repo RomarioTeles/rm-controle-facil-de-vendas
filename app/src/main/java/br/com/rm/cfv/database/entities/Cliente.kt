@@ -1,5 +1,7 @@
 package br.com.rm.cfv.database.entities
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.widget.EditText
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -29,7 +31,7 @@ open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
                     @ColumnInfo(name = "bairro") var bairro: String? = "",
                     @ColumnInfo(name = "cidade") var cidade: String? = "",
                     @ColumnInfo(name = "uf") var uf: String? = ""
-) : Serializable, IReferencia{
+) : Parcelable, IReferencia{
     
     val messageNullable : String?
     get() = "%s não pode ser vazio."
@@ -37,6 +39,21 @@ open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
 
     val messageInvalid : String?
     get() = "Informe um(a) %s válido(a)."
+
+    constructor(parcel: Parcel) : this(
+        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString()
+    )
 
     override fun getNomeRef() : String?{
         return nome
@@ -96,5 +113,34 @@ open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
         }
 
         return !hasError
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(uid)
+        parcel.writeString(nome)
+        parcel.writeString(cpf)
+        parcel.writeString(telefone)
+        parcel.writeString(email)
+        parcel.writeString(dataNascimento)
+        parcel.writeString(endereco)
+        parcel.writeString(numero)
+        parcel.writeString(complemento)
+        parcel.writeString(bairro)
+        parcel.writeString(cidade)
+        parcel.writeString(uf)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Cliente> {
+        override fun createFromParcel(parcel: Parcel): Cliente {
+            return Cliente(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Cliente?> {
+            return arrayOfNulls(size)
+        }
     }
 }

@@ -2,6 +2,7 @@ package br.com.rm.cfv.asyncTasks.contaPagarReceber
 
 import android.os.AsyncTask
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
+import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.daos.interfaces.ContaPagarReceberDAO
 import br.com.rm.cfv.database.entities.IReferencia
 import br.com.rm.cfv.database.entities.dtos.DebitoClienteDTO
@@ -17,9 +18,10 @@ class SelectAllDebitosClienteAsyncTask(private val dao : ContaPagarReceberDAO, p
 
         var ref = params[0] as IReferencia
 
-        var debitos = dao.getSubtotalPagamentos(ref.getIdRef()!!, ref.getTipoRef()!!)
+        val types = getTiposRef(ref.getTipoRef()!!)
+        var debitos = dao.getSubtotalPagamentos(ref.getIdRef()!!, *types)
 
-        var dto : DebitoClienteDTO = dao.getSubtotal(ref.getIdRef()!!, ref.getTipoRef()!!)
+        var dto : DebitoClienteDTO = dao.getSubtotal(ref.getIdRef()!!, *types)
 
         if(dto != null) {
             dto.debitos = debitos
@@ -29,6 +31,10 @@ class SelectAllDebitosClienteAsyncTask(private val dao : ContaPagarReceberDAO, p
         }
 
         return dto
+    }
+
+    private fun getTiposRef(tipoRef: String) : Array<String>{
+        return TipoReferencia.valuesByTipoRef(tipoRef.toUpperCase())!!.toTypedArray()
     }
 
     override fun onPostExecute(result: DebitoClienteDTO?) {

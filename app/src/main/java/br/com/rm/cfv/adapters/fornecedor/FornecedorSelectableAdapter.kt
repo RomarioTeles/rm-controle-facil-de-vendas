@@ -18,13 +18,12 @@ import br.com.rm.cfv.asyncTasks.fornecedor.DeleteFornecedorAsyncTask
 import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
 import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
 import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
-import br.com.rm.cfv.database.daos.interfaces.FornecedorDAO
 import br.com.rm.cfv.database.entities.Fornecedor
 import br.com.rm.cfv.utils.ToastUtils
 
 
-class FornecedorAdapter(private var context : Context,private var fornecedorDAO: FornecedorDAO, private var myDataset: MutableList<Fornecedor>) :
-    RecyclerView.Adapter<FornecedorViewHolder>(), IPostExecuteDelete{
+class FornecedorSelectableAdapter(private var context : Context, private var myDataset: MutableList<Fornecedor>) :
+    RecyclerView.Adapter<FornecedorViewHolder>(){
 
     fun setDataset(dataset : MutableList<Fornecedor>){
         this.myDataset = dataset
@@ -67,72 +66,32 @@ class FornecedorAdapter(private var context : Context,private var fornecedorDAO:
 
             val settings = BottomSheetDialogSettings(
                 item.nome,
-                true,
-                true,
-                true,
-                true
+                false,
+                false,
+                false,
+                false
             )
-
-            settings.textoAdicionar = "Registrar Compra"
-            settings.textoListar = "Compras Realizadas"
-
-            val ipostExecuteDelete = this
+            settings.isShowSelecionar = true
 
             ItemOptionsBottomSheetDialog().openDialog(
                 context as Activity,
                 item, position,
                 settings,
                 object : IBottomSheetOptions {
-                    override fun buttonSheetAdiciona(item: Any?) {
-                        val intent = Intent(context, RegistrarCompraVendaActivity::class.java)
-                        intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, item as Fornecedor)
-                        context.startActivity(intent)
+
+                    override fun buttonSheetSeleciona(item: Any?) {
+                        val returnIntent = Intent()
+                        returnIntent.putExtra("result", item as Fornecedor)
+                        (context as Activity).setResult(Activity.RESULT_OK, returnIntent)
+                        (context as Activity).finish()
                     }
 
-                    override fun buttonSheetEdita(item: Any?) {
-                        val intent = Intent(context, CadastrarFornecedorActivity::class.java)
-                        intent.putExtra("fornecedor", item as Fornecedor)
-                        context.startActivity(intent)
-                    }
-
-                    override fun buttonSheetLista(item: Any?) {
-                        val intent = Intent(context, ListaContasPagarReceberActivity::class.java)
-                        intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, item as Fornecedor)
-                        context.startActivity(intent)
-                    }
-
-                    override fun buttonSheetRemove(item: Any?, position: Int) {
-                        DeleteFornecedorAsyncTask(fornecedorDAO, ipostExecuteDelete).execute((item as Fornecedor).uid, position)
-                    }
                 }
             )
 
         }
     }
 
-    override fun afterDelete(result: Any?) {
-        if(result as Int > -1) {
-            ToastUtils.showToastSuccess(
-                context,
-                context.resources.getString(R.string.mensagem_sucesso)
-            )
-            notifyItemRemoved(result)
-            myDataset.removeAt(result)
-        }else{
-            ToastUtils.showToastError(
-                context,
-                context.resources.getString(R.string.mensagem_erro)
-            )
-        }
-    }
-
-    override fun showProgress(text: String) {
-        (context as BaseActivity).showProgress(text)
-    }
-
-    override fun hideProgress() {
-        (context as BaseActivity).hideProgress()
-    }
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
 }

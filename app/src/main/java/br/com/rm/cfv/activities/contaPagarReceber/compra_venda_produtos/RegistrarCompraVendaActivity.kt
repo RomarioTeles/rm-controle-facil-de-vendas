@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Parcelable
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.Menu
@@ -14,6 +15,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
@@ -103,7 +105,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         setContentView(R.layout.activity_registrar_debito)
 
         if(intent.hasExtra(ARG_REFERENCIA)){
-            referencia = intent.getSerializableExtra(ARG_REFERENCIA) as IReferencia
+            referencia = intent.getParcelableExtra<Parcelable>(ARG_REFERENCIA) as IReferencia
             contaPagarReceber.idRef = referencia.getIdRef()
             contaPagarReceber.nomeRef = referencia.getNomeRef()
             contaPagarReceber.tipoRef = referencia.getTipoRef()
@@ -122,7 +124,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         meioPagamentoAdapter = MeioPagamentoAdapter(this)
         listViewMeioPagamento.adapter = meioPagamentoAdapter
 
-        produtoLayoutManager = LinearLayoutManager(this)
+        produtoLayoutManager = GridLayoutManager(this, 2)
 
         itemProdutoLayoutManager = LinearLayoutManager(this)
 
