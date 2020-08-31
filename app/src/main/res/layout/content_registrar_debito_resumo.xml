@@ -1,107 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/framelayoutResumoCesta"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/framelayoutResumoCesta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-<LinearLayout android:id="@+id/linearLayoutResumoCesta"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:background="@color/primaryColor"
-              android:layout_gravity="bottom"
-              android:padding="8dp">
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/primaryColor">
 
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-        <TextView android:id="@+id/textViewquantidadeItens"
-                  android:layout_width="match_parent"
-                  android:layout_height="0dp"
-                  android:layout_weight="1"
-                  android:gravity="center|start"
-                  android:textColor="@color/primaryTextColor"
-                  android:textSize="25sp"
-                  android:textStyle="bold"
-                  android:text="0"/>
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center|start"
-                android:textColor="@color/primaryTextColor"
-                android:text="@string/itens"
-                android:textSize="16sp"
-                android:textAllCaps="true"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-        <TextView android:id="@+id/textViewSubtotalItens"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:gravity="center|start"
-                  android:textColor="@color/primaryTextColor"
-                  android:textSize="25sp"
-                  android:textStyle="bold"
-                  android:text="0,00"/>
-
-        <TextView
+        <LinearLayout
+                android:id="@+id/linearLayoutResumoCesta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|start"
-                android:textColor="@color/primaryTextColor"
-                android:text="@string/label_subtotal"
-                android:textAllCaps="true"
-                android:textSize="16sp"/>
+                android:layout_gravity="top"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp">
 
-    </LinearLayout>
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-    <LinearLayout android:id="@+id/linearLayoutVerCesta"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+                <TextView
+                        android:id="@+id/textViewquantidadeItens"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center|start"
+                        android:text="0"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-        <TextView android:id="@+id/textViewVisualizar"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:gravity="center|end"
-                  android:textColor="@color/primaryTextColor"
-                  android:textSize="18sp"
-                  android:textStyle="bold"
-                  android:textAllCaps="true"
-                  android:text="@string/ver_cesta"/>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center|start"
+                        android:text="@string/itens"
+                        android:textAllCaps="true"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="16sp" />
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout android:id="@+id/linearLayoutFinalizar"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-        <TextView android:id="@+id/textViewFinalizar"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:gravity="center|end"
-                  android:textColor="@color/primaryTextColor"
-                  android:textSize="18sp"
-                  android:textStyle="bold"
-                  android:textAllCaps="true"
-                  android:text="@string/finalizar"/>
+                <TextView
+                        android:id="@+id/textViewSubtotalItens"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:text="0,00"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
-    </LinearLayout>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:text="@string/label_subtotal"
+                        android:textAllCaps="true"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="16sp" />
 
-</LinearLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                    android:id="@+id/linearLayoutVerCesta"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id="@+id/textViewVisualizar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end"
+                        android:text="@string/ver_cesta"
+                        android:textAllCaps="true"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/linearLayoutFinalizar"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id="@+id/textViewFinalizar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|end"
+                        android:text="@string/finalizar"
+                        android:textAllCaps="true"
+                        android:textColor="@color/primaryTextColor"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </FrameLayout>

@@ -14,9 +14,9 @@ class SelectAllItemBalanceteAsyncTask(private val dao : ItemBalanceteDAO, privat
     }
 
     override fun doInBackground(vararg params: Any?): List<ItemBalancete> {
-        var balancete = params[0] as Balancete
-        var tipo = params[1] as String
-        return dao.findByBalanceteIdAndTipo(balancete.uid!!, tipo)
+        val balancete = params[0] as Balancete
+        val tipos = params[1] as List<String>
+        return dao.findByBalanceteIdAndTipo(balancete.uid!!, tipos)
     }
 
     override fun onPostExecute(result: List<ItemBalancete>?) {

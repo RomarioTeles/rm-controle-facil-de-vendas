@@ -15,6 +15,11 @@ interface ChartsDAO {
             where pd.data_vencimento >= :dataInicial and pd.data_vencimento <= :dataFinal and coalesce(pd.valor_pago, 0) = 0 LIMIT 1""")
     fun getTotalReceber(dataInicial: Long, dataFinal: Long): Double
 
+    @Query("""SELECT SUM(coalesce(pd.valor, 0)) AS total 
+            FROM contapagarreceber c JOIN pagamentodebito pd ON pd.conta_pagar_receber_id = c.uid  AND c.tipo_ref in ('FORNECEDOR', 'DESPESAS')
+            where pd.data_vencimento >= :dataInicial and pd.data_vencimento <= :dataFinal and coalesce(pd.valor_pago, 0) = 0 LIMIT 1""")
+    fun getTotalPagar(dataInicial: Long, dataFinal: Long): Double
+
     @Query("""SELECT pd.meio_pagamento AS grupo, SUM(coalesce(pd.valor, 0)) AS valor 
             FROM contapagarreceber c JOIN pagamentodebito pd ON pd.conta_pagar_receber_id = c.uid  AND c.tipo_ref in ('RECEITAS', 'CLIENTE')
             where pd.data_vencimento >= :dataInicial and pd.data_vencimento <= :dataFinal and coalesce(pd.valor_pago, 0) > 0

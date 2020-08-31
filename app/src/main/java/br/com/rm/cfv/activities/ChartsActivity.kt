@@ -99,11 +99,11 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
                 val barchart = BarChartUtil(this, R.id.chart_bar)
                 val entriesReceber = (map.get("barchartTotalReceberdata")) as Map<Float, Float>
                 barchart.build(MonthAxisValueFormatter(barchart.chart), MyValueFormatter("R$"))
-                barchartDataSets.add(BarChartDataSet("Receber", android.R.color.holo_green_light, entriesReceber))
+                barchartDataSets.add(BarChartDataSet("Receber", R.color.secondaryColor, entriesReceber))
 
                 val entriesPagar = (map.get("barchartTotalPagardata")) as Map<Float, Float>
                 barchart.build(MonthAxisValueFormatter(barchart.chart), MyValueFormatter("R$"))
-                barchartDataSets.add(BarChartDataSet("Pagar", android.R.color.holo_red_light, entriesPagar))
+                barchartDataSets.add(BarChartDataSet("Pagar", R.color.margentaColor, entriesPagar))
 
                 if (barchartDataSets.isNotEmpty()) {
                     barchart.setData(barchartDataSets)

@@ -1,44 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primaryColor">
 
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            android:theme="@style/AppTheme"
-            app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-
-    <ImageView
-            android:id="@+id/textViewAppName"
-            android:layout_width="200dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="50dp"
-            android:gravity="center"
-            android:src="@drawable/logo_app_novo_inline"
-            android:text="@string/app_name"
-            android:textAllCaps="true"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/cards"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-
     <ScrollView
             android:id="@+id/cards"
             android:layout_width="match_parent"
-            android:layout_height="480dp"
-            android:layout_marginBottom="20dp"
+            android:layout_height="550dp"
             android:fillViewport="true"
             android:scrollbars="none"
             app:layout_constraintBottom_toTopOf="@+id/scrollViewMenuInferior"
@@ -117,7 +87,7 @@
                             android:padding="16dp"
                             android:text="Clique aqui para obter mais detalhes sobre o resultado do período."
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintBottom_toBottomOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -144,7 +114,7 @@
                             android:id="@+id/textViewReceberLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/currency_usd_circle_outline"
+                            android:drawableStart="@drawable/clipboard_arrow_down_outline"
                             android:drawablePadding="16dp"
                             android:gravity="center|start"
                             android:padding="16dp"
@@ -161,7 +131,7 @@
                             android:paddingStart="16dp"
                             android:text="Janeiro 2020"
                             android:textAllCaps="true"
-                            android:textColor="@color/margentaColor"
+                            android:textColor="@color/secondaryColor"
                             android:textSize="18sp"
                             app:layout_constraintTop_toBottomOf="@id/textViewReceberLabel" />
 
@@ -173,7 +143,7 @@
                             android:gravity="bottom|start"
                             android:paddingStart="16dp"
                             android:text="R$ 0,00"
-                            android:textColor="@color/margentaColor"
+                            android:textColor="@color/secondaryColor"
                             android:textSize="30sp"
                             android:textStyle="bold"
                             app:layout_constraintTop_toBottomOf="@id/textViewPeriodoReceber" />
@@ -191,7 +161,80 @@
                             android:padding="16dp"
                             android:text="Clique aqui para obter dados estatísticos de suas vendas."
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="3dp"
+                    app:cardElevation="2dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/linearLayoutSaldoPagar"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:id="@+id/textViewPagarLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/currency_usd_circle_outline"
+                            android:drawablePadding="16dp"
+                            android:gravity="center|start"
+                            android:padding="16dp"
+                            android:text="A pagar no período"
+                            android:textSize="16sp"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                            android:id="@+id/textViewPeriodoPagar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:gravity="bottom|start"
+                            android:paddingStart="16dp"
+                            android:text="Janeiro 2020"
+                            android:textAllCaps="true"
+                            android:textColor="@color/margentaColor"
+                            android:textSize="18sp"
+                            app:layout_constraintTop_toBottomOf="@id/textViewPagarLabel" />
+
+
+                    <TextView
+                            android:id="@+id/textViewSaldoPagar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom|start"
+                            android:paddingStart="16dp"
+                            android:text="R$ 0,00"
+                            android:textColor="@color/margentaColor"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@id/textViewPeriodoPagar" />
+
+
+                    <TextView
+                            android:id="@+id/textViewRodapePagar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#F0F0F0"
+                            android:drawableStart="@drawable/chart_donut"
+                            android:drawablePadding="8dp"
+                            android:gravity="bottom|start"
+                            android:justificationMode="inter_word"
+                            android:padding="16dp"
+                            android:text="Clique aqui para obter dados estatísticos de suas vendas."
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -199,7 +242,6 @@
         </LinearLayout>
 
     </ScrollView>
-
 
     <HorizontalScrollView
             android:id="@+id/scrollViewMenuInferior"

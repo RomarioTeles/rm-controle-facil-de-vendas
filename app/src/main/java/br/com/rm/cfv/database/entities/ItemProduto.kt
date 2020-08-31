@@ -29,6 +29,8 @@ open class ItemProduto() : Parcelable {
     private var desconto: Double = 0.0
     @ColumnInfo(name = "acrescimo")
     private var acrescimo: Double = 0.0
+    @ColumnInfo(name="image_path")
+    var imagePath: String? = null
 
     constructor(parcel: Parcel) : this() {
         uid = parcel.readValue(Int::class.java.classLoader) as? Int
@@ -76,6 +78,7 @@ open class ItemProduto() : Parcelable {
     fun getDescAcresc(): Double? {
         return acrescimo - desconto
     }
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

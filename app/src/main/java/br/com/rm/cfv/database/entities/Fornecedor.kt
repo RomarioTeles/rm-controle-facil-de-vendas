@@ -11,6 +11,7 @@ import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.utils.EmailValidate
 import br.com.rm.cnpjutils.CNPJUtils
 import br.com.rm.cpfutils.CPFUtils
+import com.opencsv.bean.CsvBindByName
 import java.io.Serializable
 
 @Entity(
@@ -19,16 +20,16 @@ import java.io.Serializable
 open class Fornecedor (
 
     @PrimaryKey(autoGenerate = true) var uid: Int? = null,
-    @ColumnInfo(name = "nome") var nome: String? = null,
-    @ColumnInfo(name = "cpf_cnpj") var cpfCnpj: String? = null,
-    @ColumnInfo(name = "telefone") var telefone: String? = null,
-    @ColumnInfo(name = "email") var email: String? = "",
-    @ColumnInfo(name = "endereco") var endereco: String? = "",
-    @ColumnInfo(name = "numero") var numero: String? = "",
-    @ColumnInfo(name = "complemento") var complemento: String? = "",
-    @ColumnInfo(name = "bairro") var bairro: String? = "",
-    @ColumnInfo(name = "cidade") var cidade: String? = "",
-    @ColumnInfo(name = "uf") var uf: String? = ""
+    @CsvBindByName(column = "Nome") @ColumnInfo(name = "nome") var nome: String? = null,
+    @CsvBindByName(column = "CPF_CNPJ") @ColumnInfo(name = "cpf_cnpj") var cpfCnpj: String? = null,
+    @CsvBindByName(column = "Telefone") @ColumnInfo(name = "telefone") var telefone: String? = null,
+    @CsvBindByName(column = "E_mail") @ColumnInfo(name = "email") var email: String? = "",
+    @CsvBindByName(column = "Endereco") @ColumnInfo(name = "endereco") var endereco: String? = "",
+    @CsvBindByName(column = "Numero")  @ColumnInfo(name = "numero") var numero: String? = "",
+    @CsvBindByName(column = "Complemento") @ColumnInfo(name = "complemento") var complemento: String? = "",
+    @CsvBindByName(column = "Bairro") @ColumnInfo(name = "bairro") var bairro: String? = "",
+    @CsvBindByName(column = "Cidade")  @ColumnInfo(name = "cidade") var cidade: String? = "",
+    @CsvBindByName(column = "UF") @ColumnInfo(name = "uf") var uf: String? = ""
 
 ): Parcelable, IReferencia{
 

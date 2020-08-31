@@ -1,9 +1,8 @@
 package br.com.rm.cfv.activities.balancete
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.os.Environment
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +13,22 @@ import br.com.rm.cfv.adapters.balancete.ItemBalanceteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.balancete.SelectAllItemBalanceteAsyncTask
 import br.com.rm.cfv.constants.TipoItemBalancete
+import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.entities.Balancete
 import br.com.rm.cfv.database.entities.ItemBalancete
+import br.com.rm.cfv.utils.reports.CSVReportUtils
+import br.com.rm.cfv.utils.reports.IReportable
+import java.io.File
 
-class BalanceteTipoFragment : Fragment(), IPostExecuteSearch{
+class BalanceteTipoFragment : Fragment(), IPostExecuteSearch, IReportable{
+
+    override fun getDataSet(): List<Any> {
+        return myDataset
+    }
+
+    override fun getReportFileName(): String {
+        return "balancente ${balancete}.csv"
+    }
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: ItemBalanceteAdapter
@@ -25,6 +36,7 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch{
     private lateinit var balancete : Balancete
     private lateinit var filter: String
     private var myDataset : List<ItemBalancete> = ArrayList()
+    private var isReport = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +48,8 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch{
 
     override fun onViewCreated(viewRoot: View, savedInstanceState: Bundle?) {
         super.onViewCreated(viewRoot, savedInstanceState)
+
+        setHasOptionsMenu(true)
 
         balancete = arguments!!.getParcelable(ARG_BALANCETE) as Balancete
 
@@ -57,7 +71,7 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch{
             adapter = viewAdapter
         }
 
-        getAllBalancetes()
+        getAllBalancetes(listOf(filter))
 
     }
 
@@ -76,7 +90,8 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch{
         }
     }
 
-    fun getAllBalancetes(){
+    fun getAllBalancetes(filter: List<String>, isReport: Boolean = false){
+        this.isReport = isReport
         var task =
             SelectAllItemBalanceteAsyncTask(
                 CfvApplication.database!!.itemBalanceteDAO(),
@@ -87,7 +102,11 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch{
 
     override fun afterSearch(result: Any?) {
         myDataset = result as List<ItemBalancete>
-        viewAdapter.setDataset(myDataset)
+        if(isReport) {
+            gerarReport()
+        }else{
+            viewAdapter.setDataset(myDataset)
+        }
     }
 
     override fun showProgress(text: String) {
@@ -96,5 +115,27 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch{
 
     override fun hideProgress() {
         //(this.activity as BaseActivity).hideProgress()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+        inflater.inflate(R.menu.main_report, menu)
+        super.onCreateOptionsMenu(menu,inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.report -> {
+                getAllBalancetes(TipoItemBalancete.values().toList(), true)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun gerarReport(){
+        val storageDir = activity!!.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+        val file = File(storageDir, reportFileName)
+        file.createNewFile()
+        CSVReportUtils.writeCsvFromBean(file.toPath(), myDataset)
+        (activity as BaseActivity)!!.shareReport(file.toPath())
     }
 }

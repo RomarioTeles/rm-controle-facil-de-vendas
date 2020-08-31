@@ -33,7 +33,7 @@ class ProdutoAdapter(private var context: Context, private var iOnClickProdutoLi
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): ProdutoViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_view_item_produto, parent, false) as View
+            .inflate(R.layout.recycler_view_item_produto_alt, parent, false) as View
 
         val textViewNome = view.findViewById<TextView>(R.id.textView1)
 

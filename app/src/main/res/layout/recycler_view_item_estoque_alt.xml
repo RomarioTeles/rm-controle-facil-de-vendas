@@ -2,26 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingTop="24dp"
         android:foreground="?android:attr/selectableItemBackgroundBorderless">
 
     <ImageView
             android:id="@+id/imageViewIcon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="100dp"
+            android:layout_height="84dp"
+            android:scaleType="fitXY"
             android:padding="8dp"
-            android:src="@drawable/account_white_24dp"
-            android:background="@drawable/shape_circle_gray"
+            android:src="@drawable/no_image"
             android:visibility="visible" />
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:orientation="vertical"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:orientation="vertical">
 
         <TextView
                 android:id="@+id/textView1"
@@ -42,7 +41,7 @@
         <View android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="36dp"
             android:background="@color/divider"/>
 
     </LinearLayout>

@@ -40,7 +40,7 @@
     <string name="sugestao_adicionar_produto">Toque no produto, ou mantenha-o pressionado, para adicioná-lo a cesta</string>
     <string name="itens">Itens</string>
     <string name="label_subtotal">Subtotal</string>
-    <string name="pesquise_codigo_produto">Pesquise pelo o código do produto...</string>
+    <string name="pesquise_codigo_produto">Código ou nome</string>
     <string name="ver_cesta">Ver Cesta</string>
     <string name="finalizar">Finalizar</string>
     <string name="adicionar_produto">adicionar</string>
@@ -166,4 +166,6 @@
     <string name="menu_despesas">Despesas</string>
     <string name="cadastrar_despesa">Cadastrar despesa</string>
     <string name="mensagem_campo_maior_zero">Este campo não aceita zero.</string>
+    <string name="pesquisar_produto">Pesquisar produto</string>
+    <string name="nova_venda">Nova venda</string>
 </resources>

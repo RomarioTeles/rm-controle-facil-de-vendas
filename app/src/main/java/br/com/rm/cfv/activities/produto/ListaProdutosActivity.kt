@@ -8,9 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewStub
 import android.widget.SearchView
-import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.ImageUtilsActivity
@@ -26,6 +24,14 @@ import br.com.rm.cfv.database.entities.Produto
 import br.com.rm.cfv.utils.ToastUtils
 
 class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener, IBottomSheetOptions, IPostExecuteDelete{
+
+    override fun getReportFileName(): String {
+        return "produtos.csv"
+    }
+
+    override fun getDataSet(): List<Any> {
+        return myDataset
+    }
 
     override fun getToobarTitle(): String {
         return getString(R.string.listar_produtos_title)
@@ -45,7 +51,7 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
         viewStub.inflate()
         viewStub.visibility = View.GONE
 
-        viewManager = GridLayoutManager(this, 2)
+        viewManager = GridLayoutManager(this, 1)
 
         viewAdapter = ProdutoAdapter(this, this, myDataset)
 

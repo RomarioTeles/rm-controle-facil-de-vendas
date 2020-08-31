@@ -124,7 +124,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         meioPagamentoAdapter = MeioPagamentoAdapter(this)
         listViewMeioPagamento.adapter = meioPagamentoAdapter
 
-        produtoLayoutManager = GridLayoutManager(this, 2)
+        produtoLayoutManager = GridLayoutManager(this, 1)
 
         itemProdutoLayoutManager = LinearLayoutManager(this)
 
@@ -474,7 +474,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     @SuppressLint("SetTextI18n")
     override fun onProdutoClick(produto: Produto, position: Int?, isLongClick: Boolean) {
         itemProdutoEmEdicao = ItemProduto()
-
+        itemProdutoEmEdicao.imagePath = produto.caminhoImagem
         itemProdutoEmEdicao.codigoProduto = produto.codigo
         itemProdutoEmEdicao.nomeProduto = produto.nome
         var preco = if (contaPagarReceber.tipoRef == TipoReferencia.CLIENTE) produto.precoVenda!! else produto.precoCusto!!
@@ -512,7 +512,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     }
 
     override fun getToobarTitle(): String {
-        return getString(R.string.caderno_de_contas)
+        return getString(R.string.nova_venda)
     }
 
     override fun afterSearch(result: Any?) {

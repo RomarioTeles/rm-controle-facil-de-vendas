@@ -3,7 +3,8 @@ package br.com.rm.cfv.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
+import android.os.Environment
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,30 +13,36 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.CfvApplication
+import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.balancete.ListaBalanceteActivity
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
+import br.com.rm.cfv.activities.configuracao.ConfiguracoesActivity
+import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
 import br.com.rm.cfv.activities.estoque.ListaEstoqueActivity
 import br.com.rm.cfv.activities.fornecedor.ListaFornecedorActivity
 import br.com.rm.cfv.activities.produto.ListaProdutosActivity
+import br.com.rm.cfv.constants.TipoReferencia
+import br.com.rm.cfv.database.entities.DefaultReferencia
+import br.com.rm.cfv.database.entities.IReferencia
+import br.com.rm.cfv.utils.ToastUtils
+import br.com.rm.cfv.utils.reports.CSVReportUtils
+import br.com.rm.cfv.utils.reports.IReportable
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import br.com.rm.cfv.R
-import br.com.rm.cfv.activities.configuracao.ConfiguracoesActivity
-import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
-import br.com.rm.cfv.activities.receita.CadastrarReceitaDespesaActivity
-import br.com.rm.cfv.constants.TipoReferencia
-import br.com.rm.cfv.database.entities.DefaultReferencia
-import br.com.rm.cfv.database.entities.IReferencia
+import java.io.File
+import java.nio.file.Path
 
-abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    IReportable {
 
     override fun setContentView(layoutResID: Int) {
 
@@ -57,9 +64,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         (nav_view as NavigationView).setNavigationItemSelectedListener(this)
         setSupportActionBar(toolbar as Toolbar?)
 
-        supportActionBar!!.setTitle(getToobarTitle())
+        supportActionBar!!.title = getToobarTitle()
         supportActionBar!!.setHomeButtonEnabled(true)
-        //supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         fab.setOnClickListener { view ->
@@ -99,6 +106,13 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             R.id.action_settings ->{
                 startActivity(Intent(this, ConfiguracoesActivity::class.java))
+            }
+            R.id.report -> {
+                val storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+                val file = File(storageDir, reportFileName)
+                file.createNewFile()
+                CSVReportUtils.writeCsvFromBean(file.toPath(), dataSet)
+                shareReport(file.toPath())
             }
             else -> return super.onOptionsItemSelected(item)
         }
@@ -222,5 +236,21 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             view = View(this)
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    public fun shareReport(filelocation: Path) {
+        try {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/*"
+            val fileuri = FileProvider.getUriForFile(this, "$packageName.fileprovider", filelocation.toFile())
+            intent.putExtra(Intent.EXTRA_STREAM, fileuri)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            val shareIntent = Intent.createChooser(intent, null)
+            startActivity(shareIntent)
+        } catch (e: Exception) {
+            ToastUtils.showToastError(this, "Ocorreu um erro ao tentar compartilhar o arquivo.")
+            Log.e("Send Failed!", e.message, e)
+        }
+
     }
 }

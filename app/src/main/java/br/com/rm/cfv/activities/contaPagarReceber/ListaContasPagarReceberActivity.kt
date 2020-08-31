@@ -26,6 +26,14 @@ class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
         return getString(R.string.listar_clientes_title)
     }
 
+    override fun getReportFileName(): String {
+        return referencia.reportFileName()
+    }
+
+    override fun getDataSet(): List<Any> {
+        return myDataset
+    }
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: DebitoClienteAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager

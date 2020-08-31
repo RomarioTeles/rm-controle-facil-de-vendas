@@ -5,19 +5,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="78dp">
-
+        android:paddingTop="72dp">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewItensProdutos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/recycler_view_item_cesta"
+            tools:listitem="@layout/recycler_view_item_cesta_alt"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

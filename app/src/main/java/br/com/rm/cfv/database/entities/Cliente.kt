@@ -1,5 +1,6 @@
 package br.com.rm.cfv.database.entities
 
+import android.R
 import android.os.Parcel
 import android.os.Parcelable
 import android.widget.EditText
@@ -12,6 +13,7 @@ import br.com.rm.cfv.utils.EmailValidate
 import br.com.rm.cpfutils.CPFUtils
 import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.dateutils.DateOperationsUtils
+import com.opencsv.bean.CsvBindByName
 import java.io.Serializable
 import java.lang.Exception
 import java.util.*
@@ -20,17 +22,17 @@ import java.util.*
     indices = arrayOf(Index(value = ["cpf"], unique = true))
 )
 open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
-                    @ColumnInfo(name = "nome") var nome: String?,
-                    @ColumnInfo(name = "cpf") var cpf: String?,
-                    @ColumnInfo(name = "telefone") var telefone: String?,
-                    @ColumnInfo(name = "email") var email: String? = "",
-                    @ColumnInfo(name = "data_nascimento") var dataNascimento: String? = "",
-                    @ColumnInfo(name = "endereco") var endereco: String? = "",
-                    @ColumnInfo(name = "numero") var numero: String? = "",
-                    @ColumnInfo(name = "complemento") var complemento: String? = "",
-                    @ColumnInfo(name = "bairro") var bairro: String? = "",
-                    @ColumnInfo(name = "cidade") var cidade: String? = "",
-                    @ColumnInfo(name = "uf") var uf: String? = ""
+                    @CsvBindByName(column = "Nome") @ColumnInfo(name = "nome") var nome: String?,
+                    @CsvBindByName(column = "CPF") @ColumnInfo(name = "cpf") var cpf: String?,
+                    @CsvBindByName(column = "Telefone") @ColumnInfo(name = "telefone") var telefone: String?,
+                    @CsvBindByName(column = "E_mail") @ColumnInfo(name = "email") var email: String? = "",
+                    @CsvBindByName(column = "Data Nascimento") @ColumnInfo(name = "data_nascimento") var dataNascimento: String? = "",
+                    @CsvBindByName(column = "Endereco") @ColumnInfo(name = "endereco") var endereco: String? = "",
+                    @CsvBindByName(column = "Numero") @ColumnInfo(name = "numero") var numero: String? = "",
+                    @CsvBindByName(column = "Complemento") @ColumnInfo(name = "complemento") var complemento: String? = "",
+                    @CsvBindByName(column = "Bairro") @ColumnInfo(name = "bairro") var bairro: String? = "",
+                    @CsvBindByName(column = "Cidade") @ColumnInfo(name = "cidade") var cidade: String? = "",
+                    @CsvBindByName(column = "UF") @ColumnInfo(name = "uf") var uf: String? = ""
 ) : Parcelable, IReferencia{
     
     val messageNullable : String?

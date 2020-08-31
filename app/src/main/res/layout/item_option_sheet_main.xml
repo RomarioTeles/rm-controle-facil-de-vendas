@@ -3,13 +3,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
     <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -18,23 +19,45 @@
             android:text="Ações"
             android:textSize="18sp" />
 
+    <LinearLayout android:id="@+id/adicionar_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:src="@drawable/plus_default"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"/>
+
+        <TextView
+                android:id="@+id/adicionar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start"
+                android:padding="16dp"
+                android:text="Adicionar"
+                android:textSize="18sp" />
+
+    </LinearLayout>
+
     <LinearLayout android:id="@+id/selecionar_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/check_white"
-                android:background="@drawable/shape_button_rounded_primary"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="2dp"
+                android:src="@drawable/check_default"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="center"/>
 
         <TextView
                 android:id="@+id/selecionar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="start"
@@ -49,18 +72,16 @@
             android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/view_list"
-                android:background="@drawable/shape_button_rounded_primary"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="2dp"
+                android:src="@drawable/view_list_default"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="center"/>
 
         <TextView
                 android:id="@+id/listar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="start"
@@ -70,49 +91,21 @@
 
     </LinearLayout>
 
-    <LinearLayout android:id="@+id/adicionar_parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <ImageView
-                android:src="@drawable/plus_white_24dp"
-                android:background="@drawable/shape_button_rounded_primary"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="2dp"
-                android:layout_gravity="center"/>
-
-        <TextView
-                android:id="@+id/adicionar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="start"
-                android:padding="16dp"
-                android:text="Adicionar"
-                android:textSize="18sp" />
-
-    </LinearLayout>
-
     <LinearLayout android:id="@+id/editar_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/playlist_edit"
-                android:background="@drawable/shape_button_rounded_primary"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="2dp"
+                android:src="@drawable/playlist_edit_default"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="center"/>
 
         <TextView
                 android:id="@+id/editar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="start"
@@ -127,18 +120,16 @@
             android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/delete_white"
-                android:background="@drawable/shape_button_rounded_primary"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="2dp"
+                android:src="@drawable/delete_default"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="center"/>
 
         <TextView
                 android:id="@+id/remover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="start"
@@ -154,18 +145,16 @@
             android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/close_white"
-                android:background="@drawable/shape_button_rounded_primary"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="2dp"
+                android:src="@drawable/close_default"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="center"/>
 
         <TextView
                 android:id="@+id/cancelar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="start"

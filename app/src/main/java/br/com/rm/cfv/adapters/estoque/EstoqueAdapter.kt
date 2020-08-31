@@ -36,7 +36,7 @@ class EstoqueAdapter(private var iMovimentacaoEstoque: IMovimentacaoEstoque, pri
                                     viewType: Int): EstoqueAdapter.ProdutoViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_view_item_estoque, parent, false) as View
+            .inflate(R.layout.recycler_view_item_estoque_alt, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
 
         val textViewProduto = view.findViewById<TextView>(R.id.textView1)

@@ -4,15 +4,10 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
-import br.com.rm.cfv.activities.balancete.BalanceteActivity
 import br.com.rm.cfv.activities.balancete.ListaBalanceteActivity
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
-import br.com.rm.cfv.activities.configuracao.ConfiguracoesActivity
 import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
 import br.com.rm.cfv.activities.estoque.ListaEstoqueActivity
@@ -21,33 +16,32 @@ import br.com.rm.cfv.activities.produto.ListaProdutosActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.database.entities.dtos.TotalBalanceteDTO
 import br.com.rm.numberUtils.DecimalFormatUtils
-import kotlinx.android.synthetic.main.activity_charts.*
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.app_bar_main.toolbar
 import java.text.DateFormatSymbols
 import java.util.*
 import kotlin.collections.HashMap
 
-class DashboardActivity : AppCompatActivity(), IPostExecuteSearch{
+class DashboardActivity : BaseActivity(), IPostExecuteSearch{
+
+    override fun getToobarTitle(): String {
+        return getString(R.string.dashboard)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_dashboard)
 
-        setSupportActionBar(toolbar)
-
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-
         val cal = Calendar.getInstance()
-        var mes : Int = cal.get(Calendar.MONTH)
-        var nomeMes = DateFormatSymbols().months.get(mes)
+        val mes : Int = cal.get(Calendar.MONTH)
+        val nomeMes = DateFormatSymbols().months.get(mes)
         val periodo = "${nomeMes} ${cal.get(Calendar.YEAR)}"
         textViewPeriodo.text = periodo
         textViewPeriodoReceber.text = periodo
 
         setEventListeners()
+
+        hideFab()
 
         LoadDataAsync(this).execute()
     }
@@ -82,25 +76,13 @@ class DashboardActivity : AppCompatActivity(), IPostExecuteSearch{
 
         textViewRodapeReceber.setOnClickListener{v -> startActivity(Intent(this, ChartsActivity::class.java))}
 
+        textViewRodapePagar.setOnClickListener{v -> startActivity(Intent(this, ChartsActivity::class.java))}
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                return true
-            }
-            R.id.action_settings ->{
-                startActivity(Intent(this, ConfiguracoesActivity::class.java))
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 
     override fun afterSearch(result: Any?) {
@@ -114,6 +96,13 @@ class DashboardActivity : AppCompatActivity(), IPostExecuteSearch{
                 )
             }
 
+            if (map.get("totalPagarData") != null) {
+                textViewSaldoPagar.text = getString(
+                    R.string.currency_format,
+                    DecimalFormatUtils.decimalFormatPtBR((map.get("totalPagarData") as Double))
+                )
+            }
+
             if (map.get("totalBalancete") != null) {
                 textViewBalancete.text = getString(
                     R.string.currency_format,
@@ -121,12 +110,6 @@ class DashboardActivity : AppCompatActivity(), IPostExecuteSearch{
                 )
             }
         }
-    }
-
-    override fun showProgress(text: String) {
-    }
-
-    override fun hideProgress() {
     }
 
     class LoadDataAsync(private var iPostExecuteSearch: IPostExecuteSearch) : AsyncTask<Any, Any, Any>(){
@@ -153,9 +136,13 @@ class DashboardActivity : AppCompatActivity(), IPostExecuteSearch{
             val totalReceberData = dao.getTotalReceber(dataInicio.timeInMillis, dataFinal.timeInMillis)
             map.put("totalReceberData", totalReceberData)
 
+            val totalPagarData = dao.getTotalPagar(dataInicio.timeInMillis, dataFinal.timeInMillis)
+            map.put("totalPagarData", totalPagarData)
+
             val totalBalancete = CfvApplication.database!!.itemBalanceteDAO()
                 .getTotalBalanceteByMesAndAno(dataInicio.get(Calendar.MONTH)+1, dataInicio.get(Calendar.YEAR))
             map.put("totalBalancete", totalBalancete)
+
 
             return map
         }

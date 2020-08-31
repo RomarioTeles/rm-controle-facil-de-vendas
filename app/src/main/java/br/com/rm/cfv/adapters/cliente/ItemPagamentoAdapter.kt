@@ -39,7 +39,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): PagamentoViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_view_item_promissoria, parent, false) as View
+            .inflate(R.layout.recycler_view_item_promissoria_alt, parent, false) as View
 
         val textViewParcela = view.findViewById<TextView>(R.id.textViewObservacao)
 

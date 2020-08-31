@@ -32,6 +32,14 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
         return getString(R.string.listar_estoques_title)
     }
 
+    override fun getReportFileName(): String {
+        return "estoque_produtos.csv"
+    }
+
+    override fun getDataSet(): List<Any> {
+        return myDataset
+    }
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: EstoqueAdapter
     private var estoque: EstoqueDTO? = null
@@ -52,7 +60,7 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
         viewStubView.findViewById<TextView>(R.id.textViewHint).text = getString(R.string.estoque_produtos_nao_cadastrados_hint)
         viewStub.visibility = View.GONE
 
-        viewManager = GridLayoutManager(this, 2)
+        viewManager = GridLayoutManager(this, 1)
 
         viewAdapter = EstoqueAdapter(this, myDataset)
 

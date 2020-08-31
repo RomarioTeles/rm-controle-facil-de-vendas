@@ -13,14 +13,16 @@
              android:visibility="visible"/>
 
     <include android:id="@+id/registrarDebitoCesta"
-            layout="@layout/content_registrar_debito_cesta" android:visibility="visible"/>
+            layout="@layout/content_registrar_debito_cesta"
+            android:visibility="gone"/>
 
     <include android:id="@+id/registrarDebitoAdicionarProduto"
              layout="@layout/content_registrar_debito_adicionar_produto"
-             android:visibility="visible"/>
+             android:visibility="gone"/>
 
     <include android:id="@+id/registrarDebitoResumo"
-            layout="@layout/content_registrar_debito_resumo" android:visibility="visible" />
+            layout="@layout/content_registrar_debito_resumo"
+            android:visibility="visible" />
 
     <include android:id="@+id/registrarDebitoPagamento"
             layout="@layout/content_registrar_debito_pagamento"

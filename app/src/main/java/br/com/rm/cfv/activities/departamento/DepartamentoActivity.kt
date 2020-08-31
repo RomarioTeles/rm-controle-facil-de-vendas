@@ -31,6 +31,13 @@ import java.util.concurrent.CompletableFuture
 class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteInsertAndUpdate, IPostExecuteDelete,
     IBottomSheetOptions {
 
+    override fun getDataSet(): List<Any> {
+        return departamentos
+    }
+
+    override fun getReportFileName(): String {
+        return "categorias.csv"
+    }
 
     var departamento : Departamento? = null
 

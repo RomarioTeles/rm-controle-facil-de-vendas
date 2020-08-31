@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.activities.contaPagarReceber.VisualizarContaPagarReceberActivity
 import br.com.rm.cfv.activities.contaPagarReceber.VisualizarContaPagarReceberActivity.Companion.ARG_DEBITO_CLIENTE
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
@@ -19,7 +18,6 @@ import br.com.rm.cfv.asyncTasks.contaPagarReceber.DeleteDebitoClienteAsyncTask
 import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
 import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
 import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
-import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 import br.com.rm.cfv.utils.DialogConfig
 import br.com.rm.cfv.utils.DialogUtils
@@ -71,7 +69,7 @@ class DebitoClienteAdapter(private var context : Context, private var tipoRef: S
                                     viewType: Int): ClienteViewHolder {
         // create a new view
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_view_item_promissoria, parent, false) as View
+            .inflate(R.layout.recycler_view_item_promissoria_alt, parent, false) as View
         // set the view's size, margins, paddings and layout parameters
 
         val textViewTotal = view.findViewById<TextView>(R.id.textViewValor)

@@ -172,19 +172,21 @@ abstract public class ImageUtilsActivity extends BaseActivity {
     }
 
     public static Bitmap getBitmapFromAbsolutePath(String filename){
-        File file = new File(filename);
-        if(filename != null && file.exists()) {
-            try {
-                ExifInterface exif = new ExifInterface(filename);
+        if(filename != null){
+            File file = new File(filename);
+            if(file.exists()) {
+                try {
+                    ExifInterface exif = new ExifInterface(filename);
 
-                int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-                Matrix matrix = new Matrix();
-                matrix.postRotate(exifToDegrees(orientation));
-                Bitmap myBitmap = BitmapFactory.decodeFile(filename);
-                myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
-                return myBitmap ;// Bitmap.createScaledBitmap(myBitmap, myBitmap.getWidth(), myBitmap.getHeight(), false);
-            } catch (IOException e) {
-                Log.e("onActivityResult", e.getMessage());
+                    int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(exifToDegrees(orientation));
+                    Bitmap myBitmap = BitmapFactory.decodeFile(filename);
+                    myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
+                    return myBitmap ;// Bitmap.createScaledBitmap(myBitmap, myBitmap.getWidth(), myBitmap.getHeight(), false);
+                } catch (IOException e) {
+                    Log.e("onActivityResult", e.getMessage());
+                }
             }
         }
         return null;

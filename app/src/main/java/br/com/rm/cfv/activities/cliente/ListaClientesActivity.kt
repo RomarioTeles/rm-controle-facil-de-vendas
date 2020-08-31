@@ -24,6 +24,14 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
         return getString(R.string.listar_clientes_title)
     }
 
+    override fun getReportFileName(): String {
+        return "clientes.csv"
+    }
+
+    override fun getDataSet(): List<Any> {
+        return myDataset
+    }
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<ClienteViewHolder>
     private lateinit var viewManager: RecyclerView.LayoutManager

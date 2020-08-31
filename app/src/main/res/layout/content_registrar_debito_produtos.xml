@@ -5,7 +5,8 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/white">
+              android:background="@android:color/white"
+              android:layout_marginTop="72dp">
 
     <androidx.cardview.widget.CardView android:id="@+id/cardView"
             android:layout_width="match_parent"
@@ -13,23 +14,31 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:cardElevation="4dp">
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="16dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:orientation="vertical">
 
+            <TextView android:id="@+id/textViewPesquisar"
+                    android:text="@string/pesquisar_produto"
+                    android:textAllCaps="true"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             <EditText android:id="@+id/editTextSearch"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:maxLines="1"
                     android:inputType="text"
                     android:drawableEnd="@drawable/search"
                     android:background="@drawable/shape_rectangule_rounded_white"
-                    android:padding="4dp"
+                    android:padding="8dp"
                     android:imeOptions="actionSearch"
                     android:hint="@string/pesquise_codigo_produto"/>
 
@@ -41,9 +50,9 @@
             android:id="@+id/recyclerViewProdutos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="55dp"
-            android:paddingBottom="75dp"
-            tools:listitem="@layout/recycler_view_item_produto"
-            app:layout_constraintTop_toBottomOf="@+id/calendarView"/>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="100dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/recycler_view_item_produto_alt"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

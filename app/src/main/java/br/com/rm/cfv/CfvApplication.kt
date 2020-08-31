@@ -20,7 +20,7 @@ open class CfvApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         //Room
-        database = Room.databaseBuilder(this, AppDataBase::class.java, "cfv_db")
+        database = Room.databaseBuilder(this, AppDataBase::class.java, "rmcalcdb")
             .fallbackToDestructiveMigration()
             .addCallback(
                 object : RoomDatabase.Callback(){

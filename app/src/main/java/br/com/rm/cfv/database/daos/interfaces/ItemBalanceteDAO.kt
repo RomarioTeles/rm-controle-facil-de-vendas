@@ -28,8 +28,8 @@ public interface ItemBalanceteDAO {
         LIMIT 1""")
     fun getTotalBalanceteByMesAndAno(mes: Int, ano: Int): TotalBalanceteDTO
 
-    @Query("SELECT * FROM itembalancete WHERE balancete_id = :balanceteId and tipo = :tipo ORDER BY data_hora DESC")
-    fun findByBalanceteIdAndTipo(balanceteId: Int, tipo: String): List<ItemBalancete>
+    @Query("SELECT * FROM itembalancete WHERE balancete_id = :balanceteId and tipo in (:tipo) ORDER BY data_hora DESC")
+    fun findByBalanceteIdAndTipo(balanceteId: Int, tipo: List<String>): List<ItemBalancete>
 
     @Query("SELECT * FROM itembalancete WHERE uid IN (:argids)")
     fun loadAllByIds(argids: IntArray): List<ItemBalancete>

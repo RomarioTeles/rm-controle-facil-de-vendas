@@ -25,6 +25,14 @@ class ListaFornecedorActivity : BaseActivity(), IPostExecuteSearch{
         return getString(R.string.listar_fornecedores_title)
     }
 
+    override fun getReportFileName(): String {
+        return "fornecedores.csv"
+    }
+
+    override fun getDataSet(): List<Any> {
+        return myDataset
+    }
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<FornecedorViewHolder>
     private lateinit var viewManager: RecyclerView.LayoutManager
