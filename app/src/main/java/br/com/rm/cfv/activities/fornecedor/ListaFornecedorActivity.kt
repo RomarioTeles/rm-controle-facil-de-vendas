@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.activities.cliente.ClienteViewHolder
 import br.com.rm.cfv.adapters.fornecedor.FornecedorAdapter
 import br.com.rm.cfv.adapters.fornecedor.FornecedorSelectableAdapter
 import br.com.rm.cfv.adapters.fornecedor.FornecedorViewHolder
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.fornecedor.SelectAllFornecedorsAsyncTask
 import br.com.rm.cfv.database.entities.Fornecedor
+import kotlinx.android.synthetic.main.activity_base.*
 
 class ListaFornecedorActivity : BaseActivity(), IPostExecuteSearch{
 
@@ -78,6 +78,15 @@ class ListaFornecedorActivity : BaseActivity(), IPostExecuteSearch{
         fab().setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, CadastrarFornecedorActivity::class.java))
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nav_view.setCheckedItem(R.id.nav_fornecedores)
+    }
+
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 
     fun getAllFornecedors(query: String?  = null, showProgress: Boolean = true){

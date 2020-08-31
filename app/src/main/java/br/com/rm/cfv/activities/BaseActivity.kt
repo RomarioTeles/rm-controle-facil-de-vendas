@@ -62,12 +62,7 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         toggle.syncState()
 
         (nav_view as NavigationView).setNavigationItemSelectedListener(this)
-        setSupportActionBar(toolbar as Toolbar?)
-
-        supportActionBar!!.title = getToobarTitle()
-        supportActionBar!!.setHomeButtonEnabled(true)
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -75,6 +70,20 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         }
 
         progress.visibility = View.GONE
+
+        setHomeButtonSettings()
+    }
+
+    private fun setHomeButtonSettings(){
+        supportActionBar!!.title = getToobarTitle()
+        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        try {
+            val icon = getHomeIcon()
+            supportActionBar!!.setHomeAsUpIndicator(icon)
+        }catch (e: Exception){
+            supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,10 +106,14 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
-                    drawer_layout!!.closeDrawer(GravityCompat.START)
-                }else{
-                    drawer_layout!!.openDrawer(GravityCompat.START)
+                if(getHomeIcon() == R.drawable.arrow_left){
+                    onBackPressed()
+                }else {
+                    if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
+                        drawer_layout!!.closeDrawer(GravityCompat.START)
+                    } else {
+                        drawer_layout!!.openDrawer(GravityCompat.START)
+                    }
                 }
                 return true
             }
@@ -252,5 +265,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             Log.e("Send Failed!", e.message, e)
         }
 
+    }
+
+    open fun getHomeIcon(): Int{
+        return R.drawable.arrow_left
     }
 }

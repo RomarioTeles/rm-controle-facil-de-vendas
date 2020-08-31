@@ -23,6 +23,7 @@ import br.com.rm.cfv.database.entities.MovimentacaoEstoque
 import br.com.rm.cfv.database.entities.dtos.EstoqueDTO
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_base.*
 import java.util.*
 
 
@@ -84,6 +85,15 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
 
         hideFab()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nav_view.setCheckedItem(R.id.nav_estoque)
+    }
+
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 
     fun openDialog(){

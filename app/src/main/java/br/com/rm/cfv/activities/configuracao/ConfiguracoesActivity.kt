@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
+import kotlinx.android.synthetic.main.activity_base.*
 
 class ConfiguracoesActivity : BaseActivity(){
 
@@ -26,5 +27,14 @@ class ConfiguracoesActivity : BaseActivity(){
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nav_view.setCheckedItem(R.id.nav_config)
+    }
+
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 }

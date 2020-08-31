@@ -9,6 +9,7 @@ import br.com.rm.cfv.adapters.balancete.BalanceteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.balancete.SelectAllBalancetesAsyncTask
 import br.com.rm.cfv.database.entities.Balancete
+import kotlinx.android.synthetic.main.activity_base.*
 
 class ListaBalanceteActivity : BaseActivity(), IPostExecuteSearch{
 
@@ -45,6 +46,15 @@ class ListaBalanceteActivity : BaseActivity(), IPostExecuteSearch{
         getAllBalancetes()
 
         fab().hide()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nav_view.setCheckedItem(R.id.nav_balancete)
+    }
+
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 
     fun getAllBalancetes(){

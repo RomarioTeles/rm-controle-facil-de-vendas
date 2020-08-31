@@ -22,6 +22,7 @@ import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
 import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
 import br.com.rm.cfv.database.entities.Produto
 import br.com.rm.cfv.utils.ToastUtils
+import kotlinx.android.synthetic.main.activity_base.*
 
 class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener, IBottomSheetOptions, IPostExecuteDelete{
 
@@ -74,6 +75,15 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
         fab().setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, CadastrarProdutoActivity::class.java))
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nav_view.setCheckedItem(R.id.nav_produto)
+    }
+
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 
     fun getAllProdutos(query: String? = null, showProgress: Boolean = true){

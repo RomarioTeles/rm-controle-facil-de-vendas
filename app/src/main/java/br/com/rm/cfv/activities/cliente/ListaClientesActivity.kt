@@ -16,6 +16,7 @@ import br.com.rm.cfv.adapters.cliente.ClienteSelectableAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesAsyncTask
 import br.com.rm.cfv.database.entities.Cliente
+import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_lista_default.*
 
 class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
@@ -77,6 +78,15 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
         fab().setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, CadastrarClienteActivity::class.java))
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nav_view.setCheckedItem(R.id.nav_clientes)
+    }
+
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 
     fun getAllClientes(query: String?  = null, showProgress: Boolean = true){

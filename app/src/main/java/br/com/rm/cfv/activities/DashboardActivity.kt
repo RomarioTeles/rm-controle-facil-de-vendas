@@ -16,6 +16,7 @@ import br.com.rm.cfv.activities.produto.ListaProdutosActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.database.entities.dtos.TotalBalanceteDTO
 import br.com.rm.numberUtils.DecimalFormatUtils
+import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import java.text.DateFormatSymbols
 import java.util.*
@@ -44,6 +45,15 @@ class DashboardActivity : BaseActivity(), IPostExecuteSearch{
         hideFab()
 
         LoadDataAsync(this).execute()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nav_view.setCheckedItem(R.id.nav_main)
+    }
+
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 
     fun setEventListeners(){
@@ -153,5 +163,7 @@ class DashboardActivity : BaseActivity(), IPostExecuteSearch{
         }
 
     }
+
+
 
 }

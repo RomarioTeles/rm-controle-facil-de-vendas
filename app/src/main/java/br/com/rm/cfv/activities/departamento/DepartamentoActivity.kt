@@ -25,6 +25,7 @@ import br.com.rm.cfv.utils.ToastUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_departamento.*
 import java.util.concurrent.CompletableFuture
 
@@ -132,7 +133,11 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
     override fun onResume() {
         super.onResume()
         getAllDepartamentos()
+        nav_view.setCheckedItem(R.id.nav_departamento)
+    }
 
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 
     private fun getAllDepartamentos(query: String? = null, showProgress: Boolean = true){

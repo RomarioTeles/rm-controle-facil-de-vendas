@@ -17,6 +17,7 @@ import br.com.rm.cfv.database.entities.IReferencia
 import br.com.rm.cfv.database.entities.dtos.DebitoClienteDTO
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 import br.com.rm.numberUtils.DecimalFormatUtils
+import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_lista_debitos_cliente.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -83,6 +84,15 @@ class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
     override fun onResume() {
         super.onResume()
         getAllDebitos()
+        if(referencia.getTipoRef() in TipoReferencia.getListDespesas()) {
+            nav_view.setCheckedItem(R.id.nav_despesas)
+        }else{
+            nav_view.setCheckedItem(R.id.nav_receitas)
+        }
+    }
+
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 
     fun getAllDebitos(){
