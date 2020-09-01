@@ -187,7 +187,7 @@
                             android:id="@+id/textViewPagarLabel"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/currency_usd_circle_outline"
+                            android:drawableStart="@drawable/clipboard_arrow_up_outline"
                             android:drawablePadding="16dp"
                             android:gravity="center|start"
                             android:padding="16dp"

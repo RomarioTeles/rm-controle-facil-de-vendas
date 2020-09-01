@@ -11,12 +11,11 @@ import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.utils.EmailValidate
 import br.com.rm.cnpjutils.CNPJUtils
 import br.com.rm.cpfutils.CPFUtils
+import com.google.android.material.textfield.TextInputLayout
 import com.opencsv.bean.CsvBindByName
 import java.io.Serializable
 
-@Entity(
-    indices = arrayOf(Index(value = ["cpf_cnpj"], unique = true))
-)
+@Entity
 open class Fornecedor (
 
     @PrimaryKey(autoGenerate = true) var uid: Int? = null,
@@ -66,16 +65,17 @@ open class Fornecedor (
         return TipoReferencia.FORNECEDOR
     }
 
-    fun validate(fields : Map<String, EditText>): Boolean {
+    fun validate(fields : Map<String, TextInputLayout>): Boolean {
         var hasError = false
         if(nome == null || nome!!.isBlank()){
             fields["nome"]!!.error = String.format(messageNullable!!,"Nome")
             hasError = true
         }
-        if(cpfCnpj == null || cpfCnpj!!.isBlank()){
+
+        /*if(cpfCnpj == null || cpfCnpj!!.isBlank()){
             fields["cpfCnpj"]!!.error = String.format(messageNullable!!,"CPF/CNPJ")
             hasError = true
-        }
+        }*/
 
         if(telefone == null || telefone!!.isBlank()){
             fields!!["telefone"]!!.error = String.format(messageNullable!!,"Telefone")

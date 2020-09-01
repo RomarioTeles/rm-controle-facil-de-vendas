@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Parcelable
 import android.preference.PreferenceManager
@@ -20,12 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.activities.ImageUtilsActivity
 import br.com.rm.cfv.activities.ImageUtilsActivity.getBitmapFromAbsolutePath
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.produto.IOnClickProdutoListener
 import br.com.rm.cfv.adapters.MeioPagamentoAdapter
 import br.com.rm.cfv.adapters.ParcelasAdapter
+import br.com.rm.cfv.adapters.produto.IOnClickItemProdutoListener
 import br.com.rm.cfv.adapters.produto.ItemProdutoAdapter
 import br.com.rm.cfv.adapters.produto.ProdutoAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
@@ -47,34 +46,13 @@ import kotlinx.android.synthetic.main.content_registrar_debito_pagamento_parcela
 import kotlinx.android.synthetic.main.content_registrar_debito_pagamento_wizard.*
 import kotlinx.android.synthetic.main.content_registrar_debito_produtos.*
 import kotlinx.android.synthetic.main.content_registrar_debito_resumo.*
-import kotlinx.android.synthetic.main.content_registrar_debito_resumo.textViewSubtotalItens
 import kotlinx.android.synthetic.main.content_registrar_debito_tipo_pagamento.*
 import kotlinx.android.synthetic.main.content_registrar_debito_tipo_vencimento.*
-import kotlinx.android.synthetic.main.item_option_sheet_main.*
-import java.lang.Exception
 import java.util.*
 import kotlin.collections.HashMap
 
 class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClickProdutoListener,
-    IPostExecuteInsertAndUpdate {
-
-    override fun afterInsert(result: Any?) {
-        if (result == null) {
-            Toast.makeText(this, "Erro ao registrar o débito!", Toast.LENGTH_LONG).show()
-        } else {
-            var conta = result as ContaPagarReceber?
-            if (conta!!.uid != null) {
-                mudaEstadoDaTela(registrarDebitoConcluido)
-            } else {
-                Toast.makeText(this, "Erro ao registrar o débito!", Toast.LENGTH_LONG)
-                    .show()
-            }
-        }
-    }
-
-    override fun afterUpdate(result: Any?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    IPostExecuteInsertAndUpdate, IOnClickItemProdutoListener {
 
     private lateinit var produtoRecyclerView: RecyclerView
     private lateinit var itemProdutoRecyclerView: RecyclerView
@@ -94,6 +72,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     private lateinit var pagWizardViewCurrent: View
     private lateinit var menu: Menu
     private var mapWizardControls = HashMap<Int, Array<View>>()
+    private var flag_cesta : Boolean = false
 
     companion object{
         var ARG_REFERENCIA = "referencia"
@@ -130,7 +109,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
 
         produtoAdapter = ProdutoAdapter(this, this, listaProdutos)
 
-        itemProdutoAdapter = ItemProdutoAdapter(this, contaPagarReceber.itemProdutoList)
+        itemProdutoAdapter = ItemProdutoAdapter(this, this, contaPagarReceber.itemProdutoList)
 
         produtoRecyclerView = findViewById<RecyclerView>(R.id.recyclerViewProdutos).apply {
             setHasFixedSize(true)
@@ -213,7 +192,12 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             atualizaResumoCesta()
             limpaItemProduto()
             itemProdutoAdapter.notifyDataSetChanged()
-            mudaEstadoDaTela(registrarDebitoProdutos)
+            if(flag_cesta){
+                flag_cesta = false
+                mudaEstadoDaTela(registrarDebitoCesta)
+            }else {
+                mudaEstadoDaTela(registrarDebitoProdutos)
+            }
         }
 
         imageViewItemRemover.setOnClickListener {
@@ -351,6 +335,31 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         initListaDeParcelas()
     }
 
+    override fun onItemProdutoClick(item: ItemProduto) {
+        itemProdutoEmEdicao = item
+        flag_cesta = true
+        preparaTelaEdicaoProduto(itemProdutoEmEdicao)
+        mudaEstadoDaTela(registrarDebitoAdicionarProduto)
+    }
+
+    override fun afterInsert(result: Any?) {
+        if (result == null) {
+            Toast.makeText(this, "Erro ao registrar o débito!", Toast.LENGTH_LONG).show()
+        } else {
+            var conta = result as ContaPagarReceber?
+            if (conta!!.uid != null) {
+                mudaEstadoDaTela(registrarDebitoConcluido)
+            } else {
+                Toast.makeText(this, "Erro ao registrar o débito!", Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
+    }
+
+    override fun afterUpdate(result: Any?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private fun registrarPedido() {
         var task = InsertContaPagarReceberAsyncTask(getCfvApplication().getDataBase(), this)
         contaPagarReceber.itemProdutoList = itemProdutoAdapter.getListaProdutos().toMutableList()
@@ -477,7 +486,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         itemProdutoEmEdicao.imagePath = produto.caminhoImagem
         itemProdutoEmEdicao.codigoProduto = produto.codigo
         itemProdutoEmEdicao.nomeProduto = produto.nome
-        var preco = if (contaPagarReceber.tipoRef == TipoReferencia.CLIENTE) produto.precoVenda!! else produto.precoCusto!!
+        val preco = if (contaPagarReceber.tipoRef == TipoReferencia.CLIENTE) produto.precoVenda!! else produto.precoCusto!!
         itemProdutoEmEdicao.precoUnitario = preco
         itemProdutoEmEdicao.subtotal = preco
 
@@ -491,23 +500,28 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             }
         }
 
-        textInputQuantidade.setText(itemProdutoEmEdicao.getQuantidade().toString())
-        textViewItemNomeProduto.text = itemProdutoEmEdicao.nomeProduto.toString()
-        textViewItemPrecoProduto.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(preco))
-        atualizaSubtotalItemEmEdicao(itemProdutoEmEdicao.subtotal)
-        if (produto.caminhoImagem != null && !produto.caminhoImagem!!.isBlank()) {
-            imageViewItemProduto.setImageBitmap(
-                getBitmapFromAbsolutePath(
-                    produto.caminhoImagem
-                )
-            )
-        }
+        preparaTelaEdicaoProduto(itemProdutoEmEdicao)
 
         if (isLongClick) {
             mudaEstadoDaTela(registrarDebitoAdicionarProduto)
         } else {
             buttonAdicionarProduto.performClick()
             //Toast.makeText(this, "Produto foi adicionado!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    fun preparaTelaEdicaoProduto(itemProdutoEmEdicao: ItemProduto){
+        textInputQuantidade.setText(itemProdutoEmEdicao.getQuantidade().toString())
+        textViewItemNomeProduto.text = itemProdutoEmEdicao.nomeProduto.toString()
+        textViewItemPrecoProduto.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(itemProdutoEmEdicao.precoUnitario))
+        atualizaSubtotalItemEmEdicao(itemProdutoEmEdicao.subtotal)
+        if (itemProdutoEmEdicao.imagePath != null && !itemProdutoEmEdicao.imagePath!!.isBlank()) {
+            imageViewItemProduto.setImageBitmap(
+                getBitmapFromAbsolutePath(
+                    itemProdutoEmEdicao.imagePath
+                )
+            )
         }
     }
 

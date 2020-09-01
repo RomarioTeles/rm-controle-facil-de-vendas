@@ -15,70 +15,95 @@
                 android:id="@+id/textViewDadosPessoais"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:padding="8dp"
                 android:text="@string/cliente_sessao_dados_fornecedor"
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textSize="16sp"/>
 
-        <EditText
-                android:id="@+id/editTextId"
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:enabled="false"
-                android:padding="8dp"
-                android:hint="Id"
-                android:inputType="text"
-                android:visibility="gone" />
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" >
 
-        <EditText
-                android:id="@+id/editTextNome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:hint="@string/cliente_nome"
-                android:padding="8dp"
-                android:inputType="text" />
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Id"/>
 
-        <EditText
-                android:id="@+id/editTextTelefone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:hint="@string/cliente_telefone"
-                android:padding="8dp"
-                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-                android:id="@+id/editTextEmail"
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:hint="@string/cliente_email"
-                android:padding="8dp"
-                android:inputType="textEmailAddress" />
+                android:layout_marginBottom="8dp">
 
-        <EditText
-                android:id="@+id/editTextCPF"
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:hint="@string/cliente_nome"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutTelefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:hint="@string/cliente_CPF_CNPJ"
-                android:padding="8dp"
-                android:inputType="number" />
+                android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTelefone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:inputType="phone"
+                    android:hint="@string/cliente_telefone"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutCPF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCPF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:enabled="true"
+                    android:hint="@string/cliente_CPF_CNPJ"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:enabled="true"
+                    android:hint="@string/cliente_email"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
                 android:id="@+id/textViewEndereco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:padding="8dp"
                 android:text="@string/cliente_sessao_endereco"
@@ -86,66 +111,100 @@
                 android:textAllCaps="true"
                 android:textSize="16sp"/>
 
-        <EditText
-                android:id="@+id/editTextEndereco"
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutEndereco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:hint="@string/cliente_logradouro"
-                android:padding="8dp"
-                android:inputType="text" />
+                android:layout_marginBottom="8dp">
 
-        <EditText
-                android:id="@+id/editTextNumero"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:hint="@string/cliente_numero"
-                android:padding="8dp"
-                android:inputType="text" />
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextEndereco"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:hint="@string/cliente_logradouro"/>
 
-        <EditText
-                android:id="@+id/editTextComplemento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:hint="@string/cliente_complemento"
-                android:padding="8dp"
-                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-                android:id="@+id/editTextBairro"
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutNumero"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:hint="@string/cliente_bairro"
-                android:padding="8dp"
-                android:inputType="text" />
+                android:layout_marginBottom="8dp">
 
-        <EditText
-                android:id="@+id/editTextUf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:hint="@string/cliente_uf"
-                android:padding="8dp"
-                android:inputType="text" />
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNumero"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:inputType="number"
+                    android:hint="@string/cliente_numero"/>
 
-        <EditText
-                android:id="@+id/editTextCidade"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutComplemento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="50dp"
-                android:hint="@string/cliente_cidade"
-                android:padding="8dp"
-                android:inputType="text" />
+                android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextComplemento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:inputType="number"
+                    android:hint="@string/cliente_complemento"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutBairro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextBairro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:inputType="number"
+                    android:hint="@string/cliente_bairro"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutUf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextUf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:inputType="number"
+                    android:hint="@string/cliente_uf"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutCidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCidade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="true"
+                    android:inputType="number"
+                    android:hint="@string/cliente_cidade"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

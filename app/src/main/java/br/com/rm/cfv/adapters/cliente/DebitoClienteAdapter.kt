@@ -97,7 +97,7 @@ class DebitoClienteAdapter(private var context : Context, private var tipoRef: S
 
         val item = myDataset[position]
 
-        holder.textViewDataHora.text = DateFormatUtils.format(item.getDataHora(), "dd\nMMMM\nyyyy").toUpperCase()
+        holder.textViewDataHora.text = DateFormatUtils.format(item.getDataHora(), "dd\nMMMM\nyyyy\nHH:mm").toUpperCase()
 
         holder.textViewTotal.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item.total))
 

@@ -10,7 +10,7 @@ import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
 import br.com.rm.cfv.asyncTasks.fornecedor.InsertFornecedorAsyncTask
 import br.com.rm.cfv.database.entities.Fornecedor
 import br.com.rm.cfv.utils.EditTextMaskUtil
-import kotlinx.android.synthetic.main.activity_cadastrar_cliente.*
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.*
 import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextBairro
 import kotlinx.android.synthetic.main.activity_cadastrar_fornecedor.editTextCPF
@@ -34,23 +34,23 @@ class CadastrarFornecedorActivity : BaseActivity(), IPostExecuteInsertAndUpdate 
 
     private lateinit var fornecedor : Fornecedor
 
-    private lateinit var mapFields : HashMap<String, EditText>
+    private lateinit var mapFields : HashMap<String, TextInputLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastrar_fornecedor)
 
         mapFields = HashMap()
-        mapFields["nome"] = editTextNome
-        mapFields["telefone"] = editTextTelefone
-        mapFields["cpfCnpj"] = editTextCPF
-        mapFields["email"] = editTextEmail
-        mapFields["endereco"] = editTextEndereco
-        mapFields["numero"] = editTextNumero
-        mapFields["bairro"] = editTextBairro
-        mapFields["cidade"] = editTextCidade
-        mapFields["uf"] = editTextUf
-        mapFields["complemento"] = editTextComplemento
+        mapFields["nome"] = textInputLayoutNome
+        mapFields["telefone"] = textInputLayoutTelefone
+        mapFields["cpfCnpj"] = textInputLayoutCPF
+        mapFields["email"] = textInputLayoutEmail
+        mapFields["endereco"] = textInputLayoutEndereco
+        mapFields["numero"] = textInputLayoutNumero
+        mapFields["bairro"] = textInputLayoutBairro
+        mapFields["cidade"] = textInputLayoutCidade
+        mapFields["uf"] = textInputLayoutUf
+        mapFields["complemento"] = textInputLayoutComplemento
 
         setClickEvents()
     }
@@ -93,7 +93,7 @@ class CadastrarFornecedorActivity : BaseActivity(), IPostExecuteInsertAndUpdate 
 
         if(bundle != null) {
 
-            var fornecedor = bundle.getSerializable("fornecedor") as Fornecedor?
+            var fornecedor = bundle.getParcelable("fornecedor") as Fornecedor?
 
             if (fornecedor != null) {
                 editTextId.setText(fornecedor.uid.toString())

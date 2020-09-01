@@ -67,9 +67,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
 
         holder.textViewParcela.text = ""//String.format("%dª Parcela", position+1)
         holder.textViewValor.text = context.getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(item.valor))
-        var data = DateFormatUtils.format(item.dataVencimento, "dd") + "\n"
-        data += DateFormatUtils.format(item.dataVencimento, "MMMM") + "\n"
-        data += DateFormatUtils.format(item.dataVencimento, "yyyy")
+        var data = DateFormatUtils.format(item.dataVencimento, "dd\nMMMM\nyyyy")
 
         holder.textViewDataVencimento.text = data.toUpperCase()
 

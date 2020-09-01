@@ -16,10 +16,10 @@
         <TextView
                 android:id="@+id/textViewVencimento"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:maxLines="4"
-                android:text="10\nJUL\n2020"
+                android:text="10\nJUL\n2020\nHH:mm"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

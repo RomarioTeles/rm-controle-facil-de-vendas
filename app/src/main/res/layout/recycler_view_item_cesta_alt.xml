@@ -4,7 +4,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
-        android:paddingTop="24dp">
+        android:paddingTop="24dp"
+        android:foreground="?android:attr/selectableItemBackground">
 
     <ImageView
             android:id="@+id/imageViewProduto"

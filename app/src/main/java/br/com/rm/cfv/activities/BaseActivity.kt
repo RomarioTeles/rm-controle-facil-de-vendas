@@ -117,9 +117,6 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                 }
                 return true
             }
-            R.id.action_settings ->{
-                startActivity(Intent(this, ConfiguracoesActivity::class.java))
-            }
             R.id.report -> {
                 val storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
                 val file = File(storageDir, reportFileName)

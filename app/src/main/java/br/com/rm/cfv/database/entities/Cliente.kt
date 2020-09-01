@@ -1,26 +1,20 @@
 package br.com.rm.cfv.database.entities
 
-import android.R
 import android.os.Parcel
 import android.os.Parcelable
-import android.widget.EditText
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.utils.EmailValidate
-import br.com.rm.cpfutils.CPFUtils
 import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.dateutils.DateOperationsUtils
+import com.google.android.material.textfield.TextInputLayout
 import com.opencsv.bean.CsvBindByName
-import java.io.Serializable
-import java.lang.Exception
 import java.util.*
 
-@Entity(
-    indices = arrayOf(Index(value = ["cpf"], unique = true))
-)
+@Entity
 open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
                     @CsvBindByName(column = "Nome") @ColumnInfo(name = "nome") var nome: String?,
                     @CsvBindByName(column = "CPF") @ColumnInfo(name = "cpf") var cpf: String?,
@@ -69,16 +63,16 @@ open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
         return TipoReferencia.CLIENTE
     }
 
-    fun validate(fields : Map<String, EditText>): Boolean {
+    fun validate(fields : Map<String, TextInputLayout>): Boolean {
         var hasError = false
         if(nome == null || nome!!.isBlank()){
             fields["nome"]!!.error = String.format(messageNullable!!,"Nome")
             hasError = true
         }
-        if(cpf == null || cpf!!.isBlank()){
+        /*if(cpf == null || cpf!!.isBlank()){
             fields["cpf"]!!.error = String.format(messageNullable!!,"CPF")
             hasError = true
-        }
+        }*/
 
         if(telefone == null || telefone!!.isBlank()){
             fields["telefone"]!!.error = String.format(messageNullable!!,"Telefone")

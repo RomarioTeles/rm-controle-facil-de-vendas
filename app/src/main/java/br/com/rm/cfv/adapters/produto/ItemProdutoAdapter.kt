@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import br.com.rm.numberUtils.DecimalFormatUtils
 
 class ItemProdutoAdapter(
     private var context: Context,
+    private var listener: IOnClickItemProdutoListener,
     private var myDataset: MutableList<ItemProduto>
 ) : RecyclerView.Adapter<ItemProdutoAdapter.ProdutoViewHolder>() {
 
@@ -93,7 +95,13 @@ class ItemProdutoAdapter(
         if(bitmap != null) {
             holder.imageViewProduto.setImageBitmap(bitmap)
         }
+
+        holder.itemView.setOnClickListener{ listener.onItemProdutoClick(item) }
     }
 
     override fun getItemCount() = myDataset.size
+
+    fun getItem(postition: Int) : ItemProduto{
+        return myDataset[postition]
+    }
 }
