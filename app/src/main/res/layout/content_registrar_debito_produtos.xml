@@ -16,20 +16,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:cardElevation="0dp"
             app:cardUseCompatPadding="true"
-            app:contentPadding="16dp">
+            app:contentPadding="8dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-            <TextView android:id="@+id/textViewPesquisar"
-                    android:text="@string/pesquisar_produto"
-                    android:textAllCaps="true"
-                    android:layout_marginBottom="8dp"
-                    android:textSize="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
 
             <EditText android:id="@+id/editTextSearch"
                     android:layout_width="match_parent"
@@ -51,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="96dp"
             android:clipToPadding="false"
             tools:listitem="@layout/recycler_view_item_produto_alt"/>
 

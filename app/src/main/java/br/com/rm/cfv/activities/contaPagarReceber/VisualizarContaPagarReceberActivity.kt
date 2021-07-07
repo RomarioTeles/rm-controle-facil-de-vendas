@@ -29,7 +29,7 @@ class VisualizarContaPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualizar_debito)
         hideFab()
-        debitoCliente = intent.getParcelableExtra(ARG_DEBITO_CLIENTE)
+        debitoCliente = intent.getParcelableExtra(ARG_DEBITO_CLIENTE)!!
 
         if(debitoCliente == null){
             finish()

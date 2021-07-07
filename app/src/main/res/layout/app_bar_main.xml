@@ -3,7 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/cinza_padrao_android">
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
     <FrameLayout android:id="@+id/progress"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 android:background="@android:color/background_dark"
+                 android:background="@color/bg_black_transparencia"
                  android:alpha="0.8"
                  app:layout_constraintTop_toTopOf="parent"
                  android:layout_marginTop="?attr/actionBarSize">
@@ -42,7 +43,7 @@
                 android:text="Aguarde..."
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/primary_text_light"
                 android:textSize="16sp"
                 android:layout_marginBottom="43dip"/>
 
@@ -52,7 +53,6 @@
                 android:layout_height="70dip"
                 android:layout_marginStart="16dip"
                 android:layout_marginEnd="16dip"
-                style="?android:attr/progressBarStyleHorizontal"
                 android:indeterminate="true"
         />
 
@@ -65,9 +65,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@drawable/plus_black_24dp"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

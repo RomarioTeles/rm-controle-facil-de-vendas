@@ -1,9 +1,13 @@
 package br.com.rm.cfv.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.widget.NumberPicker
+import androidx.appcompat.app.AlertDialog
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.balancete.ListaBalanceteActivity
@@ -18,11 +22,15 @@ import br.com.rm.cfv.database.entities.dtos.TotalBalanceteDTO
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_dashboard.button_data
 import java.text.DateFormatSymbols
 import java.util.*
 import kotlin.collections.HashMap
 
 class DashboardActivity : BaseActivity(), IPostExecuteSearch{
+
+    private var ano : Int? = null
+    private var mes : Int? = null
 
     override fun getToobarTitle(): String {
         return getString(R.string.dashboard)
@@ -34,22 +42,25 @@ class DashboardActivity : BaseActivity(), IPostExecuteSearch{
         setContentView(R.layout.activity_dashboard)
 
         val cal = Calendar.getInstance()
-        val mes : Int = cal.get(Calendar.MONTH)
-        val nomeMes = DateFormatSymbols().months.get(mes)
-        val periodo = "${nomeMes} ${cal.get(Calendar.YEAR)}"
-        textViewPeriodo.text = periodo
-        textViewPeriodoReceber.text = periodo
+        ano = cal.get(Calendar.YEAR)
+        mes = cal.get(Calendar.MONTH)
+
+        setLabelButtonPeriodo(mes!!, ano!!)
 
         setEventListeners()
 
         hideFab()
 
-        LoadDataAsync(this).execute()
+        button_data.setOnClickListener { view ->
+            abrirDialogAnoMesPicker()
+        }
+
     }
 
     override fun onResume() {
         super.onResume()
         nav_view.setCheckedItem(R.id.nav_main)
+        LoadDataAsync(this).execute()
     }
 
     override fun getHomeIcon() : Int{
@@ -86,7 +97,6 @@ class DashboardActivity : BaseActivity(), IPostExecuteSearch{
 
         textViewRodapeReceber.setOnClickListener{v -> startActivity(Intent(this, ChartsActivity::class.java))}
 
-        textViewRodapePagar.setOnClickListener{v -> startActivity(Intent(this, ChartsActivity::class.java))}
 
     }
 
@@ -122,31 +132,75 @@ class DashboardActivity : BaseActivity(), IPostExecuteSearch{
         }
     }
 
+    private fun abrirDialogAnoMesPicker(){
+        val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+        val inflater = this.layoutInflater
+
+        val cal = Calendar.getInstance()
+
+        var dialog = inflater.inflate(R.layout.ano_mes_picker, null)
+        val monthPicker = dialog.findViewById<NumberPicker>(R.id.numberpicker_mes)
+        val yearPicker = dialog.findViewById<NumberPicker>(R.id.numberpicker_ano)
+
+        monthPicker.minValue = 1
+        monthPicker.maxValue = 12
+        monthPicker.value = mes!!.plus(1)
+
+        var year = cal.get(Calendar.YEAR)
+        yearPicker.minValue = year - 5
+        yearPicker.maxValue = year
+        yearPicker.value = ano!!
+
+        monthPicker.setOnValueChangedListener { picker, oldVal, newVal -> mes = newVal.minus(1)  }
+
+        yearPicker.setOnValueChangedListener { picker, oldVal, newVal -> ano = newVal }
+
+        builder.setView(dialog).setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+            Log.i("Positive Button", which.toString())
+            val cal = Calendar.getInstance()
+
+            cal.set(Calendar.YEAR, ano!!)
+            cal.set(Calendar.MONTH, mes!!)
+
+            setLabelButtonPeriodo(mes!!, ano!!)
+
+            LoadDataAsync(this).execute(cal)
+
+        })
+
+        builder.show()
+    }
+
+    private fun setLabelButtonPeriodo( mes : Int, ano : Int){
+        button_data.text = "${DateFormatSymbols.getInstance().months.get(mes)} ${ano}".toUpperCase()
+    }
+
     class LoadDataAsync(private var iPostExecuteSearch: IPostExecuteSearch) : AsyncTask<Any, Any, Any>(){
 
         override fun doInBackground(vararg params: Any?): Any {
 
-            val dataFinal: Calendar = if (params.isNotEmpty()) params[0] as Calendar else Calendar.getInstance()
+            val cal: Calendar = if (params.isNotEmpty()) params[0] as Calendar else Calendar.getInstance()
 
             val dao = CfvApplication.database!!.chartsDAO()
 
             var map = HashMap<String, Any>()
 
             val dataInicio: Calendar = Calendar.getInstance()
-            dataInicio.set(Calendar.DAY_OF_MONTH, dataInicio.getMinimum(Calendar.DAY_OF_MONTH))
+            dataInicio.set(Calendar.MONTH, cal.get(Calendar.MONTH))
+            dataInicio.set(Calendar.DAY_OF_MONTH, cal.getMinimum(Calendar.DAY_OF_MONTH))
             dataInicio.set(Calendar.HOUR_OF_DAY, 0)
             dataInicio.set(Calendar.MINUTE, 0)
             dataInicio.set(Calendar.SECOND, 0)
 
-            dataFinal.set(Calendar.DAY_OF_MONTH, dataFinal.getMaximum(Calendar.DAY_OF_MONTH))
-            dataFinal.set(Calendar.HOUR_OF_DAY, 23)
-            dataFinal.set(Calendar.MINUTE, 59)
-            dataFinal.set(Calendar.SECOND, 59)
+            cal.set(Calendar.DAY_OF_MONTH, cal.getMaximum(Calendar.DAY_OF_MONTH))
+            cal.set(Calendar.HOUR_OF_DAY, 23)
+            cal.set(Calendar.MINUTE, 59)
+            cal.set(Calendar.SECOND, 59)
 
-            val totalReceberData = dao.getTotalReceber(dataInicio.timeInMillis, dataFinal.timeInMillis)
+            val totalReceberData = dao.getTotalReceber(dataInicio.timeInMillis, cal.timeInMillis)
             map.put("totalReceberData", totalReceberData)
 
-            val totalPagarData = dao.getTotalPagar(dataInicio.timeInMillis, dataFinal.timeInMillis)
+            val totalPagarData = dao.getTotalPagar(dataInicio.timeInMillis, cal.timeInMillis)
             map.put("totalPagarData", totalPagarData)
 
             val totalBalancete = CfvApplication.database!!.itemBalanceteDAO()

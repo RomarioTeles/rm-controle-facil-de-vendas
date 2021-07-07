@@ -17,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.ImageUtilsActivity.getBitmapFromAbsolutePath
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
@@ -38,7 +37,6 @@ import br.com.rm.cfv.database.entities.*
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_registrar_debito.*
 import kotlinx.android.synthetic.main.content_registrar_debito_adicionar_produto.*
-import kotlinx.android.synthetic.main.content_registrar_debito_cesta.*
 import kotlinx.android.synthetic.main.content_registrar_debito_concluido.*
 import kotlinx.android.synthetic.main.content_registrar_debito_pagamento.*
 import kotlinx.android.synthetic.main.content_registrar_debito_pagamento_meio.*
@@ -50,6 +48,7 @@ import kotlinx.android.synthetic.main.content_registrar_debito_tipo_pagamento.*
 import kotlinx.android.synthetic.main.content_registrar_debito_tipo_vencimento.*
 import java.util.*
 import kotlin.collections.HashMap
+import br.com.rm.cfv.R;
 
 class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClickProdutoListener,
     IPostExecuteInsertAndUpdate, IOnClickItemProdutoListener {
@@ -73,6 +72,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     private lateinit var menu: Menu
     private var mapWizardControls = HashMap<Int, Array<View>>()
     private var flag_cesta : Boolean = false
+    private var isFABOpen : Boolean = false
 
     companion object{
         var ARG_REFERENCIA = "referencia"
@@ -98,7 +98,6 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     }
 
     private fun adicionaAcoesComponentes() {
-        linearLayoutFinalizar.visibility = View.GONE
 
         meioPagamentoAdapter = MeioPagamentoAdapter(this)
         listViewMeioPagamento.adapter = meioPagamentoAdapter
@@ -123,9 +122,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             adapter = itemProdutoAdapter
         }
 
-        hideFabOnScroll(itemProdutoRecyclerView, fabAdicionarMaisProdutos)
-
-        hideFab()
+        fabSettings()
 
         listaLayoutsTela.add(registrarDebitoProdutos)
         listaLayoutsTela.add(registrarDebitoCesta)
@@ -162,21 +159,6 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             } else {
                 false
             }
-        }
-
-        linearLayoutVerCesta.setOnClickListener {
-            if (contaPagarReceber.itemProdutoList.isEmpty()) {
-                Toast.makeText(this, getString(R.string.mensagem_cesta_vazia), Toast.LENGTH_LONG).show()
-            } else {
-                mudaEstadoDaTela(registrarDebitoCesta)
-                linearLayoutFinalizar.visibility = View.VISIBLE
-            }
-        }
-
-        linearLayoutFinalizar.setOnClickListener {
-            textViewPagandoSubtotal.text =
-                getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total))
-            mudaEstadoDaTela(registrarDebitoPagamentoTipo)
         }
 
         buttonCancelarProduto.setOnClickListener {
@@ -274,11 +256,6 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             }
         }
 
-        fabAdicionarMaisProdutos.setOnClickListener {
-            mudaEstadoDaTela(registrarDebitoProdutos)
-            linearLayoutVerCesta.visibility = View.GONE
-        }
-
         listViewMeioPagamento.setOnItemClickListener { parent, view, position, id ->
             contaPagarReceber.meioPagamento = meioPagamentoAdapter.getItem(position)!!.name
             meioPagamentoAdapter.selected = meioPagamentoAdapter.getItem(position)
@@ -335,6 +312,43 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         initListaDeParcelas()
     }
 
+    private fun fabSettings() {
+
+        hideFabOnScroll(produtoRecyclerView, fab())
+        hideFabOnScroll(produtoRecyclerView, fabOptionCesta)
+        hideFabOnScroll(produtoRecyclerView, fabOptionCliente)
+        hideFabOnScroll(produtoRecyclerView, fabOptionPesquisar)
+        hideFabOnScroll(produtoRecyclerView, fabOptionFinalizar)
+
+        fab().setOnClickListener {
+            if (!isFABOpen) {
+                showFABMenu()
+            } else {
+                closeFABMenu()
+            }
+        }
+
+        fabOptionCesta.setOnClickListener{
+            abreCesta()
+        }
+
+        fabOptionCliente.setOnClickListener {
+            abreSelecionarCliente()
+        }
+
+        fabOptionPesquisar.setOnClickListener {
+            mudaEstadoDaTela(registrarDebitoProdutos)
+        }
+
+        fabOptionFinalizar.setOnClickListener {
+            textViewPagandoSubtotal.text =
+                getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.total))
+            mudaEstadoDaTela(registrarDebitoPagamentoTipo)
+        }
+
+        fabOptionPesquisar.hide()
+    }
+
     override fun onItemProdutoClick(item: ItemProduto) {
         itemProdutoEmEdicao = item
         flag_cesta = true
@@ -354,6 +368,21 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
                     .show()
             }
         }
+    }
+    private fun showFABMenu() {
+        isFABOpen = true
+        fabOptionCliente.animate().translationY(-resources.getDimension(R.dimen.standard_55))
+        fabOptionCesta.animate().translationY(-resources.getDimension(R.dimen.standard_105))
+        fabOptionFinalizar.animate().translationY(-resources.getDimension(R.dimen.standard_105))
+        fabOptionPesquisar.animate().translationY(-resources.getDimension(R.dimen.standard_155))
+    }
+
+    private fun closeFABMenu() {
+        isFABOpen = false
+        fabOptionCesta.animate().translationY(0f)
+        fabOptionCliente.animate().translationY(0f)
+        fabOptionPesquisar.animate().translationY(0f)
+        fabOptionFinalizar.animate().translationY(0f)
     }
 
     override fun afterUpdate(result: Any?) {
@@ -389,11 +418,11 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         textViewquantidadeItens.text = contaPagarReceber.itemProdutoList.size.toString()
         textViewSubtotalItens.text =
             getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(contaPagarReceber.getSubtotal(getParcelasComJuros())))
-        if(contaPagarReceber.itemProdutoList.size > 0){
+        /*if(contaPagarReceber.itemProdutoList.size > 0){
             menu.getItem(0).setIcon(R.drawable.basket)
         }else{
             menu.getItem(0).setIcon(R.drawable.basket_off)
-        }
+        }*/
     }
 
     private fun limpaItemProduto() {
@@ -426,12 +455,31 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         }
 
         if (v.id in listViewsPagamento) {
+            hideFab()
             contaPagarReceber.percentualJurosParcelas = getPercentualJuros(contaPagarReceber.qtdeParcelas)
             mudaEstadoTelaPagamento(v)
         } else {
+            showFab()
+            closeFABMenu()
             contaPagarReceber.percentualJurosParcelas = 0.0
             mudaEstadoTelaVenda(v)
         }
+    }
+
+    override fun hideFab() {
+        super.hideFab()
+        fabOptionPesquisar.hide()
+        fabOptionCesta.hide()
+        fabOptionCliente.hide()
+        fabOptionFinalizar.hide()
+    }
+
+    override fun showFab() {
+        super.showFab()
+        fabOptionPesquisar.show()
+        fabOptionCesta.show()
+        fabOptionCliente.show()
+        fabOptionFinalizar.show()
     }
 
     fun mudaEstadoTelaPagamento(v: View) {
@@ -464,14 +512,17 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         registrarDebitoPagamento.visibility = View.GONE
         registrarDebitoResumo.visibility = View.VISIBLE
 
-        linearLayoutFinalizar.visibility = View.GONE
-        linearLayoutVerCesta.visibility = View.GONE
         if (v.id == registrarDebitoAdicionarProduto.id) {
             registrarDebitoResumo.visibility = View.GONE
+            hideFab()
         } else if (v.id == registrarDebitoCesta.id) {
-            linearLayoutFinalizar.visibility = View.VISIBLE
+            fabOptionCesta.hide()
+            fabOptionPesquisar.show()
+            fabOptionFinalizar.show()
         } else if (v.id == registrarDebitoProdutos.id) {
-            linearLayoutVerCesta.visibility = View.GONE
+            fabOptionCesta.show()
+            fabOptionPesquisar.hide()
+            fabOptionFinalizar.hide()
         }
     }
 
@@ -558,7 +609,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        this.menu = menu
+        /*this.menu = menu
         menuInflater.inflate(R.menu.menu_registrar_debito, menu)
         if(contaPagarReceber.idRef!!.compareTo(-1) > 0){
             menu.getItem(1).setIcon(R.drawable.account_black_24dp)
@@ -566,29 +617,37 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
                 menu.getItem(1).setVisible(false)
             }
         }
-        return true
+        return true*/
+        return false;
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_cesta -> {
-                if (contaPagarReceber.itemProdutoList.isEmpty()) {
-                    Toast.makeText(this, getString(R.string.mensagem_cesta_vazia), Toast.LENGTH_LONG).show()
-                } else {
-                    mudaEstadoDaTela(registrarDebitoCesta)
-                    linearLayoutFinalizar.visibility = View.VISIBLE
-                }
+                abreCesta()
                 return true
             }
             R.id.action_ref ->{
-                if(contaPagarReceber.tipoRef == TipoReferencia.CLIENTE) {
-                    val intent = Intent(this, ListaClientesActivity::class.java)
-                    intent.putExtra("SELECTABLE", true)
-                    startActivityForResult(intent, 1)
-                }
+                abreSelecionarCliente()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun abreSelecionarCliente() {
+        if(contaPagarReceber.tipoRef == TipoReferencia.CLIENTE) {
+            val intent = Intent(this, ListaClientesActivity::class.java)
+            intent.putExtra("SELECTABLE", true)
+            startActivityForResult(intent, 1)
+        }
+    }
+
+    private fun abreCesta() {
+        if (contaPagarReceber.itemProdutoList.isEmpty()) {
+            Toast.makeText(this, getString(R.string.mensagem_cesta_vazia), Toast.LENGTH_LONG).show()
+        } else {
+            mudaEstadoDaTela(registrarDebitoCesta)
         }
     }
 
@@ -601,16 +660,18 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     private fun getParcelasComJuros(): Int{
         try{
             val prefParcela = getPreferences().getString("juros_parcela", "1")
-            return prefParcela.toInt()
+            return prefParcela!!.toInt()
         }catch (e: Exception){
             return 1
         }
     }
 
+
+
     private fun getNumeroMaxParcelas(): Int{
         try{
             val prefParcela = getPreferences().getString("max_parcela", "1")
-            return prefParcela.toInt()
+            return prefParcela!!.toInt()
         }catch (e: Exception){
             return 1
         }
@@ -632,7 +693,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     private fun getValorMinimoParcelamento(): Double{
         try {
             val prefValorMin = getPreferences().getString("valor_minimo_parcelamento", "0.0")
-            return prefValorMin.toDouble()
+            return prefValorMin!!.toDouble()
         }catch (e: Exception){
             return 0.0
         }
@@ -663,11 +724,12 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
 
         if(requestCode == 1 && resultCode == Activity.RESULT_OK) {
             if(data!!.hasExtra("result")) {
-                var cliente = data!!.extras.get("result") as Cliente
+                var cliente = data!!.extras!!.get("result") as Cliente
                 contaPagarReceber.tipoRef = cliente.getTipoRef()
                 contaPagarReceber.idRef = cliente.getIdRef()
                 contaPagarReceber.nomeRef = cliente.getNomeRef()
-                menu.getItem(1).setIcon(R.drawable.account_black_24dp)
+                supportActionBar!!.title = cliente.getNomeRef()
+                //menu.getItem(1).setIcon(R.drawable.account_black_24dp)
             }
         }
     }

@@ -64,11 +64,6 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         (nav_view as NavigationView).setNavigationItemSelectedListener(this)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
         progress.visibility = View.GONE
 
         setHomeButtonSettings()
@@ -187,11 +182,11 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         return fab as FloatingActionButton
     }
 
-    fun hideFab(){
+    open fun hideFab(){
         fab().hide()
     }
 
-    fun showFab(){
+    open fun showFab(){
         fab().show()
     }
 

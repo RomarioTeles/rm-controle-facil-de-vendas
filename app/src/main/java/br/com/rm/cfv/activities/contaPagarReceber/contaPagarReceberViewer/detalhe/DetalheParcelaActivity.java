@@ -87,6 +87,10 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
 
             fab().setImageResource(R.drawable.content_save_black_24dp);
 
+            boolean disableButtonSalvar = pagamentoDebito.getValorPago() > 0;
+
+            fab().setEnabled(!disableButtonSalvar);
+
             fab().setOnClickListener(v -> {
                 if(!textInputEditValorPagar.getText().toString().isEmpty()) {
                     pagamentoDebito.setValorPago(Double.valueOf(textInputEditValorPagar.getText().toString()));

@@ -36,10 +36,10 @@ open class PagamentoDebito : Parcelable {
         uid = parcel.readValue(Int::class.java.classLoader) as? Int
         dataHora = parcel.readSerializable() as Date
         dataVencimento = parcel.readSerializable() as Date
-        meioPagamento = parcel.readString()
+        meioPagamento = parcel.readString()!!
         valorPago = parcel.readDouble()
         valor = parcel.readDouble()
-        codigo = parcel.readString()
+        codigo = parcel.readString()!!
         contaPagarReceberId = parcel.readValue(Int::class.java.classLoader) as? Int
     }
 

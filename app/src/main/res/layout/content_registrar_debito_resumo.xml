@@ -8,8 +8,10 @@
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/primaryColor">
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="8dp"
+            app:cardBackgroundColor="@android:color/white">
 
         <LinearLayout
                 android:id="@+id/linearLayoutResumoCesta"
@@ -28,6 +30,16 @@
                     android:orientation="vertical">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:text="@string/itens"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp" />
+
+                <TextView
                         android:id="@+id/textViewquantidadeItens"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -38,16 +50,6 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center|start"
-                        android:text="@string/itens"
-                        android:textAllCaps="true"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="16sp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -55,6 +57,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|start"
+                    android:text="@string/label_subtotal"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primaryTextColor"
+                    android:textSize="16sp" />
 
                 <TextView
                         android:id="@+id/textViewSubtotalItens"
@@ -66,56 +77,10 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center|start"
-                        android:text="@string/label_subtotal"
-                        android:textAllCaps="true"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="16sp" />
 
             </LinearLayout>
 
-            <LinearLayout
-                    android:id="@+id/linearLayoutVerCesta"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
 
-                <TextView
-                        android:id="@+id/textViewVisualizar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center|end"
-                        android:text="@string/ver_cesta"
-                        android:textAllCaps="true"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/linearLayoutFinalizar"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                <TextView
-                        android:id="@+id/textViewFinalizar"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center|end"
-                        android:text="@string/finalizar"
-                        android:textAllCaps="true"
-                        android:textColor="@color/primaryTextColor"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

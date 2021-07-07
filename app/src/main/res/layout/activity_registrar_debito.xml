@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -27,5 +28,50 @@
     <include android:id="@+id/registrarDebitoPagamento"
             layout="@layout/content_registrar_debito_pagamento"
             android:visibility="gone"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabOptionPesquisar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:fabCustomSize="45dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/search" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabOptionFinalizar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:fabCustomSize="45dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/currency_brl" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabOptionCliente"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:fabCustomSize="45dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/account_black_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabOptionCesta"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:fabCustomSize="45dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/basket"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
