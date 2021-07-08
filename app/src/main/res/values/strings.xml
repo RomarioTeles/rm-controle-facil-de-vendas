@@ -133,13 +133,14 @@
     <string name="chart_receitas">Receitas</string>
     <string name="chart_despesas">Despesas</string>
     <string name="currency_format">R$ %1$s</string>
+    <string name="percent_format">%d%%</string>
     <string name="currency_format_negative">- R$ %1$s</string>
     <string name="parcela_x_currency_format">%1$d x R$ %2$s</string>
     <string name="chart_meio_pagamento">Meio de pagamento</string>
     <string name="chart_nenhum_venda_efetivada">Nenhum valor recebido.</string>
     <string name="chart_tipo_pagamento">Tipo de Pagamento</string>
-    <string name="chart_percentual_meios_pagamentos">Percentual por meios de pagamentos.</string>
-    <string name="chart_percentual_tipo_pagamento">Pagamentos à vista vs Pagamentos à prazo</string>
+    <string name="chart_percentual_meios_pagamentos">Percentual por meios de pagamentos</string>
+    <string name="chart_percentual_tipo_pagamento">Percentual a vista e a prazo</string>
     <string name="dashboard">Dashboard</string>
     <string name="dash_nova_venda">Venda</string>
     <string name="dash_estoque">Estoque</string>

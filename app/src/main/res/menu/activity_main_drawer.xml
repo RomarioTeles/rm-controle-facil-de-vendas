@@ -36,11 +36,6 @@
                 android:title="@string/menu_balancete"/>
 
         <item
-                android:id="@+id/nav_charts"
-                android:icon="@drawable/chart_pie"
-                android:title="Graficos"/>
-
-        <item
                 android:id="@+id/nav_departamento"
                 android:icon="@drawable/shape"
                 android:title="@string/menu_categorias"/>

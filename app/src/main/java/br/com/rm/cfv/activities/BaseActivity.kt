@@ -129,7 +129,7 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_main -> {
-                startActivity(Intent(this, DashboardActivity::class.java))
+                startActivity(Intent(this, ChartsActivity::class.java))
             }
             R.id.nav_clientes -> {
                 startActivity(Intent(this, ListaClientesActivity::class.java))
@@ -152,9 +152,7 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.nav_config ->{
                 startActivity(Intent(this, ConfiguracoesActivity::class.java))
             }
-            R.id.nav_charts ->{
-                startActivity(Intent(this, ChartsActivity::class.java))
-            }
+
             R.id.nav_receitas ->{
                 val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
                 val referencia = getArgReferencia(TipoReferencia.RECEITAS)

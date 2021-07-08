@@ -5,7 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -49,7 +48,7 @@ class ItemProdutoAdapter(
 
         val textViewNome = view.findViewById<TextView>(R.id.textView1)
 
-        val textViewPrecoRevenda = view.findViewById<TextView>(R.id.textViewSubtotal)
+        val textViewPrecoRevenda = view.findViewById<TextView>(R.id.textViewPrecoRevenda)
 
         val textViewCodigo = view.findViewById<TextView>(R.id.textView2)
 

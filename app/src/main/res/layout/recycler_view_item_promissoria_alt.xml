@@ -46,11 +46,22 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:maxLines="2"
-                    android:text="R$ 50,55"
+                    android:text="R$ 0,0"
                     android:textAllCaps="true"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewValorPago"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:maxLines="2"
+                android:text="R$ 0,0"
+                android:visibility="gone"
+                android:textAllCaps="true"
+                android:textSize="16sp"/>
 
             <TextView
                     android:id="@+id/textViewStatus"

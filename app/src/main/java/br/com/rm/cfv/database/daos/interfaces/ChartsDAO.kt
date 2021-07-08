@@ -56,4 +56,14 @@ interface ChartsDAO {
             Order by axisX """)
     fun getTotalPagarAgrupadoPorMes(dataInicial: Date, dataFinal: Date): List<BarChartItem>
 
+
+    @Query("""SELECT pr.departamento AS grupo, SUM(coalesce(pd.valor, 0)) AS valor 
+            FROM contapagarreceber c JOIN pagamentodebito pd ON pd.conta_pagar_receber_id = c.uid  
+            JOIN itemproduto it ON it.debito_cliente_id = c.uid 
+            JOIN produto pr ON pr.codigo = it.codigo_produto
+            where c.tipo_ref in ('RECEITAS', 'CLIENTE')
+            and pd.data_vencimento >= :dataInicial and pd.data_vencimento <= :dataFinal and coalesce(pd.valor_pago, 0) > 0
+            group by pr.departamento 
+            order by valor DESC""")
+    fun getTotalPorCategoria(dataInicial: Long, dataFinal: Long): List<ChartGrupoValor>
 }

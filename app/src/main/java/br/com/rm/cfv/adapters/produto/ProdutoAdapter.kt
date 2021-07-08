@@ -19,6 +19,7 @@ class ProdutoAdapter(private var context: Context, private var iOnClickProdutoLi
     class ProdutoViewHolder(val view : View) : RecyclerView.ViewHolder(view){
 
         lateinit var textViewPrecoRevenda : TextView
+        lateinit var textViewPrecoCusto : TextView
         lateinit var  textViewNome : TextView
         lateinit var  textViewCodigo : TextView
         lateinit var  imageViewProduto : ImageView
@@ -37,7 +38,9 @@ class ProdutoAdapter(private var context: Context, private var iOnClickProdutoLi
 
         val textViewNome = view.findViewById<TextView>(R.id.textView1)
 
-        val textViewPrecoRevenda = view.findViewById<TextView>(R.id.textViewSubtotal)
+        val textViewPrecoRevenda = view.findViewById<TextView>(R.id.textViewPrecoRevenda)
+
+        val textViewPrecoCusto = view.findViewById<TextView>(R.id.textViewPrecoCusto)
 
         val textViewCodigo = view.findViewById<TextView>(R.id.textViewCodigo)
 
@@ -49,6 +52,7 @@ class ProdutoAdapter(private var context: Context, private var iOnClickProdutoLi
         holder.textViewNome = textViewNome
         holder.textViewCodigo = textViewCodigo
         holder.imageViewProduto = imageViewProduto
+        holder.textViewPrecoCusto = textViewPrecoCusto
 
         return holder
     }
@@ -63,6 +67,8 @@ class ProdutoAdapter(private var context: Context, private var iOnClickProdutoLi
         holder.textViewCodigo.text = item.codigo
 
         holder.textViewPrecoRevenda.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item!!.precoVenda))
+
+        holder.textViewPrecoCusto.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item!!.precoCusto))
 
         if (item.caminhoImagem != null && !item.caminhoImagem!!.isBlank()) {
             holder.imageViewProduto.setImageBitmap(ImageUtilsActivity.getBitmapFromAbsolutePath(item.caminhoImagem))

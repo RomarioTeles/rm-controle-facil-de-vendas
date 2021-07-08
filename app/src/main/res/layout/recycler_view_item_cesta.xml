@@ -141,7 +141,7 @@
                         android:textAllCaps="true"/>
 
                 <TextView
-                        android:id="@+id/textViewSubtotal"
+                        android:id="@+id/textViewPrecoRevenda"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="bottom|end"

@@ -23,6 +23,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
 
         lateinit var  textViewParcela : TextView
         lateinit var  textViewValor : TextView
+        lateinit var  textViewValorPago : TextView
         lateinit var textViewStatus : TextView
         lateinit var textViewDataVencimento : TextView
     }
@@ -45,6 +46,8 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
 
         val textViewValor = view.findViewById<TextView>(R.id.textViewValor)
 
+        val textViewValorPago = view.findViewById<TextView>(R.id.textViewValorPago)
+
         val textViewStatus = view.findViewById<TextView>(R.id.textViewStatus)
 
        val textViewVencimento     = view.findViewById<TextView>(R.id.textViewVencimento)
@@ -56,6 +59,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
         holder.textViewValor = textViewValor
         holder.textViewStatus = textViewStatus
         holder.textViewDataVencimento = textViewVencimento
+        holder.textViewValorPago = textViewValorPago
 
         return holder
     }
@@ -67,6 +71,8 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
 
         holder.textViewParcela.text = ""//String.format("%dª Parcela", position+1)
         holder.textViewValor.text = context.getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(item.valor))
+        holder.textViewValorPago.text = context.getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(item.valorPago))
+        holder.textViewValorPago.visibility = View.VISIBLE
         var data = DateFormatUtils.format(item.dataVencimento, "dd\nMMMM\nyyyy")
 
         holder.textViewDataVencimento.text = data.toUpperCase()

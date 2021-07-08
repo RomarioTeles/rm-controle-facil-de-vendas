@@ -13,6 +13,7 @@ import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.cfv.constants.TipoPagamento
 import br.com.rm.cfv.database.entities.dtos.BarChartItem
 import br.com.rm.cfv.database.entities.dtos.ChartGrupoValor
+import br.com.rm.cfv.database.entities.dtos.TotalBalanceteDTO
 import br.com.rm.cfv.utils.charts.BarChartUtil
 import br.com.rm.cfv.utils.charts.PieChartUtil
 import br.com.rm.cfv.utils.charts.common.BarChartDataSet
@@ -20,6 +21,10 @@ import br.com.rm.cfv.utils.charts.common.MyValueFormatter
 import br.com.rm.cfv.utils.charts.common.MonthAxisValueFormatter
 import br.com.rm.numberUtils.DecimalFormatUtils
 import kotlinx.android.synthetic.main.activity_charts.*
+import kotlinx.android.synthetic.main.activity_charts.button_data
+import kotlinx.android.synthetic.main.activity_charts.textViewBalancete
+import kotlinx.android.synthetic.main.activity_charts.textViewTotalReceber
+import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import java.text.DateFormatSymbols
 import java.util.*
@@ -35,6 +40,7 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.AppTheme_NoActionBar)
         setContentView(R.layout.activity_charts)
 
         val cal = Calendar.getInstance()
@@ -57,7 +63,11 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
     }
 
     override fun getToobarTitle(): String {
-        return "Gráficos"
+        return "Dashboard"
+    }
+
+    override fun getHomeIcon() : Int{
+        return R.drawable.ic_menu
     }
 
     override fun afterSearch(result: Any?) {
@@ -65,8 +75,39 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
         if(result != null){
             val map = result as Map<String, Any>
 
-            if(map.get("totalReceberData") != null){
-                textViewTotalReceber.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR((map.get("totalReceberData") as Double)))
+            textViewBalancetePorcento.text = ""
+
+            if (map.get("totalBalancete") != null) {
+
+
+                var totalbalancete = (map.get("totalBalancete") as TotalBalanceteDTO)
+
+                textViewBalancete.text = getString(
+                    R.string.currency_format,
+                    DecimalFormatUtils.decimalFormatPtBR(totalbalancete.total())
+                )
+
+                if(totalbalancete.total() <= 0){
+                    textViewBalancete.setTextColor(getColor(R.color.margentaColor))
+                }
+
+                textViewTotalReceitas.text = getString(
+                    R.string.currency_format,
+                    DecimalFormatUtils.decimalFormatPtBR(totalbalancete.totalReceitas)
+                )
+
+                textViewTotalDespesas.text = getString(
+                    R.string.currency_format,
+                    DecimalFormatUtils.decimalFormatPtBR(totalbalancete.totalDespesas)
+                )
+
+                if(totalbalancete.totalReceitas!!.compareTo(0) == 1) {
+                    var percent =
+                        (totalbalancete.total()!!.div(totalbalancete.totalReceitas!!)).times(100)
+
+                    textViewBalancetePorcento.text = DecimalFormatUtils.decimalFormat(percent, 0 ,0) + "%"
+                    progress_balancete.progress = percent.toInt()
+                }
             }
 
             val totalMeioPagData = (map.get("totalMeioPagData") as List<ChartGrupoValor>)
@@ -91,6 +132,18 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             }else{
                 val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
                 createPieChart(getString(R.string.chart_tipo_pagamento), R.id.chart_total_tipo_pag, entries)
+            }
+
+            val totalCategoria = (map.get("totalCategoria") as List<ChartGrupoValor>)
+            if(totalCategoria != null && !totalCategoria.isEmpty()){
+                val entries = LinkedHashMap<String, Float>()
+                totalCategoria.forEach { valor  ->
+                    entries.put(valor.grupo!!!!, valor.total.toFloat())
+                }
+                createPieChart("Por Categoria", R.id.chart_total_categoria, entries)
+            }else{
+                val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
+                createPieChart("Por Categoria", R.id.chart_total_categoria, entries)
             }
 
             if(firstLoad) {
@@ -183,8 +236,9 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             dataFinal.set(Calendar.MINUTE, 59)
             dataFinal.set(Calendar.SECOND, 59)
 
-            val totalReceberData = dao.getTotalReceber(dataInicio.timeInMillis, dataFinal.timeInMillis)
-            map.put("totalReceberData", totalReceberData)
+            val totalBalancete = CfvApplication.database!!.itemBalanceteDAO()
+                .getTotalBalanceteByMesAndAno(dataInicio.get(Calendar.MONTH)+1, dataInicio.get(Calendar.YEAR))
+            map.put("totalBalancete", totalBalancete)
 
             val totalMeioPagData = dao.getTotalPorMeioPagamento(dataInicio.timeInMillis, dataFinal.timeInMillis)
             map.put("totalMeioPagData", totalMeioPagData)
@@ -192,6 +246,8 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             val totalTipoPagData = dao.getTotalPorTipoPagamento(dataInicio.timeInMillis, dataFinal.timeInMillis)
             map.put("totalTipoPagData", totalTipoPagData)
 
+            val totalCategoria = dao.getTotalPorCategoria(dataInicio.timeInMillis, dataFinal.timeInMillis)
+            map.put("totalCategoria", totalCategoria)
 
             dataInicio.set(Calendar.MONTH, 0)
             dataFinal.add(Calendar.MONTH, 12)

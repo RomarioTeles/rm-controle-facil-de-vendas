@@ -49,7 +49,6 @@ public class PieChartUtil implements OnChartValueSelectedListener {
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
         chart.setExtraOffsets(5, 10, 5, 5);
-
         chart.setDragDecelerationFrictionCoef(0.95f);
 
         //chart.setCenterTextTypeface(tfLight);
@@ -77,7 +76,7 @@ public class PieChartUtil implements OnChartValueSelectedListener {
         // add a selection listener
         chart.setOnChartValueSelectedListener(this);
 
-        chart.animateY(1400, Easing.EaseInOutQuad);
+        chart.animateY(1000, Easing.EaseInOutQuad);
         // chart.spin(2000, 0, 360);
 
         Legend l = chart.getLegend();
@@ -92,7 +91,8 @@ public class PieChartUtil implements OnChartValueSelectedListener {
         // entry label styling
         chart.setEntryLabelColor(Color.BLACK);
         chart.setEntryLabelTypeface(tfRegular);
-        chart.setEntryLabelTextSize(12f);
+        chart.setEntryLabelTextSize(10f);
+        chart.setDrawEntryLabels(false);
     }
 
     public void setData(String label, Map<String, Float> dataEntries) {
@@ -132,12 +132,12 @@ public class PieChartUtil implements OnChartValueSelectedListener {
 
         colors.add(ColorTemplate.getHoloBlue());
 
-        dataSet.setColors(colors);
+        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
         //dataSet.setSelectionShift(0f);
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(chart));
-        data.setValueTextSize(14f);
+        data.setValueTextSize(12f);
         data.setValueTextColor(Color.BLACK);
         data.setValueTypeface(tfLight);
         chart.setData(data);

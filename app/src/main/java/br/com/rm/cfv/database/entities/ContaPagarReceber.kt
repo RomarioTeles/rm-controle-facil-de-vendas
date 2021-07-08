@@ -42,14 +42,14 @@ open class ContaPagarReceber() : Parcelable{
         nomeRef = parcel.readString()
         tipoRef = parcel.readString()
         dataHora = parcel.readLong()
-        statusPagamento = parcel.readString()
-        tipoPagamento = parcel.readString()
+        statusPagamento = parcel.readString()!!
+        tipoPagamento = parcel.readString()!!
         dataPrevistaPagamento = parcel.readValue(Long::class.java.classLoader) as? Long
         total = parcel.readDouble()
-        codigo = parcel.readString()
+        codigo = parcel.readString()!!
         qtdeParcelas = parcel.readInt()
         percentualJurosParcelas = parcel.readDouble()
-        meioPagamento = parcel.readString()
+        meioPagamento = parcel.readString()!!
     }
 
     fun getSubtotal(numeroParcelaSomarJuros: Int = 0): Double {

@@ -31,10 +31,10 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
     override fun onViewCreated(viewRoot: View, savedInstanceState: Bundle?) {
         super.onViewCreated(viewRoot, savedInstanceState)
 
-        balancete = arguments!!.getParcelable(BalanceteTipoFragment.ARG_BALANCETE) as Balancete
+        balancete = requireArguments()!!.getParcelable(BalanceteTipoFragment.ARG_BALANCETE) as Balancete
 
         if(balancete == null){
-            activity!!.finish()
+            requireActivity()!!.finish()
         }
 
         textViewlabelMes.text = "${balancete}"
@@ -59,7 +59,7 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
             textViewTotalReceitas.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.totalReceitas))
             textViewTotal.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.total()))
             if(totalBalancete!!.total() < 0){
-                textViewTotal.setTextColor(ContextCompat.getColor(this.context!!, R.color.color_error))
+                textViewTotal.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.color_error))
             }
             val p = PieChartUtil(activity, R.id.chart1)
             p.build()

@@ -3,23 +3,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="4dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
         app:cardUseCompatPadding="true">
 
     <LinearLayout android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
         <TextView android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="bold"
                 android:textSize="16sp"
                 android:gravity="center"
                 android:text="@string/label_adicionar_departamento"
-                android:layout_marginBottom="16dp"/>
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                android:paddingTop="8dp"/>
 
 
         <com.google.android.material.textfield.TextInputLayout

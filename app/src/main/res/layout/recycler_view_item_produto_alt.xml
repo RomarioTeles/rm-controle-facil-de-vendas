@@ -34,8 +34,8 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-                android:id="@+id/textViewCodigo"
-                android:layout_width="match_parent"
+                android:id="@+id/textViewCodigoLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="4dp"
                 android:textSize="14sp"
@@ -44,16 +44,61 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-                android:id="@+id/textViewSubtotal"
-                android:layout_width="match_parent"
+            android:id="@+id/textViewCodigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:text="1"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+
+        <TextView
+            android:id="@+id/textViewPrecoCompraLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Preço Custo"
+            android:paddingTop="4dp"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCodigoLabel"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/textViewPrecoCusto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="4dp"
+            android:text="R$ 10,00"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCodigo" />
+
+        <TextView
+                android:id="@+id/textViewPrecoRevendaLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="R$ 10,00"
-                android:paddingTop="4dp"
+                android:text="Preço Revenda"
                 android:textColor="@color/secondaryTextColor"
-                android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCodigo"
+                android:paddingTop="4dp"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPrecoCompraLabel"
                 app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/textViewPrecoRevenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="4dp"
+            android:text="R$ 10,00"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPrecoCusto" />
 
         <View android:id="@+id/divider"
             android:layout_width="match_parent"
@@ -61,7 +106,7 @@
             android:layout_marginTop="24dp"
             android:background="@color/divider"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSubtotal"/>
+            app:layout_constraintTop_toBottomOf="@+id/textViewPrecoRevenda"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
