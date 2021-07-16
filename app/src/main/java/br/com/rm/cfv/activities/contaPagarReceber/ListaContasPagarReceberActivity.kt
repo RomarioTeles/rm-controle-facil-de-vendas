@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
+import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.activities.receita.CadastrarReceitaDespesaActivity
 import br.com.rm.cfv.adapters.cliente.DebitoClienteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.contaPagarReceber.SelectAllDebitosClienteAsyncTask
 import br.com.rm.cfv.constants.TipoReferencia
+import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.database.entities.DefaultReferencia
+import br.com.rm.cfv.database.entities.Fornecedor
 import br.com.rm.cfv.database.entities.IReferencia
 import br.com.rm.cfv.database.entities.dtos.DebitoClienteDTO
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
@@ -71,11 +74,22 @@ class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
         }
 
         hideFab()
+        hideFabOnScroll(recyclerView, fabAdicionar)
 
         if(referencia.getIdRef()!!.coerceAtLeast(-1) == -1) {
             fabAdicionar.setOnClickListener {
                 val intent = Intent(this, CadastrarReceitaDespesaActivity::class.java)
                 intent.putExtra(CadastrarReceitaDespesaActivity.ARG_TIPO_REF, referencia.getTipoRef())
+                startActivity(intent)
+            }
+        }else{
+            fabAdicionar.setOnClickListener {
+                val intent = Intent(this, RegistrarCompraVendaActivity::class.java)
+                if(referencia.getTipoRef() == TipoReferencia.CLIENTE){
+                    intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Cliente)
+                }else{
+                    intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Fornecedor)
+                }
                 startActivity(intent)
             }
         }

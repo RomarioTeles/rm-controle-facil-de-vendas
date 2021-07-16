@@ -8,6 +8,7 @@ import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.contaPagarReceber.contaPagarReceberViewer.VisualizarContaPagarReceberPagerAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.contaPagarReceber.SelectValorPagarByPagamentoDebitoIdAsyncTask
+import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 import br.com.rm.numberUtils.DecimalFormatUtils
 import com.google.android.material.tabs.TabLayout
@@ -15,14 +16,19 @@ import kotlinx.android.synthetic.main.activity_visualizar_debito.*
 
 class VisualizarContaPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
 
-    lateinit var debitoCliente : PagamentoDebitoSubtotalDTO
+    var debitoCliente : PagamentoDebitoSubtotalDTO? = null
 
     companion object{
         const val ARG_DEBITO_CLIENTE = "DEBITO_CLIENTE"
     }
 
     override fun getToobarTitle(): String {
-        return "Visualizar Débito"
+        if (debitoCliente != null){
+            if(debitoCliente!!.tipoRef == TipoReferencia.RECEITAS){
+                return getString(R.string.title_visualizar_receitas)
+            }
+        }
+        return getString(R.string.title_visualizar_debitos);
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +41,11 @@ class VisualizarContaPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
             finish()
         }else {
             Log.d("DEBITO", debitoCliente.toString())
-            textViewTotalValor.text = DecimalFormatUtils.decimalFormatPtBR(debitoCliente.total)
+            textViewTotalValor.text = DecimalFormatUtils.decimalFormatPtBR(debitoCliente!!.total)
             val sectionsPagerAdapter =
                 VisualizarContaPagarReceberPagerAdapter(
                     this,
-                    debitoCliente,
+                    debitoCliente!!,
                     supportFragmentManager
                 )
             val viewPager: ViewPager = findViewById(R.id.view_pager)

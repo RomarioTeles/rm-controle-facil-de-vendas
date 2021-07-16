@@ -12,16 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.contaPagarReceber.contaPagarReceberViewer.detalhe.DetalheParcelaActivity
 import br.com.rm.cfv.database.entities.PagamentoDebito
+import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.dateutils.DateOperationsUtils
 import br.com.rm.numberUtils.DecimalFormatUtils
 import java.util.*
 
-class ItemPagamentoAdapter(private var context: Context, private var myDataset: MutableList<PagamentoDebito>) : RecyclerView.Adapter<ItemPagamentoAdapter.PagamentoViewHolder>() {
+class ItemPagamentoAdapter(private var context: Context, private var pagamentoDebitoSubtotal: PagamentoDebitoSubtotalDTO, private var myDataset: MutableList<PagamentoDebito>) : RecyclerView.Adapter<ItemPagamentoAdapter.PagamentoViewHolder>() {
 
     class PagamentoViewHolder(val view : View) : RecyclerView.ViewHolder(view){
 
-        lateinit var  textViewParcela : TextView
+        lateinit var  textViewDescricao : TextView
         lateinit var  textViewValor : TextView
         lateinit var  textViewValorPago : TextView
         lateinit var textViewStatus : TextView
@@ -42,7 +43,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_item_promissoria_alt, parent, false) as View
 
-        val textViewParcela = view.findViewById<TextView>(R.id.textViewObservacao)
+        val textViewDescricao = view.findViewById<TextView>(R.id.textViewDescricao)
 
         val textViewValor = view.findViewById<TextView>(R.id.textViewValor)
 
@@ -55,7 +56,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
 
         var holder = PagamentoViewHolder(view)
 
-        holder.textViewParcela = textViewParcela
+        holder.textViewDescricao = textViewDescricao
         holder.textViewValor = textViewValor
         holder.textViewStatus = textViewStatus
         holder.textViewDataVencimento = textViewVencimento
@@ -69,11 +70,11 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
 
         var item = myDataset.get(position)
 
-        holder.textViewParcela.text = ""//String.format("%dª Parcela", position+1)
+        holder.textViewDescricao.text = pagamentoDebitoSubtotal.descricao
         holder.textViewValor.text = context.getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(item.valor))
         holder.textViewValorPago.text = context.getString(R.string.currency_format,DecimalFormatUtils.decimalFormatPtBR(item.valorPago))
         holder.textViewValorPago.visibility = View.VISIBLE
-        var data = DateFormatUtils.format(item.dataVencimento, "dd\nMMMM\nyyyy")
+        var data = DateFormatUtils.format(item.dataVencimento, "dd MMMM yyyy")
 
         holder.textViewDataVencimento.text = data.toUpperCase()
 
@@ -84,7 +85,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
             holder.textViewStatus.text = "PAG. PARCIAL"
             holder.textViewStatus.setTextColor(ContextCompat.getColor(context,R.color.color_success))
         }else if(item.observacao != null){
-            holder.textViewParcela.text = item.observacao
+            holder.textViewDescricao.text = item.observacao
             holder.textViewStatus.text = "PENDENTE"
             holder.textViewStatus.setTextColor(ContextCompat.getColor(context,R.color.color_alert))
         }
@@ -104,7 +105,7 @@ class ItemPagamentoAdapter(private var context: Context, private var myDataset: 
         holder.view.setOnClickListener {
             var intent = Intent(context, DetalheParcelaActivity::class.java)
             intent.putExtra("PagamentoDebito", item)
-            intent.putExtra("parcela", position+1)
+            intent.putExtra("descricao", pagamentoDebitoSubtotal.descricao)
             context.startActivity(intent)
         }
 

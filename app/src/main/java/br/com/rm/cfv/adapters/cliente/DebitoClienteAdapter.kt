@@ -76,7 +76,7 @@ class DebitoClienteAdapter(private var context : Context, private var tipoRef: S
 
         val textViewDataHora = view.findViewById<TextView>(R.id.textViewVencimento)
 
-        val textViewObs = view.findViewById<TextView>(R.id.textViewObservacao)
+        val textViewObs = view.findViewById<TextView>(R.id.textViewDescricao)
 
         val textViewStatus = view.findViewById<TextView>(R.id.textViewStatus)
 
@@ -97,7 +97,7 @@ class DebitoClienteAdapter(private var context : Context, private var tipoRef: S
 
         val item = myDataset[position]
 
-        holder.textViewDataHora.text = DateFormatUtils.format(item.getDataHora(), "dd\nMMMM\nyyyy\nHH:mm").toUpperCase()
+        holder.textViewDataHora.text = DateFormatUtils.format(item.getDataHora(), "dd MMMM yyyy HH:mm").toUpperCase()
 
         holder.textViewTotal.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item.total))
 
@@ -107,13 +107,13 @@ class DebitoClienteAdapter(private var context : Context, private var tipoRef: S
             holder.textViewStatus.setTextColor(context.resources.getColor(R.color.color_success))
         }
 
-        holder.textViewObs.visibility = View.INVISIBLE
+        holder.textViewObs.text = item.descricao
 
         holder.view.setOnClickListener{
 
 
             val settings = BottomSheetDialogSettings(
-                holder.textViewDataHora.text.toString(),
+                item.descricao,
                 false,
                 true,
                 false,

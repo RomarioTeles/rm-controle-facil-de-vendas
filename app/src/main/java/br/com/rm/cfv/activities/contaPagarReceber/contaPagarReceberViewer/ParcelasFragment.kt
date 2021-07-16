@@ -22,7 +22,7 @@ class ParcelasFragment : Fragment() {
         super.onViewCreated(viewRoot, savedInstanceState)
 
         pageViewModel = ViewModelProviders.of(this).get(ParcelasDebitoViewModel::class.java).apply {
-            pagamentoDebito = arguments?.getParcelable(ARG_PAGAMENTO_DEBITO)!!
+            pagamentoDebitoSubtotal = arguments?.getParcelable(ARG_PAGAMENTO_DEBITO)!!
             baseActivity = activity as BaseActivity
             view = viewRoot
         }

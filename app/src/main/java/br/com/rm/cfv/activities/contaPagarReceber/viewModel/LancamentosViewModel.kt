@@ -40,7 +40,7 @@ open class LancamentosViewModel : PageViewModel(), IPostExecuteSearch, IOnClickI
 
     fun buscarLancamentos(){
         val task = SelectAllLancamentosAsyncTask(CfvApplication.database!!.itemProdutoDAO(), this)
-        task.execute(pagamentoDebito.id)
+        task.execute(pagamentoDebitoSubtotal.id)
     }
 
 }

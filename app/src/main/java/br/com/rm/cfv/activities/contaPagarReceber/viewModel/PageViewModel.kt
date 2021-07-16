@@ -7,7 +7,7 @@ import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 
 open class PageViewModel : ViewModel() {
 
-    lateinit var pagamentoDebito : PagamentoDebitoSubtotalDTO
+    lateinit var pagamentoDebitoSubtotal : PagamentoDebitoSubtotalDTO
 
     lateinit var baseActivity: BaseActivity
 

@@ -11,6 +11,11 @@
                 android:title="@string/menu_dash"/>
 
         <item
+            android:id="@+id/nav_venda"
+            android:icon="@drawable/cart"
+            android:title="@string/nova_venda"/>
+
+        <item
                 android:id="@+id/nav_clientes"
                 android:icon="@drawable/account_heart"
                 android:title="@string/menu_clientes"/>

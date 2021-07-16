@@ -78,6 +78,10 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         var ARG_REFERENCIA = "referencia"
     }
 
+    override fun getHomeIcon(): Int {
+        return R.drawable.ic_menu
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
@@ -88,6 +92,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             contaPagarReceber.idRef = referencia.getIdRef()
             contaPagarReceber.nomeRef = referencia.getNomeRef()
             contaPagarReceber.tipoRef = referencia.getTipoRef()
+            supportActionBar!!.title = contaPagarReceber.nomeRef
         }else{
             contaPagarReceber.idRef = -1
             contaPagarReceber.nomeRef = getString(R.string.cliente_nao_informado)
@@ -393,6 +398,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         var task = InsertContaPagarReceberAsyncTask(getCfvApplication().getDataBase(), this)
         contaPagarReceber.itemProdutoList = itemProdutoAdapter.getListaProdutos().toMutableList()
         contaPagarReceber.atualizaTotal(getParcelasComJuros())
+        contaPagarReceber.descricao = "Compra realizada "+ TipoPagamento.getDescricaoPeloNome(contaPagarReceber.tipoPagamento)
         task.execute(contaPagarReceber)
     }
 
@@ -618,7 +624,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             }
         }
         return true*/
-        return false;
+        return true;
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -9,8 +9,8 @@ import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 
 private val TAB_TITLES = arrayOf(
-    R.string.tab_lancamentos,
-    R.string.tab_parcelas
+    R.string.tab_parcelas,
+    R.string.tab_lancamentos
 )
 
 class VisualizarContaPagarReceberPagerAdapter(private val context: Context, private val pagamentoDebito: PagamentoDebitoSubtotalDTO, fm: FragmentManager) :
@@ -19,9 +19,9 @@ class VisualizarContaPagarReceberPagerAdapter(private val context: Context, priv
     override fun getItem(position: Int): Fragment {
         if(count == 2) {
             if (position == 0) {
-                return LancamentosFragment.newInstance(pagamentoDebito)
+                return ParcelasFragment.newInstance(pagamentoDebito)
             }
-            return ParcelasFragment.newInstance(pagamentoDebito)
+            return LancamentosFragment.newInstance(pagamentoDebito)
         }else{
             return ParcelasFragment.newInstance(pagamentoDebito)
         }

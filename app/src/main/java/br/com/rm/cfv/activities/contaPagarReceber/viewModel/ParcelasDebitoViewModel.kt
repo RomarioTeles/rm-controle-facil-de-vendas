@@ -24,7 +24,7 @@ class ParcelasDebitoViewModel : PageViewModel(), IPostExecuteSearch {
     override fun afterSearch(result: Any?) {
         if(result != null){
             listaPagamentos = result as List<PagamentoDebito>
-            itemPagamentoAdapter = ItemPagamentoAdapter(view.context, listaPagamentos.toMutableList())
+            itemPagamentoAdapter = ItemPagamentoAdapter(view.context, pagamentoDebitoSubtotal,  listaPagamentos.toMutableList())
             view.recyclerView.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(context)
@@ -35,7 +35,7 @@ class ParcelasDebitoViewModel : PageViewModel(), IPostExecuteSearch {
 
     fun buscarParcelas(){
         val task = SelectAllParcelasAsyncTask(CfvApplication.database!!.pagamentoDebitoDAO(), this)
-        task.execute(pagamentoDebito.id)
+        task.execute(pagamentoDebitoSubtotal.id)
     }
 
 

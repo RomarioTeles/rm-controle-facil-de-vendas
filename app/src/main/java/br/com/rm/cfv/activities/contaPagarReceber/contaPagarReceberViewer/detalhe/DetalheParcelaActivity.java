@@ -13,8 +13,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Date;
-
 import br.com.rm.cfv.R;
 import br.com.rm.cfv.activities.BaseActivity;
 import br.com.rm.cfv.adapters.MeioPagamentoAdapter;
@@ -40,10 +38,10 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
 
         if(bundle != null) {
             final PagamentoDebito pagamentoDebito = bundle.getParcelable("PagamentoDebito");
-            int parcela = bundle.getInt("parcela");
+            String descricao = bundle.getString("descricao", "");
 
-            TextView textViewParcela = findViewById(R.id.textViewObservacao);
-            textViewParcela.setText(String.valueOf(parcela));
+            TextView textViewDescricao = findViewById(R.id.textViewDescricao);
+            textViewDescricao.setText(descricao);
 
             TextView textViewVencimento = findViewById(R.id.textViewVencimento);
             textViewVencimento.setText(DateFormatUtils.format(pagamentoDebito.getDataVencimento(), "dd/MM/yyyy"));
@@ -107,7 +105,7 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
     @NotNull
     @Override
     public String getToobarTitle() {
-        return "";
+        return "Pagamento";
     }
 
     @Override

@@ -15,7 +15,7 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:text="R$ 0,00"
-            android:background="@color/bg_black_transparencia"
+            android:background="@color/cinza_padrao_android"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/white"
             android:textSize="10sp" />

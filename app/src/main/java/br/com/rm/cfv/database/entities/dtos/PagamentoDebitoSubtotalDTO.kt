@@ -11,6 +11,7 @@ import java.util.*
 open class PagamentoDebitoSubtotalDTO() : Parcelable{
 
     @ColumnInfo(name = "id") var id: Int? = null
+    @ColumnInfo(name = "descricao") var descricao: String? = null
     @ColumnInfo(name = "valorPago") var valorPago: Double? = null
     @ColumnInfo(name = "total") var total: Double? = null
     @ColumnInfo(name = "dataHora") var dataHora: Long? = null
@@ -22,6 +23,7 @@ open class PagamentoDebitoSubtotalDTO() : Parcelable{
         total = parcel.readValue(Double::class.java.classLoader) as? Double
         dataHora = parcel.readValue(Long::class.java.classLoader) as? Long
         tipoRef = parcel.readValue(String::class.java.classLoader) as? String
+        descricao = parcel.readValue(String::class.java.classLoader) as? String
     }
 
     fun getStatus(): String{
@@ -54,6 +56,7 @@ open class PagamentoDebitoSubtotalDTO() : Parcelable{
         parcel.writeValue(total)
         parcel.writeValue(dataHora)
         parcel.writeValue(tipoRef)
+        parcel.writeValue(descricao)
     }
 
     override fun describeContents(): Int {

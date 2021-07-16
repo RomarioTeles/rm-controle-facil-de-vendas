@@ -90,6 +90,7 @@ public class BarChartUtil implements OnChartValueSelectedListener {
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
         chart.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().setEnabled(false);
 
         Legend l = chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);

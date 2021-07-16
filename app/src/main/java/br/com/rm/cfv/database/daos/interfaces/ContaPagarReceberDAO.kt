@@ -8,9 +8,9 @@ import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO
 @Dao
 interface ContaPagarReceberDAO{
 
-    @Query("""SELECT dc.uid AS id, SUM(pd.valor_pago) AS valorPago, dc.total AS total, dc.data_hora AS dataHora  
+    @Query("""SELECT dc.uid AS id, dc.descricao, SUM(pd.valor_pago) AS valorPago, dc.total AS total, dc.data_hora AS dataHora  
             FROM contapagarreceber dc JOIN pagamentodebito pd ON pd.conta_pagar_receber_id = dc.uid 
-            WHERE dc.id_ref = :idRef AND dc.tipo_ref in (:tipoRef)
+            WHERE (:idRef is null or dc.id_ref = :idRef) AND dc.tipo_ref in (:tipoRef)
             GROUP BY dc.uid""" )
     fun getSubtotalPagamentos(idRef : Int, vararg tipoRef: String): List<PagamentoDebitoSubtotalDTO>
 

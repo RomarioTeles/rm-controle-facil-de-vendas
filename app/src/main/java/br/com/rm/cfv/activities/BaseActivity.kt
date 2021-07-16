@@ -23,6 +23,7 @@ import br.com.rm.cfv.activities.balancete.ListaBalanceteActivity
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.configuracao.ConfiguracoesActivity
 import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
+import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
 import br.com.rm.cfv.activities.estoque.ListaEstoqueActivity
 import br.com.rm.cfv.activities.fornecedor.ListaFornecedorActivity
@@ -130,6 +131,9 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         when (item.itemId) {
             R.id.nav_main -> {
                 startActivity(Intent(this, ChartsActivity::class.java))
+            }
+            R.id.nav_venda -> {
+                startActivity(Intent(this, RegistrarCompraVendaActivity::class.java))
             }
             R.id.nav_clientes -> {
                 startActivity(Intent(this, ListaClientesActivity::class.java))

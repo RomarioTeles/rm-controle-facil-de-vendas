@@ -11,6 +11,8 @@ import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.cliente.ListaClientesActivity
+import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
+import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.activities.fornecedor.ListaFornecedorActivity
 import br.com.rm.cfv.adapters.MeioPagamentoAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
@@ -18,7 +20,9 @@ import br.com.rm.cfv.asyncTasks.contaPagarReceber.InsertContaPagarReceberAsyncTa
 import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.cfv.constants.TipoPagamento
 import br.com.rm.cfv.constants.TipoReferencia
+import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.database.entities.ContaPagarReceber
+import br.com.rm.cfv.database.entities.Fornecedor
 import br.com.rm.cfv.database.entities.IReferencia
 import br.com.rm.cfv.utils.EditTextMaskUtil
 import br.com.rm.cfv.utils.ToastUtils
@@ -38,6 +42,8 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
     var contaPagarReceber: ContaPagarReceber = ContaPagarReceber()
 
     lateinit var meioPagamentoAdapter: MeioPagamentoAdapter
+
+    lateinit var referencia: IReferencia
 
     var title = ""
 
@@ -61,8 +67,7 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
             }
 
         }else if(intent!!.hasExtra(ARG_CONTA_PAGAR_RECEBER)){
-            contaPagarReceber = intent.extras!!.getParcelable(ARG_CONTA_PAGAR_RECEBER) as ContaPagarReceber
-            textInputEditMotivo.visibility = View.VISIBLE
+            contaPagarReceber = intent.extras!!.getParcelable(ARG_CONTA_PAGAR_RECEBER)!!
         }
 
         supportActionBar!!.title = getToobarTitle()
@@ -126,7 +131,6 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
             textInputEditDataVencimento.setText(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(dataVenc))
         }
         textInputEditJuros.setText(contaPagarReceber.percentualJurosParcelas.toString())
-        textInputEditMotivo.setText(contaPagarReceber.observacao)
         if(contaPagarReceber.meioPagamento.isNotBlank()){
             meioPagamentoAdapter.setTipoPagamento(contaPagarReceber.tipoPagamento)
             val meioPagamento = MeioPagamento.valueOf(contaPagarReceber.meioPagamento)
@@ -243,6 +247,7 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
 
     fun postSelectReferencia(ref: IReferencia?){
         if(ref != null){
+            referencia = ref
             contaPagarReceber.nomeRef = ref.getNomeRef()
             contaPagarReceber.idRef = ref.getIdRef()
 
@@ -255,7 +260,7 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
 
         if(requestCode == REQUEST_SELECT_REF && resultCode == Activity.RESULT_OK){
             if(data != null && data.hasExtra("result")){
-                postSelectReferencia(data.extras.get("result") as IReferencia)
+                postSelectReferencia(data.extras!!.get("result") as IReferencia)
             }
         }
     }
@@ -267,7 +272,19 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
         } else {
             var conta = result as ContaPagarReceber?
             if (conta!!.uid != null) {
-                this.finish()
+                if(referencia == null){
+                    this.finish()
+                }else if(referencia.getTipoRef() == TipoReferencia.CLIENTE){
+                    val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
+                    intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Cliente)
+                    startActivity(intent)
+                    this.finish()
+                }else if(referencia.getTipoRef() == TipoReferencia.FORNECEDOR){
+                    val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
+                    intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Fornecedor)
+                    startActivity(intent)
+                    this.finish()
+                }
             } else {
                 Toast.makeText(this, getString(R.string.mensagem_erro), Toast.LENGTH_LONG)
                     .show()

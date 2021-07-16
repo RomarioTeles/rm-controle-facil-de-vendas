@@ -169,4 +169,7 @@
     <string name="mensagem_campo_maior_zero">Este campo não aceita zero.</string>
     <string name="pesquisar_produto">Pesquisar produto</string>
     <string name="nova_venda">Nova venda</string>
+    <string name="title_visualizar_receitas">Visualizar Receitas</string>
+    <string name="title_visualizar_debitos">Visualizar Débitos</string>
+    <string name="label_descricao">Descrição:</string>
 </resources>
