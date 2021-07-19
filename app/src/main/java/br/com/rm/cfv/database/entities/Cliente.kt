@@ -90,20 +90,20 @@ open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
                 var dtNow = Date()
                 dtNow = DateOperationsUtils.removeTimeFromDate(dtNow)
                 if (data == null) {
-                    fields!!["dataNascimento"]!!.error = String.format(messageNullable!!, "Data de nascimento")
+                    fields["dataNascimento"]!!.error = String.format(messageNullable!!, "Data de nascimento")
                     hasError = true
                 } else {
                     if(dtNow == data){
-                        fields!!["dataNascimento"]!!.error = String.format(messageInvalid!!, "Data de nascimento")
+                        fields["dataNascimento"]!!.error = String.format(messageInvalid!!, "Data de nascimento")
                         hasError = true
                     }
                     else if (DateOperationsUtils.getMin(data, dtNow) == dtNow) {
-                        fields!!["dataNascimento"]!!.error = String.format(messageInvalid!!, "Data de nascimento")
+                        fields["dataNascimento"]!!.error = String.format(messageInvalid!!, "Data de nascimento")
                         hasError = true
                     }
                 }
             }catch (e : Exception){
-                fields!!["dataNascimento"]!!.error = String.format(messageInvalid!!, "Data de nascimento")
+                fields["dataNascimento"]!!.error = String.format(messageInvalid!!, "Data de nascimento")
                 hasError = true
             }
         }

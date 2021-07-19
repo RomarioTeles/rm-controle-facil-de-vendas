@@ -18,7 +18,7 @@ class BalanceteActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_balancete)
 
-        balancete = intent.extras!!.getParcelable("balancete") as Balancete
+        balancete = intent.extras!!.getParcelable<Balancete>("balancete")!!
 
         if(balancete == null){
             finish()

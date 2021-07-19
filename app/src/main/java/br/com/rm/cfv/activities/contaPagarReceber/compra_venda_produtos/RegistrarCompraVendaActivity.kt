@@ -533,7 +533,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     }
 
     private fun pesquisarProdutos(search: String) {
-        SelectAllProdutosAsyncTask(getCfvApplication().getDataBase()!!.produtoDAO(), this)
+        SelectAllProdutosAsyncTask(getCfvApplication().getDataBase()!!.produtoDAO(), this, considerarEstoque = true)
             .execute(search)
     }
 

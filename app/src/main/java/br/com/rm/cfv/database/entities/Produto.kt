@@ -3,6 +3,8 @@ package br.com.rm.cfv.database.entities
 import androidx.room.*
 import com.google.android.material.textfield.TextInputLayout
 import com.google.common.base.Strings
+import com.opencsv.bean.CsvBindByName
+import com.opencsv.bean.CsvIgnore
 import java.io.Serializable
 import java.util.*
 
@@ -11,14 +13,14 @@ import java.util.*
 )
 @ForeignKey(entity = Departamento::class, parentColumns = ["nome"], childColumns = ["departamento"])
 open class Produto (
-    @PrimaryKey(autoGenerate = true) var uid: Int? = null,
-    @ColumnInfo(name = "nome") var nome: String?,
-    @ColumnInfo(name = "codigo") var codigo: String? = UUID.randomUUID().toString(),
-    @ColumnInfo(name = "preco_tabela") var precoTabela: Double?,
-    @ColumnInfo(name = "preco_custo") var precoCusto: Double?,
-    @ColumnInfo(name = "preco_venda") var precoVenda: Double?,
-    @ColumnInfo(name = "caminho_imagem") var caminhoImagem: String?,
-    @ColumnInfo(name = "departamento") var departamento: String
+    @CsvBindByName(column="uid") @PrimaryKey(autoGenerate = true) var uid: Int? = null,
+    @CsvBindByName(column="nome") @ColumnInfo(name = "nome") var nome: String?,
+    @CsvBindByName(column="codigo") @ColumnInfo(name = "codigo") var codigo: String? = UUID.randomUUID().toString(),
+    @CsvBindByName(column="preco custo") @ColumnInfo(name = "preco_custo") var precoCusto: Double?,
+    @CsvBindByName(column="preco venda") @ColumnInfo(name = "preco_venda") var precoVenda: Double?,
+    @CsvBindByName(column="caminho imagem") @ColumnInfo(name = "caminho_imagem") var caminhoImagem: String?,
+    @CsvBindByName(column="departamento") @ColumnInfo(name = "departamento") var departamento: String,
+    @CsvBindByName(column="permite estoque negativo") @ColumnInfo(name = "permiteEstoqueNegativo") var permiteEstoqueNegativo : Boolean = false
 ) : Serializable{
 
     val messageNullable : String?
@@ -39,11 +41,6 @@ open class Produto (
             hasError = true
         }
 
-        if(precoTabela == null){
-            fields.getValue("precoTabela").error = String.format(messageNullable!!,"Preço de Tabela")
-            hasError = true
-        }
-
         if(precoVenda == null){
             fields.getValue("precoVenda").error = String.format(messageNullable!!,"Preço de Revenda")
             hasError = true
@@ -54,7 +51,7 @@ open class Produto (
             hasError = true
         }
 
-        if(departamento == null || departamento!!.isBlank()){
+        if(departamento.isBlank()){
             fields.getValue("departamento").error = String.format(messageNullable!!,"Departamento")
             hasError = true
         }

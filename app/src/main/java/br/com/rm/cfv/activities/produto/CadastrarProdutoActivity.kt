@@ -63,7 +63,6 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
         mapFields["departamento"] = textInputLayoutDepartamento
         mapFields["precoCusto"] = textInputLayoutPrecoCusto
         mapFields["precoVenda"] = textInputLayoutPrecoRevenda
-        mapFields["precoTabela"] = textInputLayoutPrecoTabela
 
         SelectAllNamesAsyncTask(getCfvApplication().getDataBase()!!.departamentoDAO(), this).execute()
 
@@ -77,13 +76,12 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
             val codigo = textInputEditCodigo.text.toString()
             val nome = textInputEditNome.text.toString()
             val precoCusto = textInputEditPrecoCusto.text.toString()
-            val precoTabela = textInputEditPrecoTabela.text.toString()
             val precoRevenda = textInputEditPrecoRevenda.text.toString()
             val departamento = autocompleteTextViewDepartamento.text.toString()
             val precoCustoToDouble = if (precoCusto.isBlank()) null else precoCusto.toDouble()
-            val precoTabelaToDouble = if (precoTabela.isBlank())null else precoTabela.toDouble()
             val precoRevendaToDouble = if (precoRevenda.isBlank()) null else precoRevenda.toDouble()
-            val produto = Produto(idToInt, nome, codigo, precoTabelaToDouble, precoCustoToDouble, precoRevendaToDouble, saveImage(codigo), departamento)
+            val permiteEstoqueNegativo = switchEstoqueNegativo.isChecked
+            val produto = Produto(idToInt, nome, codigo, precoCustoToDouble, precoRevendaToDouble, saveImage(codigo), departamento, permiteEstoqueNegativo)
 
             if(produto.validate(mapFields)){
                 if(idToInt == null){
@@ -120,7 +118,6 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
                 textInputEditCodigo.setText(produto.codigo)
                 textInputEditNome.setText(produto.nome)
                 textInputEditPrecoCusto.setText(produto.precoCusto!!.toString())
-                textInputEditPrecoTabela.setText(produto.precoTabela!!.toString())
                 textInputEditPrecoRevenda.setText(produto.precoVenda!!.toString())
                 autocompleteTextViewDepartamento.setText(produto.departamento)
                 autocompleteTextViewDepartamento.showDropDown()
@@ -128,6 +125,7 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
                 autocompleteTextViewDepartamento.setSelection(0)
                 autocompleteTextViewDepartamento.listSelection = 0
                 autocompleteTextViewDepartamento.dismissDropDown()
+                switchEstoqueNegativo.isChecked = produto.permiteEstoqueNegativo
 
                 if (produto.caminhoImagem != null && !produto.caminhoImagem!!.isBlank()) {
                     imageFilePath = produto.caminhoImagem!!

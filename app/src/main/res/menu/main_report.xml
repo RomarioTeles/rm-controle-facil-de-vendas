@@ -5,6 +5,6 @@
     <item android:id="@+id/report"
           android:title="Exportar"
           android:orderInCategory="100"
-            android:icon="@drawable/file_export_outline"
+        android:icon="@drawable/ic_menu_share"
           app:showAsAction="ifRoom"/>
 </menu>

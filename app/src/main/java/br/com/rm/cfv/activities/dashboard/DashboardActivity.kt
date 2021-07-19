@@ -1,13 +1,15 @@
-package br.com.rm.cfv.activities
+package br.com.rm.cfv.activities.dashboard
 
-import android.content.DialogInterface
+import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
-import android.widget.NumberPicker
-import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.BaseActivity
+import br.com.rm.cfv.activities.interfaces.ILoadReportData
+import br.com.rm.cfv.activities.reports.ReportsActivity
+import br.com.rm.cfv.activities.reports.ui.main.SelectPeriodoViewModel
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.cfv.constants.TipoPagamento
@@ -17,48 +19,51 @@ import br.com.rm.cfv.database.entities.dtos.TotalBalanceteDTO
 import br.com.rm.cfv.utils.charts.BarChartUtil
 import br.com.rm.cfv.utils.charts.PieChartUtil
 import br.com.rm.cfv.utils.charts.common.BarChartDataSet
-import br.com.rm.cfv.utils.charts.common.MyValueFormatter
 import br.com.rm.cfv.utils.charts.common.MonthAxisValueFormatter
+import br.com.rm.cfv.utils.charts.common.MyValueFormatter
 import br.com.rm.numberUtils.DecimalFormatUtils
-import kotlinx.android.synthetic.main.activity_charts.*
-import kotlinx.android.synthetic.main.activity_charts.button_data
-import kotlinx.android.synthetic.main.activity_charts.textViewBalancete
-import kotlinx.android.synthetic.main.activity_charts.textViewTotalReceber
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.select_periodo_card.*
 import java.text.DateFormatSymbols
+import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
 
-class ChartsActivity : BaseActivity() , IPostExecuteSearch{
+class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
 
-    private var ano : Int? = null
-    private var mes : Int? = null
     private var firstLoad : Boolean = true
+
+    lateinit var selectDataViewModel: SelectPeriodoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar)
-        setContentView(R.layout.activity_charts)
+        setContentView(R.layout.activity_dashboard)
 
-        val cal = Calendar.getInstance()
-        ano = cal.get(Calendar.YEAR)
-        mes = cal.get(Calendar.MONTH)
+        var date = LocalDate.now()
+        var defaultMes = date.month.value
+        var defaultAno = date.year
 
-        setLabelButtonPeriodo(mes!!, ano!!)
-
-        LoadDataAsync(this).execute(cal)
-
-        button_data.setOnClickListener { view ->
-            abrirDialogAnoMesPicker()
+        selectDataViewModel = ViewModelProvider(this).get(SelectPeriodoViewModel::class.java).apply {
+            mes = intent.getIntExtra(ReportsActivity.ARG_MES, defaultMes)
+            ano = intent.getIntExtra(ReportsActivity.ARG_ANO, defaultAno)
+            buttonData = findViewById(R.id.button_data)
+            baseActivity = this@DashboardActivity
+            iLoadReportData = this@DashboardActivity
         }
+
+        selectDataViewModel.init()
+
+        execute(selectDataViewModel.mes!!, selectDataViewModel.ano!!)
 
         fab.hide()
     }
 
-    private fun setLabelButtonPeriodo( mes : Int, ano : Int){
+    @SuppressLint("SetTextI18n")
+    private fun setLabelButtonPeriodo(mes : Int, ano : Int){
         button_data.text = "${DateFormatSymbols.getInstance().months.get(mes)} ${ano}".toUpperCase()
     }
 
@@ -168,44 +173,6 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
 
     }
 
-    private fun abrirDialogAnoMesPicker(){
-        val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
-        val inflater = this.layoutInflater
-
-        val cal = Calendar.getInstance()
-
-        var dialog = inflater.inflate(R.layout.ano_mes_picker, null)
-        val monthPicker = dialog.findViewById<NumberPicker>(R.id.numberpicker_mes)
-        val yearPicker = dialog.findViewById<NumberPicker>(R.id.numberpicker_ano)
-
-        monthPicker.minValue = 1
-        monthPicker.maxValue = 12
-        monthPicker.value = mes!!.plus(1)
-
-        var year = cal.get(Calendar.YEAR)
-        yearPicker.minValue = year - 5
-        yearPicker.maxValue = year
-        yearPicker.value = ano!!
-
-        monthPicker.setOnValueChangedListener { picker, oldVal, newVal -> mes = newVal.minus(1)  }
-
-        yearPicker.setOnValueChangedListener { picker, oldVal, newVal -> ano = newVal }
-
-        builder.setView(dialog).setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
-            Log.i("Positive Button", which.toString())
-            val cal = Calendar.getInstance()
-
-            cal.set(Calendar.YEAR, ano!!)
-            cal.set(Calendar.MONTH, mes!!)
-
-            setLabelButtonPeriodo(mes!!, ano!!)
-
-            LoadDataAsync(this).execute(cal)
-        })
-
-        builder.show()
-    }
-
     private fun createPieChart(title: String, resId: Int, data: Map<String, Float>){
         val p = PieChartUtil(this, resId)
         p.build()
@@ -295,5 +262,12 @@ class ChartsActivity : BaseActivity() , IPostExecuteSearch{
             return entries
         }
 
+    }
+
+    override fun execute(mes: Int, ano: Int) {
+        var cal = Calendar.getInstance()
+        cal.set(Calendar.MONTH, mes.minus(1))
+        cal.set(Calendar.YEAR, ano)
+        LoadDataAsync(this).execute(cal)
     }
 }

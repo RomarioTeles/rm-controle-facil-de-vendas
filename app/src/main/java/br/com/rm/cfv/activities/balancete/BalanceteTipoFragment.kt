@@ -13,7 +13,6 @@ import br.com.rm.cfv.adapters.balancete.ItemBalanceteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.asyncTasks.balancete.SelectAllItemBalanceteAsyncTask
 import br.com.rm.cfv.constants.TipoItemBalancete
-import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.entities.Balancete
 import br.com.rm.cfv.database.entities.ItemBalancete
 import br.com.rm.cfv.utils.reports.CSVReportUtils
@@ -51,21 +50,21 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch, IReportable{
 
         setHasOptionsMenu(true)
 
-        balancete = arguments!!.getParcelable(ARG_BALANCETE) as Balancete
+        balancete = requireArguments().getParcelable<Balancete>(ARG_BALANCETE)!!
 
-        var tabPosition = arguments!!.getInt(ARG_SECTION_NUMBER)
+        var tabPosition = requireArguments().getInt(ARG_SECTION_NUMBER)
 
         filter = if(tabPosition == 1) TipoItemBalancete.RECEITA else TipoItemBalancete.DESPESA
 
         if(balancete == null){
-            activity!!.finish()
+            requireActivity().finish()
         }
 
         viewManager = LinearLayoutManager(activity)
 
-        viewAdapter = ItemBalanceteAdapter(activity!!, myDataset)
+        viewAdapter = ItemBalanceteAdapter(requireActivity(), myDataset)
 
-        recyclerView = view!!.findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
+        recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerViewItens).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
@@ -132,7 +131,7 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch, IReportable{
     }
 
     fun gerarReport(){
-        val storageDir = activity!!.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+        val storageDir = requireActivity()!!.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         val file = File(storageDir, reportFileName)
         file.createNewFile()
         CSVReportUtils.writeCsvFromBean(file.toPath(), myDataset)

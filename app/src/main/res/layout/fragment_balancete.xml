@@ -4,7 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -23,11 +24,12 @@
                     android:id="@+id/textViewlabelMes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:padding="4dp"
                     android:text="Julho 2020"
                     android:textAllCaps="true"
                     android:textSize="16sp"
+                    android:textColor="@android:color/black"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
@@ -38,7 +40,7 @@
                     android:layout_marginTop="20dp"
                     android:padding="4dp"
                     android:text="Receitas"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewlabelMes" />
 
@@ -49,7 +51,7 @@
                     android:layout_marginTop="20dp"
                     android:padding="4dp"
                     android:text="R$ 0,00"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/textViewlabelReceitas"
                     app:layout_constraintTop_toBottomOf="@+id/textViewlabelMes" />
@@ -61,7 +63,7 @@
                     android:layout_marginTop="8dp"
                     android:padding="4dp"
                     android:text="Despesas"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewlabelReceitas" />
 
@@ -72,7 +74,7 @@
                     android:layout_marginTop="8dp"
                     android:padding="4dp"
                     android:text="R$ 0,00"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/textViewlabelDespesas"
                     app:layout_constraintTop_toBottomOf="@+id/textViewTotalReceitas" />
@@ -104,7 +106,7 @@
                     android:layout_marginTop="16dp"
                     android:padding="4dp"
                     android:text="R$ 0,00"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/textViewlabelTotal"
                     app:layout_constraintTop_toBottomOf="@+id/textViewTotalDespesas" />

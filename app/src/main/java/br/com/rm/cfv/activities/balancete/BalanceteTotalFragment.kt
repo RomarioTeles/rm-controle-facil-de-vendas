@@ -31,7 +31,7 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
     override fun onViewCreated(viewRoot: View, savedInstanceState: Bundle?) {
         super.onViewCreated(viewRoot, savedInstanceState)
 
-        balancete = requireArguments()!!.getParcelable(BalanceteTipoFragment.ARG_BALANCETE) as Balancete
+        balancete = requireArguments()!!.getParcelable<Balancete>(BalanceteTipoFragment.ARG_BALANCETE)!!
 
         if(balancete == null){
             requireActivity()!!.finish()

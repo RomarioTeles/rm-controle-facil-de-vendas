@@ -86,7 +86,7 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
         return R.drawable.ic_menu
     }
 
-    fun getAllProdutos(query: String? = null, showProgress: Boolean = true){
+    fun getAllProdutos(query: String? = "", showProgress: Boolean = true){
         val task =
             SelectAllProdutosAsyncTask(
                 getCfvApplication().getDataBase()!!.produtoDAO(),

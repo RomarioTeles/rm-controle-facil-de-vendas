@@ -19,7 +19,7 @@ class DepartamentoAdapter( context : Context, items : MutableList<Departamento>)
 
         var primary = rowView.findViewById<TextView>(R.id.textView1)
 
-        primary.text = getItem(position).nome
+        primary.text = getItem(position)!!.nome
 
         return rowView
     }
