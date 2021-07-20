@@ -1,19 +1,14 @@
-package br.com.rm.cfv.activities.reports.ui.main
+package br.com.rm.cfv.activities
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.util.Log
-import android.widget.Button
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModel
 import br.com.rm.cfv.R
-import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.activities.ChartsActivity
 import br.com.rm.cfv.activities.interfaces.ILoadReportData
-import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import kotlinx.android.synthetic.main.activity_dashboard.*
 import java.text.DateFormatSymbols
 import java.time.LocalDate
 import java.util.*

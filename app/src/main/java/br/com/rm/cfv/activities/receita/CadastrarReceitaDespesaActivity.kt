@@ -36,7 +36,7 @@ import java.util.*
 class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpdate {
 
     override fun getToobarTitle(): String {
-        return if (title == TipoReferencia.RECEITAS) getString(R.string.cadastrar_receita) else getString(R.string.cadastrar_despesa)
+        return if (title == TipoReferencia.RECEITAS.name) getString(R.string.cadastrar_receita) else getString(R.string.cadastrar_despesa)
     }
 
     var contaPagarReceber: ContaPagarReceber = ContaPagarReceber()
@@ -274,12 +274,12 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
             if (conta!!.uid != null) {
                 if(referencia == null){
                     this.finish()
-                }else if(referencia.getTipoRef() == TipoReferencia.CLIENTE){
+                }else if(referencia.getTipoRef() == TipoReferencia.CLIENTE.name){
                     val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
                     intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Cliente)
                     startActivity(intent)
                     this.finish()
-                }else if(referencia.getTipoRef() == TipoReferencia.FORNECEDOR){
+                }else if(referencia.getTipoRef() == TipoReferencia.FORNECEDOR.name){
                     val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
                     intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Fornecedor)
                     startActivity(intent)

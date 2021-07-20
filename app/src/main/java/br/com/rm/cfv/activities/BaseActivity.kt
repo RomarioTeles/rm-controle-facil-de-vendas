@@ -24,10 +24,12 @@ import br.com.rm.cfv.activities.cliente.ListaClientesActivity
 import br.com.rm.cfv.activities.configuracao.ConfiguracoesActivity
 import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
 import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
+import br.com.rm.cfv.activities.dashboard.DashboardActivity
 import br.com.rm.cfv.activities.departamento.DepartamentoActivity
 import br.com.rm.cfv.activities.estoque.ListaEstoqueActivity
 import br.com.rm.cfv.activities.fornecedor.ListaFornecedorActivity
 import br.com.rm.cfv.activities.produto.ListaProdutosActivity
+import br.com.rm.cfv.activities.reports.ReportsActivity
 import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.entities.DefaultReferencia
 import br.com.rm.cfv.database.entities.IReferencia
@@ -130,7 +132,7 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_main -> {
-                startActivity(Intent(this, ChartsActivity::class.java))
+                startActivity(Intent(this, DashboardActivity::class.java))
             }
             R.id.nav_venda -> {
                 startActivity(Intent(this, RegistrarCompraVendaActivity::class.java))
@@ -156,16 +158,19 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             R.id.nav_config ->{
                 startActivity(Intent(this, ConfiguracoesActivity::class.java))
             }
+            R.id.nav_reports -> {
+                startActivity(Intent(this, ReportsActivity::class.java))
+            }
 
             R.id.nav_receitas ->{
                 val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
-                val referencia = getArgReferencia(TipoReferencia.RECEITAS)
+                val referencia = getArgReferencia(TipoReferencia.RECEITAS.name)
                 intent.putExtra(ListaContasPagarReceberActivity.ARG_REFERENCIA, referencia as DefaultReferencia)
                 startActivity(intent)
             }
             R.id.nav_despesas ->{
                 val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
-                val referencia = getArgReferencia(TipoReferencia.DESPESAS)
+                val referencia = getArgReferencia(TipoReferencia.DESPESAS.name)
                 intent.putExtra(ListaContasPagarReceberActivity.ARG_REFERENCIA, referencia as DefaultReferencia)
                 startActivity(intent)
             }
@@ -176,7 +181,7 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     fun getArgReferencia(tipoRef: String) : IReferencia{
-        val nome = if (tipoRef == TipoReferencia.RECEITAS) getString(R.string.menu_receitas) else getString(R.string.menu_despesas)
+        val nome = if (tipoRef == TipoReferencia.RECEITAS.name) getString(R.string.menu_receitas) else getString(R.string.menu_despesas)
         return DefaultReferencia(-1, nome, tipoRef)
     }
 

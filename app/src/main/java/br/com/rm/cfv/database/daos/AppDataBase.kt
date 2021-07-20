@@ -32,4 +32,5 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun balanceteDAO(): BalanceteDAO
     abstract fun itemBalanceteDAO(): ItemBalanceteDAO
     abstract fun chartsDAO(): ChartsDAO
+    abstract fun reportDAO() : ReportDAO
 }

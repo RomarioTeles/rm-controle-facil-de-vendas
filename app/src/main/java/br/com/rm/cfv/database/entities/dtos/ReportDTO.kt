@@ -1,9 +1,7 @@
 package br.com.rm.cfv.database.entities.dtos
 
-class ReportDTO {
+class ReportDTO(var title: String, var footer: String? = null){
 
-    var title : String? = null
-    var footer : String? = null
     var data : List<ReportFields> = mutableListOf()
 
 }

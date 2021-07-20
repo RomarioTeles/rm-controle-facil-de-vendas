@@ -24,7 +24,7 @@ class VisualizarContaPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
 
     override fun getToobarTitle(): String {
         if (debitoCliente != null){
-            if(debitoCliente!!.tipoRef == TipoReferencia.RECEITAS){
+            if(debitoCliente!!.tipoRef == TipoReferencia.RECEITAS.name){
                 return getString(R.string.title_visualizar_receitas)
             }
         }

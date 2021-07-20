@@ -85,7 +85,7 @@ class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
         }else{
             fabAdicionar.setOnClickListener {
                 val intent = Intent(this, RegistrarCompraVendaActivity::class.java)
-                if(referencia.getTipoRef() == TipoReferencia.CLIENTE){
+                if(referencia.getTipoRef() == TipoReferencia.CLIENTE.name){
                     intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Cliente)
                 }else{
                     intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Fornecedor)

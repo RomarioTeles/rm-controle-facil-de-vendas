@@ -19,7 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.reports.ReportsActivity"></activity>
+
+        <activity android:name=".activities.reports.ReportsActivity"
+            android:label="@string/reports"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".activities.receita.CadastrarReceitaDespesaActivity"
             android:label="@string/app_name"

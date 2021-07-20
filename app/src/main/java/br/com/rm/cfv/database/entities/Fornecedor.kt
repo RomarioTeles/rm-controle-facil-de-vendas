@@ -62,7 +62,7 @@ open class Fornecedor (
     }
 
     override fun getTipoRef(): String? {
-        return TipoReferencia.FORNECEDOR
+        return TipoReferencia.FORNECEDOR.name
     }
 
     fun validate(fields : Map<String, TextInputLayout>): Boolean {

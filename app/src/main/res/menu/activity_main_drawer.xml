@@ -16,49 +16,54 @@
             android:title="@string/nova_venda"/>
 
         <item
-                android:id="@+id/nav_clientes"
-                android:icon="@drawable/account_heart"
-                android:title="@string/menu_clientes"/>
+            android:id="@+id/nav_clientes"
+            android:icon="@drawable/account_heart"
+            android:title="@string/menu_clientes"/>
 
         <item
-                android:id="@+id/nav_fornecedores"
-                android:icon="@drawable/account_tie"
-                android:title="@string/menu_fornecedores"/>
+            android:id="@+id/nav_fornecedores"
+            android:icon="@drawable/account_tie"
+            android:title="@string/menu_fornecedores"/>
 
         <item
-                android:id="@+id/nav_receitas"
-                android:icon="@drawable/clipboard_arrow_down"
-                android:title="@string/menu_receitas"/>
+            android:id="@+id/nav_receitas"
+            android:icon="@drawable/clipboard_arrow_down"
+            android:title="@string/menu_receitas"/>
 
         <item
-                android:id="@+id/nav_despesas"
-                android:icon="@drawable/clipboard_arrow_up"
-                android:title="@string/menu_despesas"/>
+            android:id="@+id/nav_despesas"
+            android:icon="@drawable/clipboard_arrow_up"
+            android:title="@string/menu_despesas"/>
 
         <item
-                android:id="@+id/nav_balancete"
-                android:icon="@drawable/clipboard_flow"
-                android:title="@string/menu_balancete"/>
+            android:id="@+id/nav_balancete"
+            android:icon="@drawable/clipboard_flow"
+            android:title="@string/menu_balancete"/>
 
         <item
-                android:id="@+id/nav_departamento"
-                android:icon="@drawable/shape"
-                android:title="@string/menu_categorias"/>
+            android:id="@+id/nav_departamento"
+            android:icon="@drawable/shape"
+            android:title="@string/menu_categorias"/>
 
         <item
-                android:id="@+id/nav_produto"
-                android:icon="@drawable/tag"
-                android:title="@string/menu_produtos"/>
+            android:id="@+id/nav_produto"
+            android:icon="@drawable/tag"
+            android:title="@string/menu_produtos"/>
 
         <item
-                android:id="@+id/nav_estoque"
-                android:icon="@drawable/tag_plus"
-                android:title="@string/menu_estoque"/>
+            android:id="@+id/nav_estoque"
+            android:icon="@drawable/tag_plus"
+            android:title="@string/menu_estoque"/>
 
         <item
-                android:id="@+id/nav_config"
-                android:icon="@drawable/cog"
-                android:title="@string/menu_configuracoes"/>
+            android:id="@+id/nav_reports"
+            android:icon="@drawable/view_list_default"
+            android:title="@string/menu_reports"/>
+
+        <item
+            android:id="@+id/nav_config"
+            android:icon="@drawable/cog"
+            android:title="@string/menu_configuracoes"/>
 
     </group>
 

@@ -32,7 +32,7 @@ class VisualizarContaPagarReceberPagerAdapter(private val context: Context, priv
     }
 
     override fun getCount(): Int {
-        return if (pagamentoDebito.tipoRef in listOf(TipoReferencia.CLIENTE, TipoReferencia.FORNECEDOR)) 2 else 1
+        return if (pagamentoDebito.tipoRef in listOf(TipoReferencia.CLIENTE, TipoReferencia.FORNECEDOR).map { it.name }) 2 else 1
     }
 
 }

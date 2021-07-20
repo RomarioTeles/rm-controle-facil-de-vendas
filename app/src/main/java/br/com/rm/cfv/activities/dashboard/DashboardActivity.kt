@@ -9,7 +9,7 @@ import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.interfaces.ILoadReportData
 import br.com.rm.cfv.activities.reports.ReportsActivity
-import br.com.rm.cfv.activities.reports.ui.main.SelectPeriodoViewModel
+import br.com.rm.cfv.activities.SelectPeriodoViewModel
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.cfv.constants.TipoPagamento

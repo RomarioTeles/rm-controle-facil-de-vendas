@@ -18,40 +18,52 @@
         tools:layout_editor_absoluteX="8dp">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_data"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:drawableEnd="@drawable/calendar_range"
-            android:gravity="center_vertical"
-            android:text="Mês Ano"
-            android:textColor="@android:color/black"
-            android:backgroundTint="@color/secondaryColor"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_report"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableEnd="@drawable/view_list_default"
-            android:gravity="center_vertical"
             android:backgroundTint="@color/secondaryColor"
+            android:drawableEnd="@drawable/view_list_default"
             android:text="Selecione o relatorio"
             android:textColor="@android:color/black"
             android:textStyle="bold"
+            android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button_data"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
-        android:id="@+id/container"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/reports"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:context=".activities.reports.ReportsActivity" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textSize="14sp"
+            android:textColor="@color/secondaryTextColor"
+            android:textAllCaps="true"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewReportData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            tools:listitem="@layout/recycler_view_item_report"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,17 +1,17 @@
 package br.com.rm.cfv.constants
 
-class TipoReferencia{
+enum class TipoReferencia{
+
+    CLIENTE, FORNECEDOR, DESPESAS, RECEITAS;
+
     companion object {
-        fun values(): Array<String> {
-            return arrayOf(CLIENTE, FORNECEDOR, DESPESAS, RECEITAS)
-        }
 
         fun getListDespesas() : List<String> {
-            return listOf(FORNECEDOR, DESPESAS)
+            return listOf(FORNECEDOR, DESPESAS).map { it.name }
         }
 
         fun getListReceitas() : List<String> {
-            return listOf(CLIENTE, RECEITAS)
+            return listOf(CLIENTE, RECEITAS).map { it.name }
         }
 
         fun valuesByTipoRef(tipoRef: String) : List<String>?{
@@ -25,12 +25,5 @@ class TipoReferencia{
                 return null
             }
         }
-
-        val CLIENTE: String = "CLIENTE"
-        val FORNECEDOR: String = "FORNECEDOR"
-        val DESPESAS: String = "DESPESAS"
-        val RECEITAS: String = "RECEITAS"
-
-
     }
 }

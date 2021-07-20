@@ -96,7 +96,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         }else{
             contaPagarReceber.idRef = -1
             contaPagarReceber.nomeRef = getString(R.string.cliente_nao_informado)
-            contaPagarReceber.tipoRef = TipoReferencia.CLIENTE
+            contaPagarReceber.tipoRef = TipoReferencia.CLIENTE.name
         }
 
         adicionaAcoesComponentes()
@@ -543,7 +543,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         itemProdutoEmEdicao.imagePath = produto.caminhoImagem
         itemProdutoEmEdicao.codigoProduto = produto.codigo
         itemProdutoEmEdicao.nomeProduto = produto.nome
-        val preco = if (contaPagarReceber.tipoRef == TipoReferencia.CLIENTE) produto.precoVenda!! else produto.precoCusto!!
+        val preco = if (contaPagarReceber.tipoRef == TipoReferencia.CLIENTE.name) produto.precoVenda!! else produto.precoCusto!!
         itemProdutoEmEdicao.precoUnitario = preco
         itemProdutoEmEdicao.subtotal = preco
 
@@ -642,7 +642,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     }
 
     private fun abreSelecionarCliente() {
-        if(contaPagarReceber.tipoRef == TipoReferencia.CLIENTE) {
+        if(contaPagarReceber.tipoRef == TipoReferencia.CLIENTE.name) {
             val intent = Intent(this, ListaClientesActivity::class.java)
             intent.putExtra("SELECTABLE", true)
             startActivityForResult(intent, 1)
@@ -685,7 +685,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
 
     private fun getJurosValor(): Double{
         try {
-            if(contaPagarReceber.tipoRef == TipoReferencia.FORNECEDOR){
+            if(contaPagarReceber.tipoRef == TipoReferencia.FORNECEDOR.name){
                 return 0.0
             }else {
                 val prefJuros = getPreferences().getString("juros_valor", "0")

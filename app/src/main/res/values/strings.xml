@@ -172,4 +172,6 @@
     <string name="title_visualizar_receitas">Visualizar Receitas</string>
     <string name="title_visualizar_debitos">Visualizar Débitos</string>
     <string name="label_descricao">Descrição:</string>
+    <string name="reports">Relatórios</string>
+    <string name="menu_reports">Relatórios</string>
 </resources>

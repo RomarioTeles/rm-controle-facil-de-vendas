@@ -60,7 +60,7 @@ open class Cliente (@PrimaryKey(autoGenerate = true) var uid: Int? = null,
     }
 
     override fun getTipoRef(): String? {
-        return TipoReferencia.CLIENTE
+        return TipoReferencia.CLIENTE.name
     }
 
     fun validate(fields : Map<String, TextInputLayout>): Boolean {

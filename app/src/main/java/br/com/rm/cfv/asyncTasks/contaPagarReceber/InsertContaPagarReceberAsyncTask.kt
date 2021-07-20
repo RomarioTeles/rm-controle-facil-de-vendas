@@ -74,7 +74,7 @@ open class InsertContaPagarReceberAsyncTask(private var dao: AppDataBase?, priva
 
             var tipoRef = TipoItemBalancete.getByTipoReferencia(conta.tipoRef)
 
-            if (conta.tipoRef == TipoReferencia.CLIENTE || conta.tipoRef == TipoReferencia.RECEITAS) {
+            if (conta.tipoRef == TipoReferencia.CLIENTE.name || conta.tipoRef == TipoReferencia.RECEITAS.name) {
                 tipoRef = TipoItemBalancete.RECEITA
             }
 
@@ -130,12 +130,12 @@ open class InsertContaPagarReceberAsyncTask(private var dao: AppDataBase?, priva
     }
 
     fun atualizaEstoque(dao: AppDataBase, conta: ContaPagarReceber){
-        if(conta.tipoRef == TipoReferencia.FORNECEDOR || conta.tipoRef == TipoReferencia.CLIENTE ) {
+        if(conta.tipoRef == TipoReferencia.FORNECEDOR.name || conta.tipoRef == TipoReferencia.CLIENTE.name ) {
             var itensProdutos = conta.itemProdutoList
             val date = Date().time
             val listaEstoque = mutableListOf<MovimentacaoEstoque>()
-            var tipoMotivoMovimentacao = if (conta.tipoRef == TipoReferencia.FORNECEDOR) TipoMovimentacaoEstoque.ENTRADA else TipoMovimentacaoEstoque.SAIDA
-            var movimentacaoEstoque = if (conta.tipoRef == TipoReferencia.FORNECEDOR) MotivoMovimentacao.COMPRA_MERCADORIA else MotivoMovimentacao.VENDA_MERCADORIA
+            var tipoMotivoMovimentacao = if (conta.tipoRef == TipoReferencia.FORNECEDOR.name) TipoMovimentacaoEstoque.ENTRADA else TipoMovimentacaoEstoque.SAIDA
+            var movimentacaoEstoque = if (conta.tipoRef == TipoReferencia.FORNECEDOR.name) MotivoMovimentacao.COMPRA_MERCADORIA else MotivoMovimentacao.VENDA_MERCADORIA
 
             itensProdutos.forEach {
                 val estoque = MovimentacaoEstoque(
