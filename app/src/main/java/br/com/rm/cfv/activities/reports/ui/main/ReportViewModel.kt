@@ -32,11 +32,17 @@ class ReportViewModel : ViewModel(), ISelectReport{
 
     lateinit var textViewTitle : TextView
 
+    lateinit var textViewFooter : TextView
+
     lateinit var recyclerViewReportData: RecyclerView
 
     lateinit var reportAdapter: ReportAdapter
 
     private val title: MutableLiveData<String> by lazy{
+        MutableLiveData<String>()
+    }
+
+    private val footer: MutableLiveData<String> by lazy{
         MutableLiveData<String>()
     }
 
@@ -56,6 +62,8 @@ class ReportViewModel : ViewModel(), ISelectReport{
 
         textViewTitle = baseActivity.findViewById(R.id.textViewTitle)
 
+        textViewFooter = baseActivity.findViewById(R.id.textViewFooter)
+
         buttonReport = baseActivity.findViewById(R.id.button_report)
 
         recyclerViewReportData = baseActivity.findViewById<RecyclerView>(R.id.recyclerViewReportData).apply{
@@ -72,6 +80,10 @@ class ReportViewModel : ViewModel(), ISelectReport{
             textViewTitle.text = value
         }
 
+        val observerFooter = Observer<String>{ value ->
+            textViewFooter.text = value
+        }
+
         val observerReportFields = Observer<List<ReportFields>> { values ->
             reportAdapter.myDataset.clear()
             reportAdapter.myDataset.addAll(values)
@@ -79,6 +91,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
         }
 
         title.observe(baseActivity, observerTitle)
+        footer.observe(baseActivity, observerFooter)
         reportFieldsList.observe(baseActivity, observerReportFields)
 
         onSelectReport(ReportEnum.CLIENTES_ATRASO)
@@ -92,10 +105,8 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getClientesEmAtraso()
                     withContext(Dispatchers.Main) {
-                        reportFieldsList.value = data.map {
-                            it.valor = DecimalFormatUtils.decimalFormatPtBR(NumberUtils.toDouble(it.valor, 0.0), 2, 2)
-                            it
-                        }
+                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        setReportData(data, total)
                     }
                 }
             }
@@ -103,10 +114,8 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getSaldoClientes()
                     withContext(Dispatchers.Main) {
-                        reportFieldsList.value = data.map {
-                            it.valor = DecimalFormatUtils.decimalFormatPtBR(NumberUtils.toDouble(it.valor, 0.0), 2, 2)
-                            it
-                        }
+                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        setReportData(data, total)
                     }
                 }
             }
@@ -114,7 +123,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getEstoqueBaixoProduto()
                     withContext(Dispatchers.Main) {
-                        reportFieldsList.value = data
+                        setReportData(data)
                     }
                 }
             }
@@ -122,12 +131,57 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getEstoqueProduto()
                     withContext(Dispatchers.Main) {
-                        reportFieldsList.value = data
+                        setReportData(data)
                     }
                 }
             }
+            ReportEnum.PRODUTOS_INVENTARIO -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val data = reportDAO.getInventarioProdutos()
+                    withContext(Dispatchers.Main) {
+                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        setReportData(data, total)
+                    }
+                }
+            }
+            ReportEnum.RECEITAS_ATRASO -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val data = reportDAO.getReceitasEmAtraso()
+                    withContext(Dispatchers.Main) {
+                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        setReportData(data, total)
+                    }
+                }
+            }
+            ReportEnum.DESPESAS_ATRASO -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val data = reportDAO.getDespesasEmAtraso()
+                    withContext(Dispatchers.Main) {
+                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        setReportData(data, total)
+                    }
+                }
+            }
+            ReportEnum.FORNECEDOR_ATRASO -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val data = reportDAO.getFornecedorEmAtraso()
+                    withContext(Dispatchers.Main) {
+                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        setReportData(data, total)
+                    }
+                }
+            }
+
         }
 
+    }
+
+    fun setReportData(data: List<ReportFields>, total: Number = data.size){
+        footer.value = DecimalFormatUtils.decimalFormatPtBR(total, 2, 2)
+        reportFieldsList.value = data.map {
+            it.valor = DecimalFormatUtils.decimalFormatPtBR(NumberUtils.toDouble(it.valor, 0.0), 2, 2)
+            it
+        }
     }
 
     fun openDialogChooseReport(){

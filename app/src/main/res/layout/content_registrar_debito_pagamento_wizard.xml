@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/framelayoutResumoCesta"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/framelayoutResumoCesta"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -39,43 +40,52 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayoutPagamentoBottom"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_gravity="bottom"
+        android:id="@+id/linearLayoutPagamentoBottom"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonVoltar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/label_voltar"
+            android:textColor="@color/primaryColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-                android:id="@+id/buttonVoltar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:textColor="@color/primaryColor"
-                android:text="@string/label_voltar"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:paddingStart="26dp"
-                android:paddingEnd="26dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        <View
+            android:id="@+id/view"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-                android:id="@+id/buttonAvancar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:textColor="@color/primaryColor"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/label_avancar"
-                android:textSize="18sp"
-                android:paddingStart="26dp"
-                android:paddingEnd="26dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAvancar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/label_avancar"
+            android:textColor="@color/primaryColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

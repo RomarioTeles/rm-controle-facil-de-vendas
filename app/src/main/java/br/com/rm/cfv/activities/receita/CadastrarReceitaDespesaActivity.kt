@@ -26,7 +26,6 @@ import br.com.rm.cfv.database.entities.Fornecedor
 import br.com.rm.cfv.database.entities.IReferencia
 import br.com.rm.cfv.utils.EditTextMaskUtil
 import br.com.rm.cfv.utils.ToastUtils
-import br.com.rm.dateutils.DateOperationsUtils
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_cadastrar_receita.*
@@ -43,7 +42,7 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
 
     lateinit var meioPagamentoAdapter: MeioPagamentoAdapter
 
-    lateinit var referencia: IReferencia
+    var referencia: IReferencia? = null
 
     var title = ""
 
@@ -205,11 +204,11 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
         try {
             val dataVencimento = textInputEditDataVencimento.text.toString()
             val data = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(dataVencimento)
-            val today = DateOperationsUtils.removeTimeFromDate(Date())
+            /*val today = DateOperationsUtils.removeTimeFromDate(Date())
             if (data.before(today)){
                 textInputLayoutDataVencimento.error = getString(R.string.data_retroativa)
                 isValid = false
-            }
+            }*/
         } catch (e: Exception) {
             ToastUtils.showToastError(this, getString(R.string.data_invalida))
             isValid = false
@@ -274,12 +273,12 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
             if (conta!!.uid != null) {
                 if(referencia == null){
                     this.finish()
-                }else if(referencia.getTipoRef() == TipoReferencia.CLIENTE.name){
+                }else if(referencia!!.getTipoRef() == TipoReferencia.CLIENTE.name){
                     val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
                     intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Cliente)
                     startActivity(intent)
                     this.finish()
-                }else if(referencia.getTipoRef() == TipoReferencia.FORNECEDOR.name){
+                }else if(referencia!!.getTipoRef() == TipoReferencia.FORNECEDOR.name){
                     val intent = Intent(this, ListaContasPagarReceberActivity::class.java)
                     intent.putExtra(RegistrarCompraVendaActivity.ARG_REFERENCIA, referencia as Fornecedor)
                     startActivity(intent)

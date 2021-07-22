@@ -275,16 +275,16 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
 
         buttonPagAvista.setOnClickListener {
             contaPagarReceber.tipoPagamento = TipoPagamento.A_VISTA
-            buttonPagPrazo.setBackgroundColor(ContextCompat.getColor(this, R.color.secondaryColor))
-            buttonPagAvista.setBackgroundColor(ContextCompat.getColor(this,R.color.secondaryLightColor))
+            buttonPagPrazo.backgroundTintList = ContextCompat.getColorStateList(this, android.R.color.white)
+            buttonPagAvista.backgroundTintList = ContextCompat.getColorStateList(this, R.color.secondaryLightColor)
             meioPagamentoAdapter.setTipoPagamento(TipoPagamento.A_VISTA)
             initListaDeParcelas()
         }
 
         buttonPagPrazo.setOnClickListener {
             contaPagarReceber.tipoPagamento = TipoPagamento.A_PRAZO
-            buttonPagPrazo.setBackgroundColor(ContextCompat.getColor(this,R.color.secondaryLightColor))
-            buttonPagAvista.setBackgroundColor(ContextCompat.getColor(this,R.color.secondaryColor))
+            buttonPagPrazo.backgroundTintList = ContextCompat.getColorStateList(this, R.color.secondaryLightColor)
+            buttonPagAvista.backgroundTintList = ContextCompat.getColorStateList(this, android.R.color.white)
             meioPagamentoAdapter.setTipoPagamento(TipoPagamento.A_PRAZO)
             initListaDeParcelas()
         }
@@ -324,6 +324,12 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         hideFabOnScroll(produtoRecyclerView, fabOptionCliente)
         hideFabOnScroll(produtoRecyclerView, fabOptionPesquisar)
         hideFabOnScroll(produtoRecyclerView, fabOptionFinalizar)
+
+        hideFabOnScroll(itemProdutoRecyclerView, fab())
+        hideFabOnScroll(itemProdutoRecyclerView, fabOptionCesta)
+        hideFabOnScroll(itemProdutoRecyclerView, fabOptionCliente)
+        hideFabOnScroll(itemProdutoRecyclerView, fabOptionPesquisar)
+        hideFabOnScroll(itemProdutoRecyclerView, fabOptionFinalizar)
 
         fab().setOnClickListener {
             if (!isFABOpen) {
@@ -463,6 +469,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         if (v.id in listViewsPagamento) {
             hideFab()
             contaPagarReceber.percentualJurosParcelas = getPercentualJuros(contaPagarReceber.qtdeParcelas)
+            contaPagarReceber.atualizaTotal(contaPagarReceber.qtdeParcelas)
             mudaEstadoTelaPagamento(v)
         } else {
             showFab()
@@ -491,7 +498,8 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     fun mudaEstadoTelaPagamento(v: View) {
         if (v.id != registrarDebitoConcluido.id) {
 
-            if(contaPagarReceber.total >= getValorMinimoParcelamento() && (contaPagarReceber.idRef!!).coerceAtLeast(-1) > -1 ){
+            val hasRef = (contaPagarReceber.idRef != null && contaPagarReceber.idRef != -1)
+            if(hasRef && contaPagarReceber.total >= getValorMinimoParcelamento()){
                 buttonPagPrazo.visibility = View.VISIBLE
             }else{
                 buttonPagPrazo.visibility = View.GONE

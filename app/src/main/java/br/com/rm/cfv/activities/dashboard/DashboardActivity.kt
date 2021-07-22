@@ -57,9 +57,12 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
 
         selectDataViewModel.init()
 
-        execute(selectDataViewModel.mes!!, selectDataViewModel.ano!!)
-
         fab.hide()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        execute(selectDataViewModel.mes!!, selectDataViewModel.ano!!)
     }
 
     @SuppressLint("SetTextI18n")
