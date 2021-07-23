@@ -19,7 +19,7 @@
                 android:textSize="16sp"
                 android:gravity="center"
                 android:text="@string/label_adicionar_departamento"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"
                 android:paddingTop="8dp"/>

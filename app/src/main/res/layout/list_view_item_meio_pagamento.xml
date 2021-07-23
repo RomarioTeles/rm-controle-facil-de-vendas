@@ -8,6 +8,7 @@
             android:id="@+id/imageViewIcon"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:background="@drawable/shape_circle_secondary"
             android:padding="4dp" />
 
     <TextView
@@ -17,8 +18,7 @@
             android:padding="16dp"
             android:text="DINHEIRO"
             android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="14sp" />
 
 </LinearLayout>

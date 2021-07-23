@@ -19,8 +19,7 @@
             android:textColor="@color/secondaryTextColor"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     <CalendarView
             android:id="@+id/calendarView"

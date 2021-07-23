@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="2dp"
-    app:cardCornerRadius="5dp"
-    app:contentPadding="4dp"
+    app:cardCornerRadius="0dp"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +16,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="Description"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/textViewValor"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +29,7 @@
             android:gravity="end"
             android:padding="8dp"
             android:text="valor"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/textViewDescricao"

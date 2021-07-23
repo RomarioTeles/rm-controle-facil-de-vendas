@@ -27,8 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nome"
-                android:textAllCaps="true"
-                android:textColor="@android:color/black"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="14sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>

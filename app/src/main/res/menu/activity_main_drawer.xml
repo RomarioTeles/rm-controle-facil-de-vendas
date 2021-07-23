@@ -7,62 +7,62 @@
 
         <item
                 android:id="@+id/nav_main"
-                android:icon="@drawable/chart_donut"
+                android:icon="@drawable/chart_donut_primary"
                 android:title="@string/menu_dash"/>
 
         <item
             android:id="@+id/nav_venda"
-            android:icon="@drawable/cart"
+            android:icon="@drawable/cart_primary"
             android:title="@string/nova_venda"/>
 
         <item
             android:id="@+id/nav_clientes"
-            android:icon="@drawable/account_heart"
+            android:icon="@drawable/account_heart_primary"
             android:title="@string/menu_clientes"/>
 
         <item
             android:id="@+id/nav_fornecedores"
-            android:icon="@drawable/account_tie"
+            android:icon="@drawable/account_tie_primary"
             android:title="@string/menu_fornecedores"/>
 
         <item
             android:id="@+id/nav_receitas"
-            android:icon="@drawable/clipboard_arrow_down"
+            android:icon="@drawable/clipboard_arrow_down_primary"
             android:title="@string/menu_receitas"/>
 
         <item
             android:id="@+id/nav_despesas"
-            android:icon="@drawable/clipboard_arrow_up"
+            android:icon="@drawable/clipboard_arrow_up_primary"
             android:title="@string/menu_despesas"/>
 
         <item
             android:id="@+id/nav_balancete"
-            android:icon="@drawable/clipboard_flow"
+            android:icon="@drawable/clipboard_flow_primary"
             android:title="@string/menu_balancete"/>
 
         <item
             android:id="@+id/nav_departamento"
-            android:icon="@drawable/shape"
+            android:icon="@drawable/shape_primary"
             android:title="@string/menu_categorias"/>
 
         <item
             android:id="@+id/nav_produto"
-            android:icon="@drawable/tag"
+            android:icon="@drawable/tag_primary"
             android:title="@string/menu_produtos"/>
 
         <item
             android:id="@+id/nav_estoque"
-            android:icon="@drawable/tag_plus"
+            android:icon="@drawable/tag_plus_primary"
             android:title="@string/menu_estoque"/>
 
         <item
             android:id="@+id/nav_reports"
-            android:icon="@drawable/view_list_default"
+            android:icon="@drawable/view_list_default_primary"
             android:title="@string/menu_reports"/>
 
         <item
             android:id="@+id/nav_config"
-            android:icon="@drawable/cog"
+            android:icon="@drawable/cog_primary"
             android:title="@string/menu_configuracoes"/>
 
     </group>

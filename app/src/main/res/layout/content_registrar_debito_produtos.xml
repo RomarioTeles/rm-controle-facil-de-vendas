@@ -28,7 +28,7 @@
                     android:layout_height="48dp"
                     android:maxLines="1"
                     android:inputType="text"
-                    android:drawableEnd="@drawable/search"
+                    android:drawableEnd="@drawable/search_primary"
                     android:background="@drawable/shape_rectangule_rounded_white"
                     android:padding="8dp"
                     android:imeOptions="actionSearch"

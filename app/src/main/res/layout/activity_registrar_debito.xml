@@ -36,37 +36,41 @@
         app:fabCustomSize="45dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:backgroundTint="@color/primaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/search" />
+        app:srcCompat="@drawable/search_primary" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabOptionFinalizar"
         android:layout_width="45dp"
         android:layout_height="45dp"
         app:fabCustomSize="45dp"
+        android:backgroundTint="@color/primaryColor"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/cash" />
+        app:srcCompat="@drawable/credit_card_multiple" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabOptionCliente"
         android:layout_width="45dp"
         android:layout_height="45dp"
         app:fabCustomSize="45dp"
+        android:backgroundTint="@color/primaryColor"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/account_black_24dp" />
+        app:srcCompat="@drawable/account_primary_24dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabOptionCesta"
         android:layout_width="45dp"
         android:layout_height="45dp"
         app:fabCustomSize="45dp"
+        android:backgroundTint="@color/primaryColor"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"

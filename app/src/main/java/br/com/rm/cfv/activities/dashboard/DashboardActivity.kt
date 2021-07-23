@@ -96,7 +96,7 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
                 )
 
                 if(totalbalancete.total() <= 0){
-                    textViewBalancete.setTextColor(getColor(R.color.margentaColor))
+                    textViewBalancete.setTextColor(getColor(R.color.primaryLightColor))
                 }
 
                 textViewTotalReceitas.text = getString(
@@ -164,7 +164,7 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
 
                 val entriesPagar = (map.get("barchartTotalPagardata")) as Map<Float, Float>
                 barchart.build(MonthAxisValueFormatter(barchart.chart), MyValueFormatter("R$"))
-                barchartDataSets.add(BarChartDataSet("Pagar", R.color.margentaColor, entriesPagar))
+                barchartDataSets.add(BarChartDataSet("Pagar", R.color.secondaryLightColor, entriesPagar))
 
                 if (barchartDataSets.isNotEmpty()) {
                     barchart.setData(barchartDataSets)

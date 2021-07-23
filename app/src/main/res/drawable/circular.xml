@@ -36,7 +36,7 @@
                 <gradient
                     android:centerColor="@color/primaryColor"
                     android:endColor="@color/primaryColor"
-                    android:startColor="#00FF00"
+                    android:startColor="@color/primaryLightColor"
                     android:type="sweep" />
 
             </shape>

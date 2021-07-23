@@ -57,7 +57,7 @@
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
                             android:text="Produto"
-                            android:textAllCaps="true"
+                            android:textAllCaps="false"
                             android:textColor="@color/secondaryTextColor"
                             app:layout_constraintStart_toEndOf="@+id/imageViewItemProduto"
                             app:layout_constraintTop_toTopOf="parent"
@@ -74,7 +74,7 @@
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
                             android:text="R$ 0,00"
-                            android:textAllCaps="true"
+                            android:textAllCaps="false"
                             android:textColor="@color/secondaryTextColor"
                             android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@+id/imageViewItemProduto"
@@ -98,8 +98,8 @@
                         android:padding="8dp"
                         android:text="@string/label_subtotal"
                         android:textAlignment="center"
-                        android:textAllCaps="true"
-                        android:textColor="@color/primaryColor"
+                        android:textAllCaps="false"
+                        android:textColor="@color/secondaryTextColor"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
@@ -137,7 +137,7 @@
                             android:layout_height="40dp"
                             android:background="@drawable/shape_button_rounded_accent"
                             android:foreground="?android:attr/selectableItemBackground"
-                            android:src="@drawable/plus_black_24dp" />
+                            android:src="@drawable/plus_white_24dp" />
 
                 </LinearLayout>
 
@@ -147,7 +147,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="8dp"
                         android:text="@string/aplicar_desconto_acrescimo"
-                        android:textAllCaps="true"
+                        android:textAllCaps="false"
                         android:textSize="14sp" />
 
                 <LinearLayout
@@ -218,7 +218,7 @@
                                 android:scaleType="center"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/close" />
+                                app:srcCompat="@drawable/close_primary" />
 
                         <ImageButton
                                 android:id="@+id/imageButtonConfirmDescAcresc"
@@ -232,7 +232,7 @@
                                 android:scaleType="center"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:srcCompat="@drawable/check" />
+                                app:srcCompat="@drawable/check_primary" />
 
                     </LinearLayout>
 
@@ -252,7 +252,7 @@
                             android:layout_marginBottom="8dp"
                             android:layout_weight="1"
                             android:text="@string/label_subtotal"
-                            android:textAllCaps="true"
+                            android:textAllCaps="false"
                             android:textColor="@color/secondaryTextColor"
                             android:textSize="14sp"
                             android:visibility="gone" />

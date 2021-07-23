@@ -1,12 +1,8 @@
 package br.com.rm.cfv.utils.charts.common;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import kotlin.collections.AbstractMutableSet;
 
 public class BarChartDataSet {
 

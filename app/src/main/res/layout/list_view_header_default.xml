@@ -17,12 +17,11 @@
     <TextView android:id="@+id/textView"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:textColor="@color/primaryTextColor"
+              android:textColor="@color/secondaryTextColor"
               android:textStyle="bold"
               android:textAlignment="center"
               android:textSize="16sp"
               android:text="Itens Cadastrados"
-              android:textAllCaps="true"
               android:padding="16dip"/>
 
     </androidx.cardview.widget.CardView>

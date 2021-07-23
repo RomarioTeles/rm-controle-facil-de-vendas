@@ -155,7 +155,9 @@ class CadastrarReceitaDespesaActivity : BaseActivity(), IPostExecuteInsertAndUpd
             val qtdeParcelas = textInputEditQtdeParcelas.text.toString()
             val dataVencimento = textInputEditDataVencimento.text.toString()
             val percentualJuros = textInputEditJuros.text.toString()
+            var meioPagamento : Int = listViewMeioPagamento.selectedItemId.toInt()
 
+            contaPagarReceber.meioPagamento = MeioPagamento.values()[meioPagamento].name
             contaPagarReceber.descricao = descricao
             contaPagarReceber.total = total.toDouble()
             contaPagarReceber.qtdeParcelas = qtdeParcelas.toInt()

@@ -33,7 +33,7 @@
                   android:textSize="25sp"
                   android:textAlignment="center"
                   android:text="@string/toast_title_confirm"
-                  android:textColor="@color/primaryTextColor" />
+                  android:textColor="@color/secondaryTextColor" />
 
         <TextView android:id="@+id/text"
                   android:layout_width="wrap_content"

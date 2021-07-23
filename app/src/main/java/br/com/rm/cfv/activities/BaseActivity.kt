@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -38,7 +37,6 @@ import br.com.rm.cfv.utils.reports.CSVReportUtils
 import br.com.rm.cfv.utils.reports.IReportable
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import java.io.File
@@ -104,7 +102,7 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                if(getHomeIcon() == R.drawable.arrow_left){
+                if(getHomeIcon() == R.drawable.arrow_left_primary){
                     onBackPressed()
                 }else {
                     if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
@@ -267,6 +265,6 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
     }
 
     open fun getHomeIcon(): Int{
-        return R.drawable.arrow_left
+        return R.drawable.arrow_left_primary
     }
 }

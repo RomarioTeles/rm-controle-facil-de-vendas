@@ -7,7 +7,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewStub
-import android.widget.SearchView
+import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
@@ -23,6 +25,7 @@ import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
 import br.com.rm.cfv.database.entities.Produto
 import br.com.rm.cfv.utils.ToastUtils
 import kotlinx.android.synthetic.main.activity_base.*
+
 
 class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClickProdutoListener, IBottomSheetOptions, IPostExecuteDelete{
 
@@ -127,7 +130,7 @@ class ListaProdutosActivity : ImageUtilsActivity(), IPostExecuteSearch, IOnClick
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
-        getMenuInflater().inflate(R.menu.menu_search,menu)
+        menuInflater.inflate(R.menu.menu_search,menu)
 
         var menuItem : MenuItem = menu.findItem(R.id.searchView)
 

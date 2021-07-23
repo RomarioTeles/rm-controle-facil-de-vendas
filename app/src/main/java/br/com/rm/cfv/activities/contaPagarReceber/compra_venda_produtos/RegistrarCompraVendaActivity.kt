@@ -69,7 +69,6 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
     private lateinit var pagWizardViewVoltar: View
     private lateinit var pagWizardViewAvancar: View
     private lateinit var pagWizardViewCurrent: View
-    private lateinit var menu: Menu
     private var mapWizardControls = HashMap<Int, Array<View>>()
     private var flag_cesta : Boolean = false
     private var isFABOpen : Boolean = false
@@ -277,6 +276,8 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             contaPagarReceber.tipoPagamento = TipoPagamento.A_VISTA
             buttonPagPrazo.backgroundTintList = ContextCompat.getColorStateList(this, android.R.color.white)
             buttonPagAvista.backgroundTintList = ContextCompat.getColorStateList(this, R.color.secondaryLightColor)
+            buttonPagAvista.setTextColor(ContextCompat.getColor(this, R.color.primaryTextColor))
+            buttonPagPrazo.setTextColor(ContextCompat.getColor(this, R.color.secondaryTextColor))
             meioPagamentoAdapter.setTipoPagamento(TipoPagamento.A_VISTA)
             initListaDeParcelas()
         }
@@ -285,6 +286,8 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             contaPagarReceber.tipoPagamento = TipoPagamento.A_PRAZO
             buttonPagPrazo.backgroundTintList = ContextCompat.getColorStateList(this, R.color.secondaryLightColor)
             buttonPagAvista.backgroundTintList = ContextCompat.getColorStateList(this, android.R.color.white)
+            buttonPagAvista.setTextColor(ContextCompat.getColor(this, R.color.secondaryTextColor))
+            buttonPagPrazo.setTextColor(ContextCompat.getColor(this, R.color.primaryTextColor))
             meioPagamentoAdapter.setTipoPagamento(TipoPagamento.A_PRAZO)
             initListaDeParcelas()
         }

@@ -19,7 +19,7 @@
                 android:padding="8dp"
                 android:text="@string/cliente_sessao_dados_pessoais"
                 android:textAlignment="center"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textSize="16sp"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -127,7 +127,7 @@
                 android:padding="8dp"
                 android:text="@string/cliente_sessao_endereco"
                 android:textAlignment="center"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textSize="16sp"/>
 
         <com.google.android.material.textfield.TextInputLayout

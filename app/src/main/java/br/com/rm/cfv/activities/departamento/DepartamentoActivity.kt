@@ -6,8 +6,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewStub
 import android.widget.Button
-import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.departamento.DepartamentoAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate

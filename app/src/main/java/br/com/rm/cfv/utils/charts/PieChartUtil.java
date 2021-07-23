@@ -132,13 +132,13 @@ public class PieChartUtil implements OnChartValueSelectedListener {
 
         colors.add(ColorTemplate.getHoloBlue());
 
-        dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        dataSet.setColors(new MyColorTemplate(activity).getCustomColors());
         //dataSet.setSelectionShift(0f);
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(chart));
         data.setValueTextSize(12f);
-        data.setValueTextColor(Color.BLACK);
+        data.setValueTextColor(Color.WHITE);
         data.setValueTypeface(tfLight);
         chart.setData(data);
 

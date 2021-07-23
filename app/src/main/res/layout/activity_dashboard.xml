@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:text="Balancete"
                     android:paddingBottom="16dp"
-                    android:textColor="@color/primaryTextColor"
+                    android:textColor="@color/secondaryTextColor"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -67,7 +67,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="0%"
-                        android:textColor="@color/primaryTextColor"
+                        android:textColor="@color/secondaryTextColor"
                         android:textSize="14sp"/>
 
                 </FrameLayout>
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:text="R$ 0"
                     android:textSize="14sp"
-                    android:textColor="@color/margentaColor"
+                    android:textColor="@color/secondaryLightColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewTotalDespesasLabel" />
 
@@ -152,7 +152,7 @@
                     android:text="@string/chart_projecao_pagar_vs_receber"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/primaryTextColor"
+                    android:textColor="@color/secondaryTextColor"
                     android:textSize="14sp"/>
 
             <com.github.mikephil.charting.charts.BarChart
@@ -175,7 +175,7 @@
                     android:text="@string/chart_percentual_meios_pagamentos"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/primaryTextColor"
+                    android:textColor="@color/secondaryTextColor"
                     android:textSize="14sp"/>
 
             <com.github.mikephil.charting.charts.PieChart
@@ -199,7 +199,7 @@
                     android:text="@string/chart_percentual_tipo_pagamento"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/primaryTextColor"
+                    android:textColor="@color/secondaryTextColor"
                     android:textSize="14sp"/>
 
             <com.github.mikephil.charting.charts.PieChart
@@ -222,7 +222,7 @@
                 android:text="Vendas por departamento"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/primaryTextColor"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="14sp"/>
 
             <com.github.mikephil.charting.charts.PieChart

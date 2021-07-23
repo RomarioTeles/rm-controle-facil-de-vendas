@@ -6,8 +6,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewStub
 import android.widget.*
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity

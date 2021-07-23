@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="2dp"
-    app:cardUseCompatPadding="true">
+    app:cardBackgroundColor="@color/primaryLightColor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutReport"
@@ -17,9 +16,9 @@
             android:id="@+id/button_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/calendar_range"
+            android:drawableEnd="@drawable/calendar_range_secondary"
             android:drawablePadding="4dp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/primaryTextColor"
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:padding="16dp"

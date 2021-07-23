@@ -1,166 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
 
     <TextView
-            android:id="@+id/title"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Ações"
+        android:textAllCaps="false"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/adicionar_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/plus_default" />
+
+        <TextView
+            android:id="@+id/adicionar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:gravity="center"
+            android:gravity="start"
             android:padding="16dp"
-            android:textAllCaps="true"
-            android:text="Ações"
+            android:text="Adicionar"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="18sp" />
 
-    <LinearLayout android:id="@+id/adicionar_parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/selecionar_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/plus_default"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"/>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/check_default" />
 
         <TextView
-                android:id="@+id/adicionar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="start"
-                android:padding="16dp"
-                android:text="Adicionar"
-                android:textSize="18sp" />
+            android:id="@+id/selecionar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="start"
+            android:padding="16dp"
+            android:text="Selecionar"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
-    <LinearLayout android:id="@+id/selecionar_parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/listar_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/check_default"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"/>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/view_list_default_primary" />
 
         <TextView
-                android:id="@+id/selecionar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="start"
-                android:padding="16dp"
-                android:text="Selecionar"
-                android:textSize="18sp" />
+            android:id="@+id/listar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="start"
+            android:padding="16dp"
+            android:text="Listar"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
-    <LinearLayout android:id="@+id/listar_parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/editar_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/view_list_default"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"/>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/playlist_edit_default" />
 
         <TextView
-                android:id="@+id/listar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="start"
-                android:padding="16dp"
-                android:text="Listar"
-                android:textSize="18sp" />
+            android:id="@+id/editar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="start"
+            android:padding="16dp"
+            android:textColor="@color/secondaryTextColor"
+            android:text="Editar"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
-    <LinearLayout android:id="@+id/editar_parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/remover_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/playlist_edit_default"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"/>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/delete_default" />
 
         <TextView
-                android:id="@+id/editar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="start"
-                android:padding="16dp"
-                android:text="Editar"
-                android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <LinearLayout android:id="@+id/remover_parent"
+            android:id="@+id/remover"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <ImageView
-                android:src="@drawable/delete_default"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"/>
-
-        <TextView
-                android:id="@+id/remover"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="start"
-                android:padding="16dp"
-                android:text="Excluir"
-                android:textSize="18sp" />
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="start"
+            android:padding="16dp"
+            android:text="Excluir"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
-                android:src="@drawable/close_default"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"/>
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/close_default" />
 
         <TextView
-                android:id="@+id/cancelar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="start"
-                android:padding="16dp"
-                android:text="Cancelar"
-                android:textSize="18sp" />
+            android:id="@+id/cancelar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="start"
+            android:padding="16dp"
+            android:text="Cancelar"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

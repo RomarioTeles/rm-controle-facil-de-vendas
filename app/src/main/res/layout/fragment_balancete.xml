@@ -27,9 +27,9 @@
                     android:gravity="start"
                     android:padding="4dp"
                     android:text="Julho 2020"
-                    android:textAllCaps="true"
+                    android:textAllCaps="false"
                     android:textSize="16sp"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/primaryTextColor"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 

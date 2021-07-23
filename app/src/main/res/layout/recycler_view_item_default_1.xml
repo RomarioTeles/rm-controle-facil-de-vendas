@@ -16,8 +16,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="18sp"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"/>
+            android:textColor="@color/secondaryTextColor"/>
 
     <View android:id="@+id/divider"
             android:layout_width="match_parent"

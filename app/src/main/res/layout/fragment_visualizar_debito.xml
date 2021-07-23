@@ -11,6 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="70dp"
-            tools:listitem="@layout/recycler_view_item_cesta"/>
+            tools:listitem="@layout/recycler_view_item_cesta_alt"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

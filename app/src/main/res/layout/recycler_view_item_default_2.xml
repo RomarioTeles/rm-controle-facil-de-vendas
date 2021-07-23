@@ -12,8 +12,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="8dp"
-            android:src="@drawable/account_white_24dp"
-            android:background="@drawable/shape_circle_gray"
+            android:src="@drawable/account_secondary_24dp"
+            android:background="@drawable/shape_circle_secondary"
             android:visibility="visible" />
 
     <LinearLayout
@@ -28,8 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nome"
-                android:textAllCaps="true"
-                android:textColor="@android:color/black"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="18sp" />
 
         <TextView

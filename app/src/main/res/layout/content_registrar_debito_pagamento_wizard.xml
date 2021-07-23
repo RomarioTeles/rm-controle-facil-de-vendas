@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="top"
-            android:background="@color/primaryColor"
+            android:background="@color/primaryLightColor"
             android:orientation="horizontal"
             android:padding="8dp">
 
@@ -23,8 +23,7 @@
                 android:gravity="center|start"
                 android:text="Pagando"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp"/>
 
         <TextView
                 android:id="@+id/textViewPagandoSubtotal"
@@ -34,8 +33,7 @@
                 android:gravity="center|end"
                 android:text="R$ 0,00"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp"/>
 
     </LinearLayout>
 
@@ -45,17 +43,15 @@
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonVoltar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:backgroundTint="@color/primaryColor"
             android:text="@string/label_voltar"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/primaryTextColor"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -76,10 +72,10 @@
             android:id="@+id/buttonAvancar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
+            android:backgroundTint="@color/primaryColor"
             android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/label_avancar"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/primaryTextColor"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:text="1º Parcela"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
 
@@ -54,8 +54,8 @@
                     android:layout_weight="4"
                     android:maxLines="2"
                     android:text="R$ 0,0"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/black"
+                    android:textAllCaps="false"
+                    android:textColor="@color/secondaryTextColor"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
                 android:maxLines="2"
                 android:text="R$ 0,0"
                 android:visibility="gone"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:textSize="16sp"/>
 
             <TextView
@@ -78,7 +78,7 @@
                     android:gravity="end"
                     android:maxLines="2"
                     android:text="PENDENTE"
-                    android:textAllCaps="true"
+                    android:textAllCaps="false"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="12sp"
                     android:textStyle="bold" />

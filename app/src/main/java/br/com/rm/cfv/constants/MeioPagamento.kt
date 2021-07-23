@@ -9,7 +9,7 @@ enum class MeioPagamento(val descricao: String, val res: Int) {
     CARTAO_CREDITO("Cartão de crédito", R.drawable.credit_card),
     CARTAO_DEBITO("Cartão de débito", R.drawable.credit_card),
     VALE_REFEICAO("Vale refeição", R.drawable.food),
-    VALE_ALIMENTACAO("Vale alimentação", R.drawable.cart),
+    VALE_ALIMENTACAO("Vale alimentação", R.drawable.cart_primary),
     CREDITO_LOJA("Crédito da loja", R.drawable.store),
     VALE_PRESENTE("Vale presente", R.drawable.wallet_giftcard),
     OUTROS("Outros", R.drawable.credit_card_multiple);

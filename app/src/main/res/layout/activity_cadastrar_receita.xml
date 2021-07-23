@@ -1,236 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        tools:context=".activities.receita.CadastrarReceitaDespesaActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    tools:context=".activities.receita.CadastrarReceitaDespesaActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="50dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutDescricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="50dp">
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutDescricao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:paddingTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginBottom="8dp"
+            android:paddingTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditDescricao"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Descrição"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLength="20"
-                    android:maxLines="1" />
+                android:id="@+id/textInputEditDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descrição"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLength="20"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutTotal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:paddingTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescricao">
+            android:id="@+id/textInputLayoutTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDescricao">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditTotal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Valor"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1" />
+                android:id="@+id/textInputEditTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Valor"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-                android:id="@+id/textViewTipoPagamento"
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayoutRef"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTotal">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutNomeRef"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="4dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:text="@string/label_tipo_pagamento"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTotal" />
-
-        <RadioGroup
-                android:id="@+id/radioTipoPag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTipoPagamento">
-
-            <RadioButton
-                    android:id="@+id/radioAvista"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:text="@string/label_pagamento_a_vista"
-                    android:textColor="@color/cinza_padrao_android"
-                    android:textSize="16sp" />
-
-            <RadioButton
-                    android:id="@+id/radioAPrazo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:text="@string/label_pagamento_a_prazo"
-                    android:textColor="@color/cinza_padrao_android"
-                    android:textSize="16sp" />
-        </RadioGroup>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutQtdeParcelas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="180dp"
+                android:layout_weight="2"
                 android:paddingTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioTipoPag">
 
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditQtdeParcelas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Quantidade Parcelas"
-                    android:imeOptions="actionNext"
-                    android:enabled="false"
-                    android:inputType="number"
-                    android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutDataVencimento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:paddingTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutQtdeParcelas">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditDataVencimento"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Data vencimento"
-                    android:enabled="false"
-                    android:imeOptions="actionNext"
-                    android:inputType="date"
-                    android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutJuros"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:paddingTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDataVencimento">
-
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textInputEditJuros"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Juros"
-                    android:enabled="false"
-                    android:imeOptions="actionNext"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-                android:id="@+id/textViewMeioPagLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="4dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:text="@string/label_meio_pagamento"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutJuros" />
-
-        <Spinner
-                android:id="@+id/listViewMeioPagamento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="40dp"
-                android:spinnerMode="dialog"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMeioPagLabel" />
-
-        <LinearLayout
-                android:id="@+id/linearLayoutRef"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listViewMeioPagamento">
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayoutNomeRef"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:paddingTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/radioTipoPag">
-
                 <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputEditNomeRef"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Cliente ou Fornecedor"
-                        android:imeOptions="actionNext"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:maxLines="1" />
+                    android:id="@+id/textInputEditNomeRef"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Cliente ou Fornecedor"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
-                    android:id="@+id/selecionarRef"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/shape_rectangule_rounded_primary"
-                    android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    android:src="@drawable/search" />
+                android:id="@+id/selecionarRef"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_circle_secondary"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:src="@drawable/search_secondary" />
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textViewTipoPagamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="@string/label_tipo_pagamento"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutRef" />
+
+        <RadioGroup
+            android:id="@+id/radioTipoPag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTipoPagamento">
+
+            <RadioButton
+                android:id="@+id/radioAvista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="8dp"
+                android:text="@string/label_pagamento_a_vista"
+                android:textColor="@color/cinza_padrao_android"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radioAPrazo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="8dp"
+                android:text="@string/label_pagamento_a_prazo"
+                android:textColor="@color/cinza_padrao_android"
+                android:textSize="16sp" />
+        </RadioGroup>
+
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutMotivo"
+            android:id="@+id/textInputLayoutQtdeParcelas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="180dp"
+            android:paddingTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioTipoPag">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditQtdeParcelas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:paddingTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutRef">
+                android:enabled="false"
+                android:hint="Quantidade Parcelas"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutDataVencimento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutQtdeParcelas">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditDataVencimento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Data vencimento"
+                android:imeOptions="actionNext"
+                android:inputType="date"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutJuros"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:paddingTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDataVencimento">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditJuros"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Juros"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textViewMeioPagLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="@string/label_meio_pagamento"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutJuros" />
+
+        <Spinner
+            android:id="@+id/listViewMeioPagamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:spinnerMode="dialog"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMeioPagLabel" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

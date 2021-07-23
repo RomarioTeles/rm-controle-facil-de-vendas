@@ -8,15 +8,28 @@
     <color name="color_error">#FF1616</color>
     <color name="color_alert">#FFBD16</color>
 
-    <color name="primaryColor">#00c853</color>
-    <color name="primaryLightColor">#5efc82</color>
-    <color name="primaryDarkColor">#009624</color>
-    <color name="secondaryColor">#00bfa5</color>
-    <color name="secondaryLightColor">#5df2d6</color>
-    <color name="secondaryDarkColor">#008e76</color>
-    <color name="primaryTextColor">#000000</color>
-    <color name="secondaryTextColor">#000000</color>
+    <color name="primaryColor">#2962ff</color>
+    <color name="primaryLightColor">#768fff</color>
+    <color name="primaryDarkColor">#0039cb</color>
+    <color name="secondaryColor">#0d47a1</color>
+    <color name="secondaryLightColor">#5472d3</color>
+    <color name="secondaryDarkColor">#002171</color>
+    <color name="primaryTextColor">#fff</color>
+    <color name="secondaryTextColor">#000</color>
+    <color name="secondaryIconsColor">#000</color>
+    <color name="primaryIconsColor">#fff</color>
     <color name="margentaColor">#FF0051</color>
     <color name="cinza_padrao_android">#808080</color>
+
+    <color name="chart_variante_1">#0d47a1</color>
+    <color name="chart_variante_2">#1565c0</color>
+    <color name="chart_variante_3">#1976d2</color>
+    <color name="chart_variante_4">#1e88e5</color>
+    <color name="chart_variante_5">#2196f3</color>
+    <color name="chart_variante_6">#01579b</color>
+    <color name="chart_variante_7">#0277bd</color>
+    <color name="chart_variante_8">#0288d1</color>
+    <color name="chart_variante_9">#039be5</color>
+    <color name="chart_variante_10">#03a9f4</color>
 
 </resources>

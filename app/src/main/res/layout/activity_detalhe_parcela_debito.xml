@@ -17,9 +17,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Detalhes"
-                android:textColor="@android:color/black"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="14sp"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:layout_marginBottom="8dp"/>
 
         <View   android:layout_width="match_parent"
@@ -101,10 +101,10 @@
                 android:layout_height="wrap_content"
                 android:text="Pagamento"
                 android:textSize="14sp"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="16dp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@color/secondaryTextColor"/>
 
         <View
                 android:layout_width="match_parent"

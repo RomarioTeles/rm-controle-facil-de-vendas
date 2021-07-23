@@ -4,13 +4,14 @@
 
     <item android:id="@+id/searchView"
             android:title="Search"
-            android:icon="@drawable/search"
+            android:icon="@drawable/search_secondary"
+            android:iconTint="@color/primaryIconsColor"
             app:showAsAction="ifRoom"
-            app:actionViewClass="android.widget.SearchView" />
+            app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
     <item android:id="@+id/report"
             android:title="Exportar"
-            android:icon="@drawable/file_export_outline"
+            android:icon="@drawable/ic_menu_share"
             app:showAsAction="ifRoom"/>
 
 </menu>

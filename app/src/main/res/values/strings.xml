@@ -102,7 +102,7 @@
     <string name="menu_produtos">Produtos</string>
     <string name="menu_estoque">Estoque</string>
     <string name="label_adicionar_departamento">Adicionar Departamento</string>
-    <string name="label_total_devedor">Saldo devedor</string>
+    <string name="label_total_devedor">Saldo Devedor</string>
     <string name="mensagem_error_departamento_criacao">Erro ao criar categoria!</string>
     <string name="mensagem_criado_sucesso">Criado com sucesso!</string>
     <string name="lista_vazia_hint">A lista está vazia. Você pode adicionar novos registros clicando no botão +, no canto inferior direito da tela.</string>
@@ -174,4 +174,5 @@
     <string name="label_descricao">Descrição:</string>
     <string name="reports">Relatórios</string>
     <string name="menu_reports">Relatórios</string>
+    <string name="label_selecione_o_relatorio">Selecione o relatorio</string>
 </resources>
