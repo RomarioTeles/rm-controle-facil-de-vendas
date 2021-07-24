@@ -5,10 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.activities.SelectPeriodoViewModel
-import br.com.rm.cfv.activities.interfaces.ILoadReportData
 import br.com.rm.cfv.activities.reports.ui.main.ReportViewModel
-import java.time.LocalDate
+import kotlinx.android.synthetic.main.reports_activity.*
 
 class ReportsActivity : BaseActivity() {
 
@@ -32,6 +30,7 @@ class ReportsActivity : BaseActivity() {
             reportViewModel.init()
 
             hideFab()
+            hideFabOnScroll(recyclerViewReportData, button_report)
         }
 
 

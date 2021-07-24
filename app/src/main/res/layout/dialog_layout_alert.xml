@@ -55,6 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cancelar"
+                android:textColor="@color/color_alert"
                 android:background="@android:color/transparent"
                 android:layout_weight="1"/>
 
@@ -62,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ok"
+                android:textColor="@android:color/black"
                 android:background="@android:color/transparent"
                 android:layout_weight="1"/>
 

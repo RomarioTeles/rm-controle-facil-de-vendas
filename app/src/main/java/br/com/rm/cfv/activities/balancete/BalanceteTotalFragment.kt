@@ -61,7 +61,7 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
             if(totalBalancete!!.total() < 0){
                 textViewTotal.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.color_error))
             }
-            val p = PieChartUtil(activity, R.id.chart1)
+            val p = PieChartUtil(chart1, activity)
             p.build()
             val entries = mapOf(getString(R.string.chart_receitas) to totalBalancete!!.totalReceitas!!.toFloat(), getString(R.string.chart_despesas) to totalBalancete!!.totalDespesas!!.toFloat())
             p.setData(balancete.toString(), entries)

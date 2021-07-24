@@ -22,14 +22,14 @@
     <color name="cinza_padrao_android">#808080</color>
 
     <color name="chart_variante_1">#0d47a1</color>
-    <color name="chart_variante_2">#1565c0</color>
-    <color name="chart_variante_3">#1976d2</color>
+    <color name="chart_variante_2">#5472d3</color>
+    <color name="chart_variante_3">#006CD6</color>
     <color name="chart_variante_4">#1e88e5</color>
-    <color name="chart_variante_5">#2196f3</color>
-    <color name="chart_variante_6">#01579b</color>
-    <color name="chart_variante_7">#0277bd</color>
-    <color name="chart_variante_8">#0288d1</color>
-    <color name="chart_variante_9">#039be5</color>
-    <color name="chart_variante_10">#03a9f4</color>
+    <color name="chart_variante_5">#42A7F8</color>
+    <color name="chart_variante_6">#3E61D1</color>
+    <color name="chart_variante_7">#5D78CF</color>
+    <color name="chart_variante_8">#94ACFB</color>
+    <color name="chart_variante_9">#6339FF</color>
+    <color name="chart_variante_10">#8E70FD</color>
 
 </resources>

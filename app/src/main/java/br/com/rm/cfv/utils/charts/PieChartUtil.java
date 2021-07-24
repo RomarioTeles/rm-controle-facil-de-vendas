@@ -31,17 +31,14 @@ public class PieChartUtil implements OnChartValueSelectedListener {
     protected Typeface tfRegular;
     protected Typeface tfLight;
     private Activity activity;
-    private int resourceId;
     private PieChart chart;
 
-    public PieChartUtil(Activity activity, int resourceId) {
+    public PieChartUtil(PieChart pieChart, Activity activity) {
+        this.chart = pieChart;
         this.activity = activity;
-        this.resourceId = resourceId;
     }
 
     public void build(){
-
-        chart = activity.findViewById(resourceId);
 
         tfRegular = Typeface.createFromAsset(activity.getAssets(), "OpenSans-Regular.ttf");
         tfLight = Typeface.createFromAsset(activity.getAssets(), "OpenSans-Light.ttf");

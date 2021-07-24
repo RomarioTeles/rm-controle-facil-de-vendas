@@ -66,6 +66,8 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
         setClickEvents()
 
+        hideFabOnScroll(listViewDepartamentos)
+
     }
 
     private fun setClickEvents(){

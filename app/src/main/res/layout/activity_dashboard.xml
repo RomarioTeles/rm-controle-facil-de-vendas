@@ -1,239 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.dashboard.DashboardActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.ChartsActivity">
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".activities.dashboard.DashboardActivity">
 
-    <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="8dp">
 
-        <include layout="@layout/select_periodo_card" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true">
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="vertical"
-                android:clipChildren="true"
-                android:padding="8dp"
-                >
-
-                <TextView android:id="@+id/textViewCardBalancete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Balancete"
-                    android:paddingBottom="16dp"
-                    android:textColor="@color/secondaryTextColor"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <FrameLayout android:id="@+id/framelayout_progress_balancete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewCardBalancete" >
-
-                    <ProgressBar
-                        android:id="@+id/progress_balancete"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:indeterminate="false"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:progressDrawable="@drawable/circular"
-                        android:max="100"
-                        android:secondaryProgress="100"
-                        android:rotation="90"
-                        android:progress="0"
-                        android:min="0"/>
-
-                    <TextView
-                        android:id="@+id/textViewBalancetePorcento"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="0%"
-                        android:textColor="@color/secondaryTextColor"
-                        android:textSize="14sp"/>
-
-                </FrameLayout>
-
-
-
-                <TextView
-                    android:id="@+id/textViewBalancete"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="R$ 0"
-                    android:textColor="@color/secondaryColor"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/framelayout_progress_balancete" />
-
-                <TextView
-                    android:id="@+id/textViewBalanceteLabel"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Lucro/Prejuizo"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewBalancete" />
-
-
-                <TextView
-                    android:id="@+id/textViewTotalReceitasLabel"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="Total em receitas"
-                    android:textSize="14sp"
-                    android:layout_marginTop="60dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textViewTotalReceitas"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="R$ 0"
-                    android:textSize="14sp"
-                    android:textColor="@color/secondaryColor"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewTotalReceitasLabel" />
-                <TextView
-                    android:id="@+id/textViewTotalDespesasLabel"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="Total em despesas"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewTotalReceitas"  />
-
-                <TextView
-                    android:id="@+id/textViewTotalDespesas"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:text="R$ 0"
-                    android:textSize="14sp"
-                    android:textColor="@color/secondaryLightColor"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewTotalDespesasLabel" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="2dp"
-                app:cardUseCompatPadding="true"
-            >
+                app:cardUseCompatPadding="true">
 
-            <TextView
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:clipChildren="true"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/textViewCardBalancete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="16dp"
+                        android:text="Balancete"
+                        android:textColor="@color/secondaryTextColor"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <FrameLayout
+                        android:id="@+id/framelayout_progress_balancete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCardBalancete">
+
+                        <ProgressBar
+                            android:id="@+id/progress_balancete"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="150dp"
+                            android:layout_height="100dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:min="0"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/circular"
+                            android:rotation="90"
+                            android:secondaryProgress="100" />
+
+                        <TextView
+                            android:id="@+id/textViewBalancetePorcento"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="0%"
+                            android:textColor="@color/secondaryTextColor"
+                            android:textSize="14sp" />
+
+                    </FrameLayout>
+
+
+                    <TextView
+                        android:id="@+id/textViewBalancete"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="R$ 0"
+                        android:textColor="@color/secondaryColor"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/framelayout_progress_balancete" />
+
+                    <TextView
+                        android:id="@+id/textViewBalanceteLabel"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Lucro/Prejuizo"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewBalancete" />
+
+
+                    <TextView
+                        android:id="@+id/textViewTotalReceitasLabel"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="60dp"
+                        android:text="Total em receitas"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textViewTotalReceitas"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="R$ 0"
+                        android:textColor="@color/secondaryColor"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTotalReceitasLabel" />
+
+                    <TextView
+                        android:id="@+id/textViewTotalDespesasLabel"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="Total em despesas"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTotalReceitas" />
+
+                    <TextView
+                        android:id="@+id/textViewTotalDespesas"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:text="R$ 0"
+                        android:textColor="@color/secondaryLightColor"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTotalDespesasLabel" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/chart_projecao_pagar_vs_receber"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:text="@string/chart_projecao_pagar_vs_receber"
                     android:textColor="@color/secondaryTextColor"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
-            <com.github.mikephil.charting.charts.BarChart
+                <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/chart_bar"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:layout_marginTop="50dp"/>
+                    android:layout_marginTop="50dp" />
 
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chart_percentual_meios_pagamentos"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:textColor="@color/secondaryTextColor"
-                    android:textSize="14sp"/>
-
-            <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/chart_total_meio_pag"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="50dp"/>
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
 
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/cardTitle_meios_pagamento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chart_percentual_meios_pagamentos"
+                        android:textColor="@color/secondaryTextColor"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:drawableEnd="@drawable/open_in_new"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/chart_total_meio_pag"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/cardTitle_meios_pagamento" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
 
 
-        <androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="2dp"
                 app:cardUseCompatPadding="true">
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chart_percentual_tipo_pagamento"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:textColor="@color/secondaryTextColor"
-                    android:textSize="14sp"/>
-
-            <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/chart_total_tipo_pag"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="50dp"/>
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
 
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/cardTitle_tipo_pagamento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chart_percentual_tipo_pagamento"
+                        android:textColor="@color/secondaryTextColor"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:drawableEnd="@drawable/open_in_new"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="2dp"
-            app:cardUseCompatPadding="true">
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/chart_total_tipo_pag"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/cardTitle_tipo_pagamento" />
 
-            <TextView
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Vendas por departamento"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/secondaryTextColor"
-                android:textSize="14sp"/>
+                app:cardElevation="2dp"
+                app:cardUseCompatPadding="true">
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chart_total_categoria"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="50dp"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
 
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/cardTitle_departamento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vendas por departamento"
+                        android:textColor="@color/secondaryTextColor"
+                        android:textSize="14sp"
+                        android:padding="8dp"
+                        android:drawableEnd="@drawable/open_in_new"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/chart_total_categoria"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/cardTitle_departamento" />
 
-    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

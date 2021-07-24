@@ -78,6 +78,8 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
         fab().setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, CadastrarClienteActivity::class.java))
         })
+
+        hideFabOnScroll(recyclerView)
     }
 
     override fun onResume() {

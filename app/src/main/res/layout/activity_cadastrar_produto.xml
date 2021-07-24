@@ -104,15 +104,17 @@
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayoutDepartamento"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="8dp">
 
                 <AutoCompleteTextView
                         android:id="@+id/autocompleteTextViewDepartamento"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:hint="@string/nome_do_departamento"
                         android:imeOptions="actionDone"
+                        android:padding="16dp"
+                        android:textSize="16sp"
                         android:inputType="text"
                         android:maxLines="1" />
 

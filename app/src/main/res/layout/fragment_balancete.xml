@@ -29,7 +29,7 @@
                     android:text="Julho 2020"
                     android:textAllCaps="false"
                     android:textSize="16sp"
-                    android:textColor="@color/primaryTextColor"
+                    android:textColor="@color/secondaryTextColor"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 

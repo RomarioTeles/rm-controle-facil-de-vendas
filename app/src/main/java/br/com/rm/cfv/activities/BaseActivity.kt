@@ -9,7 +9,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.AbsListView
 import android.widget.FrameLayout
+import android.widget.ListView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -35,6 +37,7 @@ import br.com.rm.cfv.database.entities.IReferencia
 import br.com.rm.cfv.utils.ToastUtils
 import br.com.rm.cfv.utils.reports.CSVReportUtils
 import br.com.rm.cfv.utils.reports.IReportable
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_base.*
@@ -229,12 +232,74 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
                         fab.show()
                 }
             })
+        }else if(view is ListView){
+            view.setOnScrollListener(object : AbsListView.OnScrollListener{
+                override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
+
+                }
+
+                override fun onScroll(
+                    view: AbsListView?,
+                    firstVisibleItem: Int,
+                    visibleItemCount: Int,
+                    totalItemCount: Int
+                ) {
+                    val hide : Int = totalItemCount - visibleItemCount
+                    if(hide > 0 && hide == firstVisibleItem){
+                        fab.hide()
+                    }else{
+                        fab.show()
+                    }
+                }
+
+            })
         }else {
             view.viewTreeObserver.addOnScrollChangedListener {
-                if (view.scrollY > 0)
-                    fab.hide()
-                else if (view.scrollY < 50)
+                if (view.scrollY < (view.height *0.8))
                     fab.show()
+                else
+                    fab.hide()
+            }
+        }
+    }
+
+    fun hideFabOnScroll(view : View, fab : ExtendedFloatingActionButton){
+        if(view is RecyclerView){
+            view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > 0)
+                        fab.hide()
+                    else if (dy < 0)
+                        fab.show()
+                }
+            })
+        }else if(view is ListView){
+            view.setOnScrollListener(object : AbsListView.OnScrollListener{
+                override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
+
+                }
+
+                override fun onScroll(
+                    view: AbsListView?,
+                    firstVisibleItem: Int,
+                    visibleItemCount: Int,
+                    totalItemCount: Int
+                ) {
+                    val hide : Int = totalItemCount - visibleItemCount
+                    if(hide > 0 && hide == firstVisibleItem){
+                        fab.hide()
+                    }else{
+                        fab.show()
+                    }
+                }
+
+            })
+        }else {
+            view.viewTreeObserver.addOnScrollChangedListener {
+                if (view.scrollY < (view.height *0.8))
+                    fab.show()
+                else
+                    fab.hide()
             }
         }
     }

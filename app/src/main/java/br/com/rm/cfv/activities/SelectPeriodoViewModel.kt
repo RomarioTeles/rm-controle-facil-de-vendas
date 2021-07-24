@@ -1,15 +1,12 @@
 package br.com.rm.cfv.activities
 
-import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.util.Log
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModel
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.interfaces.ILoadReportData
-import java.text.DateFormatSymbols
 import java.time.LocalDate
 import java.util.*
 
@@ -19,23 +16,16 @@ class SelectPeriodoViewModel : ViewModel() {
 
     var ano : Int? = null
 
-    lateinit var buttonData : AppCompatButton
-
     lateinit var baseActivity : BaseActivity
 
     lateinit var iLoadReportData: ILoadReportData
 
     fun init(){
-        setLabelButtonPeriodo(mes!!, ano!!)
-
-        buttonData.setOnClickListener {
-            abrirDialogAnoMesPicker()
-        }
-
     }
 
-    private fun abrirDialogAnoMesPicker(){
-        val builder = AlertDialog.Builder(baseActivity, R.style.AlertDialogStyle)
+    fun abrirDialogAnoMesPicker(){
+
+        val builder = AlertDialog.Builder(baseActivity, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
         val inflater = baseActivity.layoutInflater
 
         val cal = LocalDate.now()
@@ -64,8 +54,6 @@ class SelectPeriodoViewModel : ViewModel() {
             cal.set(Calendar.YEAR, ano!!)
             cal.set(Calendar.MONTH, mes!!)
 
-            setLabelButtonPeriodo(mes!!, ano!!)
-
             iLoadReportData.execute(mes!!, ano!!)
 
         })
@@ -73,8 +61,4 @@ class SelectPeriodoViewModel : ViewModel() {
         builder.show()
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setLabelButtonPeriodo(mes : Int, ano : Int){
-        buttonData.text = "${DateFormatSymbols.getInstance().months.get(mes.minus(1))} ${ano}".toUpperCase()
-    }
 }

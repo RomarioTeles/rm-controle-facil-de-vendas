@@ -78,6 +78,8 @@ class ListaFornecedorActivity : BaseActivity(), IPostExecuteSearch{
         fab().setOnClickListener(View.OnClickListener {
             startActivity(Intent(this, CadastrarFornecedorActivity::class.java))
         })
+
+        hideFabOnScroll(recyclerView)
     }
 
     override fun onResume() {

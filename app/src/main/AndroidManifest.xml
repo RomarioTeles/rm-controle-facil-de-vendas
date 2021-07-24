@@ -13,17 +13,20 @@
     <application
         android:name=".CfvApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_foreground"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".activities.reports.ReportsActivity"
+        <activity
+            android:name=".activities.pieChart.PieChartDetailActivity"
+            android:label="@string/title_activity_pie_chart_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.reports.ReportsActivity"
             android:label="@string/reports"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.receita.CadastrarReceitaDespesaActivity"
             android:label="@string/app_name"
@@ -82,10 +85,7 @@
             android:name=".activities.balancete.ListaBalanceteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.balancete.BalanceteTipoFragment"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.departamento.DepartamentoActivity"
             android:screenOrientation="portrait"

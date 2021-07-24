@@ -9,7 +9,6 @@
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@drawable/logo_app_novo_inline"
             android:scaleType="centerInside"
             android:contentDescription="@string/nav_header_desc"
             android:layout_gravity="bottom"

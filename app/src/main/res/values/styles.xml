@@ -1,7 +1,7 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
@@ -34,6 +34,8 @@
         <item name="android:textColor">@color/secondaryColor</item>
         // you can change the color of the yearPiker dialog
         <item name="android:textColorPrimary">@color/secondaryTextColor</item>
+        <item name="android:positiveButtonText">@color/primaryColor</item>
+        <item name="android:negativeButtonText">@color/secondaryTextColor</item>
         // you can change the color of the yearPiker dialog
     </style>
 

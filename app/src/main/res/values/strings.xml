@@ -75,8 +75,8 @@
     <string name="label_voltar">Voltar</string>
     <string name="label_avancar">Avançar</string>
     <string name="title_activity_visualizar_debito">VisualizarDebitoActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_pie_chart">Gráfico</string>
+    <string name="tab_report">Relatório</string>
     <string name="tab_parcelas">Promissorias</string>
     <string name="tab_lancamentos">Lançamentos</string>
     <string name="label_desc_acresc">Desc./Acresc.</string>
@@ -175,4 +175,6 @@
     <string name="reports">Relatórios</string>
     <string name="menu_reports">Relatórios</string>
     <string name="label_selecione_o_relatorio">Selecione o relatorio</string>
+    <string name="title_activity_pie_chart_detail">PieChartDetailActivity</string>
+    <string name="label_detalhes">Detalhes</string>
 </resources>

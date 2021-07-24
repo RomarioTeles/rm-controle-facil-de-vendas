@@ -60,7 +60,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
 
         reportAdapter = ReportAdapter(baseActivity, mutableListOf())
 
-        textViewTitle = baseActivity.findViewById(R.id.textViewTitle)
+        textViewTitle = baseActivity.findViewById(R.id.textViewReportTitle)
 
         textViewFooter = baseActivity.findViewById(R.id.textViewFooter)
 

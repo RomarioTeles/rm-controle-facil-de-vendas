@@ -1,8 +1,12 @@
 package br.com.rm.cfv.activities.dashboard
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
@@ -10,6 +14,7 @@ import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.interfaces.ILoadReportData
 import br.com.rm.cfv.activities.reports.ReportsActivity
 import br.com.rm.cfv.activities.SelectPeriodoViewModel
+import br.com.rm.cfv.activities.pieChart.PieChartDetailActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.cfv.constants.TipoPagamento
@@ -22,9 +27,10 @@ import br.com.rm.cfv.utils.charts.common.BarChartDataSet
 import br.com.rm.cfv.utils.charts.common.MonthAxisValueFormatter
 import br.com.rm.cfv.utils.charts.common.MyValueFormatter
 import br.com.rm.numberUtils.DecimalFormatUtils
+import com.github.mikephil.charting.charts.PieChart
+import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.select_periodo_card.*
 import java.text.DateFormatSymbols
 import java.time.LocalDate
 import java.util.*
@@ -50,7 +56,6 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
         selectDataViewModel = ViewModelProvider(this).get(SelectPeriodoViewModel::class.java).apply {
             mes = intent.getIntExtra(ReportsActivity.ARG_MES, defaultMes)
             ano = intent.getIntExtra(ReportsActivity.ARG_ANO, defaultAno)
-            buttonData = findViewById(R.id.button_data)
             baseActivity = this@DashboardActivity
             iLoadReportData = this@DashboardActivity
         }
@@ -66,8 +71,8 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setLabelButtonPeriodo(mes : Int, ano : Int){
-        button_data.text = "${DateFormatSymbols.getInstance().months.get(mes)} ${ano}".toUpperCase()
+    private fun setTituloToolbar(mes : Int, ano : Int){
+        supportActionBar!!.title = "${DateFormatSymbols.getInstance().months.get(mes)} ${ano}"
     }
 
     override fun getToobarTitle(): String {
@@ -124,10 +129,20 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
                 totalMeioPagData.forEach { valor  ->
                     entries.put( MeioPagamento.valueOf(valor.grupo!!).descricao, valor.total.toFloat())
                 }
-                createPieChart(getString(R.string.chart_meio_pagamento), R.id.chart_total_meio_pag, entries)
+                createPieChart(getString(R.string.chart_meio_pagamento), chart_total_meio_pag, entries)
+
+                cardTitle_meios_pagamento.setOnClickListener {
+                    var intent = Intent(this, PieChartDetailActivity::class.java)
+                    intent.putExtra(PieChartDetailActivity.ARG_TITLE, (it as TextView).text.toString())
+                    intent.putStringArrayListExtra(PieChartDetailActivity.ARG_ENTRIES_KEYS, ArrayList(entries.keys))
+                    intent.putExtra(PieChartDetailActivity.ARG_ENTRIES_VALUES, entries.values.toFloatArray())
+
+                    startActivity(intent)
+                }
+
             }else{
                 val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
-                createPieChart(getString(R.string.chart_meio_pagamento), R.id.chart_total_meio_pag, entries)
+                createPieChart(getString(R.string.chart_meio_pagamento), chart_total_meio_pag, entries)
             }
 
             val totalTipoPagData = (map.get("totalTipoPagData") as List<ChartGrupoValor>)
@@ -136,10 +151,19 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
                 totalTipoPagData.forEach { valor  ->
                     entries.put(TipoPagamento.getDescricaoPeloNome(valor.grupo!!)!!, valor.total.toFloat())
                 }
-                createPieChart(getString(R.string.chart_tipo_pagamento), R.id.chart_total_tipo_pag, entries)
+                createPieChart(getString(R.string.chart_tipo_pagamento), chart_total_tipo_pag, entries)
+
+                cardTitle_tipo_pagamento.setOnClickListener {
+                    var intent = Intent(this, PieChartDetailActivity::class.java)
+                    intent.putExtra(PieChartDetailActivity.ARG_TITLE, (it as TextView).text.toString())
+                    intent.putStringArrayListExtra(PieChartDetailActivity.ARG_ENTRIES_KEYS, ArrayList(entries.keys))
+                    intent.putExtra(PieChartDetailActivity.ARG_ENTRIES_VALUES, entries.values.toFloatArray())
+
+                    startActivity(intent)
+                }
             }else{
                 val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
-                createPieChart(getString(R.string.chart_tipo_pagamento), R.id.chart_total_tipo_pag, entries)
+                createPieChart(getString(R.string.chart_tipo_pagamento), chart_total_tipo_pag, entries)
             }
 
             val totalCategoria = (map.get("totalCategoria") as List<ChartGrupoValor>)
@@ -148,10 +172,20 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
                 totalCategoria.forEach { valor  ->
                     entries.put(valor.grupo!!!!, valor.total.toFloat())
                 }
-                createPieChart("Por Categoria", R.id.chart_total_categoria, entries)
+                createPieChart("Por Categoria", chart_total_categoria, entries)
+
+                cardTitle_departamento.setOnClickListener {
+                    var intent = Intent(this, PieChartDetailActivity::class.java)
+                    intent.putExtra(PieChartDetailActivity.ARG_TITLE, (it as TextView).text.toString())
+                    intent.putStringArrayListExtra(PieChartDetailActivity.ARG_ENTRIES_KEYS, ArrayList(entries.keys))
+                    intent.putExtra(PieChartDetailActivity.ARG_ENTRIES_VALUES, entries.values.toFloatArray())
+
+                    startActivity(intent)
+                }
+
             }else{
                 val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
-                createPieChart("Por Categoria", R.id.chart_total_categoria, entries)
+                createPieChart("Por Categoria", chart_total_categoria, entries)
             }
 
             if(firstLoad) {
@@ -176,8 +210,8 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
 
     }
 
-    private fun createPieChart(title: String, resId: Int, data: Map<String, Float>){
-        val p = PieChartUtil(this, resId)
+    private fun createPieChart(title: String, chart: PieChart, data: Map<String, Float>){
+        val p = PieChartUtil(chart, this@DashboardActivity)
         p.build()
         p.setData(title, data)
     }
@@ -271,6 +305,24 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
         var cal = Calendar.getInstance()
         cal.set(Calendar.MONTH, mes.minus(1))
         cal.set(Calendar.YEAR, ano)
+        setTituloToolbar(mes.minus(1), ano)
         LoadDataAsync(this).execute(cal)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_dash, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.selecione_data -> {
+                selectDataViewModel.abrirDialogAnoMesPicker()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
