@@ -177,4 +177,6 @@
     <string name="label_selecione_o_relatorio">Selecione o relatorio</string>
     <string name="title_activity_pie_chart_detail">PieChartDetailActivity</string>
     <string name="label_detalhes">Detalhes</string>
+    <string name="title_activity_splash">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
 </resources>

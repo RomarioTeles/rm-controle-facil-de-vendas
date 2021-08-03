@@ -7,7 +7,7 @@ import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.balancete.BalanceteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.asyncTasks.balancete.SelectAllBalancetesAsyncTask
+import br.com.rm.cfv.asyncTasks.balancete.SelectAllBalancetesCoroutine
 import br.com.rm.cfv.database.entities.Balancete
 import kotlinx.android.synthetic.main.activity_base.*
 
@@ -59,7 +59,7 @@ class ListaBalanceteActivity : BaseActivity(), IPostExecuteSearch{
 
     fun getAllBalancetes(){
         var task =
-            SelectAllBalancetesAsyncTask(
+            SelectAllBalancetesCoroutine(
                 getCfvApplication().getDataBase()!!.balanceteDAO(),
                 this
             )
