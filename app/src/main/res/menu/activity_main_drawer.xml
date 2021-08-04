@@ -61,6 +61,11 @@
             android:title="@string/menu_reports"/>
 
         <item
+            android:id="@+id/nav_termos"
+            android:icon="@drawable/check"
+            android:title="@string/menu_termos_uso"/>
+
+        <item
             android:id="@+id/nav_config"
             android:icon="@drawable/cog_primary"
             android:title="@string/menu_configuracoes"/>

@@ -179,4 +179,8 @@
     <string name="label_detalhes">Detalhes</string>
     <string name="title_activity_splash">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
+    <string name="label_aceitar_termos_de_uso">Ao clicar no botão Aceitar e Prosseguir, você concorda que leu e aceita estes termos de uso.</string>
+    <string name="label_sair">Recusar</string>
+    <string name="termo_de_uso_aceitar_e_prosseguir">Aceitar e Prosseguir</string>
+    <string name="menu_termos_uso">Termos de Uso</string>
 </resources>

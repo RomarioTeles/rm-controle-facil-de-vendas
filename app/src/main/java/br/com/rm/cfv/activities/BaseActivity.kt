@@ -31,6 +31,7 @@ import br.com.rm.cfv.activities.estoque.ListaEstoqueActivity
 import br.com.rm.cfv.activities.fornecedor.ListaFornecedorActivity
 import br.com.rm.cfv.activities.produto.ListaProdutosActivity
 import br.com.rm.cfv.activities.reports.ReportsActivity
+import br.com.rm.cfv.activities.termoDeUso.TermoDeUsoActivity
 import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.entities.DefaultReferencia
 import br.com.rm.cfv.database.entities.IReferencia
@@ -161,6 +162,17 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
             }
             R.id.nav_reports -> {
                 startActivity(Intent(this, ReportsActivity::class.java))
+            }
+
+            R.id.nav_termos -> {
+                val intent = Intent(this, TermoDeUsoActivity::class.java)
+                intent.addFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                            Intent.FLAG_ACTIVITY_NEW_TASK
+                )
+                getSharedPreferences("TERMO_DE_USO", MODE_PRIVATE).edit().putBoolean("aceitou_termo_de_uso", false).apply()
+                startActivity(intent)
             }
 
             R.id.nav_receitas ->{
