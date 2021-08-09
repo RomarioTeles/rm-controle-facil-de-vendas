@@ -15,7 +15,7 @@ import br.com.rm.cfv.activities.cliente.ClienteViewHolder
 import br.com.rm.cfv.activities.contaPagarReceber.ListaContasPagarReceberActivity
 import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteDelete
-import br.com.rm.cfv.asyncTasks.cliente.DeleteClienteAsyncTask
+import br.com.rm.cfv.asyncTasks.cliente.DeleteClienteCoroutine
 import br.com.rm.cfv.bottomsheets.BottomSheetDialogSettings
 import br.com.rm.cfv.bottomsheets.IBottomSheetOptions
 import br.com.rm.cfv.bottomsheets.ItemOptionsBottomSheetDialog
@@ -103,7 +103,7 @@ class ClienteAdapter(private var context : Context, private var clienteDAO: Clie
                     }
 
                     override fun buttonSheetRemove(item: Any?, position: Int) {
-                        DeleteClienteAsyncTask(clienteDAO, ipostExecuteDelete).execute((item as Cliente).uid, position)
+                        DeleteClienteCoroutine(clienteDAO, ipostExecuteDelete).execute((item as Cliente).uid!!, position)
                     }
                 }
             )

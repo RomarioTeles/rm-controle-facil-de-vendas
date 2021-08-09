@@ -6,7 +6,7 @@ import android.widget.Toast
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate
-import br.com.rm.cfv.asyncTasks.cliente.InsertClienteAsyncTask
+import br.com.rm.cfv.asyncTasks.cliente.InsertClienteCoroutine
 import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.utils.EditTextMaskUtil
 import com.google.android.material.textfield.TextInputLayout
@@ -62,8 +62,9 @@ class CadastrarClienteActivity : BaseActivity(), IPostExecuteInsertAndUpdate {
 
             cliente = Cliente(idInt, nome, cpf, telefone, email, dataNasc, endereco, numero, complemento, bairro, cidade, uf)
             if(cliente.validate(mapFields)){
-                val task = InsertClienteAsyncTask(getCfvApplication().getDataBase()!!.clienteDAO(), this)
-                task.execute(cliente)
+                val task = InsertClienteCoroutine(getCfvApplication().getDataBase()!!.clienteDAO(), this)
+                task.
+                execute(cliente)
             }
         }
 
@@ -112,6 +113,7 @@ class CadastrarClienteActivity : BaseActivity(), IPostExecuteInsertAndUpdate {
             if(cliente!!.uid != null) {
                 Toast.makeText(this, "Criado com sucesso!", Toast.LENGTH_LONG).show()
                 startActivity(Intent(this, ListaClientesActivity::class.java))
+                finish()
             }else{
                 Toast.makeText(this, "Erro ao criar cliente!", Toast.LENGTH_LONG).show()
             }

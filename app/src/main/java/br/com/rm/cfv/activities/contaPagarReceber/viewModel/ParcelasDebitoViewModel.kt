@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.adapters.cliente.ItemPagamentoAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.asyncTasks.contaPagarReceber.SelectAllParcelasAsyncTask
+import br.com.rm.cfv.asyncTasks.contaPagarReceber.SelectAllParcelasCoroutine
 import br.com.rm.cfv.database.entities.PagamentoDebito
 import kotlinx.android.synthetic.main.fragment_visualizar_debito.view.*
 
@@ -34,8 +34,8 @@ class ParcelasDebitoViewModel : PageViewModel(), IPostExecuteSearch {
     }
 
     fun buscarParcelas(){
-        val task = SelectAllParcelasAsyncTask(CfvApplication.database!!.pagamentoDebitoDAO(), this)
-        task.execute(pagamentoDebitoSubtotal.id)
+        val task = SelectAllParcelasCoroutine(CfvApplication.database!!.pagamentoDebitoDAO(), this)
+        task.execute(pagamentoDebitoSubtotal.id!!)
     }
 
 

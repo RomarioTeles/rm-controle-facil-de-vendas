@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.asyncTasks.balancete.SelectTotalBalanceteAsyncTask
+import br.com.rm.cfv.asyncTasks.balancete.SelectTotalBalanceteCoroutine
 import br.com.rm.cfv.database.entities.Balancete
 import br.com.rm.cfv.database.entities.dtos.TotalBalanceteDTO
 import br.com.rm.cfv.utils.charts.PieChartUtil
@@ -45,7 +45,7 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
 
     fun getBalancete(){
         var task =
-            SelectTotalBalanceteAsyncTask(
+            SelectTotalBalanceteCoroutine(
                 CfvApplication.database!!.itemBalanceteDAO(),
                 this
             )

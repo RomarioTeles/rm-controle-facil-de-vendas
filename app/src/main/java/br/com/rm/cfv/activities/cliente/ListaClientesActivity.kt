@@ -14,10 +14,9 @@ import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.cliente.ClienteAdapter
 import br.com.rm.cfv.adapters.cliente.ClienteSelectableAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesAsyncTask
+import br.com.rm.cfv.asyncTasks.cliente.SelectAllClientesCoroutine
 import br.com.rm.cfv.database.entities.Cliente
 import kotlinx.android.synthetic.main.activity_base.*
-import kotlinx.android.synthetic.main.activity_lista_default.*
 
 class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
 
@@ -93,7 +92,7 @@ class ListaClientesActivity : BaseActivity(), IPostExecuteSearch{
 
     fun getAllClientes(query: String?  = null, showProgress: Boolean = true){
         var task =
-            SelectAllClientesAsyncTask(
+            SelectAllClientesCoroutine(
                 getCfvApplication().getDataBase()!!.clienteDAO(),
                 this, showProgress
             )

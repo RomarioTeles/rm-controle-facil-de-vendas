@@ -11,7 +11,7 @@ import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.adapters.balancete.ItemBalanceteAdapter
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.asyncTasks.balancete.SelectAllItemBalanceteAsyncTask
+import br.com.rm.cfv.asyncTasks.balancete.SelectAllItemBalanceteCoroutine
 import br.com.rm.cfv.constants.TipoItemBalancete
 import br.com.rm.cfv.database.entities.Balancete
 import br.com.rm.cfv.database.entities.ItemBalancete
@@ -92,7 +92,7 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch, IReportable{
     fun getAllBalancetes(filter: List<String>, isReport: Boolean = false){
         this.isReport = isReport
         var task =
-            SelectAllItemBalanceteAsyncTask(
+            SelectAllItemBalanceteCoroutine(
                 CfvApplication.database!!.itemBalanceteDAO(),
                 this
             )

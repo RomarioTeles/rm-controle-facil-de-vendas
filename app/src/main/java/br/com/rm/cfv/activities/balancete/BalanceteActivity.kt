@@ -4,10 +4,7 @@ import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import br.com.rm.cfv.R
 import br.com.rm.cfv.activities.BaseActivity
-import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
-import br.com.rm.cfv.asyncTasks.balancete.SelectAllItemBalanceteAsyncTask
 import br.com.rm.cfv.database.entities.Balancete
-import br.com.rm.cfv.database.entities.ItemBalancete
 import com.google.android.material.tabs.TabLayout
 
 class BalanceteActivity : BaseActivity() {
