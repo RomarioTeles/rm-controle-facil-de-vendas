@@ -17,12 +17,12 @@ open class CfvApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         //Room
-        database = Room.databaseBuilder(this, AppDataBase::class.java, "database8")
+        database = Room.databaseBuilder(this, AppDataBase::class.java, "database1")
             .fallbackToDestructiveMigration()
             .addCallback(
                 object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) = db.run {
-                        if (BuildConfig.DEBUG) {
+                        if (!BuildConfig.DEBUG) {
                             beginTransaction()
                             try {
                                 for (x in 1..10) {

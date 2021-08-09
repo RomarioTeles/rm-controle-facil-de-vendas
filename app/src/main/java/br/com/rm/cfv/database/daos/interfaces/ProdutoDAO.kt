@@ -21,6 +21,9 @@ interface ProdutoDAO{
     @Query("SELECT * FROM produto WHERE uid = :id LIMIT 1")
     fun findById(id: Int) : Produto
 
+    @Query("SELECT COUNT(*) FROM produto")
+    fun count(): Int
+
     @Insert
     fun insertAll(vararg users: Produto)
 

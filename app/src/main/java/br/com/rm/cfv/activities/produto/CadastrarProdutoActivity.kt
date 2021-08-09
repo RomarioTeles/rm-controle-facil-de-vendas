@@ -170,6 +170,7 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
             if(produto!!.uid != null) {
                 Toast.makeText(this, "Criado com sucesso!", Toast.LENGTH_LONG).show()
                 startActivity(Intent(this, ListaProdutosActivity::class.java))
+                finish()
             }else{
                 Toast.makeText(this, "Erro ao criar produto!", Toast.LENGTH_LONG).show()
             }

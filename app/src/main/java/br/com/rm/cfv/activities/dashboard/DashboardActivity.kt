@@ -6,6 +6,8 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewStub
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import br.com.rm.cfv.CfvApplication
@@ -14,7 +16,10 @@ import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.activities.interfaces.ILoadReportData
 import br.com.rm.cfv.activities.reports.ReportsActivity
 import br.com.rm.cfv.activities.SelectPeriodoViewModel
+import br.com.rm.cfv.activities.contaPagarReceber.compra_venda_produtos.RegistrarCompraVendaActivity
 import br.com.rm.cfv.activities.pieChart.PieChartDetailActivity
+import br.com.rm.cfv.activities.produto.CadastrarProdutoActivity
+import br.com.rm.cfv.activities.produto.ListaProdutosActivity
 import br.com.rm.cfv.asyncTasks.IPostExecuteSearch
 import br.com.rm.cfv.constants.MeioPagamento
 import br.com.rm.cfv.constants.TipoPagamento
@@ -28,9 +33,15 @@ import br.com.rm.cfv.utils.charts.common.MonthAxisValueFormatter
 import br.com.rm.cfv.utils.charts.common.MyValueFormatter
 import br.com.rm.numberUtils.DecimalFormatUtils
 import com.github.mikephil.charting.charts.PieChart
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.lista_vazia_view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.DateFormatSymbols
 import java.time.LocalDate
 import java.util.*
@@ -42,11 +53,18 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
 
     private var firstLoad : Boolean = true
 
+    lateinit var viewStub: ViewStub
+
     lateinit var selectDataViewModel: SelectPeriodoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
+
+        viewStub = findViewById(R.id.viewStub)
+        viewStub.inflate()
+        textViewHint.text = getString(R.string.texto_dashboard_sem_vendas)
+        viewStub.visibility = View.GONE
 
         var date = LocalDate.now()
         var defaultMes = date.month.value
@@ -61,7 +79,24 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
 
         selectDataViewModel.init()
 
-        fab.hide()
+        hideFab()
+
+        fab().setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val count = CfvApplication.database!!.produtoDAO().count()
+                withContext(Dispatchers.Main){
+                    if(count > 0){
+                        startActivity(Intent(this@DashboardActivity, RegistrarCompraVendaActivity::class.java))
+                    }else{
+                        Snackbar.make(fab, getString(R.string.texto_dashboard_sem_produtos), Snackbar.LENGTH_INDEFINITE)
+                            .setAction(getString(R.string.ir_produtos), View.OnClickListener {
+                                startActivity(Intent(this@DashboardActivity, CadastrarProdutoActivity::class.java))
+                            }).show()
+                    }
+                }
+            }
+        }
+
     }
 
     override fun onResume() {
@@ -71,7 +106,7 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
 
     @SuppressLint("SetTextI18n")
     private fun setTituloToolbar(mes : Int, ano : Int){
-        supportActionBar!!.title = "${DateFormatSymbols.getInstance().months.get(mes)} ${ano}"
+        supportActionBar!!.title = "${DateFormatSymbols.getInstance().months.get(mes)} ${ano}".capitalize()
     }
 
     override fun getToobarTitle(): String {
@@ -84,129 +119,201 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
 
     override fun afterSearch(result: Any?) {
 
-        if(result != null){
+        if(result != null) {
             val map = result as Map<String, Any>
 
-            textViewBalancetePorcento.text = ""
+            if (map["count"] == 0) {
+                viewStub.visibility = View.VISIBLE
+                scrollView.visibility = View.GONE
+                showFab()
+            } else {
+                viewStub.visibility = View.GONE
+                scrollView.visibility = View.VISIBLE
+                hideFab()
 
-            if (map.get("totalBalancete") != null) {
+                textViewBalancetePorcento.text = ""
+
+                if (map.get("totalBalancete") != null) {
 
 
-                var totalbalancete = (map.get("totalBalancete") as TotalBalanceteDTO)
+                    var totalbalancete = (map.get("totalBalancete") as TotalBalanceteDTO)
 
-                textViewBalancete.text = getString(
-                    R.string.currency_format,
-                    DecimalFormatUtils.decimalFormatPtBR(totalbalancete.total())
-                )
+                    textViewBalancete.text = getString(
+                        R.string.currency_format,
+                        DecimalFormatUtils.decimalFormatPtBR(totalbalancete.total())
+                    )
 
-                if(totalbalancete.total() <= 0){
-                    textViewBalancete.setTextColor(getColor(R.color.primaryLightColor))
+                    if (totalbalancete.total() <= 0) {
+                        textViewBalancete.setTextColor(getColor(R.color.primaryLightColor))
+                    }
+
+                    textViewTotalReceitas.text = getString(
+                        R.string.currency_format,
+                        DecimalFormatUtils.decimalFormatPtBR(totalbalancete.totalReceitas)
+                    )
+
+                    textViewTotalDespesas.text = getString(
+                        R.string.currency_format,
+                        DecimalFormatUtils.decimalFormatPtBR(totalbalancete.totalDespesas)
+                    )
+
+                    if (totalbalancete.totalReceitas!!.compareTo(0) == 1) {
+                        var percent =
+                            (totalbalancete.total()!!
+                                .div(totalbalancete.totalReceitas!!)).times(100)
+
+                        textViewBalancetePorcento.text =
+                            DecimalFormatUtils.decimalFormat(percent, 0, 0) + "%"
+                        progress_balancete.progress = percent.toInt()
+                    }
                 }
 
-                textViewTotalReceitas.text = getString(
-                    R.string.currency_format,
-                    DecimalFormatUtils.decimalFormatPtBR(totalbalancete.totalReceitas)
-                )
+                val totalMeioPagData = (map.get("totalMeioPagData") as List<ChartGrupoValor>)
+                if (totalMeioPagData != null && !totalMeioPagData.isEmpty()) {
+                    val entries = LinkedHashMap<String, Float>()
+                    totalMeioPagData.forEach { valor ->
+                        entries.put(
+                            MeioPagamento.valueOf(valor.grupo!!).descricao,
+                            valor.total.toFloat()
+                        )
+                    }
+                    createPieChart(
+                        getString(R.string.chart_meio_pagamento),
+                        chart_total_meio_pag,
+                        entries
+                    )
 
-                textViewTotalDespesas.text = getString(
-                    R.string.currency_format,
-                    DecimalFormatUtils.decimalFormatPtBR(totalbalancete.totalDespesas)
-                )
+                    cardTitle_meios_pagamento.setOnClickListener {
+                        var intent = Intent(this, PieChartDetailActivity::class.java)
+                        intent.putExtra(
+                            PieChartDetailActivity.ARG_TITLE,
+                            (it as TextView).text.toString()
+                        )
+                        intent.putStringArrayListExtra(
+                            PieChartDetailActivity.ARG_ENTRIES_KEYS,
+                            ArrayList(entries.keys)
+                        )
+                        intent.putExtra(
+                            PieChartDetailActivity.ARG_ENTRIES_VALUES,
+                            entries.values.toFloatArray()
+                        )
 
-                if(totalbalancete.totalReceitas!!.compareTo(0) == 1) {
-                    var percent =
-                        (totalbalancete.total()!!.div(totalbalancete.totalReceitas!!)).times(100)
+                        startActivity(intent)
+                    }
 
-                    textViewBalancetePorcento.text = DecimalFormatUtils.decimalFormat(percent, 0 ,0) + "%"
-                    progress_balancete.progress = percent.toInt()
+                } else {
+                    val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
+                    createPieChart(
+                        getString(R.string.chart_meio_pagamento),
+                        chart_total_meio_pag,
+                        entries
+                    )
                 }
+
+                val totalTipoPagData = (map.get("totalTipoPagData") as List<ChartGrupoValor>)
+                if (totalTipoPagData != null && !totalTipoPagData.isEmpty()) {
+                    val entries = LinkedHashMap<String, Float>()
+                    totalTipoPagData.forEach { valor ->
+                        entries.put(
+                            TipoPagamento.getDescricaoPeloNome(valor.grupo!!)!!,
+                            valor.total.toFloat()
+                        )
+                    }
+                    createPieChart(
+                        getString(R.string.chart_tipo_pagamento),
+                        chart_total_tipo_pag,
+                        entries
+                    )
+
+                    cardTitle_tipo_pagamento.setOnClickListener {
+                        var intent = Intent(this, PieChartDetailActivity::class.java)
+                        intent.putExtra(
+                            PieChartDetailActivity.ARG_TITLE,
+                            (it as TextView).text.toString()
+                        )
+                        intent.putStringArrayListExtra(
+                            PieChartDetailActivity.ARG_ENTRIES_KEYS,
+                            ArrayList(entries.keys)
+                        )
+                        intent.putExtra(
+                            PieChartDetailActivity.ARG_ENTRIES_VALUES,
+                            entries.values.toFloatArray()
+                        )
+
+                        startActivity(intent)
+                    }
+                } else {
+                    val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
+                    createPieChart(
+                        getString(R.string.chart_tipo_pagamento),
+                        chart_total_tipo_pag,
+                        entries
+                    )
+                }
+
+                val totalCategoria = (map.get("totalCategoria") as List<ChartGrupoValor>)
+                if (totalCategoria != null && !totalCategoria.isEmpty()) {
+                    val entries = LinkedHashMap<String, Float>()
+                    totalCategoria.forEach { valor ->
+                        entries.put(valor.grupo!!!!, valor.total.toFloat())
+                    }
+                    createPieChart("Por Categoria", chart_total_categoria, entries)
+
+                    cardTitle_departamento.setOnClickListener {
+                        var intent = Intent(this, PieChartDetailActivity::class.java)
+                        intent.putExtra(
+                            PieChartDetailActivity.ARG_TITLE,
+                            (it as TextView).text.toString()
+                        )
+                        intent.putStringArrayListExtra(
+                            PieChartDetailActivity.ARG_ENTRIES_KEYS,
+                            ArrayList(entries.keys)
+                        )
+                        intent.putExtra(
+                            PieChartDetailActivity.ARG_ENTRIES_VALUES,
+                            entries.values.toFloatArray()
+                        )
+
+                        startActivity(intent)
+                    }
+
+                } else {
+                    val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
+                    createPieChart("Por Categoria", chart_total_categoria, entries)
+                }
+
+                if (firstLoad) {
+
+                    val barchartDataSets = ArrayList<BarChartDataSet>()
+                    val barchart = BarChartUtil(this, R.id.chart_bar)
+                    val entriesReceber = (map.get("barchartTotalReceberdata")) as Map<Float, Float>
+                    barchart.build(MonthAxisValueFormatter(barchart.chart), MyValueFormatter("R$"))
+                    barchartDataSets.add(
+                        BarChartDataSet(
+                            "Receber",
+                            R.color.secondaryColor,
+                            entriesReceber
+                        )
+                    )
+
+                    val entriesPagar = (map.get("barchartTotalPagardata")) as Map<Float, Float>
+                    barchart.build(MonthAxisValueFormatter(barchart.chart), MyValueFormatter("R$"))
+                    barchartDataSets.add(
+                        BarChartDataSet(
+                            "Pagar",
+                            R.color.secondaryLightColor,
+                            entriesPagar
+                        )
+                    )
+
+                    if (barchartDataSets.isNotEmpty()) {
+                        barchart.setData(barchartDataSets)
+                    }
+                }
+
+                firstLoad = false
             }
-
-            val totalMeioPagData = (map.get("totalMeioPagData") as List<ChartGrupoValor>)
-            if(totalMeioPagData != null && !totalMeioPagData.isEmpty()){
-                val entries = LinkedHashMap<String, Float>()
-                totalMeioPagData.forEach { valor  ->
-                    entries.put( MeioPagamento.valueOf(valor.grupo!!).descricao, valor.total.toFloat())
-                }
-                createPieChart(getString(R.string.chart_meio_pagamento), chart_total_meio_pag, entries)
-
-                cardTitle_meios_pagamento.setOnClickListener {
-                    var intent = Intent(this, PieChartDetailActivity::class.java)
-                    intent.putExtra(PieChartDetailActivity.ARG_TITLE, (it as TextView).text.toString())
-                    intent.putStringArrayListExtra(PieChartDetailActivity.ARG_ENTRIES_KEYS, ArrayList(entries.keys))
-                    intent.putExtra(PieChartDetailActivity.ARG_ENTRIES_VALUES, entries.values.toFloatArray())
-
-                    startActivity(intent)
-                }
-
-            }else{
-                val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
-                createPieChart(getString(R.string.chart_meio_pagamento), chart_total_meio_pag, entries)
-            }
-
-            val totalTipoPagData = (map.get("totalTipoPagData") as List<ChartGrupoValor>)
-            if(totalTipoPagData != null && !totalTipoPagData.isEmpty()){
-                val entries = LinkedHashMap<String, Float>()
-                totalTipoPagData.forEach { valor  ->
-                    entries.put(TipoPagamento.getDescricaoPeloNome(valor.grupo!!)!!, valor.total.toFloat())
-                }
-                createPieChart(getString(R.string.chart_tipo_pagamento), chart_total_tipo_pag, entries)
-
-                cardTitle_tipo_pagamento.setOnClickListener {
-                    var intent = Intent(this, PieChartDetailActivity::class.java)
-                    intent.putExtra(PieChartDetailActivity.ARG_TITLE, (it as TextView).text.toString())
-                    intent.putStringArrayListExtra(PieChartDetailActivity.ARG_ENTRIES_KEYS, ArrayList(entries.keys))
-                    intent.putExtra(PieChartDetailActivity.ARG_ENTRIES_VALUES, entries.values.toFloatArray())
-
-                    startActivity(intent)
-                }
-            }else{
-                val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
-                createPieChart(getString(R.string.chart_tipo_pagamento), chart_total_tipo_pag, entries)
-            }
-
-            val totalCategoria = (map.get("totalCategoria") as List<ChartGrupoValor>)
-            if(totalCategoria != null && !totalCategoria.isEmpty()){
-                val entries = LinkedHashMap<String, Float>()
-                totalCategoria.forEach { valor  ->
-                    entries.put(valor.grupo!!!!, valor.total.toFloat())
-                }
-                createPieChart("Por Categoria", chart_total_categoria, entries)
-
-                cardTitle_departamento.setOnClickListener {
-                    var intent = Intent(this, PieChartDetailActivity::class.java)
-                    intent.putExtra(PieChartDetailActivity.ARG_TITLE, (it as TextView).text.toString())
-                    intent.putStringArrayListExtra(PieChartDetailActivity.ARG_ENTRIES_KEYS, ArrayList(entries.keys))
-                    intent.putExtra(PieChartDetailActivity.ARG_ENTRIES_VALUES, entries.values.toFloatArray())
-
-                    startActivity(intent)
-                }
-
-            }else{
-                val entries = mapOf(getString(R.string.chart_nenhum_venda_efetivada) to 1.0f)
-                createPieChart("Por Categoria", chart_total_categoria, entries)
-            }
-
-            if(firstLoad) {
-
-                val barchartDataSets = ArrayList<BarChartDataSet>()
-                val barchart = BarChartUtil(this, R.id.chart_bar)
-                val entriesReceber = (map.get("barchartTotalReceberdata")) as Map<Float, Float>
-                barchart.build(MonthAxisValueFormatter(barchart.chart), MyValueFormatter("R$"))
-                barchartDataSets.add(BarChartDataSet("Receber", R.color.secondaryColor, entriesReceber))
-
-                val entriesPagar = (map.get("barchartTotalPagardata")) as Map<Float, Float>
-                barchart.build(MonthAxisValueFormatter(barchart.chart), MyValueFormatter("R$"))
-                barchartDataSets.add(BarChartDataSet("Pagar", R.color.secondaryLightColor, entriesPagar))
-
-                if (barchartDataSets.isNotEmpty()) {
-                    barchart.setData(barchartDataSets)
-                }
-            }
-
-            firstLoad = false
         }
-
     }
 
     private fun createPieChart(title: String, chart: PieChart, data: Map<String, Float>){
@@ -239,30 +346,48 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
             dataFinal.set(Calendar.MINUTE, 59)
             dataFinal.set(Calendar.SECOND, 59)
 
-            val totalBalancete = CfvApplication.database!!.itemBalanceteDAO()
-                .getTotalBalanceteByMesAndAno(dataInicio.get(Calendar.MONTH)+1, dataInicio.get(Calendar.YEAR))
-            map.put("totalBalancete", totalBalancete)
+            val count = CfvApplication.database!!.contaPagarReceberDAO().count()
 
-            val totalMeioPagData = dao.getTotalPorMeioPagamento(dataInicio.timeInMillis, dataFinal.timeInMillis)
-            map.put("totalMeioPagData", totalMeioPagData)
+            map.put("count", count)
 
-            val totalTipoPagData = dao.getTotalPorTipoPagamento(dataInicio.timeInMillis, dataFinal.timeInMillis)
-            map.put("totalTipoPagData", totalTipoPagData)
+            if(count > 0) {
 
-            val totalCategoria = dao.getTotalPorCategoria(dataInicio.timeInMillis, dataFinal.timeInMillis)
-            map.put("totalCategoria", totalCategoria)
+                val totalBalancete = CfvApplication.database!!.itemBalanceteDAO()
+                    .getTotalBalanceteByMesAndAno(
+                        dataInicio.get(Calendar.MONTH) + 1,
+                        dataInicio.get(Calendar.YEAR)
+                    )
+                map.put("totalBalancete", totalBalancete)
 
-            dataInicio.set(Calendar.MONTH, 0)
-            dataFinal.add(Calendar.MONTH, 12)
+                val totalMeioPagData =
+                    dao.getTotalPorMeioPagamento(dataInicio.timeInMillis, dataFinal.timeInMillis)
+                map.put("totalMeioPagData", totalMeioPagData)
+
+                val totalTipoPagData =
+                    dao.getTotalPorTipoPagamento(dataInicio.timeInMillis, dataFinal.timeInMillis)
+                map.put("totalTipoPagData", totalTipoPagData)
+
+                val totalCategoria =
+                    dao.getTotalPorCategoria(dataInicio.timeInMillis, dataFinal.timeInMillis)
+                map.put("totalCategoria", totalCategoria)
+
+                dataInicio.set(Calendar.MONTH, 0)
+                dataFinal.add(Calendar.MONTH, 12)
 
 
-            val today = Calendar.getInstance()
+                val today = Calendar.getInstance()
 
-            val barchartTotalReceberdata = dao.getTotalReceberAgrupadoPorMes(dataInicio.time, dataFinal.time)
-            map.put("barchartTotalReceberdata", getBarchartData(barchartTotalReceberdata, today))
+                val barchartTotalReceberdata =
+                    dao.getTotalReceberAgrupadoPorMes(dataInicio.time, dataFinal.time)
+                map.put(
+                    "barchartTotalReceberdata",
+                    getBarchartData(barchartTotalReceberdata, today)
+                )
 
-            val barchartTotalPagardata = dao.getTotalPagarAgrupadoPorMes(dataInicio.time, dataFinal.time)
-            map.put("barchartTotalPagardata", getBarchartData(barchartTotalPagardata, today))
+                val barchartTotalPagardata =
+                    dao.getTotalPagarAgrupadoPorMes(dataInicio.time, dataFinal.time)
+                map.put("barchartTotalPagardata", getBarchartData(barchartTotalPagardata, today))
+            }
 
             return map
         }

@@ -31,6 +31,9 @@ interface ContaPagarReceberDAO{
     @Query("SELECT * FROM contapagarreceber WHERE uid = :id")
     fun findById(id: Int) : ContaPagarReceber
 
+    @Query("SELECT COUNT(*) FROM contapagarreceber")
+    fun count() : Int
+
     @Insert
     fun insert(conta: ContaPagarReceber): Long
 

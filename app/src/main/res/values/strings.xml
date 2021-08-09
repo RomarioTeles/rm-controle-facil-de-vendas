@@ -183,4 +183,7 @@
     <string name="label_sair">Recusar</string>
     <string name="termo_de_uso_aceitar_e_prosseguir">Aceitar e Prosseguir</string>
     <string name="menu_termos_uso">Termos de Uso</string>
+    <string name="texto_dashboard_sem_vendas">As informações referentes as suas vendas, aparecem aqui. Você ainda não efetuou nenhuma venda, clique no botão \"+\" no canto inferior direito para registrar uma nova venda.</string>
+    <string name="texto_dashboard_sem_produtos">Você não cadastrou nenhum produto ainda.</string>
+    <string name="ir_produtos">produtos</string>
 </resources>
