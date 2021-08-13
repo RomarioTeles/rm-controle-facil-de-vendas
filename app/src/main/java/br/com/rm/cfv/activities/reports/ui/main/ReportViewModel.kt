@@ -105,7 +105,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getClientesEmAtraso()
                     withContext(Dispatchers.Main) {
-                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        val total = data.sumOf { NumberUtils.toDouble(it.valor, 0.0) }
                         setReportData(data, total)
                     }
                 }
@@ -114,7 +114,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getSaldoClientes()
                     withContext(Dispatchers.Main) {
-                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        val total = data.sumOf { NumberUtils.toDouble(it.valor, 0.0) }
                         setReportData(data, total)
                     }
                 }
@@ -139,7 +139,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getInventarioProdutos()
                     withContext(Dispatchers.Main) {
-                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        val total = data.sumOf { NumberUtils.toDouble(it.valor, 0.0) }
                         setReportData(data, total)
                     }
                 }
@@ -148,7 +148,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getReceitasEmAtraso()
                     withContext(Dispatchers.Main) {
-                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        val total = data.sumOf { NumberUtils.toDouble(it.valor, 0.0) }
                         setReportData(data, total)
                     }
                 }
@@ -157,7 +157,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getDespesasEmAtraso()
                     withContext(Dispatchers.Main) {
-                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        val total = data.sumOf { NumberUtils.toDouble(it.valor, 0.0) }
                         setReportData(data, total)
                     }
                 }
@@ -166,7 +166,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
                 CoroutineScope(Dispatchers.IO).launch {
                     val data = reportDAO.getFornecedorEmAtraso()
                     withContext(Dispatchers.Main) {
-                        val total = data.sumByDouble{ NumberUtils.toDouble(it.valor, 0.0) }
+                        val total = data.sumOf { NumberUtils.toDouble(it.valor, 0.0) }
                         setReportData(data, total)
                     }
                 }
@@ -186,7 +186,7 @@ class ReportViewModel : ViewModel(), ISelectReport{
 
     fun openDialogChooseReport(){
 
-        baseActivity?.let {
+        baseActivity.let {
             val builder = AlertDialog.Builder(it)
             builder.setTitle(R.string.escolha_uma_opcao)
                 .setItems(reports.toTypedArray()

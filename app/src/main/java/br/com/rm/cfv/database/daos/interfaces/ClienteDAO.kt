@@ -5,7 +5,7 @@ import br.com.rm.cfv.database.entities.Cliente
 import br.com.rm.cfv.database.entities.Fornecedor
 
 @Dao
-public interface ClienteDAO {
+interface ClienteDAO {
 
     @Query("SELECT * FROM cliente order by nome")
     fun getAll(): List<Cliente>

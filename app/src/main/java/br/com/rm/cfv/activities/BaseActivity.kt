@@ -86,10 +86,6 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onBackPressed() {
         if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
             drawer_layout!!.closeDrawer(GravityCompat.START)
@@ -134,7 +130,12 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_main -> {
-                startActivity(Intent(this, DashboardActivity::class.java))
+                val dashboardActivity = Intent(this, DashboardActivity::class.java)
+                dashboardActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                        Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(dashboardActivity)
+                finish()
             }
             R.id.nav_venda -> {
                 startActivity(Intent(this, RegistrarCompraVendaActivity::class.java))
@@ -325,7 +326,7 @@ abstract class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationIt
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    public fun shareReport(filelocation: Path) {
+    fun shareReport(filelocation: Path) {
         try {
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/*"

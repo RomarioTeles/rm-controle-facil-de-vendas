@@ -29,7 +29,7 @@ class MeioPagamentoAdapter(context: Context, private val spinnerMode: Boolean = 
         val view: View?
         if (convertView == null) {
             val inflater =
-                context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflater.inflate(R.layout.list_view_item_meio_pagamento, null)
         } else {
             view = convertView
@@ -38,7 +38,7 @@ class MeioPagamentoAdapter(context: Context, private val spinnerMode: Boolean = 
         val item = getItem(position)
         val textview = view!!.findViewById<TextView>(R.id.textView)
         textview.text = item!!.descricao
-        view!!.findViewById<ImageView>(R.id.imageViewIcon).setImageResource(item.res)
+        view.findViewById<ImageView>(R.id.imageViewIcon).setImageResource(item.res)
 
         if (selected == item && !spinnerMode) {
             view.setBackgroundColor(ContextCompat.getColor(context, R.color.secondaryColor))
@@ -80,6 +80,6 @@ class MeioPagamentoAdapter(context: Context, private val spinnerMode: Boolean = 
     }
 
     fun getTipoPagamento(): String {
-        return tipoPagamento;
+        return tipoPagamento
     }
 }

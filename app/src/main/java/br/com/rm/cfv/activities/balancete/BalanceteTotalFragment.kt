@@ -31,10 +31,10 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
     override fun onViewCreated(viewRoot: View, savedInstanceState: Bundle?) {
         super.onViewCreated(viewRoot, savedInstanceState)
 
-        balancete = requireArguments()!!.getParcelable<Balancete>(BalanceteTipoFragment.ARG_BALANCETE)!!
+        balancete = requireArguments().getParcelable<Balancete>(BalanceteTipoFragment.ARG_BALANCETE)!!
 
         if(balancete == null){
-            requireActivity()!!.finish()
+            requireActivity().finish()
         }
 
         textViewlabelMes.text = "${balancete}"
@@ -56,14 +56,16 @@ class BalanceteTotalFragment : Fragment(), IPostExecuteSearch {
         if(result != null){
             val totalBalancete = result as TotalBalanceteDTO?
             textViewTotalDespesas.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.totalDespesas))
-            textViewTotalReceitas.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.totalReceitas))
-            textViewTotal.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(totalBalancete!!.total()))
-            if(totalBalancete!!.total() < 0){
+            textViewTotalReceitas.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(
+                totalBalancete.totalReceitas))
+            textViewTotal.text = getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(
+                totalBalancete.total()))
+            if(totalBalancete.total() < 0){
                 textViewTotal.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.color_error))
             }
             val p = PieChartUtil(chart1, activity)
             p.build()
-            val entries = mapOf(getString(R.string.chart_receitas) to totalBalancete!!.totalReceitas!!.toFloat(), getString(R.string.chart_despesas) to totalBalancete!!.totalDespesas!!.toFloat())
+            val entries = mapOf(getString(R.string.chart_receitas) to totalBalancete.totalReceitas!!.toFloat(), getString(R.string.chart_despesas) to totalBalancete.totalDespesas!!.toFloat())
             p.setData(balancete.toString(), entries)
         }
 

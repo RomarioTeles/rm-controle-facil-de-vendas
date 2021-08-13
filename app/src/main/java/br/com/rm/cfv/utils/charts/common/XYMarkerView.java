@@ -14,7 +14,6 @@ import br.com.rm.numberUtils.DecimalFormatUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 
 /**
  * Custom implementation of the MarkerView.
@@ -40,7 +39,7 @@ public class XYMarkerView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
 
-        BigDecimal bx = new BigDecimal(e.getX());
+        BigDecimal bx = BigDecimal.valueOf(e.getX());
         bx = bx.setScale(1, RoundingMode.HALF_UP);
         String label = String.format("%s - %s", xAxisValueFormatter.getFormattedValue(bx.floatValue()), DecimalFormatUtils.decimalFormatPtBR(e.getY()));
         tvContent.setText(label.toUpperCase());
@@ -50,6 +49,6 @@ public class XYMarkerView extends MarkerView {
 
     @Override
     public MPPointF getOffset() {
-        return new MPPointF(-(getWidth() / 2), -getHeight());
+        return new MPPointF(-(getWidth() / 2.0f), -getHeight());
     }
 }

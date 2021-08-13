@@ -1,10 +1,9 @@
 package br.com.rm.cfv.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static br.com.rm.cfv.activities.ImageUtilsActivity.getBitmapFromAbsolutePath;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,12 +31,7 @@ public class VisualizarImagemActivity extends ImageUtilsActivity {
         imageview.setImageBitmap(bitmap);
 
         Button fechar = findViewById(R.id.buttonFechar);
-        fechar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        fechar.setOnClickListener(v -> finish());
 
         hideFab();
     }

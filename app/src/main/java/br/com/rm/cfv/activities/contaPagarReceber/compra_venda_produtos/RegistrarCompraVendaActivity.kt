@@ -48,7 +48,8 @@ import kotlinx.android.synthetic.main.content_registrar_debito_tipo_pagamento.*
 import kotlinx.android.synthetic.main.content_registrar_debito_tipo_vencimento.*
 import java.util.*
 import kotlin.collections.HashMap
-import br.com.rm.cfv.R;
+import br.com.rm.cfv.R
+import br.com.rm.cfv.activities.dashboard.DashboardActivity
 
 class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClickProdutoListener,
     IPostExecuteInsertAndUpdate, IOnClickItemProdutoListener {
@@ -312,6 +313,11 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         }
 
         buttonConcluido.setOnClickListener {
+            val dashboardActivity = Intent(this, DashboardActivity::class.java)
+            dashboardActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                                            Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(dashboardActivity)
             finish()
         }
 
@@ -635,7 +641,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
             }
         }
         return true*/
-        return true;
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -741,7 +747,7 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
 
         if(requestCode == 1 && resultCode == Activity.RESULT_OK) {
             if(data!!.hasExtra("result")) {
-                var cliente = data!!.extras!!.get("result") as Cliente
+                var cliente = data.extras!!.get("result") as Cliente
                 contaPagarReceber.tipoRef = cliente.getTipoRef()
                 contaPagarReceber.idRef = cliente.getIdRef()
                 contaPagarReceber.nomeRef = cliente.getNomeRef()

@@ -4,14 +4,12 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
-import java.text.DecimalFormat;
-
 import br.com.rm.numberUtils.DecimalFormatUtils;
 
 public class MyValueFormatter extends ValueFormatter
 {
 
-    private String suffix;
+    private final String suffix;
 
     public MyValueFormatter(String suffix) {
         this.suffix = suffix;

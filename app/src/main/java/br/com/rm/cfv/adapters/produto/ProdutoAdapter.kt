@@ -66,9 +66,11 @@ class ProdutoAdapter(private var context: Context, private var iOnClickProdutoLi
 
         holder.textViewCodigo.text = item.codigo
 
-        holder.textViewPrecoRevenda.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item!!.precoVenda))
+        holder.textViewPrecoRevenda.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(
+            item.precoVenda))
 
-        holder.textViewPrecoCusto.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item!!.precoCusto))
+        holder.textViewPrecoCusto.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(
+            item.precoCusto))
 
         if (item.caminhoImagem != null && !item.caminhoImagem!!.isBlank()) {
             holder.imageViewProduto.setImageBitmap(ImageUtilsActivity.getBitmapFromAbsolutePath(item.caminhoImagem))

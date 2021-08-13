@@ -67,7 +67,7 @@ class ItemBalanceteAdapter(private var context : Context, private var myDataset:
         data += DateFormatUtils.format(item.dataHora, "MMMM") + "\n"
         data += DateFormatUtils.format(item.dataHora, "HH:mm") + "\n"
 
-        holder.textViewData.text = data.toUpperCase()
+        holder.textViewData.text = data.uppercase(Locale.getDefault())
         holder.textViewValor.text = DecimalFormatUtils.decimalFormatPtBR(item.valor)
         holder.textViewRef.text = "${item.nomeRef} - ${item.idRef}"
         holder.textViewTipo.text = item.tipo

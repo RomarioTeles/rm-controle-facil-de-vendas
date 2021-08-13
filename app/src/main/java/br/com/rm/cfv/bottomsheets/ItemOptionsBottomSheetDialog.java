@@ -72,7 +72,7 @@ public class ItemOptionsBottomSheetDialog {
                 configs.setPositiveButtonListener(() -> options.buttonSheetRemove(item, position));
                 configs.setShowNegativeButton(true);
                 configs.setShowSubtitle(false);
-                DialogUtils.Companion.showDialogConfirm(context, R.string.mensagem_confirmacao, 0, configs);
+                DialogUtils.Companion.showDialog(context, R.string.mensagem_confirmacao, 0, configs);
             }else{
                 options.buttonSheetRemove(item, position);
             }
@@ -83,9 +83,7 @@ public class ItemOptionsBottomSheetDialog {
             options.buttonSheetSeleciona(item);
         });
 
-        buttonCancelar.setOnClickListener(v -> {
-            dialog.dismiss();
-        });
+        buttonCancelar.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

@@ -97,7 +97,7 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
     }
 
     fun openDialog(){
-        val view = getLayoutInflater().inflate(R.layout.estoque_bottom_seet, null)
+        val view = layoutInflater.inflate(R.layout.estoque_bottom_seet, null)
         var dialog = BottomSheetDialog(this)
         dialog.setContentView(view)
 
@@ -200,7 +200,7 @@ class ListaEstoqueActivity : BaseActivity(), IPostExecuteSearch, IMovimentacaoEs
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
-        getMenuInflater().inflate(R.menu.menu_search,menu)
+        menuInflater.inflate(R.menu.menu_search,menu)
 
         var menuItem : MenuItem = menu.findItem(R.id.searchView)
 

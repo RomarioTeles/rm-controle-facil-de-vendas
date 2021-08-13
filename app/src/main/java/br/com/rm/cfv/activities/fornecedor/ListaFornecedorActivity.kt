@@ -102,7 +102,7 @@ class ListaFornecedorActivity : BaseActivity(), IPostExecuteSearch{
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
-        getMenuInflater().inflate(R.menu.menu_search,menu)
+        menuInflater.inflate(R.menu.menu_search,menu)
 
         var menuItem : MenuItem = menu.findItem(R.id.searchView)
 

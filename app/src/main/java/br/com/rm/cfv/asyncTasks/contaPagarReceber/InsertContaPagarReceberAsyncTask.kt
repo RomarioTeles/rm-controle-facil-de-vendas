@@ -86,7 +86,7 @@ open class InsertContaPagarReceberAsyncTask(private var dao: AppDataBase?, priva
                     it.valor,
                     conta.nomeRef,
                     conta.idRef!!,
-                    balanceteId!!.toInt()
+                    balanceteId.toInt()
                 )
             }
 

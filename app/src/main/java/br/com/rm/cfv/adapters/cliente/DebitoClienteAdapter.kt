@@ -24,6 +24,7 @@ import br.com.rm.cfv.utils.DialogUtils
 import br.com.rm.cfv.utils.ToastUtils
 import br.com.rm.dateutils.DateFormatUtils
 import br.com.rm.numberUtils.DecimalFormatUtils
+import java.util.*
 
 
 class DebitoClienteAdapter(private var context : Context, private var tipoRef: String, private var myDataset: MutableList<PagamentoDebitoSubtotalDTO>) :
@@ -31,7 +32,7 @@ class DebitoClienteAdapter(private var context : Context, private var tipoRef: S
 
     override fun afterSearch(result: Any?) {
         if(result as Int > -1) {
-            ToastUtils.showToastSuccess(
+            ToastUtils.showToast(
                 context,
                 context.resources.getString(R.string.mensagem_sucesso)
             )
@@ -97,7 +98,9 @@ class DebitoClienteAdapter(private var context : Context, private var tipoRef: S
 
         val item = myDataset[position]
 
-        holder.textViewDataHora.text = DateFormatUtils.format(item.getDataHora(), "dd MMMM yyyy HH:mm").toUpperCase()
+        holder.textViewDataHora.text =
+            DateFormatUtils.format(item.getDataHora(), "dd MMMM yyyy HH:mm")
+                .uppercase(Locale.getDefault())
 
         holder.textViewTotal.text = context.getString(R.string.currency_format, DecimalFormatUtils.decimalFormatPtBR(item.total))
 
@@ -155,7 +158,7 @@ class DebitoClienteAdapter(private var context : Context, private var tipoRef: S
                         dialogConfig.showSubtitle = true
                         dialogConfig.showNegativeButton = true
 
-                        DialogUtils.showDialogAlert(context, R.string.toast_title_confirm, R.string.mensagem_confirmacao_remocao_debito, dialogConfig )
+                        DialogUtils.showDialog(context, R.string.toast_title_confirm, R.string.mensagem_confirmacao_remocao_debito, dialogConfig )
                     }
                 }
             )

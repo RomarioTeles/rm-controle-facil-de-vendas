@@ -15,10 +15,7 @@ public class MonthAxisValueFormatter extends ValueFormatter {
             "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
     };
 
-    private final BarLineChartBase<?> chart;
-
     public MonthAxisValueFormatter(BarLineChartBase<?> chart) {
-        this.chart = chart;
     }
 
     @Override
@@ -27,10 +24,8 @@ public class MonthAxisValueFormatter extends ValueFormatter {
             Calendar cal = Calendar.getInstance();
             if(value > 11.0) {
                 cal.add(Calendar.YEAR, 1);
-                return mMonths[Float.valueOf(value).intValue()] + " " +cal.get(Calendar.YEAR);
-            }else{
-                return mMonths[Float.valueOf(value).intValue()] + " " + cal.get(Calendar.YEAR);
             }
+            return mMonths[Float.valueOf(value).intValue()] + " " + cal.get(Calendar.YEAR);
         } catch (Exception e) {
             return "";
         }

@@ -33,11 +33,10 @@ public class BarChartUtil implements OnChartValueSelectedListener {
 
     protected Typeface tfRegular;
     protected Typeface tfLight;
-    private Activity activity;
-    private int resourceId;
+    private final Activity activity;
+    private final int resourceId;
     private BarChart chart;
 
-    private ValueFormatter xAxisFormatter;
     private ValueFormatter yAxisFormatter;
 
     public BarChartUtil(Activity activity, int resourceId) {
@@ -47,7 +46,6 @@ public class BarChartUtil implements OnChartValueSelectedListener {
 
     public void build(ValueFormatter xAxisFormatter, ValueFormatter yAxisFormatter) {
 
-        this.xAxisFormatter = xAxisFormatter;
         this.yAxisFormatter = yAxisFormatter;
 
         chart = activity.findViewById(resourceId);
@@ -161,8 +159,8 @@ public class BarChartUtil implements OnChartValueSelectedListener {
             // specify the width each bar should have
             chart.getBarData().setBarWidth(barWidth);
             // restrict the x-axis range
-            Float min = Collections.min(mins);
-            Float max = Collections.max(maxs);
+            float min = Collections.min(mins);
+            float max = Collections.max(maxs);
 
             chart.setVisibleXRangeMaximum(4);
             chart.moveViewToX(min);

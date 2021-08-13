@@ -1,6 +1,7 @@
 package br.com.rm.cfv.activities.dashboard
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewStub
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.DialogCompat
 import androidx.lifecycle.ViewModelProvider
 import br.com.rm.cfv.CfvApplication
 import br.com.rm.cfv.R
@@ -104,9 +107,25 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
         execute(selectDataViewModel.mes!!, selectDataViewModel.ano!!)
     }
 
+    override fun onBackPressed() {
+
+        val dialog = AlertDialog.Builder(this).setTitle(R.string.toast_title_confirm)
+            .setMessage(getString(R.string.dashboard_exit_message))
+            .setPositiveButton(R.string.ok) { dialogInterface, i ->
+                super.onBackPressed()
+            }.setNegativeButton(R.string.cancelar) { dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            dialog.show()
+    }
+
     @SuppressLint("SetTextI18n")
     private fun setTituloToolbar(mes : Int, ano : Int){
-        supportActionBar!!.title = "${DateFormatSymbols.getInstance().months.get(mes)} ${ano}".capitalize()
+        supportActionBar!!.title = "${DateFormatSymbols.getInstance().months.get(mes)} ${ano}".replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
     }
 
     override fun getToobarTitle(): String {
@@ -159,7 +178,7 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
 
                     if (totalbalancete.totalReceitas!!.compareTo(0) == 1) {
                         var percent =
-                            (totalbalancete.total()!!
+                            (totalbalancete.total()
                                 .div(totalbalancete.totalReceitas!!)).times(100)
 
                         textViewBalancetePorcento.text =
@@ -255,7 +274,7 @@ class DashboardActivity : BaseActivity() , IPostExecuteSearch, ILoadReportData {
                 if (totalCategoria != null && !totalCategoria.isEmpty()) {
                     val entries = LinkedHashMap<String, Float>()
                     totalCategoria.forEach { valor ->
-                        entries.put(valor.grupo!!!!, valor.total.toFloat())
+                        entries.put(valor.grupo!!, valor.total.toFloat())
                     }
                     createPieChart("Por Categoria", chart_total_categoria, entries)
 

@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class BarChartDataSet {
 
-    private String label;
+    private final String label;
 
-    private Integer color;
+    private final Integer color;
 
-    private Map<Float, Float> dataset;
+    private final Map<Float, Float> dataset;
 
     public BarChartDataSet(String label, Integer color, Map<Float, Float> dataset) {
         this.label = label;

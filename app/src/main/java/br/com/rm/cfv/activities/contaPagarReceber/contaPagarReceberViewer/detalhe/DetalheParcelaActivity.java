@@ -27,8 +27,6 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
 
     private MeioPagamentoAdapter meioPagamentoAdapter;
 
-    private Spinner listViewMeioPagamento;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +57,10 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
                 switchCompat.setChecked(true);
             }else {
                 switchCompat.setChecked(false);
-                switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                        textInputEditValorPagar.setText(String.valueOf(pagamentoDebito.getValor()));
-                });
+                switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> textInputEditValorPagar.setText(String.valueOf(pagamentoDebito.getValor())));
             }
 
-            listViewMeioPagamento = findViewById(R.id.listViewMeioPagamento);
+            Spinner listViewMeioPagamento = findViewById(R.id.listViewMeioPagamento);
             meioPagamentoAdapter = new MeioPagamentoAdapter(this, true);
             listViewMeioPagamento.setAdapter(meioPagamentoAdapter);
 
@@ -91,7 +87,7 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
 
             fab().setOnClickListener(v -> {
                 if(!textInputEditValorPagar.getText().toString().isEmpty()) {
-                    pagamentoDebito.setValorPago(Double.valueOf(textInputEditValorPagar.getText().toString()));
+                    pagamentoDebito.setValorPago(Double.parseDouble(textInputEditValorPagar.getText().toString()));
                     new UpdatePagamentoDebitoAsyncTask(
                             getCfvApplication().getDataBase(),
                             DetalheParcelaActivity.this).execute(pagamentoDebito);
@@ -116,8 +112,8 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
     @Override
     public void afterUpdate(@Nullable Object result) {
         Boolean isSuccess = (Boolean) result;
-        if(isSuccess){
-            ToastUtils.Companion.showToastSuccess(DetalheParcelaActivity.this, getString(R.string.mensagem_sucesso));
+        if(isSuccess != null && isSuccess){
+            ToastUtils.showToast(DetalheParcelaActivity.this, getString(R.string.mensagem_sucesso));
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -128,7 +124,7 @@ public class DetalheParcelaActivity extends BaseActivity implements IPostExecute
             }
 
         }else{
-            ToastUtils.Companion.showToastError(this, getString(R.string.mensagem_erro));
+            ToastUtils.showToastError(this, getString(R.string.mensagem_erro));
         }
     }
 }

@@ -4,7 +4,7 @@ import androidx.room.*
 import br.com.rm.cfv.database.entities.Fornecedor
 
 @Dao
-public interface FornecedorDAO {
+interface FornecedorDAO {
 
     @Query("SELECT * FROM fornecedor order by nome")
     fun getAll(): List<Fornecedor>

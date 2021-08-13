@@ -19,7 +19,7 @@ class DeleteFornecedorAsyncTask(private val dao : FornecedorDAO, private var ipo
 
         try {
             val forncedor = dao.findById(id as Int)
-            dao.delete(forncedor!!)
+            dao.delete(forncedor)
             return position as Int
         }catch (e : Exception){
             e.printStackTrace()

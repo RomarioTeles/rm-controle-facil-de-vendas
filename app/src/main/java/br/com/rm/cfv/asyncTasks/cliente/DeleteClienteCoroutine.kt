@@ -16,8 +16,8 @@ class DeleteClienteCoroutine(private val dao : ClienteDAO, private var ipostExec
         onPreExecute()
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val cliente = dao.findById(id as Int)
-                dao.delete(cliente!!)
+                val cliente = dao.findById(id)
+                dao.delete(cliente)
                 onPostExecute(position)
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -30,8 +30,8 @@ public class PieChartUtil implements OnChartValueSelectedListener {
 
     protected Typeface tfRegular;
     protected Typeface tfLight;
-    private Activity activity;
-    private PieChart chart;
+    private final Activity activity;
+    private final PieChart chart;
 
     public PieChartUtil(PieChart pieChart, Activity activity) {
         this.chart = pieChart;
@@ -47,9 +47,6 @@ public class PieChartUtil implements OnChartValueSelectedListener {
         chart.getDescription().setEnabled(false);
         chart.setExtraOffsets(5, 10, 5, 5);
         chart.setDragDecelerationFrictionCoef(0.95f);
-
-        //chart.setCenterTextTypeface(tfLight);
-        //chart.setCenterText(generateCenterSpannableText());
 
         chart.setDrawHoleEnabled(true);
         chart.setHoleColor(Color.TRANSPARENT);

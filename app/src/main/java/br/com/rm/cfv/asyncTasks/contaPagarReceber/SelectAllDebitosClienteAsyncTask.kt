@@ -6,6 +6,7 @@ import br.com.rm.cfv.constants.TipoReferencia
 import br.com.rm.cfv.database.daos.interfaces.ContaPagarReceberDAO
 import br.com.rm.cfv.database.entities.IReferencia
 import br.com.rm.cfv.database.entities.dtos.DebitoClienteDTO
+import java.util.*
 
 class SelectAllDebitosClienteAsyncTask(private val dao : ContaPagarReceberDAO, private var ipostExecuteSearch : IPostExecuteSearch) : AsyncTask<IReferencia, Any, DebitoClienteDTO>(){
 
@@ -34,7 +35,7 @@ class SelectAllDebitosClienteAsyncTask(private val dao : ContaPagarReceberDAO, p
     }
 
     private fun getTiposRef(tipoRef: String) : Array<String>{
-        return TipoReferencia.valuesByTipoRef(tipoRef.toUpperCase())!!.toTypedArray()
+        return TipoReferencia.valuesByTipoRef(tipoRef.uppercase(Locale.getDefault()))!!.toTypedArray()
     }
 
     override fun onPostExecute(result: DebitoClienteDTO?) {

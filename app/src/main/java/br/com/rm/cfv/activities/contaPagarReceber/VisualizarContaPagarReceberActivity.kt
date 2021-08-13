@@ -28,7 +28,7 @@ class VisualizarContaPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
                 return getString(R.string.title_visualizar_receitas)
             }
         }
-        return getString(R.string.title_visualizar_debitos);
+        return getString(R.string.title_visualizar_debitos)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

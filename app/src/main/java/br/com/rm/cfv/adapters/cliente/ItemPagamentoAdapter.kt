@@ -76,7 +76,7 @@ class ItemPagamentoAdapter(private var context: Context, private var pagamentoDe
         holder.textViewValorPago.visibility = View.VISIBLE
         var data = DateFormatUtils.format(item.dataVencimento, "dd MMMM yyyy")
 
-        holder.textViewDataVencimento.text = data.toUpperCase()
+        holder.textViewDataVencimento.text = data.uppercase(Locale.getDefault())
 
         if (item.valorPago >= item.valor){
             holder.textViewStatus.text = "PAGO"

@@ -27,7 +27,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_departamento.*
-import java.util.concurrent.CompletableFuture
 
 class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteInsertAndUpdate, IPostExecuteDelete,
     IBottomSheetOptions {
@@ -85,7 +84,7 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     private fun openInsertDialog(item: Departamento?){
 
-        val view = getLayoutInflater().inflate(R.layout.departamento_bottom_seet, null)
+        val view = layoutInflater.inflate(R.layout.departamento_bottom_seet, null)
         var dialog = BottomSheetDialog(this)
         dialog.setContentView(view)
         if(item != null){
@@ -170,18 +169,18 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     override fun afterInsert(result: Any?) {
         if (result == null) {
-            Toast.makeText(this, getString(R.string.mensagem_error_departamento_criacao), Toast.LENGTH_LONG).show()
+            ToastUtils.showToastError(this, getString(R.string.mensagem_error_departamento_criacao))
         } else {
             var depart = result as Departamento?
             if (depart!!.uid != null) {
                 departamentos.add(depart)
                 adapter.notifyDataSetChanged()
                 departamento = null
-                Toast.makeText(this, getString(R.string.mensagem_criado_sucesso), Toast.LENGTH_LONG).show()
+                ToastUtils.showToast(this, getString(R.string.mensagem_criado_sucesso))
                 viewStub.visibility = View.GONE
                 listViewDepartamentos.visibility = View.VISIBLE
             } else {
-                Toast.makeText(this, getString(R.string.mensagem_error_departamento_criacao), Toast.LENGTH_LONG).show()
+                ToastUtils.showToastError(this, getString(R.string.mensagem_error_departamento_criacao))
             }
         }
     }
@@ -208,7 +207,7 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     override fun afterDelete(result: Any?) {
         if(result as Int > -1) {
-            ToastUtils.showToastSuccess(
+            ToastUtils.showToast(
                 this,
                 getString(R.string.mensagem_sucesso)
             )
@@ -228,7 +227,7 @@ class DepartamentoActivity : BaseActivity() , IPostExecuteSearch, IPostExecuteIn
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
-        getMenuInflater().inflate(R.menu.menu_search,menu)
+        menuInflater.inflate(R.menu.menu_search,menu)
 
         var menuItem : MenuItem = menu.findItem(R.id.searchView)
 

@@ -131,10 +131,10 @@ class BalanceteTipoFragment : Fragment(), IPostExecuteSearch, IReportable{
     }
 
     fun gerarReport(){
-        val storageDir = requireActivity()!!.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+        val storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         val file = File(storageDir, reportFileName)
         file.createNewFile()
         CSVReportUtils.writeCsvFromBean(file.toPath(), myDataset)
-        (activity as BaseActivity)!!.shareReport(file.toPath())
+        (activity as BaseActivity).shareReport(file.toPath())
     }
 }

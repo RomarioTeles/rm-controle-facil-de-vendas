@@ -19,7 +19,7 @@ class DeleteProdutoAsyncTask(private val dao : ProdutoDAO, private var ipostExec
 
         try {
             val produto = dao.findById(id as Int)
-            dao.delete(produto!!)
+            dao.delete(produto)
             return position as Int
         }catch (e : Exception){
             e.printStackTrace()

@@ -112,7 +112,7 @@ class FornecedorAdapter(private var context : Context,private var fornecedorDAO:
 
     override fun afterDelete(result: Any?) {
         if(result as Int > -1) {
-            ToastUtils.showToastSuccess(
+            ToastUtils.showToast(
                 context,
                 context.resources.getString(R.string.mensagem_sucesso)
             )

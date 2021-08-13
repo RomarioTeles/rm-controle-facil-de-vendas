@@ -3,7 +3,7 @@ package br.com.rm.cfv.database.entities.dtos
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
 
-class DebitoClienteDTO () {
+class DebitoClienteDTO {
     @ColumnInfo(name = "id_ref")
     var idRef: Int? = null
     @ColumnInfo(name = "nome_ref")

@@ -10,9 +10,9 @@ import br.com.rm.cfv.database.entities.dtos.PagamentoDebitoSubtotalDTO;
 
 public class SelectValorPagarByPagamentoDebitoIdAsyncTask extends AsyncTask<PagamentoDebitoSubtotalDTO, PagamentoDebito, PagamentoDebitoSubtotalDTO> {
 
-    private PagamentoDebitoDAO dao;
+    private final PagamentoDebitoDAO dao;
 
-    private  IPostExecuteSearch iPostExecuteSearch;
+    private final IPostExecuteSearch iPostExecuteSearch;
 
     public SelectValorPagarByPagamentoDebitoIdAsyncTask(PagamentoDebitoDAO dao, IPostExecuteSearch iPostExecuteSearch) {
         this.dao = dao;

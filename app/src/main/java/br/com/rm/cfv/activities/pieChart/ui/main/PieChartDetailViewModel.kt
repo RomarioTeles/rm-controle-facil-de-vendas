@@ -6,7 +6,7 @@ import br.com.rm.cfv.activities.BaseActivity
 import br.com.rm.cfv.utils.charts.PieChartUtil
 import com.github.mikephil.charting.charts.PieChart
 
-class PieChartDetailViewModel() : ViewModel() {
+class PieChartDetailViewModel : ViewModel() {
 
     lateinit var title: String
 

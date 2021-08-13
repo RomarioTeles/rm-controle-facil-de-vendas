@@ -5,7 +5,7 @@ import br.com.rm.cfv.database.entities.ItemBalancete
 import br.com.rm.cfv.database.entities.dtos.TotalBalanceteDTO
 
 @Dao
-public interface ItemBalanceteDAO {
+interface ItemBalanceteDAO {
 
     @Query("SELECT * FROM itembalancete")
     fun getAll(): List<ItemBalancete>

@@ -32,7 +32,7 @@ class CadastrarProdutoActivity : ImageUtilsActivity(), IPostExecuteSearch, IPost
             this.imageFilePath = null
             imageViewProduto.setImageResource(R.drawable.no_image)
         }else {
-            this.imageBitmap = bitmap!!
+            this.imageBitmap = bitmap
             this.imageFilePath = path!!
             imageViewProduto.setImageBitmap(bitmap)
         }

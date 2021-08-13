@@ -16,9 +16,11 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -35,8 +37,6 @@ import br.com.rm.cfv.R;
 abstract public class ImageUtilsActivity extends BaseActivity {
 
     String mCurrentPhotoPath;
-    private final int REQUEST_TAKE_PHOTO = 1;
-    private final int REQUEST_GALLERY = 2;
     private final int MY_PERMISSIONS_REQUEST_TAKE_PHOTO = 1;
 
     private final String[] myPermissions = new String[]{Manifest.permission.CAMERA,
@@ -46,12 +46,7 @@ abstract public class ImageUtilsActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if(getCaptureTrigger() != null) {
-            getCaptureTrigger().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    takePicture();
-                }
-            });
+            getCaptureTrigger().setOnClickListener(v -> takePicture());
         }
     }
 
@@ -78,84 +73,26 @@ abstract public class ImageUtilsActivity extends BaseActivity {
                 takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 takePictureIntent.setClipData(ClipData.newRawUri(null, photoURI));
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                takePictureActivityResultLauncher.launch(takePictureIntent);
             }
         }
     }
 
-    private void dispatchGalleryIntent(){
-        File photoFile = createImageFile(new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())+".jpeg");
-        mCurrentPhotoPath = photoFile.getAbsolutePath();
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, REQUEST_GALLERY);
-    }
-
-    private void choosePictureSource(){
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setItems(new String[]{"Tirar uma foto", "Imagem Existente", "Remover imagem", "Cancelar"},
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which){
-                                    case 0:
-                                        dispatchTakePictureIntent();
-                                        break;
-                                    case 1:
-                                        dispatchGalleryIntent();
-                                        break;
-                                    case 2:
-                                        onPostCaptureCompleted(null, null);
-                                        break;
-                                    default:
-                                        Log.i("Take Picture", "Default Selected");
-                                }
-                                dialog.dismiss();
-                            }
-                        }).show();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_TAKE_PHOTO:
-                if (grantResults.length == myPermissions.length) {
-                    dispatchTakePictureIntent();
-                    return;
-                }
-                break;
-            default:
-                AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(this)
-                                .setTitle(getString(R.string.camera_configuracao))
-                                .setMessage(getString(R.string.habilitar_camera_mensagem))
-                                .setPositiveButton(getString(R.string.configuracoes), new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                        startActivities(new Intent[]{intent});
-                                    }
-                                })
-                                .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                alertDialogBuilder.show();
-
-        }
-    }
-
-    @Override
-    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_TAKE_PHOTO) {
+    private final ActivityResultLauncher<Intent> takePictureActivityResultLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+            Integer resultCode = result.getResultCode();
             if(resultCode == Activity.RESULT_OK) {
                 onPostCaptureCompleted(getBitmapFromAbsolutePath(mCurrentPhotoPath), mCurrentPhotoPath);
             }
         }
-        if (requestCode == REQUEST_GALLERY) {
+    );
+
+    private final ActivityResultLauncher<Intent> getPictureGalleryActivityResultLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+            Integer resultCode = result.getResultCode();
+            Intent data = result.getData();
             if(resultCode == Activity.RESULT_OK) {
                 try {
                     Uri selectedImage = data.getData();
@@ -168,6 +105,64 @@ abstract public class ImageUtilsActivity extends BaseActivity {
                     Log.i("TAG", "Some exception " + e);
                 }
             }
+        }
+    );
+
+    private void dispatchGalleryIntent(){
+        File photoFile = createImageFile(new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())+".jpeg");
+        mCurrentPhotoPath = photoFile.getAbsolutePath();
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        getPictureGalleryActivityResultLauncher.launch(photoPickerIntent);
+    }
+
+    private void choosePictureSource(){
+        new AlertDialog.Builder(this)
+                .setItems(new String[]{"Tirar uma foto", "Imagem Existente", "Remover imagem", "Cancelar"},
+                        (dialog, which) -> {
+                            switch (which){
+                                case 0:
+                                    dispatchTakePictureIntent();
+                                    break;
+                                case 1:
+                                    dispatchGalleryIntent();
+                                    break;
+                                case 2:
+                                    onPostCaptureCompleted(null, null);
+                                    break;
+                                default:
+                                    Log.i("Take Picture", "Default Selected");
+                            }
+                            dialog.dismiss();
+                        }).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_TAKE_PHOTO) {
+            if (grantResults.length == myPermissions.length) {
+                dispatchTakePictureIntent();
+            }
+        } else {
+            AlertDialog.Builder alertDialogBuilder =
+                    new AlertDialog.Builder(this)
+                            .setTitle(getString(R.string.camera_configuracao))
+                            .setMessage(getString(R.string.habilitar_camera_mensagem))
+                            .setPositiveButton(getString(R.string.configuracoes), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                    startActivities(new Intent[]{intent});
+                                }
+                            })
+                            .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+
+            alertDialogBuilder.show();
         }
     }
 

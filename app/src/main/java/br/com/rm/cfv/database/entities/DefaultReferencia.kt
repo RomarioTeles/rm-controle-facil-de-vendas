@@ -12,8 +12,7 @@ class DefaultReferencia(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun getNomeRef(): String? {
         return nome

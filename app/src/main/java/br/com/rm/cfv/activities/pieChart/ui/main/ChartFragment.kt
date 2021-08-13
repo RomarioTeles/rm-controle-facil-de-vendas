@@ -41,10 +41,6 @@ class ChartFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     companion object {
 
         private const val ARG_TITLE = "title"

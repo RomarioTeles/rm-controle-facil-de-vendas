@@ -25,8 +25,8 @@ public class CSVReportUtils {
     public static <T> List<T> parseByPropertyNames(Reader csvReader, Class<T> beanClass) throws IOException {
         CSVReader reader = new CSVReaderBuilder(csvReader).withCSVParser(new
                 CSVParserBuilder().build()).build();
-        CsvToBean<T> bean = new CsvToBean<T>();
-        HeaderColumnNameMappingStrategy<T> mappingStrategy = new HeaderColumnNameMappingStrategy<T>();
+        CsvToBean<T> bean = new CsvToBean<>();
+        HeaderColumnNameMappingStrategy<T> mappingStrategy = new HeaderColumnNameMappingStrategy<>();
         mappingStrategy.setType(beanClass);
         bean.setMappingStrategy(mappingStrategy);
         bean.setCsvReader(reader);
@@ -35,7 +35,7 @@ public class CSVReportUtils {
 
     public static <T> void writeCsvFromBean(final Path path, final List<T> list) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
         Writer writer = new FileWriter(path.toString());
-        StatefulBeanToCsv sbc = new StatefulBeanToCsvBuilder(writer)
+        StatefulBeanToCsv<T> sbc = new StatefulBeanToCsvBuilder<T>(writer)
                 .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
                 .build();
         sbc.write(list);

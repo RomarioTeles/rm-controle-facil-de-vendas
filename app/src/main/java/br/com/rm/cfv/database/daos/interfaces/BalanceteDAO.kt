@@ -4,7 +4,7 @@ import androidx.room.*
 import br.com.rm.cfv.database.entities.Balancete
 
 @Dao
-public interface BalanceteDAO {
+interface BalanceteDAO {
 
     @Query("SELECT * FROM balancete")
     fun getAll(): List<Balancete>

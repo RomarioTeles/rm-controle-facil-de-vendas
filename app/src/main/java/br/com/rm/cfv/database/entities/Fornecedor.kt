@@ -78,12 +78,12 @@ open class Fornecedor (
         }*/
 
         if(telefone == null || telefone!!.isBlank()){
-            fields!!["telefone"]!!.error = String.format(messageNullable!!,"Telefone")
+            fields["telefone"]!!.error = String.format(messageNullable!!,"Telefone")
             hasError = true
         }
 
         if(email != null && email!!.isNotBlank() && !EmailValidate.validate(email!!)){
-            fields!!["email"]!!.error = String.format(messageInvalid!!,"E-mail")
+            fields["email"]!!.error = String.format(messageInvalid!!,"E-mail")
             hasError = true
         }
 

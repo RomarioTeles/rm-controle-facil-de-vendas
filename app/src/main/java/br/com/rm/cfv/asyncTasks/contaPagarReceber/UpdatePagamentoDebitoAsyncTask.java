@@ -5,14 +5,10 @@ import android.util.Log;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import br.com.rm.cfv.asyncTasks.IPostExecuteInsertAndUpdate;
 import br.com.rm.cfv.constants.TipoItemBalancete;
-import br.com.rm.cfv.constants.TipoPagamento;
-import br.com.rm.cfv.constants.TipoReferencia;
 import br.com.rm.cfv.database.daos.AppDataBase;
-import br.com.rm.cfv.database.daos.interfaces.PagamentoDebitoDAO;
 import br.com.rm.cfv.database.entities.Balancete;
 import br.com.rm.cfv.database.entities.ContaPagarReceber;
 import br.com.rm.cfv.database.entities.ItemBalancete;
@@ -20,9 +16,9 @@ import br.com.rm.cfv.database.entities.PagamentoDebito;
 
 public class UpdatePagamentoDebitoAsyncTask extends AsyncTask<PagamentoDebito, PagamentoDebito, Boolean> {
 
-    private AppDataBase dao;
+    private final AppDataBase dao;
 
-    private IPostExecuteInsertAndUpdate iPostExecuteInsertAndUpdate;
+    private final IPostExecuteInsertAndUpdate iPostExecuteInsertAndUpdate;
 
     public UpdatePagamentoDebitoAsyncTask(AppDataBase dao, IPostExecuteInsertAndUpdate iPostExecuteInsertAndUpdate) {
         this.dao = dao;
@@ -62,7 +58,7 @@ public class UpdatePagamentoDebitoAsyncTask extends AsyncTask<PagamentoDebito, P
         int mes = data.get(Calendar.MONTH) + 1;
         int ano = data.get(Calendar.YEAR);
         Balancete balancete =  dao.balanceteDAO().findByMesAndAno(mes, ano);
-        Long balanceteId;
+        long balanceteId;
         if(balancete.getUid() == null){
             balanceteId = dao.balanceteDAO().insert(new Balancete(null, mes, ano ));
         }else{
@@ -77,7 +73,7 @@ public class UpdatePagamentoDebitoAsyncTask extends AsyncTask<PagamentoDebito, P
                 pagamentoDebito.getValorPago(),
                 conta.getNomeRef(),
                 conta.getIdRef(),
-                balanceteId.intValue()
+                (int) balanceteId
         );
 
         dao.itemBalanceteDAO().insertAll(itemBalanco);
