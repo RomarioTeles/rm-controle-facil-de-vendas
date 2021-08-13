@@ -16,36 +16,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="TransparentActionBar" parent="@style/AppTheme">
-        <item name="android:windowActionBarOverlay">true</item>
-        <!-- Support library compatibility -->
-        <item name="windowActionBarOverlay">true</item>
-    </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="splashScreenTheme" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
-
-    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:textColor">@color/secondaryColor</item>
-        // you can change the color of the yearPiker dialog
-        <item name="android:textColorPrimary">@color/secondaryTextColor</item>
-        <item name="android:positiveButtonText">@color/primaryColor</item>
-        <item name="android:negativeButtonText">@color/secondaryTextColor</item>
-        // you can change the color of the yearPiker dialog
-    </style>
-
-    <style name="Widget.AppTheme.NoActionBar.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@color/black_overlay</item>
-    </style>
-
-    <style name="Widget.AppTheme.NoActionBar.ButtonBar.Fullscreen" parent="">
-        <item name="android:background">@color/black_overlay</item>
-        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
-    </style>
 
 </resources>

@@ -644,20 +644,6 @@ class RegistrarCompraVendaActivity : BaseActivity(), IPostExecuteSearch, IOnClic
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_cesta -> {
-                abreCesta()
-                return true
-            }
-            R.id.action_ref ->{
-                abreSelecionarCliente()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
     private fun abreSelecionarCliente() {
         if(contaPagarReceber.tipoRef == TipoReferencia.CLIENTE.name) {
             val intent = Intent(this, ListaClientesActivity::class.java)

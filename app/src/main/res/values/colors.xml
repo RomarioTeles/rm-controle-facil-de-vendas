@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="accent_active">#5efc82</color>
-    <color name="icons">@color/cinza_padrao_android</color>
     <color name="divider">#BDBDBD</color>
     <color name="bg_black_transparencia">#9AF1F1F1</color>
     <color name="color_success">#01BD13</color>
@@ -18,7 +16,6 @@
     <color name="secondaryTextColor">#000</color>
     <color name="secondaryIconsColor">#000</color>
     <color name="primaryIconsColor">#fff</color>
-    <color name="margentaColor">#FF0051</color>
     <color name="cinza_padrao_android">#808080</color>
 
     <color name="chart_variante_1">#0d47a1</color>
@@ -31,11 +28,5 @@
     <color name="chart_variante_8">#94ACFB</color>
     <color name="chart_variante_9">#6339FF</color>
     <color name="chart_variante_10">#8E70FD</color>
-
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="light_blue_900">#FF01579B</color>
-    <color name="light_blue_A200">#FF40C4FF</color>
-    <color name="light_blue_A400">#FF00B0FF</color>
-    <color name="black_overlay">#66000000</color>
 
 </resources>

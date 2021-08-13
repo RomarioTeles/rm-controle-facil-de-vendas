@@ -2,10 +2,6 @@
     <string name="app_name">RM Calc</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">RM Calc</string>
-    <string name="nav_header_subtitle">Registre vendas e estoque</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
     <string name="cliente_nome">Nome Completo</string>
     <string name="cliente_telefone">Telefone de contato</string>
     <string name="cliente_email">E-mail</string>
@@ -36,38 +32,26 @@
     <string name="camera_configuracao">Camera is Settings</string>
     <string name="habilitar_camera_mensagem">Camera is not Enabled. Do you want to go to settings menu?</string>
     <string name="configuracoes">Settings</string>
-    <string name="pick_option">O que você deseja fazer?</string>
-    <string name="sugestao_adicionar_produto">Toque no produto, ou mantenha-o pressionado, para adicioná-lo a cesta</string>
     <string name="itens">Itens</string>
     <string name="label_subtotal">Subtotal</string>
     <string name="pesquise_codigo_produto">Código ou nome</string>
-    <string name="ver_cesta">Ver Cesta</string>
-    <string name="finalizar">Finalizar</string>
     <string name="adicionar_produto">adicionar</string>
     <string name="acrescimo">Acréscimo</string>
     <string name="desconto">Desconto</string>
     <string name="aplicar_desconto_acrescimo">Aplique desconto ou acréscimo</string>
-    <string name="pesquisar">pesquisar</string>
-    <string name="caderno_de_contas">Caderno de Contas</string>
     <string name="description_imagem_do_produto">Imagem do produto</string>
     <string name="mensagem_cesta_vazia">A cesta está vazia</string>
     <string name="label_cliente">Cliente</string>
-    <string name="label_status_pagamento">Status do Pagamento:</string>
     <string name="label_tipo_pagamento">Escolha o tipo de pagamento</string>
     <string name="label_pagamento_a_vista">Pagamento à vista</string>
     <string name="label_pagamento_a_prazo">Pagamento à prazo</string>
     <string name="label_meio_pagamento">Escolha o meio de Pagamento</string>
-    <string name="label_data_prevista_pagamento">Data prevista para pagamento</string>
-    <string name="label_total_pagar">Valor a pagar</string>
     <string name="mensagem_sucesso">Operação realizada com sucesso</string>
-    <string name="toast_title_sucess">Sucesso!</string>
     <string name="toast_title_error">Erro!</string>
-    <string name="toast_title_alert">Atenção!</string>
     <string name="ok">OK</string>
     <string name="mensagem_erro">Aconteceu um erro inesperado.</string>
     <string name="toast_title_confirm">Confirmação</string>
     <string name="mensagem_confirmacao">Você deseja realmente fazer isso?</string>
-    <string name="concluir">Concluir</string>
     <string name="label_quantidade_parcelas">Escolha a quantidade de parcelas</string>
     <string name="label_data_venc_1_parcela">Escolha a data de vencimento da 1º parcela</string>
     <string name="debito_registrado_com_sucesso">Débito registrado com sucesso!</string>
@@ -87,14 +71,12 @@
     <string name="label_tipo_pag_prazo">à prazo</string>
     <string name="label_tipo_pag_a_vista">à vista</string>
     <string name="imagem_expandida_title">Imagem Expandida</string>
-    <string name="parcela_label">Parcela:</string>
     <string name="vencimento_label">Data vencimento:</string>
     <string name="label_valor">Valor:</string>
     <string name="cliente_sessao_dados_fornecedor">Dados do Fornecedor</string>
     <string name="cliente_CPF_CNPJ">CPF ou CNPJ</string>
     <string name="cadastrar_fornecedor_title">Cadastro de Fornecedor</string>
     <string name="listar_fornecedores_title">Listar Fornecedores</string>
-    <string name="listar_itens_balancetes_title">Itens Balancete</string>
     <string name="menu_clientes">Clientes</string>
     <string name="menu_fornecedores">Fornecedores</string>
     <string name="menu_balancete">Balancete</string>
@@ -112,28 +94,16 @@
     <string name="tab_receitas">Receitas</string>
     <string name="tab_despesas">Despesas</string>
     <string name="tab_balancete">Balanço</string>
-    <string name="title_activity_configuracoes">Configurações</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="menu_configuracoes">Configurações</string>
-    <string name="charts">Gráficos</string>
     <string name="chart_receitas">Receitas</string>
     <string name="chart_despesas">Despesas</string>
     <string name="currency_format">R$ %1$s</string>
-    <string name="percent_format">%d%%</string>
     <string name="currency_format_negative">- R$ %1$s</string>
     <string name="parcela_x_currency_format">%1$d x R$ %2$s</string>
     <string name="chart_meio_pagamento">Meio de pagamento</string>
@@ -141,33 +111,18 @@
     <string name="chart_tipo_pagamento">Tipo de Pagamento</string>
     <string name="chart_percentual_meios_pagamentos">Percentual por meios de pagamentos</string>
     <string name="chart_percentual_tipo_pagamento">Percentual a vista e a prazo</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="dash_nova_venda">Venda</string>
-    <string name="dash_estoque">Estoque</string>
-    <string name="dash_clientes">Clientes</string>
-    <string name="dash_fornecedores">Fornecedores</string>
-    <string name="dash_produtos">Produtos</string>
-    <string name="dash_categorias">Categorias</string>
     <string name="cliente_nao_informado">Não informado</string>
     <string name="menu_dash">Dashboard</string>
-    <string name="title_activity_graficos">GraficosActivity</string>
-    <string name="tab_chart_1">12 meses</string>
-    <string name="tab_chart_2">Meio Pagamento</string>
-    <string name="tab_chart_3">Tipo de pagamento</string>
     <string name="chart_projecao_pagar_vs_receber">Projeção: Pagar vs Receber</string>
-    <string name="chart_total_a_receber_no_mes">Total a receber no mês</string>
     <string name="cadastrar_receita">Cadastrar receita</string>
-    <string name="label_escolha_referencia">Referente (Opcional)</string>
     <string name="empty_nome_ref">Cadastro de %1$s.</string>
     <string name="data_invalida">Informe uma data válida</string>
-    <string name="data_retroativa">Este campo não aceita datas retroativas.</string>
     <string name="label_fornecedor">Fornecedor</string>
     <string name="escolha_uma_opcao">Escolha uma das opções</string>
     <string name="menu_receitas">Receitas</string>
     <string name="menu_despesas">Despesas</string>
     <string name="cadastrar_despesa">Cadastrar despesa</string>
     <string name="mensagem_campo_maior_zero">Este campo não aceita zero.</string>
-    <string name="pesquisar_produto">Pesquisar produto</string>
     <string name="nova_venda">Nova venda</string>
     <string name="title_visualizar_receitas">Visualizar Receitas</string>
     <string name="title_visualizar_debitos">Visualizar Débitos</string>
@@ -176,9 +131,6 @@
     <string name="menu_reports">Relatórios</string>
     <string name="label_selecione_o_relatorio">Selecione o relatorio</string>
     <string name="title_activity_pie_chart_detail">PieChartDetailActivity</string>
-    <string name="label_detalhes">Detalhes</string>
-    <string name="title_activity_splash">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
     <string name="label_aceitar_termos_de_uso">Ao clicar no botão Aceitar e Prosseguir, você concorda que leu e aceita estes termos de uso.</string>
     <string name="label_sair">Recusar</string>
     <string name="termo_de_uso_aceitar_e_prosseguir">Aceitar e Prosseguir</string>
