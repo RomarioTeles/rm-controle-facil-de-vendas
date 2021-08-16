@@ -53,7 +53,7 @@
                         android:paddingBottom="16dp"
                         android:text="Balancete"
                         android:textColor="@color/secondaryTextColor"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -171,7 +171,7 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/chart_projecao_pagar_vs_receber"
                     android:textColor="@color/secondaryTextColor"
-                    android:textSize="14sp" />
+                    android:textSize="18sp" />
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/chart_bar"
@@ -198,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/chart_percentual_meios_pagamentos"
                         android:textColor="@color/secondaryTextColor"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:padding="8dp"
                         android:drawableEnd="@drawable/open_in_new"
                         app:layout_constraintStart_toStartOf="parent"
@@ -233,7 +233,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/chart_percentual_tipo_pagamento"
                         android:textColor="@color/secondaryTextColor"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:padding="8dp"
                         android:drawableEnd="@drawable/open_in_new"
                         app:layout_constraintStart_toStartOf="parent"
@@ -265,9 +265,9 @@
                         android:id="@+id/cardTitle_departamento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Vendas por departamento"
+                        android:text="@string/chart_categorias"
                         android:textColor="@color/secondaryTextColor"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:padding="8dp"
                         android:drawableEnd="@drawable/open_in_new"
                         app:layout_constraintStart_toStartOf="parent"

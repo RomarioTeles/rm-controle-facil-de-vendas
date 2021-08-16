@@ -22,7 +22,7 @@ open class CfvApplication : Application() {
             .addCallback(
                 object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) = db.run {
-                        if (BuildConfig.DEBUG) {
+                        /*if (BuildConfig.DEBUG) {
                             beginTransaction()
                             try {
                                 for (x in 1..10) {
@@ -70,7 +70,7 @@ open class CfvApplication : Application() {
                             } finally {
                                 endTransaction()
                             }
-                        }
+                        }*/
                     }
                 }
             )

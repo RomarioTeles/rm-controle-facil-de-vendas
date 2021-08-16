@@ -75,7 +75,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/textInputEditCodigo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:hint="Código"
                         android:imeOptions="actionNext"
                         android:inputType="text"
@@ -87,7 +87,7 @@
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayoutNome"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:layout_marginBottom="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -105,16 +105,18 @@
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayoutDepartamento"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="8dp">
+                    android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
                         android:id="@+id/autocompleteTextViewDepartamento"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="56dp"
                         android:hint="@string/nome_do_departamento"
                         android:imeOptions="actionDone"
                         android:paddingStart="16dp"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="4dp"
+                        android:gravity="bottom"
                         android:textSize="16sp"
                         android:inputType="text"
                         android:maxLines="1" />
@@ -131,7 +133,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutPrecoCusto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_marginBottom="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -146,7 +148,7 @@
             <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayoutPrecoRevenda"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:layout_marginBottom="8dp">
 
                 <com.google.android.material.textfield.TextInputEditText

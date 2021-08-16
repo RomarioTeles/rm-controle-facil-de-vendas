@@ -17,15 +17,15 @@ public class MyValueFormatter extends ValueFormatter
 
     @Override
     public String getFormattedValue(float value) {
-        return DecimalFormatUtils.decimalFormatPtBR(value);
+        return DecimalFormatUtils.decimalFormatPtBR(value, 0, 0);
     }
 
     @Override
     public String getAxisLabel(float value, AxisBase axis) {
         if (axis instanceof XAxis) {
-            return DecimalFormatUtils.decimalFormatPtBR(value);
+            return DecimalFormatUtils.decimalFormatPtBR(value, 0, 0);
         } else {
-            return suffix+ " " + DecimalFormatUtils.decimalFormatPtBR(value);
+            return suffix+ " " + DecimalFormatUtils.decimalFormatPtBR(value, 0, 0);
         }
     }
 }

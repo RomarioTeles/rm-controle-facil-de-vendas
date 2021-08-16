@@ -109,11 +109,11 @@
     <string name="chart_meio_pagamento">Meio de pagamento</string>
     <string name="chart_nenhum_venda_efetivada">Nenhum valor recebido.</string>
     <string name="chart_tipo_pagamento">Tipo de Pagamento</string>
-    <string name="chart_percentual_meios_pagamentos">Percentual por meios de pagamentos</string>
-    <string name="chart_percentual_tipo_pagamento">Percentual a vista e a prazo</string>
+    <string name="chart_percentual_meios_pagamentos">Meios de Pagamentos</string>
+    <string name="chart_percentual_tipo_pagamento">Tipos de Pagamentos</string>
     <string name="cliente_nao_informado">Não informado</string>
     <string name="menu_dash">Dashboard</string>
-    <string name="chart_projecao_pagar_vs_receber">Projeção: Pagar vs Receber</string>
+    <string name="chart_projecao_pagar_vs_receber">Pagar x Receber</string>
     <string name="cadastrar_receita">Cadastrar receita</string>
     <string name="empty_nome_ref">Cadastro de %1$s.</string>
     <string name="data_invalida">Informe uma data válida</string>
@@ -139,4 +139,5 @@
     <string name="texto_dashboard_sem_produtos">Você não cadastrou nenhum produto ainda.</string>
     <string name="ir_produtos">produtos</string>
     <string name="dashboard_exit_message">Deseja realmente sair do aplicativo?</string>
+    <string name="chart_categorias">Categorias</string>
 </resources>

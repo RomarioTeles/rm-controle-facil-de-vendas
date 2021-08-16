@@ -108,8 +108,8 @@ public class BarChartUtil implements OnChartValueSelectedListener {
     public void setData(List<BarChartDataSet> datasets) {
 
         float groupSpace = 0.00f;
-        float barSpace = 0.01f;
-        float barWidth = 0.49f;
+        float barSpace = 0.10f;
+        float barWidth = 0.40f;
         List<Float> mins = new ArrayList<>();
         List<Float> maxs = new ArrayList<>();
         if (chart.getData() != null &&

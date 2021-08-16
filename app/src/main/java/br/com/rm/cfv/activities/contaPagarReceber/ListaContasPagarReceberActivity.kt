@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
 
     override fun getToobarTitle(): String {
-        return getString(R.string.listar_clientes_title)
+        return ""
     }
 
     override fun getReportFileName(): String {
@@ -56,6 +56,10 @@ class ListaContasPagarReceberActivity : BaseActivity(), IPostExecuteSearch{
         referencia = intent.getParcelableExtra<Parcelable>(ARG_REFERENCIA) as IReferencia
 
         toolbar.title = referencia.getNomeRef()
+
+        if(referencia.getTipoRef() == TipoReferencia.RECEITAS.name) {
+            textViewTotalLabel.text = "Saldo a Receber"
+        }
 
         viewManager = LinearLayoutManager(this)
 
